@@ -47,9 +47,11 @@
 
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-  
+  services.xserver.displayManager.gdm.enable = false;
+  services.xserver.desktopManager.gnome.enable = false;
+  #cosmi instead
+  services.desktopManager.cosmic.enable = true;
+  services.displayManager.cosmic-greeter.enable = true;
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -97,29 +99,8 @@
     # Other Tailscale options...
   };
   programs.firefox.enable = true;
-  # kanshi systemd service
-  systemd.user.services.kanshi = {
-    description = "kanshi daemon";
-    environment = {
-      WAYLAND_DISPLAY="wayland-1";
-      DISPLAY = ":0";
-    }; 
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = ''${pkgs.kanshi}/bin/kanshi -c kanshi_config_file'';
-    };
-  };
-  
-  # launch sway
-  services.greetd = {                                                      
-  enable = true;                                                         
-  settings = {                                                           
-    default_session = {                                                  
-      command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
-      user = "greeter";                                                  
-    };                                                                   
-  };                                                                     
-};
+ # services.desktopManager.cosmic.enable = true;  
+    
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   # environment.systemPackages = with pkgs; [
