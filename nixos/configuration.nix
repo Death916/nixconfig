@@ -90,9 +90,12 @@
   ];
 
   # my additions
-  services.tailscale.enable = true;
-  services.tailscale.routing = true;
-  
+  services.tailscale = {
+    enable = true;
+    useRoutingFeatures = "both"; # Or "client", or "both" depending on your needs
+    # Other Tailscale options...
+  };
+ 
 
 
 
