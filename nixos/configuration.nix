@@ -86,9 +86,10 @@
     git
     vim
     wget
-    
+    tailscale
   ];
-
+  # to make exit nodes work
+  networking.firewall.checkReversePath = "loose";
   # my additions
   services.tailscale = {
     enable = true;
