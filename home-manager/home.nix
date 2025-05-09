@@ -84,6 +84,7 @@
     usbutils # lsusb
     # death916 tools
     waveterm
+    halloy
   ];
 
   # basic configuration of git, please change to your own
