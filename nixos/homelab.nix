@@ -50,6 +50,7 @@
     vim
     htop
     tmux
+    tailscale
     # Add other common server utilities
   ];
   
