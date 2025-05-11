@@ -61,6 +61,7 @@
         specialArgs = commonSpecialArgs;
         modules = [
           ./nixos/homelab.nix # Homelab server's main NixOS configuration
+          ./nixos/hardware-homelab.nix #hardware
           # Add any custom modules from ./modules for the homelab server here
           # e.g., ./modules/server-common.nix
 
