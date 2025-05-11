@@ -20,7 +20,7 @@
   services.openssh = {
     enable = true;
     ports = [ 22 ];
-    settings.openFirewall = true;
+    openFirewall = true;
     settings.PasswordAuthentication = false; # Recommended: use SSH keys
     settings.PermitRootLogin = "no";       # Recommended
   };
