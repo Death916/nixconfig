@@ -61,7 +61,7 @@
     tmux
     tailscale
     lvm2
-    
+    kpartx    
     # Add other common server utilities
   ];
   
