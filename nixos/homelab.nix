@@ -61,7 +61,8 @@
     tmux
     tailscale
     lvm2
-    rsync    
+    rsync
+    multipath-tools # kpartx    
     # Add other common server utilities
   ];
   
