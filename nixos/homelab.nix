@@ -19,6 +19,7 @@
   # SSH Server configuration
   services.openssh = {
     enable = true;
+    openFirewall = true;
     settings.PasswordAuthentication = false; # Recommended: use SSH keys
     settings.PermitRootLogin = "no";       # Recommended
   };
