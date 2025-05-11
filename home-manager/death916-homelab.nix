@@ -25,4 +25,5 @@
 
   # Keep this consistent with your system's state version
   home.stateVersion = "24.11";
+  programs.home-manager.enable = true;
 }

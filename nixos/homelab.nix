@@ -24,7 +24,11 @@
     settings.PasswordAuthentication = false; # Recommended: use SSH keys
     settings.PermitRootLogin = "no";       # Recommended
   };
-
+  services.tailscale = {
+    enable = true;
+    useRoutingFeatures = "both";
+  };
+  networking.firewall.checkReversePath = "loose"; #needed for tailscale nodes
   # Define the 'death916' user for the server
   users.users.death916 = {
     isNormalUser = true;
@@ -48,7 +52,7 @@
     tmux
     # Add other common server utilities
   ];
-
+  
   # If you use custom overlays specific to this server:
   # nixpkgs.overlays = [(import ../overlays/homelab-overlay.nix)];
 
