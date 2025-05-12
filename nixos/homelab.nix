@@ -83,7 +83,7 @@
   services.audiobookshelf = {
     enable = true;
     user = "audiobookshelf";
-    group = "media-services"
+    group = "media-services";
 
   };
 
