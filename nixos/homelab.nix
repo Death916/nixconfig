@@ -112,6 +112,7 @@
       ml = {
        # enable machine learning
         "enabled" = "yes";
+      };
     };
   };
     
