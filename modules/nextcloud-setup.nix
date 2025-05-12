@@ -31,32 +31,47 @@ in
   # --- Nextcloud Service Configuration ---
   services.nextcloud = {
     enable = true;
-    package = pkgs.nextcloud31;
-    hostName = "cloud.death916.xyz"; # Use the domain handled by the reverse proxy
-    https = false; # Disable HTTPS since the reverse proxy will handle it
-    trusted_domains = [ "cloud.death916.xyz" ]; # Only include the reverse proxy domain
-   # overwriteprotocol = "https"; # Force HTTPS in Nextcloud
+    package = pkgs.nextcloud28; # Changed back to 28 for consistency, verify your actual package
+    hostName = "cloud.death916.xyz"; # This will be automatically added to trusted_domains by the module
+    https = false; 
     datadir = nextcloudDataPath;
-    config = {
+
+    config = { # For direct config.php entries
       dbtype = "pgsql";
       dbuser = "nextcloud";
       dbhost = "/run/postgresql";
       dbname = "nextcloud";
       dbpassFile = dbPassFilePath;
-      adminuser = "death916";
+      adminuser = "death916"; # Changed from ncadmin as per your file
       adminpassFile = adminPassFilePath;
-      
+      # 'overwriteprotocol' is a direct config.php key, so it belongs here for reverse proxy setups
+      overwriteprotocol = "https"; 
+      # 'overwritehost' and 'overwrite.cli.url' would also go here if needed for reverse proxy
+      overwritehost = "cloud.death916.xyz";
+      "overwrite.cli.url" = "https://cloud.death916.xyz";
+      # 'trusted_proxies' would also go here for reverse proxy setup
+      trusted_proxies = [ "YOUR_REVERSE_PROXY_IP" ]; # e.g., "127.0.0.1" if on same machine
     };
 
-    caching.redis = true;
+    # 'trusted_domains' goes under 'settings'
     settings = {
+      trusted_domains = [ 
+        "cloud.death916.xyz" 
+        # The module usually adds config.services.nextcloud.hostName and localhost automatically.
+        # If you want to be explicit and override:
+        # lib.mkForce [ "localhost" config.services.nextcloud.hostName "cloud.death916.xyz" ]
+      ];
+      # Your Redis settings from before:
       memcache.distributed = "\\OC\\Memcache\\Redis";
       memcache.locking = "\\OC\\Memcache\\Redis";
       filelocking.enabled = true;
       redis = { host = "/run/redis-nextcloud/redis.sock"; port = 0; };
     };
+
+    caching.redis = true; # This helps set up some Redis defaults
     phpOptions = lib.mkForce { "memory_limit" = "2G"; };
   };
+
 
   users.users.nextcloud = { isSystemUser = true; group = "nextcloud"; };
   users.groups.nextcloud = {};
