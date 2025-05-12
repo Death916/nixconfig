@@ -100,7 +100,8 @@
     tailscale
     lvm2
     rsync
-    multipath-tools # kpartx    
+    multipath-tools # kpartx
+    btop    
     # Add other common server utilities
   ];
   
