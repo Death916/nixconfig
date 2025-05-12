@@ -34,8 +34,9 @@ in
     package = pkgs.nextcloud31;
     hostName = "cloud.death916.xyz"; # Use the domain handled by the reverse proxy
     https = false; # Disable HTTPS since the reverse proxy will handle it
+    trusted_domains = [ "cloud.death916.xyz" ]; # Only include the reverse proxy domain
+    overwriteprotocol = "https"; # Force HTTPS in Nextcloud
     datadir = nextcloudDataPath;
-    overwriteprotocol = "https";
     config = {
       dbtype = "pgsql";
       dbuser = "nextcloud";
@@ -44,8 +45,7 @@ in
       dbpassFile = dbPassFilePath;
       adminuser = "death916";
       adminpassFile = adminPassFilePath;
-      trusted_domains = [ "cloud.death916.xyz" "homelab" ]; # Only include the reverse proxy domain
-      #overwriteprotocol = "https"; # Force HTTPS in Nextcloud
+      
     };
 
     caching.redis = true;
