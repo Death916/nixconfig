@@ -111,7 +111,7 @@
       };
       ml = {
        # enable machine learning
-        "enabled" = "yes";
+        "enabled" = "no";
       };
     };
   };
