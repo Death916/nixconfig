@@ -3,7 +3,7 @@
 
 {
   imports = [
-   ./modules/nextcloud-setup.nix 
+   ../modules/nextcloud-setup.nix 
    # Import any shared modules from your ./modules directory if applicable
     # e.g., (../modules/common-settings.nix)
   ];
