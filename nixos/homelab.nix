@@ -96,7 +96,11 @@
   #networking.firewall.allowedTCPPorts = [19999];
 
   services.netdata = {
-    package = pkgs.netdata.override { withCloud = true; };
+    package = pkgs.netdata.override { 
+    withCloud = true; 
+    withMl = false;
+    };
+    claimTokenFile = "/var/lib/netdata/cloud.d/token";
     enable = true;
     config = {
       global = {
@@ -121,7 +125,8 @@
     lvm2
     rsync
     multipath-tools # kpartx
-    btop    
+    btop
+    wget    
     # Add other common server utilities
   ];
   

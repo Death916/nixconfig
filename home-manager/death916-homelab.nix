@@ -21,6 +21,7 @@
   home.packages = with pkgs; [
     # Any user-specific packages for death916 on the server
     fastfetch
+    wget
   ];
 
   # Keep this consistent with your system's state version
