@@ -46,7 +46,7 @@ in
       adminuser = "ncadmin";
       adminpassFile = adminPassFilePath; # Points to your external file
 
-      overwriteprotocol = "http";
+     # overwriteprotocol = "http";
     };
 
     caching.redis = true;
