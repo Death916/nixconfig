@@ -96,7 +96,7 @@
   #networking.firewall.allowedTCPPorts = [19999];
 
   services.netdata = {
-    claimTokenFile = "/var/lib/netdata/cloud.d/token";
+    services.netdata.package = pkgs.netdata.override { withCloud = true; };
     enable = true;
     config = {
       global = {
