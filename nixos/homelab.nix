@@ -95,18 +95,21 @@
   
   #networking.firewall.allowedTCPPorts = [19999];
 
-  #services.netdata = {
+  services.netdata = {
     
-   # enable = true;
-    #config = {
-     # global = {
-      #  "memory mode" = "ram";
-       # "debug log" = "none";
-        #"access log" = "none";
-        #"error log" = "syslog";
-      #};
-    #};
-  #};
+    package = pkgs.netdata.override {
+      withCloud = true;
+    };  
+    enable = true;
+    config = {
+      global = {
+        "memory mode" = "ram";
+        "debug log" = "none";
+        "access log" = "none";
+        "error log" = "syslog";
+      };
+    };
+  };
     
   # Sudo access for the wheel group (which death916 is part of)
   security.sudo.wheelNeedsPassword = true; # Or false if you prefer passwordless sudo for wheel
