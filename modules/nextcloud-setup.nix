@@ -45,7 +45,7 @@ in
       adminuser = "death916"; # Changed from ncadmin as per your file
       adminpassFile = adminPassFilePath;
       # 'overwriteprotocol' is a direct config.php key, so it belongs here for reverse proxy setups
-      overwriteprotocol = "https"; 
+     # overwriteprotocol = "https"; 
       # 'overwritehost' and 'overwrite.cli.url' would also go here if needed for reverse proxy
      # overwritehost = "cloud.death916.xyz";
      # "overwrite.cli.url" = "https://cloud.death916.xyz";
