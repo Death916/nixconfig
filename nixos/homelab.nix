@@ -64,6 +64,16 @@
     # initialPassword = "yoursecurepassword"; # Or use hashed password
   };
 
+  # homelab services
+
+  services.plex = {
+  enable = true;
+  openFirewall = true;
+  user="death916";
+  };
+
+
+
   # Sudo access for the wheel group (which death916 is part of)
   security.sudo.wheelNeedsPassword = true; # Or false if you prefer passwordless sudo for wheel
 
