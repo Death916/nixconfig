@@ -72,7 +72,7 @@ in
 
       # If direct HTTP access over Tailscale leads to mixed content or redirect loops
       # due to the above overwrite settings, you might need `overwritecondaddr`.
-      # Example: overwritecondaddr = "^${nginxProxyManagerTailscaleIP}$";
+      overwritecondaddr = "^${nginxProxyManagerTailscaleIP}$";
       # This would apply the overwriteprotocol/host only if request comes from NPM.
       # For simplicity, try without it first.
 
