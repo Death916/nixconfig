@@ -84,7 +84,8 @@
     enable = true;
     user = "audiobookshelf";
     group = "media_services";
-
+    host = "0.0.0.0";  # <--- ADD THIS LINE to listen on all IPv4 interfaces
+    port = 13378;   
   };
 
   # Sudo access for the wheel group (which death916 is part of)
