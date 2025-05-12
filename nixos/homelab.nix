@@ -95,7 +95,7 @@
   
   #networking.firewall.allowedTCPPorts = [19999];
 
-  services.netdataCloud = {
+  services.netdata = {
     claimTokenFile = "/var/lib/netdata/cloud.d/token";
     enable = true;
     config = {
