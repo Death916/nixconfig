@@ -20,7 +20,7 @@
   ];
   services.lvm.enable = true;
   services.lvm.boot.thin.enable = true; # Crucial for thin pools
-  experimental-features = [ "nix-command"  "flakes"]  
+  experimental-features = [ "nix-command"  "flakes"];  
   # Mount for your media LV (from /dev/sdd via media VG)
   fileSystems."/media" = { 
     device = "/dev/media/vm-101-disk-0"; 
