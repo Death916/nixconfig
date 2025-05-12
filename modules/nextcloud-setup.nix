@@ -6,7 +6,7 @@ let
   # Define the paths to your externally managed password files
   adminPassFilePath = "/etc/nixos/secrets/nextcloud_admin_password";
   dbPassFilePath = "/etc/nixos/secrets/nextcloud_db_password";
-  nextcloudDataPath = "/storage/nextcloud-data"
+  nextcloudDataPath = "/storage/nextcloud-data";
 in
 {
   # --- PostgreSQL Database for Nextcloud ---
