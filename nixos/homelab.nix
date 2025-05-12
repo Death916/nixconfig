@@ -18,9 +18,23 @@
     "ext4"
     "xfs" 
   ];
-#  services.lvm.enable = true;
- # services.lvm.boot.thin.enable = true; # Crucial for thin pools
+  services.lvm.enable = true;
+  services.lvm.boot.thin.enable = true; # Crucial for thin pools
   
+  # Mount for your media LV (from /dev/sdd via media VG)
+  fileSystems."/media" = { 
+    device = "/dev/media/vm-101-disk-0"; 
+    fsType = "ext4";
+    options = [ "defaults" "nofail" ]; 
+  };
+
+  # Mount for your newly formatted storage LV
+  fileSystems."/storage" = {
+    device = "/dev/Storage/data_lv"; # Path to your new thick LV
+    fsType = "ext4";                 # Or xfs if you chose that
+    options = [ "defaults" "nofail" ];
+  }; 
+ 
   # Basic firewall
   networking.firewall.enable = true;
   networking.firewall.allowedTCPPorts = [ 22 ]; # Allow SSH
