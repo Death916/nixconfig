@@ -92,7 +92,23 @@
     host = "0.0.0.0";  # <--- ADD THIS LINE to listen on all IPv4 interfaces
     port = 13378;   
   };
+  
+  #networking.firewall.allowedTCPPorts = [19999];
 
+  services.netdata = {
+    enable = true;
+    config = {
+      global = {
+        "memory mode" = "ram";
+        "debug log" = "none";
+        "access log" = "none";
+        "error log" = "syslog";
+      };
+    };
+  };
+  services.netdata.package = pkgs.netdata.override {
+  withCloudUi = true;
+};  
   # Sudo access for the wheel group (which death916 is part of)
   security.sudo.wheelNeedsPassword = true; # Or false if you prefer passwordless sudo for wheel
 
