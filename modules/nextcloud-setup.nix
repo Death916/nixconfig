@@ -42,7 +42,7 @@ in
       dbhost = "/run/postgresql";
       dbname = "nextcloud";
       dbpassFile = dbPassFilePath; # Points to your external file
-      datadirectory = nextcloudDataPath; # Points to your external data directory
+      dataDir = nextcloudDataPath;  # Points to your external data directory
       adminuser = "ncadmin";
       adminpassFile = adminPassFilePath; # Points to your external file
 
