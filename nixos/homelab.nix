@@ -11,9 +11,9 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "homelab"; # Set the server's hostname
-  boot.initrd.kernelModules = [ "dm_mod" ]; # Device mapper core
+  boot.initrd.kernelModules = [ "dm_mod" "dm_thin_pool" ]; # Device mapper core
   boot.initrd.availableKernelModules = [
-    "dm_thin_pool" # For LVM thin provisioning
+    # For LVM thin provisioning
     # Add filesystem types you expect to find on these LVs, e.g., "ext4", "xfs", "zfs" (if using ZFS on LVM)
     "ext4"
     "xfs" 
