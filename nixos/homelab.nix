@@ -96,10 +96,6 @@
   #networking.firewall.allowedTCPPorts = [19999];
 
   services.netdataCloud = {
-    package = pkgs.netdata.override { 
-    withCloud = true; 
-    
-    };
     claimTokenFile = "/var/lib/netdata/cloud.d/token";
     enable = true;
     config = {
@@ -108,10 +104,6 @@
         "debug log" = "none";
         "access log" = "none";
         "error log" = "syslog";
-      };
-      ml = {
-       # enable machine learning
-        "enabled" = "no";
       };
     };
   };
