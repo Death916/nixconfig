@@ -35,7 +35,7 @@ in
     hostName = "cloud.death916.xyz"; # Use the domain handled by the reverse proxy
     https = false; # Disable HTTPS since the reverse proxy will handle it
     trusted_domains = [ "cloud.death916.xyz" ]; # Only include the reverse proxy domain
-    overwriteprotocol = "https"; # Force HTTPS in Nextcloud
+   # overwriteprotocol = "https"; # Force HTTPS in Nextcloud
     datadir = nextcloudDataPath;
     config = {
       dbtype = "pgsql";
