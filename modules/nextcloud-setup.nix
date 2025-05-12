@@ -30,7 +30,7 @@ in
   # --- Nextcloud Service Configuration ---
   services.nextcloud = {
     enable = true;
-    package = pkgs.nextcloud28; # Or your preferred Nextcloud version
+    package = pkgs.nextcloud31; # Or your preferred Nextcloud version
     hostName = nextcloudExternalDomain;
     https = false; # Let NPM Handle TLS
 
