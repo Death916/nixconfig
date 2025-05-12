@@ -45,7 +45,7 @@ in
        
     };
       settings = {
-       trusted_domains = [ nextcloudExternalDomain ]; 
+       trusted_domains = [ nextcloudExternalDomain "100.117.212.36" "homelab" ]; 
         overwriteprotocol = "https"; # from Browser all traffic to Nextcloud will be HTTPS since Nginx terminates SSL
 
         overwritehost = nextcloudExternalDomain; # Tell Nextcloud what your domain is
