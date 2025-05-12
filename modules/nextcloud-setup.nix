@@ -50,7 +50,7 @@ in
     };
 
     caching.redis = true;
-    extraOptions = {
+    settings = {
       memcache.distributed = "\\OC\\Memcache\\Redis";
       memcache.locking = "\\OC\\Memcache\\Redis";
       filelocking.enabled = true;
