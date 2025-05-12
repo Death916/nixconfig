@@ -106,9 +106,7 @@
       };
     };
   };
-  services.netdata.package = pkgs.netdata.override {
-  withCloudUi = true;
-};  
+    
   # Sudo access for the wheel group (which death916 is part of)
   security.sudo.wheelNeedsPassword = true; # Or false if you prefer passwordless sudo for wheel
 
