@@ -52,9 +52,9 @@ in
       # --- Trusted Domains: CRITICAL ---
       # Add all ways Nextcloud will be accessed.
       trusted_domains = [
-        nextcloudExternalDomain,        # For access via NPM
-        homelabTailscaleIP,             # For direct access via Tailscale IP
-        homelabMagicDNSName,             # For direct access via Tailscale MagicDNS name
+        nextcloudExternalDomain        # For access via NPM
+        homelabTailscaleIP             # For direct access via Tailscale IP
+        homelabMagicDNSName             # For direct access via Tailscale MagicDNS name
         # "localhost"                   # If you run occ commands directly on homelab
       ];
       
