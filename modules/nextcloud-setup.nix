@@ -57,7 +57,7 @@ in
       redis = { host = "/run/redis-nextcloud/redis.sock"; port = 0; };
     };
     phpOptions = { "memory_limit" = "1G"; };
-    user = "nextcloud";
+    
    
   };
 
