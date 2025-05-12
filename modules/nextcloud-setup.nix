@@ -45,7 +45,7 @@ in
       #dataDir = nextcloudDataPath;  # Points to your external data directory
       adminuser = "death916";
       adminpassFile = adminPassFilePath; # Points to your external file
-      trusted_domains = ["cloud.death916.xyz" "homelab"]
+      trusted_domains = ["cloud.death916.xyz" "homelab"];
      # overwriteprotocol = "http";
     };
 
