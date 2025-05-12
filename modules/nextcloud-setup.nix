@@ -58,7 +58,7 @@ in
     };
     phpOptions = { "memory_limit" = "1G"; };
     user = "nextcloud";
-    group = "nextcloud";
+   
   };
 
   users.users.nextcloud = { isSystemUser = true; group = "nextcloud"; };
