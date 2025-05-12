@@ -95,7 +95,7 @@
   
   #networking.firewall.allowedTCPPorts = [19999];
 
-  services.netdata = {
+  services.netdataCloud = {
     package = pkgs.netdata.override { 
     withCloud = true; 
     
