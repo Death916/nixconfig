@@ -48,7 +48,7 @@ in
       overwriteprotocol = "https"; 
       # 'overwritehost' and 'overwrite.cli.url' would also go here if needed for reverse proxy
       overwritehost = "cloud.death916.xyz";
-      "overwrite.cli.url" = "https://cloud.death916.xyz";
+     # "overwrite.cli.url" = "https://cloud.death916.xyz";
       # 'trusted_proxies' would also go here for reverse proxy setup
       trusted_proxies = [ "YOUR_REVERSE_PROXY_IP" ]; # e.g., "127.0.0.1" if on same machine
     };
