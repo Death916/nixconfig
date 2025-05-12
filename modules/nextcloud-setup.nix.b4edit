@@ -25,26 +25,28 @@ in
     port = 0;
   };
   systemd.tmpfiles.rules = [
-    "d /run/redis-nextcloud 0750 nextcloud nextcloud - -"
+    "d /run/redis-nextcloud 0750 nextcloud nextcloud - -" 
   ];
 
   # --- Nextcloud Service Configuration ---
   services.nextcloud = {
     enable = true;
     package = pkgs.nextcloud31;
-    hostName = "cloud.death916.xyz"; # Use the domain handled by the reverse proxy
-    https = false; # Disable HTTPS since the reverse proxy will handle it
+    hostName = nextcloudInternalHostName;
+    https = false;
+   # port = 8080;
     datadir = nextcloudDataPath;
     config = {
       dbtype = "pgsql";
       dbuser = "nextcloud";
       dbhost = "/run/postgresql";
       dbname = "nextcloud";
-      dbpassFile = dbPassFilePath;
+      dbpassFile = dbPassFilePath; # Points to your external file
+      #dataDir = nextcloudDataPath;  # Points to your external data directory
       adminuser = "death916";
-      adminpassFile = adminPassFilePath;
-      trusted_domains = [ "cloud.death916.xyz" ]; # Only include the reverse proxy domain
-      overwriteprotocol = "https"; # Force HTTPS in Nextcloud
+      adminpassFile = adminPassFilePath; # Points to your external file
+      trusted_domains = ["cloud.death916.xyz" "homelab"];
+     # overwriteprotocol = "http";
     };
 
     caching.redis = true;
@@ -55,6 +57,8 @@ in
       redis = { host = "/run/redis-nextcloud/redis.sock"; port = 0; };
     };
     phpOptions = lib.mkForce { "memory_limit" = "2G"; };
+    
+   
   };
 
   users.users.nextcloud = { isSystemUser = true; group = "nextcloud"; };
