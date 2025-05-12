@@ -34,7 +34,7 @@ in
     package = pkgs.nextcloud31;
     hostName = nextcloudInternalHostName;
     https = false;
-    port = 8080;
+   # port = 8080;
     datadir = nextcloudDataPath;
     config = {
       dbtype = "pgsql";
