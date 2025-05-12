@@ -43,7 +43,7 @@ in
       dbpassFile = dbPassFilePath;
       adminuser = "death916";
       adminpassFile = adminPassFilePath;
-      trusted_domains = [ "cloud.death916.xyz" ]; # Only include the reverse proxy domain
+      trusted_domains = [ "cloud.death916.xyz" "homelab" ]; # Only include the reverse proxy domain
       overwriteprotocol = "https"; # Force HTTPS in Nextcloud
     };
 
