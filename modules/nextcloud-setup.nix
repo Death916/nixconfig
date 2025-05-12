@@ -33,7 +33,7 @@ in
     package = pkgs.nextcloud31; # Or your preferred Nextcloud version
     hostName = nextcloudExternalDomain;
     https = false; # Let NPM Handle TLS
-
+    configureRedis = True;
     datadir = nextcloudDataPath;
     maxUploadSize = "2G";  # Example - can be adjusted
 
