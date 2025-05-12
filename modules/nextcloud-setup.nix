@@ -43,7 +43,7 @@ in
       dbname = "nextcloud";
       dbpassFile = dbPassFilePath; # Points to your external file
       #dataDir = nextcloudDataPath;  # Points to your external data directory
-      adminuser = "ncadmin";
+      adminuser = "death916";
       adminpassFile = adminPassFilePath; # Points to your external file
 
      # overwriteprotocol = "http";
