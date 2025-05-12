@@ -98,7 +98,7 @@
   services.netdata = {
     package = pkgs.netdata.override { 
     withCloud = true; 
-    withMl = false;
+    
     };
     claimTokenFile = "/var/lib/netdata/cloud.d/token";
     enable = true;
@@ -109,6 +109,9 @@
         "access log" = "none";
         "error log" = "syslog";
       };
+      ml = {
+       # enable machine learning
+        "enabled" = "yes";
     };
   };
     
