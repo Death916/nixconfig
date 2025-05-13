@@ -24,16 +24,17 @@
     services.prowlarr = {
       enable = true;
       openFirewall = false;
+      isSystemUser = true;
       # No dataDir option, handled by bind mount below.
     };
-   # users.users.prowlarr.group = "prowlarr";
+    users.users.prowlarr.group = "prowlarr";
     users.groups.prowlarr = {};
     users.users.sonarr.extraGroups = [ "media_services" ];
     users.users.radarr.extraGroups = [ "media_services" ];
     users.users.readarr.extraGroups = [ "media_services" ];
     users.users.prowlarr.extraGroups = [ "media_services" ];
 
-    users.groups.media_services = {};
+   
 
     systemd.tmpfiles.rules = [
       "d /storage/services/sonarr 0755 sonarr sonarr - -"
