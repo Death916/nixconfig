@@ -24,7 +24,7 @@
     services.prowlarr = {
       enable = true;
       openFirewall = false;
-      extraGroups = [ "media_services" ];
+     # extraGroups = [ "media_services" ];
     };
     users.groups.prowlarr = {};
    
