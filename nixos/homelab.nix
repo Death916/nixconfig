@@ -132,14 +132,14 @@
     "d /storage/services/qbittorrent 0755 qbittorrent qbittorrent - -"
   ];
 
-  {
+  
   services.jellyfin.enable = true;
   environment.systemPackages = [
     pkgs.jellyfin
     pkgs.jellyfin-web
     pkgs.jellyfin-ffmpeg
   ];
-}
+
 
   # Sudo access for the wheel group (which death916 is part of)
   security.sudo.wheelNeedsPassword = true; # Or false if you prefer passwordless sudo for wheel
