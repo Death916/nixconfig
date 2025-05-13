@@ -134,11 +134,9 @@
 
   
   services.jellyfin.enable = true;
-  environment.systemPackages = [
-    pkgs.jellyfin
-    pkgs.jellyfin-web
-    pkgs.jellyfin-ffmpeg
-  ];
+  
+    
+ 
 
 
   # Sudo access for the wheel group (which death916 is part of)
@@ -156,7 +154,9 @@
     multipath-tools # kpartx
     btop
     wget    
-    # Add other common server utilities
+    pkgs.jellyfin-web
+    pkgs.jellyfin-ffmpeg
+    pkgs.jellyfin
   ];
   
   # If you use custom overlays specific to this server:
