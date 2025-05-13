@@ -92,6 +92,8 @@
   ];
   # to make exit nodes work
   networking.firewall.checkReversePath = "loose";
+  hardware.bluetoothe.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
   # my additions
   services.tailscale = {
     enable = true;
