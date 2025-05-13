@@ -110,7 +110,13 @@
       };
     };
   };
-    
+  
+  services.qbittorrent = {
+  enable = true;
+  user = "torrent";
+  group = "media_services";
+  port = 8728;
+  };    
   # Sudo access for the wheel group (which death916 is part of)
   security.sudo.wheelNeedsPassword = true; # Or false if you prefer passwordless sudo for wheel
 
