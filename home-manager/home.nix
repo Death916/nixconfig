@@ -86,6 +86,7 @@
     waveterm
     halloy
     tmux
+    nextcloud-client
   ];
 
   # basic configuration of git, please change to your own
