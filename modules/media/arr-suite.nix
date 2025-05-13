@@ -24,9 +24,9 @@
     services.prowlarr = {
       enable = true;
       openFirewall = false;
-      
-      # No dataDir option, handled by bind mount below.
+      extraGroups = [ "media_services" ];
     };
+    users.groups.prowlarr = {};
    
     users.groups.prowlarr = {};
     users.users.sonarr.extraGroups = [ "media_services" ];
