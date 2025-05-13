@@ -24,7 +24,7 @@
     services.prowlarr = {
       enable = true;
       openFirewall = false;
-      isSystemUser = true;
+      
       # No dataDir option, handled by bind mount below.
     };
     users.users.prowlarr.group = "prowlarr";
