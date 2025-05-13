@@ -87,7 +87,8 @@
     halloy
     tmux
     nextcloud-client
-    nerdfonts
+    nerd-fonts.fira-code
+    nerd-fonts.droid-sans-mono
   ];
 
   # basic configuration of git, please change to your own
