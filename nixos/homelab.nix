@@ -5,7 +5,7 @@
   imports = [
    ../modules/nextcloud-setup.nix
    ../modules/media/qbittorrent.nix
-   ../modules/arr-suite.nix 
+   ../modules/media/arr-suite.nix 
    # Import any shared modules from your ./modules directory if applicable
     # e.g., (../modules/common-settings.nix)
   ];
