@@ -88,8 +88,7 @@
     tmux
     nextcloud-client
     (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
-    fira-code
-    droid-sans-mono
+    
   ];
 
   # basic configuration of git, please change to your own
