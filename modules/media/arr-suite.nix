@@ -19,7 +19,7 @@
     services.prowlarr = {
       enable = true;
       openFirewall = false; # port 9696
-      dataDir = "/storage/services/prowlarr";
+     # dataDir = "/storage/services/prowlarr";
     };
 
     services.radarr = {
