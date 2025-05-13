@@ -4,7 +4,7 @@
   # TODO please change the username & home directory to your own
   home.username = "death916";
   home.homeDirectory = "/home/death916";
-  fonts.packages = with pkgs; [ nerdfonts ];
+ 
   # link the configuration file in current directory to the specified location in home directory
   # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;
 
@@ -87,6 +87,7 @@
     halloy
     tmux
     nextcloud-client
+    nerdfonts
   ];
 
   # basic configuration of git, please change to your own
