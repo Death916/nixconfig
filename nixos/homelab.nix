@@ -111,7 +111,7 @@
     };
   };
   
-  services.qbittorrent = {
+  services.qbittorrent-nox = {
   enable = true;
   user = "torrent";
   group = "media_services";
