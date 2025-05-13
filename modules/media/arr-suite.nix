@@ -26,7 +26,7 @@
       openFirewall = false;
      # extraGroups = [ "media_services" ];
     };
-    users.groups.prowlarr = {};
+   # users.groups.prowlarr = {};
    
    # users.groups.prowlarr = {};
     users.users.sonarr.extraGroups = [ "media_services" ];
