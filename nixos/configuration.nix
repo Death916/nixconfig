@@ -85,7 +85,7 @@
   environment.systemPackages = with pkgs; [
     # Flakes clones its dependencies through the git command,
     # so git must be installed first
-    git
+    git  
     vim
     wget
     tailscale
@@ -95,7 +95,7 @@
   
   hardware.bluetooth.enable = true;
   hardware.blueman.enable = true;
-  hardware.bluetooth.package - pkgs.bluezFull;
+ # hardware.bluetooth.package - pkgs.bluezFull;
   
   hardware.bluetooth.powerOnBoot = true;
   # my additions

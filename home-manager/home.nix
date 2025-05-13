@@ -25,7 +25,7 @@
     "Xcursor.size" = 16;
     "Xft.dpi" = 172;
   };
-
+  
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
     # here is some command line tools I use frequently
@@ -93,6 +93,9 @@
     enable = true;
     userName = "death916";
     userEmail = "mail@trentnelson.dev";
+    extraConfig = {
+      credential.helper = "store";
+    };
   };
 
   # starship - an customizable prompt for any shell
