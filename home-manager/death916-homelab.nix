@@ -7,7 +7,15 @@
 
   # Basic shell configuration (can be more elaborate)
   programs.bash.enable = true;
-  programs.git.enable = true;
+  programs.git = {
+    enable = true;
+    userName = "death916";
+    userEmail = "mail@trentnelson.dev";
+    extraConfig = {
+    credential.helper = "store";
+    }
+
+  };
 
   # Server-specific tools or dotfiles for death916
   programs.tmux.enable = true; # Example from your repo image
