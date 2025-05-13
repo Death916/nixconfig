@@ -94,7 +94,7 @@
   networking.firewall.checkReversePath = "loose";
   
   hardware.bluetooth.enable = true;
-  hardware.blueman.enable = true;
+ # hardware.blueman.enable = true;
  # hardware.bluetooth.package - pkgs.bluezFull;
   
   hardware.bluetooth.powerOnBoot = true;
