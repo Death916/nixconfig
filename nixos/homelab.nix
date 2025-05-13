@@ -3,7 +3,8 @@
 
 {
   imports = [
-   ../modules/nextcloud-setup.nix 
+   ../modules/nextcloud-setup.nix
+   ../modules/media/qbittorrent.nix 
    # Import any shared modules from your ./modules directory if applicable
     # e.g., (../modules/common-settings.nix)
   ];
@@ -111,12 +112,23 @@
     };
   };
   
-  services.qbittorrent-nox = {
-  enable = true;
-  user = "torrent";
-  group = "media_services";
-  port = 8728;
-  };    
+  users.users.qbittorrent.extraGroups = [ "media_services" ];
+  users.groups.qbittorrent = {};
+
+  services.qbittorrent = {
+    enable = true;
+    dataDir = "/storage/services/qbittorrent";
+    user = "qbittorrent";
+    group = "qbittorrent";
+    port = 8090;
+    openFirewall = true;
+    package = pkgs.qbittorrent-nox;
+  };
+
+  systemd.tmpfiles.rules = [
+    "d /storage/downloads 0775 root media_services - -"
+    "d /storage/services/qbittorrent 0755 qbittorrent qbittorrent - -"
+  ];
   # Sudo access for the wheel group (which death916 is part of)
   security.sudo.wheelNeedsPassword = true; # Or false if you prefer passwordless sudo for wheel
 
