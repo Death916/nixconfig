@@ -43,10 +43,6 @@
       "d /storage/services/prowlarr 0755 prowlarr prowlarr - -"
     ];
 
-    fileSystems."/var/lib/prowlarr" = {
-      device = "/storage/services/prowlarr";
-      fsType = "none";
-      options = [ "bind" ];
-    };
+    
   };
 }
