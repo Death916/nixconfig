@@ -17,9 +17,15 @@
       url = "github:nix-community/home-manager/release-24.11"; # Or your preferred branch
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    
+    # Add rust-overlay for nightly Rust toolchain
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, nixos-cosmic, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, nixos-cosmic, rust-overlay, ... }:
     let
       # Common arguments to pass to all system configurations
       commonSpecialArgs = {
@@ -38,6 +44,12 @@
               substituters = [ "https://cosmic.cachix.org/" ];
               trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
             };
+            
+            # Add rust-overlay to nixpkgs overlays
+            nixpkgs.overlays = [
+              rust-overlay.overlays.default
+              (import ./overlays/halloy-overlay.nix)
+            ];
           }
           nixos-cosmic.nixosModules.default # COSMIC Desktop Environment for laptop
           ./nixos/configuration.nix         # Your existing laptop NixOS configuration
@@ -76,10 +88,6 @@
         ];
       };
     };
-
-    # If you have global overlays from ./overlays:
-    # nixpkgs.overlays = [
-    #   (import ./overlays/my-global-overlay.nix)
-    # ];
   };
 }
+

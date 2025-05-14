@@ -10,9 +10,22 @@ self: super: {
       sha256 = "sha256-cG/B6oiRkyoC5fK7bLdCDQYZymfMZspWXvOkqpwHRPk=";
     };
 
-    # Skip the edition2024 check
+    # Use nightly Rust from rust-overlay
     RUSTC_BOOTSTRAP = 1;
     
+    # Use the nightly Rust toolchain
+    nativeBuildInputs = with super; [ 
+      pkg-config 
+      (rust-bin.nightly.latest.default.override {
+        extensions = [ "rust-src" ];
+      })
+    ];
+    
+    # Add patch to enable edition2024
+    postPatch = ''
+      sed -i '1i cargo-features = ["edition2024"]' Cargo.toml
+    '';
+
     cargoLock = {
       lockFile = super.fetchurl {
         url = "https://raw.githubusercontent.com/squidowl/halloy/${version}/Cargo.lock";
@@ -26,8 +39,6 @@ self: super: {
         "dpi-0.1.1" = "";
       };
     };
-
-    nativeBuildInputs = with super; [ pkg-config ];
     
     buildInputs = with super; [
       libxkbcommon
