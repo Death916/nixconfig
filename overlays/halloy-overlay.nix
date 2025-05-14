@@ -1,8 +1,12 @@
 self: super:
 let
+  # Use latest nightly Rust with all required features
+  rustNightly = super.rust-bin.nightly.latest.default.override {
+    extensions = [ "rust-src" ];
+  };
   nightlyRustPlatform = super.makeRustPlatform {
-    cargo = super.rust-bin.nightly.latest.default;
-    rustc = super.rust-bin.nightly.latest.default;
+    cargo = rustNightly;
+    rustc = rustNightly;
   };
 in {
   halloy = nightlyRustPlatform.buildRustPackage rec {
@@ -16,31 +20,21 @@ in {
       sha256 = "sha256-cG/B6oiRkyoC5fK7bLdCDQYZymfMZspWXvOkqpwHRPk=";
     };
 
-    # Enable unstable features
     RUSTC_BOOTSTRAP = 1;
-    
-    # Allow both edition2024 and doc_cfg features
-    RUSTFLAGS = "-Z allow-features=edition2024,doc_cfg";
+    RUSTFLAGS = "-Z allow-features=edition2024,doc_cfg,stdsimd,avx512_target_feature";
 
-    # Patch Cargo.toml and source files
     postPatch = ''
-      # Add cargo-features only if not present
+      # Add required features to all relevant crates
+      find . -name '*.rs' -exec sed -i '1i #![feature(stdsimd,avx512_target_feature)]' {} \;
+      
+      # Add cargo-features to Cargo.toml files
       find . -name Cargo.toml -exec sh -c '
         if ! grep -q "cargo-features" {}; then
           sed -i "1i cargo-features = [\"edition2024\"]" {}
         fi
       ' \;
-      
-      # Add #![feature(doc_cfg)] to async_executors source
-      mkdir -p .cargo
-      echo '[build]' > .cargo/config.toml
-      echo 'rustflags = ["-Z", "allow-features=edition2024,doc_cfg"]' >> .cargo/config.toml
-      
-      # Try to find and patch async_executors
-      find . -path "*async_executors*" -name "lib.rs" -exec sed -i '1i #![feature(doc_cfg)]' {} \;
     '';
 
-    # Dependency hashes
     cargoLock = {
       lockFile = src + "/Cargo.lock";
       outputHashes = {
@@ -52,7 +46,6 @@ in {
       };
     };
 
-    # System dependencies
     nativeBuildInputs = with super; [ pkg-config ];
     
     buildInputs = with super; [
@@ -65,13 +58,6 @@ in {
       xorg.libXrandr
       wayland
     ];
-
-    meta = with super.lib; {
-      description = "Halloy IRC Client";
-      homepage = "https://github.com/squidowl/halloy";
-      license = licenses.gpl3Only;
-      platforms = platforms.linux;
-    };
   };
 }
 
