@@ -1,4 +1,26 @@
 self: super: {
+  # First create a patched version of cryoglyph
+  cryoglyph = super.rustPlatform.buildRustPackage rec {
+    pname = "cryoglyph";
+    version = "0.1.0";
+    
+    src = super.fetchFromGitHub {
+      owner = "iced-rs";
+      repo = "cryoglyph";
+      rev = "a456d1c17bbcf33afcca41d9e5e299f9f1193819"; # Get this from Halloy's Cargo.lock
+      sha256 = "sha256-X7S9jq8wU6g1DDNEzOtP3lKWugDnpopPDBK49iWvD4o=";
+    };
+
+    RUSTC_BOOTSTRAP = 1;
+    
+    postPatch = ''
+      sed -i '1i cargo-features = ["edition2024"]' Cargo.toml
+    '';
+
+    cargoHash = "sha256-0000000000000000000000000000000000000000000000000000"; # Let Nix fill this
+  };
+
+  # Now build Halloy with the patched cryoglyph
   halloy = super.rustPlatform.buildRustPackage rec {
     pname = "halloy";
     version = "2025.5";
@@ -10,38 +32,18 @@ self: super: {
       sha256 = "sha256-cG/B6oiRkyoC5fK7bLdCDQYZymfMZspWXvOkqpwHRPk=";
     };
 
-    # Enable unstable features
     RUSTC_BOOTSTRAP = 1;
     
-    # Use specific nightly version that supports edition2024
     nativeBuildInputs = with super; [ 
       pkg-config 
-      (rust-bin.selectLatestNightlyWith (toolchain: toolchain.default.override {
+      (rust-bin.nightly."2025-05-14".default.override {
         extensions = [ "rust-src" ];
-      }))
+      })
     ];
-    
-    # Comprehensive patch for all dependencies
+
     postPatch = ''
-      # Add cargo-features to main Cargo.toml
       sed -i '1i cargo-features = ["edition2024"]' Cargo.toml
-      
-      # Patch all dependency Cargo.toml files
-      find . -name Cargo.toml -exec sed -i '1i cargo-features = ["edition2024"]' {} \;
-      
-      # Configure Cargo to allow unstable features
-      mkdir -p .cargo
-      cat > .cargo/config.toml << EOF
-      [unstable]
-      edition2024 = true
-      [build]
-      rustflags = ["-Zallow-features=edition2024"]
-      EOF
-    '';
-    
-    # Explicitly allow edition2024 features
-    preBuild = ''
-      export RUSTFLAGS="-Zallow-features=edition2024"
+      sed -i 's|^cryoglyph = .*|cryoglyph = { path = "${self.cryoglyph.src}" }|' Cargo.toml
     '';
 
     cargoLock = {
@@ -51,10 +53,8 @@ self: super: {
       };
       
       outputHashes = {
-        "cryoglyph-0.1.0" = "sha256-X7S9jq8wU6g1DDNEzOtP3lKWugDnpopPDBK49iWvD4o=";
         "dark-light-2.0.0" = "sha256-e826vF7iSkGUqv65TXHBUX04Kz2aaJJEW9f7JsAMaXE=";
         "iced-0.14.0-dev" = "sha256-FEGk1zkXM9o+fGMoDtmi621G6pL+Yca9owJz4q2Lzks=";
-        "dpi-0.1.1" = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Temporary placeholder
       };
     };
     
