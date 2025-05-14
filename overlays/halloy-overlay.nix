@@ -1,11 +1,10 @@
 self: super:
 let
-  # Create a wrapper script for rustc that enables edition2024
+  # Create wrapper scripts as before
   rustcWrapper = super.writeShellScriptBin "rustc" ''
     exec ${super.rust-bin.nightly.latest.rustc}/bin/rustc --allow-features=edition2024 "$@"
   '';
   
-  # Create a wrapper script for cargo that enables edition2024
   cargoWrapper = super.writeShellScriptBin "cargo" ''
     export RUSTC=${rustcWrapper}/bin/rustc
     export RUSTC_BOOTSTRAP=1
@@ -23,6 +22,8 @@ in {
       sha256 = "sha256-cG/B6oiRkyoC5fK7bLdCDQYZymfMZspWXvOkqpwHRPk=";
     };
     
+    # Don't set sourceRoot - let Nix determine it automatically
+    
     # Use our custom wrappers
     nativeBuildInputs = with super; [
       pkg-config
@@ -32,9 +33,17 @@ in {
       rust-bin.nightly.latest.cargo
     ];
     
-    # Patch all Cargo.toml files
+    # Modify postUnpack to work with the actual directory structure
     postUnpack = ''
-      cd $sourceRoot
+      # First check what directories we have
+      ls -la
+      
+      # Find the actual source directory (it might not be called "source")
+      sourceRoot=$(find . -type d -name "halloy*" | head -n 1)
+      echo "Setting sourceRoot to $sourceRoot"
+      
+      # Now patch the Cargo.toml files
+      cd "$sourceRoot"
       find . -name Cargo.toml -exec sed -i '1i cargo-features = ["edition2024"]' {} \;
       
       # Create .cargo/config.toml to enable edition2024
