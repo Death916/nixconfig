@@ -8,6 +8,6 @@ self: super: {
       sha256 = "sha256-cG/B6oiRkyoC5fK7bLdCDQYZymfMZspWXvOkqpwHRPk="; # <--- Replace after first build
     };
     # If the build fails due to Cargo.lock, you may also need to override cargoSha256:
-    # cargoSha256 = "0000000000000000000000000000000000000000000000000000"; # Replace if needed
+    cargoSha256 = "0000000000000000000000000000000000000000000000000000"; # Replace if needed
   });
 }
