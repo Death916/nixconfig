@@ -2,7 +2,7 @@ self: super:
 let
   # Use latest nightly Rust with all required features
   rustNightly = super.rust-bin.nightly.latest.default.override {
-    extensions = [ "rust-src" ];
+    extensions = [ "rust-src" "rustc-dev" ];
   };
   nightlyRustPlatform = super.makeRustPlatform {
     cargo = rustNightly;
@@ -21,11 +21,13 @@ in {
     };
 
     RUSTC_BOOTSTRAP = 1;
-    RUSTFLAGS = "-Z allow-features=edition2024,doc_cfg,stdsimd,avx512_target_feature";
+    
+    # Enable all required unstable features
+    RUSTFLAGS = "-Z allow-features=edition2024,doc_cfg,stdsimd,avx512_target_feature,stdarch_x86_avx512";
 
     postPatch = ''
-      # Add required features to all relevant crates
-      find . -name '*.rs' -exec sed -i '1i #![feature(stdsimd,avx512_target_feature)]' {} \;
+      # Add required feature flags to all relevant crates
+      find . -name '*.rs' -exec sed -i '1i #![feature(stdsimd,avx512_target_feature,stdarch_x86_avx512)]' {} \;
       
       # Add cargo-features to Cargo.toml files
       find . -name Cargo.toml -exec sh -c '
@@ -58,6 +60,13 @@ in {
       xorg.libXrandr
       wayland
     ];
+
+    meta = with super.lib; {
+      description = "Halloy IRC Client";
+      homepage = "https://github.com/squidowl/halloy";
+      license = licenses.gpl3Only;
+      platforms = platforms.linux;
+    };
   };
 }
 
