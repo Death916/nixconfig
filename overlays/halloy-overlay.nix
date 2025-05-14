@@ -22,9 +22,9 @@ in {
       sha256 = "sha256-cG/B6oiRkyoC5fK7bLdCDQYZymfMZspWXvOkqpwHRPk=";
     };
     
-    # Don't set sourceRoot - let Nix determine it automatically
+    # Explicitly set the sourceRoot
+    sourceRoot = "source";
     
-    # Use our custom wrappers
     nativeBuildInputs = with super; [
       pkg-config
       rustcWrapper
@@ -33,17 +33,9 @@ in {
       rust-bin.nightly.latest.cargo
     ];
     
-    # Modify postUnpack to work with the actual directory structure
-    postUnpack = ''
-      # First check what directories we have
-      ls -la
-      
-      # Find the actual source directory (it might not be called "source")
-      sourceRoot=$(find . -type d -name "halloy*" | head -n 1)
-      echo "Setting sourceRoot to $sourceRoot"
-      
-      # Now patch the Cargo.toml files
-      cd "$sourceRoot"
+    # Patch all Cargo.toml files
+    postPatch = ''
+      # Add cargo-features to main Cargo.toml
       find . -name Cargo.toml -exec sed -i '1i cargo-features = ["edition2024"]' {} \;
       
       # Create .cargo/config.toml to enable edition2024
@@ -56,6 +48,10 @@ in {
     
     # Build with cargo
     buildPhase = ''
+      # Make sure we're in the right directory
+      echo "Current directory: $(pwd)"
+      ls -la
+      
       export RUSTC_BOOTSTRAP=1
       export RUSTFLAGS="--allow-features=edition2024"
       cargo build --release
