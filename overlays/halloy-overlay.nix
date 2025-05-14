@@ -21,8 +21,6 @@ in {
     };
 
     RUSTC_BOOTSTRAP = 1;
-    
-    # Enable all required unstable features
     RUSTFLAGS = "-Z allow-features=edition2024,doc_cfg,stdsimd,avx512_target_feature,stdarch_x86_avx512";
 
     postPatch = ''
@@ -59,6 +57,7 @@ in {
       xorg.libXi
       xorg.libXrandr
       wayland
+      alsaLib.dev  # Add this line to provide alsa.pc
     ];
 
     meta = with super.lib; {
