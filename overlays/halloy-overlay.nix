@@ -14,7 +14,7 @@ self: super: {
     cargoLock = {
       lockFile = super.fetchurl {
         url = "https://raw.githubusercontent.com/squidowl/halloy/2025.5/Cargo.lock";
-        sha256 = ""; # This will fail first, replace with actual hash
+        sha256 = "sha256-s5e8T+ODhiK/fFH4lIs7SnIZX0unZPqsDIct5cntG8E="; # This will fail first, replace with actual hash
       };
       
       # Add hashes for git dependencies
