@@ -16,21 +16,32 @@ in {
       sha256 = "sha256-cG/B6oiRkyoC5fK7bLdCDQYZymfMZspWXvOkqpwHRPk=";
     };
 
+    # Enable unstable features
     RUSTC_BOOTSTRAP = 1;
     
-    # Add doc_cfg to the allowed features
+    # Allow both edition2024 and doc_cfg features
     RUSTFLAGS = "-Z allow-features=edition2024,doc_cfg";
 
+    # Patch Cargo.toml and source files
     postPatch = ''
-      # Add cargo-features for both edition2024 and doc_cfg
+      # Add cargo-features for edition2024 only (not doc_cfg)
       if ! grep -q 'cargo-features = \["edition2024"\]' Cargo.toml; then
-        sed -i '1i cargo-features = ["edition2024", "doc_cfg"]' Cargo.toml
+        sed -i '1i cargo-features = ["edition2024"]' Cargo.toml
       fi
       
-      # Patch async_executors to enable doc_cfg feature
+      # Find and patch all Cargo.toml files
+      find . -name Cargo.toml -exec sed -i '1i cargo-features = ["edition2024"]' {} \;
+      
+      # Add #![feature(doc_cfg)] to async_executors source
+      mkdir -p .cargo
+      echo '[build]' > .cargo/config.toml
+      echo 'rustflags = ["-Z", "allow-features=edition2024,doc_cfg"]' >> .cargo/config.toml
+      
+      # Try to find and patch async_executors
       find . -path "*async_executors*" -name "lib.rs" -exec sed -i '1i #![feature(doc_cfg)]' {} \;
     '';
 
+    # Dependency hashes
     cargoLock = {
       lockFile = src + "/Cargo.lock";
       outputHashes = {
@@ -42,6 +53,7 @@ in {
       };
     };
 
+    # System dependencies
     nativeBuildInputs = with super; [ pkg-config ];
     
     buildInputs = with super; [
