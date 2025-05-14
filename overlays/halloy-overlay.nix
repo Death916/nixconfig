@@ -1,6 +1,5 @@
 self: super:
 let
-  # Use latest nightly Rust with all required features
   rustNightly = super.rust-bin.nightly.latest.default.override {
     extensions = [ "rust-src" "rustc-dev" ];
   };
@@ -21,11 +20,13 @@ in {
     };
 
     RUSTC_BOOTSTRAP = 1;
-    RUSTFLAGS = "-Z allow-features=edition2024,doc_cfg,stdsimd,avx512_target_feature,stdarch_x86_avx512";
+    
+    # Use only valid modern features
+    RUSTFLAGS = "-Z allow-features=edition2024,avx512_target_feature,stdarch_x86_avx512";
 
     postPatch = ''
-      # Add required feature flags to all relevant crates
-      find . -name '*.rs' -exec sed -i '1i #![feature(stdsimd,avx512_target_feature,stdarch_x86_avx512)]' {} \;
+      # Remove stdsimd from feature flags
+      find . -name '*.rs' -exec sed -i 's/stdsimd,//g' {} \;
       
       # Add cargo-features to Cargo.toml files
       find . -name Cargo.toml -exec sh -c '
@@ -57,7 +58,7 @@ in {
       xorg.libXi
       xorg.libXrandr
       wayland
-      alsa-lib.dev  # Add this line to provide alsa.pc
+      alsa-lib.dev
     ];
 
     meta = with super.lib; {
