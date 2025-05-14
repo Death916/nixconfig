@@ -1,16 +1,4 @@
-self: super:
-let
-  # Create wrapper scripts as before
-  rustcWrapper = super.writeShellScriptBin "rustc" ''
-    exec ${super.rust-bin.nightly.latest.rustc}/bin/rustc --allow-features=edition2024 "$@"
-  '';
-  
-  cargoWrapper = super.writeShellScriptBin "cargo" ''
-    export RUSTC=${rustcWrapper}/bin/rustc
-    export RUSTC_BOOTSTRAP=1
-    exec ${super.rust-bin.nightly.latest.cargo}/bin/cargo "$@"
-  '';
-in {
+self: super: {
   halloy = super.stdenv.mkDerivation rec {
     pname = "halloy";
     version = "2025.5";
@@ -25,25 +13,19 @@ in {
     # Explicitly set the sourceRoot
     sourceRoot = "source";
     
+    # Use Rust 1.85 or newer which has stable edition2024 support
     nativeBuildInputs = with super; [
       pkg-config
-      rustcWrapper
-      cargoWrapper
-      rust-bin.nightly.latest.rustc
-      rust-bin.nightly.latest.cargo
+      (rust-bin.stable."1.85.0".default)
     ];
     
-    # Patch all Cargo.toml files
+    # No need to patch for edition2024 features as they're stable in 1.85
     postPatch = ''
-      # Add cargo-features to main Cargo.toml
-      find . -name Cargo.toml -exec sed -i '1i cargo-features = ["edition2024"]' {} \;
+      # Update Cargo.toml to use edition 2024
+      sed -i 's/edition = "2021"/edition = "2024"/' Cargo.toml
       
-      # Create .cargo/config.toml to enable edition2024
-      mkdir -p .cargo
-      cat > .cargo/config.toml << EOF
-      [unstable]
-      edition2024 = true
-      EOF
+      # Find and update edition in all subcrates
+      find . -name Cargo.toml -exec sed -i 's/edition = "2021"/edition = "2024"/' {} \;
     '';
     
     # Build with cargo
@@ -52,8 +34,7 @@ in {
       echo "Current directory: $(pwd)"
       ls -la
       
-      export RUSTC_BOOTSTRAP=1
-      export RUSTFLAGS="--allow-features=edition2024"
+      # Build the project
       cargo build --release
     '';
     
