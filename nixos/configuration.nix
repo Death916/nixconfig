@@ -8,7 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ../overlays/halloy-overlay.nix
+      
     ];
   nixpkgs.overlays = [
   (import ../overlays/halloy-overlay.nix)
