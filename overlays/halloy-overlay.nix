@@ -5,9 +5,13 @@ self: super: {
       owner = "squidowl";
       repo = "halloy";
       rev = "2025.5";
-      sha256 = "sha256-cG/B6oiRkyoC5fK7bLdCDQYZymfMZspWXvOkqpwHRPk="; # <--- Replace after first build
+      sha256 = "sha256-cG/B6oiRkyoC5fK7bLdCDQYZymfMZspWXvOkqpwHRPk=";
     };
-    # If the build fails due to Cargo.lock, you may also need to override cargoSha256:
-    cargoSha256 = "0000000000000000000000000000000000000000000000000000"; # Replace if needed
+    cargoDeps = oldAttrs.cargoDeps.overrideAttrs (lib.const {
+      name = "${pname}-${version}-vendor";
+      inherit src;
+      outputHash = "";
+    });
   });
 }
+
