@@ -57,6 +57,9 @@ in {
         # You will get an error for this placeholder.
         # Replace it with the actual hash provided in the error message.
         "dpi-0.1.1" = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+        "winit-0.29.15" = "sha256-hlVhlQ8MmIbNFNr6BM4edKdZbe+ixnPpKm819zauFLQ=";
+
+        "
       };
     };
 
