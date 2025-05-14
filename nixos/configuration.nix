@@ -8,7 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ../overlays/halloy-verlay.nix
+      ../overlays/halloy-overlay.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
