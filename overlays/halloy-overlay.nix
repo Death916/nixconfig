@@ -21,7 +21,7 @@ self: super: {
       outputHashes = {
         # These will need to be filled in iteratively
         "cryoglyph-0.1.0" = "";
-         "dark-light-2.0.0" = "";
+         "dark-light-2.0.0" = "sha256-e826vF7iSkGUqv65TXHBUX04Kz2aaJJEW9f7JsAMaXE=";
          "dpi-0.1.1" = "";
         "iced-0.14.0-dev" = "";
         # "winit-0.0.0" = "";
