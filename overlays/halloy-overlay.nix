@@ -24,13 +24,12 @@ in {
 
     # Patch Cargo.toml and source files
     postPatch = ''
-      # Add cargo-features for edition2024 only (not doc_cfg)
-      if ! grep -q 'cargo-features = \["edition2024"\]' Cargo.toml; then
-        sed -i '1i cargo-features = ["edition2024"]' Cargo.toml
-      fi
-      
-      # Find and patch all Cargo.toml files
-      find . -name Cargo.toml -exec sed -i '1i cargo-features = ["edition2024"]' {} \;
+      # Add cargo-features only if not present
+      find . -name Cargo.toml -exec sh -c '
+        if ! grep -q "cargo-features" {}; then
+          sed -i "1i cargo-features = [\"edition2024\"]" {}
+        fi
+      ' \;
       
       # Add #![feature(doc_cfg)] to async_executors source
       mkdir -p .cargo
@@ -47,32 +46,4 @@ in {
       outputHashes = {
         "cryoglyph-0.1.0" = "sha256-X7S9jq8wU6g1DDNEzOtP3lKWugDnpopPDBK49iWvD4o=";
         "dark-light-2.0.0" = "sha256-e826vF7iSkGUqv65TXHBUX04Kz2aaJJEW9f7JsAMaXE=";
-        "iced-0.14.0-dev" = "sha256-FEGk1zkXM9o+fGMoDtmi621G6pL+Yca9owJz4q2Lzks=";
-        "winit-0.30.8" = "sha256-hlVhlQ8MmIbNFNr6BM4edKdZbe+ixnPpKm819zauFLQ=";
-        "dpi-0.1.1" = "sha256-hlVhlQ8MmIbNFNr6BM4edKdZbe+ixnPpKm819zauFLQ=";
-      };
-    };
-
-    # System dependencies
-    nativeBuildInputs = with super; [ pkg-config ];
-    
-    buildInputs = with super; [
-      libxkbcommon
-      openssl
-      vulkan-loader
-      xorg.libX11
-      xorg.libXcursor
-      xorg.libXi
-      xorg.libXrandr
-      wayland
-    ];
-
-    meta = with super.lib; {
-      description = "Halloy IRC Client";
-      homepage = "https://github.com/squidowl/halloy";
-      license = licenses.gpl3Only;
-      platforms = platforms.linux;
-    };
-  };
-}
 
