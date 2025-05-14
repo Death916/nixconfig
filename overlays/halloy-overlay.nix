@@ -21,12 +21,12 @@ in {
 
     RUSTC_BOOTSTRAP = 1;
     
-    # Use only valid modern features
-    RUSTFLAGS = "-Z allow-features=edition2024,avx512_target_feature,stdarch_x86_avx512";
+    # Add doc_cfg to allowed features
+    RUSTFLAGS = "-Z allow-features=edition2024,avx512_target_feature,stdarch_x86_avx512,doc_cfg";
 
     postPatch = ''
-      # Remove stdsimd from feature flags
-      find . -name '*.rs' -exec sed -i 's/stdsimd,//g' {} \;
+      # Add feature flags to all relevant crates
+      find . -name '*.rs' -exec sed -i '1i #![feature(avx512_target_feature,stdarch_x86_avx512,doc_cfg)]' {} \;
       
       # Add cargo-features to Cargo.toml files
       find . -name Cargo.toml -exec sh -c '
@@ -58,7 +58,7 @@ in {
       xorg.libXi
       xorg.libXrandr
       wayland
-      alsa-lib.dev
+      alsa-lib.dev  # Updated from alsaLib.dev as mentioned in your query
     ];
 
     meta = with super.lib; {
