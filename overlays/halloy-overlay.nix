@@ -22,6 +22,7 @@ self: super: {
         # These will need to be filled in iteratively
         "cryoglyph-0.1.0" = "";
          "dark-light-2.0.0" = "";
+         "dpi-0.1.1" = "";
         # "iced-0.0.0" = "";
         # "winit-0.0.0" = "";
       };
