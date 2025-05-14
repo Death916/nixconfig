@@ -1,33 +1,37 @@
 self: super: {
-  halloy = super.rustPlatform.buildRustPackage {
+  halloy = super.rustPlatform.buildRustPackage rec {
     pname = "halloy";
     version = "2025.5";
     
+    # Use nightly Rust toolchain
+    cargo = super.rust-bin.nightly.latest.minimal;
+    rustc = self.cargo;
+
     src = super.fetchFromGitHub {
       owner = "squidowl";
-      repo = "halloy";
-      rev = "2025.5";
+      repo = pname;
+      rev = version;
       sha256 = "sha256-cG/B6oiRkyoC5fK7bLdCDQYZymfMZspWXvOkqpwHRPk=";
     };
-    
-    # Use cargoLock instead of cargoHash
+
+    # Add patch to enable edition2024
+    postPatch = ''
+      sed -i '1i cargo-features = ["edition2024"]' Cargo.toml
+    '';
+
     cargoLock = {
       lockFile = super.fetchurl {
-        url = "https://raw.githubusercontent.com/squidowl/halloy/2025.5/Cargo.lock";
-        sha256 = "sha256-s5e8T+ODhiK/fFH4lIs7SnIZX0unZPqsDIct5cntG8E="; # This will fail first, replace with actual hash
+        url = "https://raw.githubusercontent.com/squidowl/halloy/${version}/Cargo.lock";
+        sha256 = "sha256-s5e8T+ODhiK/fFH4lIs7SnIZX0unZPqsDIct5cntG8E=";
       };
       
-      # Add hashes for git dependencies
       outputHashes = {
-        # These will need to be filled in iteratively
-         "cryoglyph-0.1.0" = "sha256-X7S9jq8wU6g1DDNEzOtP3lKWugDnpopPDBK49iWvD4o=";
-         "dark-light-2.0.0" = "sha256-e826vF7iSkGUqv65TXHBUX04Kz2aaJJEW9f7JsAMaXE=";
-         "dpi-0.1.1" = "";
-         "iced-0.14.0-dev" = "sha256-FEGk1zkXM9o+fGMoDtmi621G6pL+Yca9owJz4q2Lzks=";
-        # "winit-0.0.0" = "";
+        "cryoglyph-0.1.0" = "sha256-X7S9jq8wU6g1DDNEzOtP3lKWugDnpopPDBK49iWvD4o=";
+        "dark-light-2.0.0" = "sha256-e826vF7iSkGUqv65TXHBUX04Kz2aaJJEW9f7JsAMaXE=";
+        "iced-0.14.0-dev" = "sha256-FEGk1zkXM9o+fGMoDtmi621G6pL+Yca9owJz4q2Lzks=";
       };
     };
-    
+
     nativeBuildInputs = with super; [ pkg-config ];
     
     buildInputs = with super; [
