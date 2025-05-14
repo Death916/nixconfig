@@ -47,7 +47,10 @@ in {
       };
     };
 
-    nativeBuildInputs = with super; [ pkg-config ];
+    nativeBuildInputs = with super; [ 
+      pkg-config 
+      makeWrapper
+    ];
     
     buildInputs = with super; [
       libxkbcommon
@@ -58,8 +61,20 @@ in {
       xorg.libXi
       xorg.libXrandr
       wayland
-      alsa-lib.dev  # Updated from alsaLib.dev as mentioned in your query
+      alsa-lib.dev
     ];
+    
+    # Add this postInstall phase to set up proper library paths
+    postInstall = ''
+      wrapProgram $out/bin/halloy \
+        --prefix LD_LIBRARY_PATH : ${super.lib.makeLibraryPath [
+          super.wayland
+          super.libxkbcommon
+          super.vulkan-loader
+          super.alsa-lib
+          super.openssl
+        ]}
+    '';
 
     meta = with super.lib; {
       description = "Halloy IRC Client";
