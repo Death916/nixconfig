@@ -57,7 +57,7 @@ in {
       xorg.libXi
       xorg.libXrandr
       wayland
-      alsaLib.dev  # Add this line to provide alsa.pc
+      alsa-lib.dev  # Add this line to provide alsa.pc
     ];
 
     meta = with super.lib; {
