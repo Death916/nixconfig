@@ -1,5 +1,5 @@
 self: super: {
-  halloy = super.stdenv.mkDerivation rec {
+  halloy = super.rustPlatform.buildRustPackage rec {
     pname = "halloy";
     version = "2025.5";
     
@@ -10,39 +10,26 @@ self: super: {
       sha256 = "sha256-cG/B6oiRkyoC5fK7bLdCDQYZymfMZspWXvOkqpwHRPk=";
     };
     
-    # Explicitly set the sourceRoot
-    sourceRoot = "source";
+    # Use Rust 1.85 which has stable edition2024 support
+    cargoToolchain = super.rust-bin.stable."1.85.0".default;
     
-    # Use Rust 1.85 or newer which has stable edition2024 support
-    nativeBuildInputs = with super; [
-      pkg-config
-      (rust-bin.stable."1.85.0".default)
-    ];
+    # Don't try to fetch dependencies during build
+    cargoLock = {
+      lockFile = src + "/Cargo.lock";
+      outputHashes = {
+        "cryoglyph-0.1.0" = "sha256-X7S9jq8wU6g1DDNEzOtP3lKWugDnpopPDBK49iWvD4o=";
+        "dark-light-2.0.0" = "sha256-e826vF7iSkGUqv65TXHBUX04Kz2aaJJEW9f7JsAMaXE=";
+        "iced-0.14.0-dev" = "sha256-FEGk1zkXM9o+fGMoDtmi621G6pL+Yca9owJz4q2Lzks=";
+        "dpi-0.1.1" = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Replace with actual hash
+      };
+    };
     
-    # No need to patch for edition2024 features as they're stable in 1.85
+    # Update edition in all Cargo.toml files
     postPatch = ''
-      # Update Cargo.toml to use edition 2024
-      sed -i 's/edition = "2021"/edition = "2024"/' Cargo.toml
-      
-      # Find and update edition in all subcrates
       find . -name Cargo.toml -exec sed -i 's/edition = "2021"/edition = "2024"/' {} \;
     '';
     
-    # Build with cargo
-    buildPhase = ''
-      # Make sure we're in the right directory
-      echo "Current directory: $(pwd)"
-      ls -la
-      
-      # Build the project
-      cargo build --release
-    '';
-    
-    # Install the binary
-    installPhase = ''
-      mkdir -p $out/bin
-      cp target/release/halloy $out/bin/
-    '';
+    nativeBuildInputs = with super; [ pkg-config ];
     
     buildInputs = with super; [
       libxkbcommon
