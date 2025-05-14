@@ -10,7 +10,9 @@
       ./hardware-configuration.nix
       ../overlays/halloy-overlay.nix
     ];
-
+  nixpkgs.overlays = [
+  (import ../overlays/halloy-overlay.nix)
+  ];
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
