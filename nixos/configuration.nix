@@ -8,7 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ../overlays/halloy-verlay.nix
+      ../overlays/halloy-overlay.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -82,7 +82,7 @@
   # };
 
 # my settings
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = ["nix-command" "flakes"];nix flak
   environment.systemPackages = with pkgs; [
     # Flakes clones its dependencies through the git command,
     # so git must be installed first
