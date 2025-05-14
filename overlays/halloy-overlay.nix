@@ -23,7 +23,7 @@ self: super: {
         "cryoglyph-0.1.0" = "";
          "dark-light-2.0.0" = "";
          "dpi-0.1.1" = "";
-        # "iced-0.0.0" = "";
+        "iced-0.14.0-dev" = "";
         # "winit-0.0.0" = "";
       };
     };
