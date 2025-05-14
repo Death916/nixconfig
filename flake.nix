@@ -25,7 +25,7 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, nixos-cosmic, rust-overlay, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, nixos-cosmic, rust-overlay, ... }:
     let
       # Common arguments to pass to all system configurations
       commonSpecialArgs = {
