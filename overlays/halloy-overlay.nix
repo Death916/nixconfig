@@ -13,47 +13,35 @@ self: super: {
     # Enable unstable features
     RUSTC_BOOTSTRAP = 1;
     
-    # Use the nightly Rust toolchain
+    # Use specific nightly version that supports edition2024
     nativeBuildInputs = with super; [ 
       pkg-config 
-      (super.rust-bin.nightly.latest.default.override {
+      (rust-bin.selectLatestNightlyWith (toolchain: toolchain.default.override {
         extensions = [ "rust-src" ];
-      })
+      }))
     ];
     
-    # Patch all Cargo.toml files to add cargo-features
+    # Comprehensive patch for all dependencies
     postPatch = ''
       # Add cargo-features to main Cargo.toml
       sed -i '1i cargo-features = ["edition2024"]' Cargo.toml
       
-      # Create a patch for the dependencies
+      # Patch all dependency Cargo.toml files
+      find . -name Cargo.toml -exec sed -i '1i cargo-features = ["edition2024"]' {} \;
+      
+      # Configure Cargo to allow unstable features
       mkdir -p .cargo
       cat > .cargo/config.toml << EOF
       [unstable]
       edition2024 = true
+      [build]
+      rustflags = ["-Zallow-features=edition2024"]
       EOF
     '';
     
-    # Patch for cryoglyph dependency
-    cargoPatches = [
-      (super.writeTextFile {
-        name = "add-cargo-features-patch";
-        destination = "/cargo-features-patch";
-        text = ''
-          diff --git a/Cargo.toml b/Cargo.toml
-          index 1111111..2222222 100644
-          --- a/Cargo.toml
-          +++ b/Cargo.toml
-          @@ -0,0 +1 @@
-          +cargo-features = ["edition2024"]
-          
-        '';
-      })
-    ];
-    
-    # Apply patch to dependencies during build
+    # Explicitly allow edition2024 features
     preBuild = ''
-      export RUSTFLAGS="-Z allow-features=edition2024"
+      export RUSTFLAGS="-Zallow-features=edition2024"
     '';
 
     cargoLock = {
@@ -66,7 +54,7 @@ self: super: {
         "cryoglyph-0.1.0" = "sha256-X7S9jq8wU6g1DDNEzOtP3lKWugDnpopPDBK49iWvD4o=";
         "dark-light-2.0.0" = "sha256-e826vF7iSkGUqv65TXHBUX04Kz2aaJJEW9f7JsAMaXE=";
         "iced-0.14.0-dev" = "sha256-FEGk1zkXM9o+fGMoDtmi621G6pL+Yca9owJz4q2Lzks=";
-        "dpi-0.1.1" = "";
+        "dpi-0.1.1" = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Temporary placeholder
       };
     };
     
