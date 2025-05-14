@@ -3,10 +3,6 @@ self: super: {
     pname = "halloy";
     version = "2025.5";
     
-    # Use nightly Rust toolchain
-    cargo = super.rust-bin.nightly.latest.minimal;
-    rustc = self.cargo;
-
     src = super.fetchFromGitHub {
       owner = "squidowl";
       repo = pname;
@@ -14,11 +10,9 @@ self: super: {
       sha256 = "sha256-cG/B6oiRkyoC5fK7bLdCDQYZymfMZspWXvOkqpwHRPk=";
     };
 
-    # Add patch to enable edition2024
-    postPatch = ''
-      sed -i '1i cargo-features = ["edition2024"]' Cargo.toml
-    '';
-
+    # Skip the edition2024 check
+    RUSTC_BOOTSTRAP = 1;
+    
     cargoLock = {
       lockFile = super.fetchurl {
         url = "https://raw.githubusercontent.com/squidowl/halloy/${version}/Cargo.lock";
