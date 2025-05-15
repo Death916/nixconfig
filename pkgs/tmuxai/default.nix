@@ -6,7 +6,7 @@
 , makeWrapper
 , glibc
 # We don't need to list tmux here because the --version flag should avoid calling it.
-# If the program *insisted* on tmux even for --version, we'd need to wrap it.
+# If the program *insisted* on tmux even for --version, we'd need to wrap it
 }:
 
 stdenv.mkDerivation rec {
