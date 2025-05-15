@@ -5,6 +5,8 @@
 , autoPatchelfHook
 , makeWrapper
 , glibc
+# We don't need to list tmux here because the --version flag should avoid calling it.
+# If the program *insisted* on tmux even for --version, we'd need to wrap it.
 }:
 
 stdenv.mkDerivation rec {
@@ -17,11 +19,11 @@ stdenv.mkDerivation rec {
                   "tmuxai_Linux_arm64.tar.gz"
                 else throw "Unsupported platform for tmuxai precompiled binary: ${stdenv.hostPlatform.system}";
 
-  # These MUST be the SRI formatted hashes obtained from nix-prefetch-url
+  # Use the SRI formatted hashes
   srcHash = if stdenv.isLinux && stdenv.hostPlatform.isx86_64 then
-              "sha256-kWs5Cig9QV+dMD/XBcwWJALtBx1hbb52IOpoO0nCik4=" # SRI for Linux amd64
+              "sha256-kWs5Cig9QV+dMD/XBcwWJA congenial/Bq29hA6mhzSciko=" # Your provided correct SRI hash
             else if stdenv.isLinux && stdenv.hostPlatform.isAarch64 then
-              "sha256-WHcM8fmbrfBjXn+a0F+Md3lJVfSApSjpPoBq80VRUs=" # SRI for Linux arm64
+              "sha256-WHcM8fmbrfBjXn+a0F+Md3lJVfSApSjpPoBq80VRUs=" # SRI for Linux arm64 (example)
             else throw "Unsupported platform for tmuxai precompiled binary hash: ${stdenv.hostPlatform.system}";
 
   srcFetching = fetchurl {
@@ -31,7 +33,7 @@ stdenv.mkDerivation rec {
 
   src = srcFetching;
 
-  sourceRoot = "."; # The binary is directly in the archive after extraction
+  sourceRoot = ".";
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -57,23 +59,28 @@ stdenv.mkDerivation rec {
   installCheckPhase = ''
     runHook preInstallCheck
     echo "--- Starting installCheckPhase ---"
-    export HOME=$(mktemp -d)
+    export HOME=$(mktemp -d) # For logger, though --version should exit before full init
     echo "Set temporary HOME to $HOME for install check."
 
-    echo "Attempting to run: $out/bin/tmuxai version"
-    # Try to capture output and exit code separately
-    VERSION_OUTPUT=$($out/bin/tmuxai version 2>&1)
+    # Use --version flag which should exit before main tmux-dependent logic
+    echo "Attempting to run: $out/bin/tmuxai --version"
+    VERSION_OUTPUT=$($out/bin/tmuxai --version 2>&1) # <--- CHANGED to --version
     EXIT_CODE=$?
-    echo "EXIT_CODE of 'tmuxai version': $EXIT_CODE"
-    echo "OUTPUT of 'tmuxai version':"
+    echo "EXIT_CODE of 'tmuxai --version': $EXIT_CODE"
+    echo "OUTPUT of 'tmuxai --version':"
     echo "$VERSION_OUTPUT"
-    echo "--- End of 'tmuxai version' output ---"
+    echo "--- End of 'tmuxai --version' output ---"
 
     if [ "$EXIT_CODE" -ne 0 ]; then
-      echo "Error: 'tmuxai version' exited with code $EXIT_CODE."
+      echo "Error: 'tmuxai --version' exited with code $EXIT_CODE."
       exit 1
     fi
 
+    # The output of `tmuxai --version` is:
+    # tmuxai version: vX.Y.Z
+    # commit: <hash>
+    # build date: <date>
+    # So we grep for the first line.
     echo "$VERSION_OUTPUT" | grep "tmuxai version: v${version}"
     if [ $? -ne 0 ]; then
       echo "Error: Version string 'tmuxai version: v${version}' not found in output."
