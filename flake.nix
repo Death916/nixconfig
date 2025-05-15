@@ -4,6 +4,8 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable"; # Added for Home Assistant
+
     nixos-cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -18,35 +20,54 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, nixos-cosmic, rust-overlay, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager, nixos-cosmic, rust-overlay, ... }:
     let
       system = "x86_64-linux";
+      hmLib = home-manager.lib;
 
-      # Define hmLib once
-      hmLib = home-manager.lib; # <--- Define hmLib here
-
-      commonSpecialArgs = {
-        inherit inputs system;
-        # No need to pass hmLib here for NixOS modules unless they also directly use it.
-        # We will pass it to Home Manager's own extraSpecialArgs.
-      };
-
-      pkgsWithOverlays = import nixpkgs {
+      # pkgs for the 'nixos' (laptop) configuration
+      pkgsForLaptop = import nixpkgs {
         inherit system;
         overlays = [
           rust-overlay.overlays.default
-          (import ./overlays/halloy-overlay.nix)
+          (import ./overlays/halloy-overlay.nix) # Assuming this overlay is general
         ];
+        config = { # Global config for laptop pkgs
+          allowUnfree = true; # Example, add if needed
+        };
       };
+
+      # pkgs for the 'homelab' configuration (main system pkgs)
+      pkgsForHomelab = import nixpkgs { # Using the stable nixpkgs for homelab base
+        inherit system;
+        overlays = [
+          rust-overlay.overlays.default
+          (import ./overlays/halloy-overlay.nix) # Assuming this overlay is general
+        ];
+        config = { # Global config for homelab pkgs
+          allowUnfree = true; # Example, add if needed
+        };
+      };
+
+      # Unstable pkgs specifically for Home Assistant on homelab
+      pkgsUnstableForHA = import nixpkgs-unstable {
+        inherit system;
+        config = { # Global config for unstable pkgs
+          allowUnfree = true; # Example
+          # If HA from unstable needs OpenSSL 1.1
+          permittedInsecurePackages = [ "openssl-1.1.1w" ];
+        };
+      };
+
     in
   {
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = commonSpecialArgs;
+        specialArgs = { inherit inputs system; }; # pkgs will be set via module below
         modules = [
           {
-            nixpkgs.pkgs = pkgsWithOverlays;
+            nixpkgs.pkgs = pkgsForLaptop; # Use the pkgs definition with overlays for 'nixos'
             nix.settings = {
               substituters = [ "https://cosmic.cachix.org/" ];
               trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
@@ -54,12 +75,11 @@
           }
           nixos-cosmic.nixosModules.default
           ./nixos/configuration.nix
-
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit hmLib; }; # <--- PASS hmLib HERE
+            home-manager.extraSpecialArgs = { inherit hmLib; };
             home-manager.users.death916 = {
               imports = [ ./home-manager/home.nix ];
             };
@@ -69,16 +89,20 @@
 
       homelab = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = commonSpecialArgs;
+        # Pass the unstable pkgs set for HA to the homelab configuration
+        specialArgs = { inherit inputs system; unstablePkgsHA = pkgsUnstableForHA; };
         modules = [
-          { nixpkgs.pkgs = pkgsWithOverlays; }
-          ./nixos/homelab.nix
+          { nixpkgs.pkgs = pkgsForHomelab; } # Use the base pkgs definition for 'homelab'
+          # Import the unstable Home Assistant module
+          "${pkgsUnstableForHA.path}/nixos/modules/services/home-automation/home-assistant.nix"
+          ./nixos/homelab.nix # Your main homelab config
           ./nixos/hardware-homelab.nix
+          ./modules/home-assistant.nix # Your HA configuration module
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit hmLib; }; # <--- ALSO PASS hmLib HERE if needed for homelab's HM config
+            home-manager.extraSpecialArgs = { inherit hmLib; };
             home-manager.users.death916 = {
               imports = [ ./home-manager/death916-homelab.nix ];
             };
