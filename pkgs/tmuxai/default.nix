@@ -19,9 +19,9 @@ stdenv.mkDerivation rec {
 
   # These MUST be the SRI formatted hashes obtained from nix-prefetch-url
   srcHash = if stdenv.isLinux && stdenv.hostPlatform.isx86_64 then
-              "sha256-kWs5Cig9QV+dMD/XBcwWJALtBx1hbb52IOpoO0nCik4=" # Example SRI for Linux amd64
+              "sha256-kWs5Cig9QV+dMD/XBcwWJA congenial/Bq29hA6mhzSciko=" # SRI for Linux amd64
             else if stdenv.isLinux && stdenv.hostPlatform.isAarch64 then
-              "sha256-WHcM8fmbrfBjXn+a0F+Md3lJVfSApSjpPoBq80VRUs=" # Example SRI for Linux arm64
+              "sha256-WHcM8fmbrfBjXn+a0F+Md3lJVfSApSjpPoBq80VRUs=" # SRI for Linux arm64
             else throw "Unsupported platform for tmuxai precompiled binary hash: ${stdenv.hostPlatform.system}";
 
   srcFetching = fetchurl {
@@ -51,13 +51,23 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
   dontBuild = true;
-  dontCheck = true;
-  doCheck = false;
+  dontCheck = true; # No Go tests to run on a pre-compiled binary
+  doCheck = false;   # No Go tests to run on a pre-compiled binary
 
+  # Test phase: check if the binary runs and prints version
   installCheckPhase = ''
     runHook preInstallCheck
     echo "Checking installed tmuxai version..."
+    # Create a temporary, writable HOME directory for the check phase
+    export HOME=$(mktemp -d)
+    echo "Set temporary HOME to $HOME for install check"
     $out/bin/tmuxai version | grep "tmuxai version: v${version}"
+    if [ $? -ne 0 ]; then
+      echo "Version check failed!"
+      $out/bin/tmuxai version # Print actual output for debugging
+      exit 1
+    fi
+    echo "Version check passed."
     runHook postInstallCheck
   '';
   doInstallCheck = true;
