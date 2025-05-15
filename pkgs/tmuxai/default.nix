@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   srcHash = if stdenv.isLinux && stdenv.hostPlatform.isx86_64 then
               "sha256-0klaq94kns7a41vbwvb13l3ys0i42v60bmrz62fmyh9x5053jswi"
             else if stdenv.isLinux && stdenv.hostPlatform.isAarch64 then
-              "sha256-58770cf1f98badf0635e7f9ad05fbe31dde52557d20294a3a4fa01abcd1554eb"
+              "sha256-kWs5Cig9QV+dMD/XBcwWJALtBx1hbb52IOpoO0nCik4="
             else throw "Unsupported platform for tmuxai precompiled binary hash: ${stdenv.hostPlatform.system}";
 
   # Define `srcFetching` for clarity, to be used in `sourceProvenance`
