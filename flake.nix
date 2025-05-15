@@ -1,85 +1,90 @@
-# flake.nix
+# ~/Documents/nix-config/flake.nix
 {
   description = "NixOS configurations for laptop and homelab server";
 
   inputs = {
-    # Main Nixpkgs
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11"; # Or your preferred branch
-
-    # COSMIC Desktop for laptop
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixos-cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # Home Manager
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11"; # Or your preferred branch
+      url = "github:nix-community/home-manager/release-24.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, nixos-cosmic, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, nixos-cosmic, rust-overlay, ... }:
     let
-      # Common arguments to pass to all system configurations
+      system = "x86_64-linux";
+
+      # Define hmLib once
+      hmLib = home-manager.lib; # <--- Define hmLib here
+
       commonSpecialArgs = {
-        inherit inputs;
+        inherit inputs system;
+        # No need to pass hmLib here for NixOS modules unless they also directly use it.
+        # We will pass it to Home Manager's own extraSpecialArgs.
+      };
+
+      pkgsWithOverlays = import nixpkgs {
+        inherit system;
+        overlays = [
+          rust-overlay.overlays.default
+          (import ./overlays/halloy-overlay.nix)
+        ];
       };
     in
   {
     nixosConfigurations = {
-      # Laptop configuration (assuming it's named 'nixos' or your laptop's actual hostname)
       nixos = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux"; # Specify your laptop's architecture
+        inherit system;
         specialArgs = commonSpecialArgs;
         modules = [
-          { # COSMIC-specific Cachix settings for the laptop
+          {
+            nixpkgs.pkgs = pkgsWithOverlays;
             nix.settings = {
               substituters = [ "https://cosmic.cachix.org/" ];
               trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
             };
           }
-          nixos-cosmic.nixosModules.default # COSMIC Desktop Environment for laptop
-          ./nixos/configuration.nix         # Your existing laptop NixOS configuration
-          # Add any custom modules from ./modules for the laptop here
-          # e.g., ./modules/laptop-specific.nix
+          nixos-cosmic.nixosModules.default
+          ./nixos/configuration.nix
 
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = { inherit hmLib; }; # <--- PASS hmLib HERE
             home-manager.users.death916 = {
-              imports = [ ./home-manager/home.nix ]; # Laptop Home Manager config for death916
+              imports = [ ./home-manager/home.nix ];
             };
           }
         ];
       };
 
-      # Homelab Server configuration
       homelab = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux"; # Specify your server's architecture
+        inherit system;
         specialArgs = commonSpecialArgs;
         modules = [
-          ./nixos/homelab.nix # Homelab server's main NixOS configuration
-          ./nixos/hardware-homelab.nix #hardware
-          # Add any custom modules from ./modules for the homelab server here
-          # e.g., ./modules/server-common.nix
-
+          { nixpkgs.pkgs = pkgsWithOverlays; }
+          ./nixos/homelab.nix
+          ./nixos/hardware-homelab.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = { inherit hmLib; }; # <--- ALSO PASS hmLib HERE if needed for homelab's HM config
             home-manager.users.death916 = {
-              imports = [ ./home-manager/death916-homelab.nix ]; # Homelab Home Manager config for death916
+              imports = [ ./home-manager/death916-homelab.nix ];
             };
           }
         ];
       };
     };
-
-    # If you have global overlays from ./overlays:
-    # nixpkgs.overlays = [
-    #   (import ./overlays/my-global-overlay.nix)
-    # ];
   };
 }
