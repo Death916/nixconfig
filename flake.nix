@@ -94,7 +94,7 @@
         modules = [
           { nixpkgs.pkgs = pkgsForHomelab; } # Use the base pkgs definition for 'homelab'
           # Import the unstable Home Assistant module
-          "${pkgsUnstableForHA.path}/nixos/modules/services/home-automation/home-assistant.nix"
+         
           ./nixos/homelab.nix # Your main homelab config
           ./nixos/hardware-homelab.nix
           ./modules/home-assistant.nix # Your HA configuration module
