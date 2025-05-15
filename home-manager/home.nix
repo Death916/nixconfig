@@ -1,14 +1,14 @@
 # ~/Documents/nix-config/home-manager/home.nix
-{ config, pkgs, lib, ... }: # lib here is from nixpkgs, config.lib should be from Home Manager
+{ config, pkgs, lib, ... }:
 
 let
-  # --- DEBUGGING TRACE STATEMENTS ---
-  _ = builtins.trace "\n--- Debugging Home Manager Libs ---" null;
-  _ = builtins.trace "Attributes in top-level lib: ${builtins.toString (builtins.attrNames lib)}" null;
-  _ = builtins.trace "Is mkOutOfStoreSymlink in top-level lib? ${toString (builtins.hasAttr "mkOutOfStoreSymlink" lib)}" null;
-  _ = builtins.trace "Attributes in config.lib: ${builtins.toString (builtins.attrNames config.lib)}" null;
-  _ = builtins.trace "Is mkOutOfStoreSymlink in config.lib? ${toString (builtins.hasAttr "mkOutOfStoreSymlink" config.lib)}" null;
-  _ = builtins.trace "--- End Debugging Home Manager Libs ---\n" null;
+  # --- DEBUGGING TRACE STATEMENTS (with unique assignments) ---
+  traceStart = builtins.trace "\n--- Debugging Home Manager Libs ---" null;
+  traceTopLevelLibAttrs = builtins.trace "Attributes in top-level lib: ${builtins.toString (builtins.attrNames lib)}" traceStart;
+  traceTopLevelLibHasFunc = builtins.trace "Is mkOutOfStoreSymlink in top-level lib? ${toString (builtins.hasAttr "mkOutOfStoreSymlink" lib)}" traceTopLevelLibAttrs;
+  traceConfigLibAttrs = builtins.trace "Attributes in config.lib: ${builtins.toString (builtins.attrNames config.lib)}" traceTopLevelLibHasFunc;
+  traceConfigLibHasFunc = builtins.trace "Is mkOutOfStoreSymlink in config.lib? ${toString (builtins.hasAttr "mkOutOfStoreSymlink" config.lib)}" traceConfigLibAttrs;
+  traceEnd = builtins.trace "--- End Debugging Home Manager Libs ---\n" traceConfigLibHasFunc;
   # --- END DEBUGGING ---
 
   # Path to the directory containing the tmuxai package's default.nix
@@ -23,6 +23,13 @@ let
   tmuxaiConfigTemplatePath = ../pkgs/tmuxai/tmuxai-config.yaml;
 in
 {
+  # This ensures the trace statements are evaluated before this block
+  # You can also remove this if the trace statements work without it,
+  # as their assignment in the let block should be enough.
+  # However, this makes it explicit.
+  _ = traceEnd;
+
+
   home.username = "death916";
   home.homeDirectory = "/home/death916";
 
@@ -129,7 +136,6 @@ in
   };
 
   xdg.configFile."tmuxai/config.yaml" = {
-    # Using config.lib as it's the standard way Home Manager provides its lib
     source = config.lib.mkOutOfStoreSymlink tmuxaiConfigTemplatePath;
   };
 
