@@ -13,9 +13,7 @@
     userEmail = "mail@trentnelson.dev";
     extraConfig = {
     credential.helper = "store";
-    }
-
-  };
+    };
 
   # Server-specific tools or dotfiles for death916
   programs.tmux.enable = true; # Example from your repo image
