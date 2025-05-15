@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
   # For Linux x86_64:
   srcFilename = "${pname}_Linux_amd64.tar.gz";
-  srcHash = "sha256-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx="; # <-- TODO: GET HASH for tmuxai_Linux_amd64.tar.gz v1.0.3
+  srcHash = "sha256-58770cf1f98badf0635e7f9ad05fbe31dde52557d20294a3a4fa01abcd1554eb"; # <-- TODO: GET HASH for tmuxai_Linux_amd64.tar.gz v1.0.3
 
   # For Linux aarch64 (if you need it):
   # srcFilename = if stdenv.hostPlatform.system == "aarch64-linux"
