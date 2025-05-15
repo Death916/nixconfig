@@ -1,10 +1,9 @@
 # ~/Documents/nix-config/home-manager/home.nix
-{ config, pkgs, lib, ... }: # lib here is nixpkgs.lib, config.lib should be hm.lib
+{ config, pkgs, lib, hmLib, ... }: # Add hmLib to the function arguments
 
 let
-  # --- DEBUGGING TRACE STATEMENTS ---
-  debugLibTrace = builtins.trace "\n--- Debug Libs (home.nix) ---\nconfig.lib keys: ${builtins.toString (lib.attrNames config.lib)}\nhas mkOutOfStoreSymlink in config.lib: ${toString (lib.hasAttr "mkOutOfStoreSymlink" config.lib)}\n--- End Debug ---\n" null;
-  _forceDebugEvaluation = debugLibTrace; # Ensure trace is evaluated
+  # Remove or comment out previous trace statements if they were causing issues
+  # or if this new approach works.
 
   tmuxaiPackageDir = ../pkgs/tmuxai;
   tmuxai-pkg = pkgs.callPackage tmuxaiPackageDir {};
@@ -117,8 +116,8 @@ in
   };
 
   xdg.configFile."tmuxai/config.yaml" = {
-    # Using config.lib, which is the standard Home Manager way
-    source = config.lib.mkOutOfStoreSymlink tmuxaiConfigTemplatePath;
+    # Use the explicitly passed hmLib
+    source = hmLib.mkOutOfStoreSymlink tmuxaiConfigTemplatePath; # <--- USING hmLib
   };
 
   home.sessionVariables = {
