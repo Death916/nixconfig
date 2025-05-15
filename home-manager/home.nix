@@ -2,22 +2,17 @@
 { config, pkgs, lib, ... }: # Use THIS `lib` for mkOutOfStoreSymlink
 
 let
-  # --- DEBUGGING TRACE STATEMENTS (Keep these for now) ---
-  _ = builtins.trace "\n--- Debugging Home Manager Libs (home.nix LET block) ---" null;
-  _ = builtins.trace "Attributes in top-level lib: ${builtins.toString (builtins.attrNames lib)}" null;
-  _ = builtins.trace "Is mkOutOfStoreSymlink in top-level lib? ${toString (builtins.hasAttr "mkOutOfStoreSymlink" lib)}" null;
-  _ = builtins.trace "Attributes in config.lib: ${builtins.toString (builtins.attrNames config.lib)}" null;
-  _ = builtins.trace "Is mkOutOfStoreSymlink in config.lib? ${toString (builtins.hasAttr "mkOutOfStoreSymlink" config.lib)}" null;
-  _ = builtins.trace "--- End Debugging Home Manager Libs ---\n" null;
-  # --- END DEBUGGING ---
-
+  # Path to the directory containing the tmuxai package's default.nix
   tmuxaiPackageDir = ../pkgs/tmuxai;
-  tmuxai-pkg = pkgs.callPackage tmuxaiPackageDir {};
-  tmuxaiConfigTemplatePath = ../pkgs/tmuxai/tmuxai-config.yaml;
+
+  tmuxai-pkg = pkgs.callPackage tmuxaiPackageDir {
+    # Arguments for the new derivation (like glibc) will be picked from pkgs automatically by callPackage
+  };
+
+  # Path to your tmuxai configuration template
+  tmuxaiConfigTemplatePath = ~/.config/tmuxai/tmuxai-config.yaml;
 in
 {
-  _ = tmuxai-pkg; # Ensures let block (and traces) are evaluated
-
   home.username = "death916";
   home.homeDirectory = "/home/death916";
 
@@ -124,8 +119,7 @@ in
   };
 
   xdg.configFile."tmuxai/config.yaml" = {
-    # Using the top-level `lib` passed to this module
-    source = lib.mkOutOfStoreSymlink tmuxaiConfigTemplatePath;
+    source = lib.mkOutOfStoreSymlink tmuxaiConfigTemplatePath; # Uses the top-level lib
   };
 
   home.sessionVariables = {
