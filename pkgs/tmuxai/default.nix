@@ -23,10 +23,14 @@ stdenv.mkDerivation rec {
               "sha256-58770cf1f98badf0635e7f9ad05fbe31dde52557d20294a3a4fa01abcd1554eb"
             else throw "Unsupported platform for tmuxai precompiled binary hash: ${stdenv.hostPlatform.system}";
 
-  src = fetchurl {
+  # Define `srcFetching` for clarity, to be used in `sourceProvenance`
+  srcFetching = fetchurl {
     url = "https://github.com/alvinunreal/tmuxai/releases/download/v${version}/${srcFilename}";
     hash = srcHash;
   };
+
+  # `src` attribute is still needed by mkDerivation for the actual source path
+  src = srcFetching;
 
   sourceRoot = ".";
 
@@ -71,9 +75,25 @@ stdenv.mkDerivation rec {
     license = licenses.asl20;
     maintainers = with maintainers; [ "death916" ];
     platforms = platforms.linux ++ platforms.darwin;
-    # Correct way to specify provenance for a binary fetched with fetchurl
-    sourceProvenance = [ src ]; # <--- CORRECTED
-    # If you wanted to be more explicit with the type (less common for simple fetchurl binaries):
-    # sourceProvenance = [ (lib.sourceTypes.binaryNativeCode // { inherit (src) urls meta; }) ];
+
+    # Correctly specify source provenance for a pre-compiled binary
+    sourceProvenance = [
+      (sourceTypes.binaryNativeCode // {
+        # We need to provide the 'urls' and 'sha256' (or 'hash') attributes
+        # that sourceTypes.binaryNativeCode might expect for its own validation,
+        # or that check-meta might look for.
+        # We can take these directly from our `srcFetching` attributes.
+        urls = srcFetching.urls or null; # fetchurl provides `urls` as a list
+        # The hash from fetchurl is already in the correct format.
+        # `fetchurl` result has `outputHash` and `outputHashAlgo`.
+        # `check-meta` often looks for `sha256` or `hash`.
+        # Let's provide what `srcFetching` has.
+        hash = srcFetching.outputHash; # Or just `srcFetching.hash` if that's how you defined it.
+                                       # `fetchurl` sets `outputHash` and `outputHashAlgo`.
+        # It might also look for `name` if not an actual derivation.
+        # Let's use the `name` from `srcFetching` which is usually the filename part of the URL.
+        name = srcFetching.name;
+      })
+    ]; # <--- CORRECTED
   };
 }
