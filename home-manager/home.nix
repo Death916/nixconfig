@@ -1,16 +1,22 @@
 # ~/Documents/nix-config/home-manager/home.nix
-{ config, pkgs, lib, ... }: # These arguments are provided by Home Manager
+{ config, pkgs, lib, ... }: # lib here is from nixpkgs, config.lib should be from Home Manager
 
 let
+  # --- DEBUGGING TRACE STATEMENTS ---
+  _ = builtins.trace "\n--- Debugging Home Manager Libs ---" null;
+  _ = builtins.trace "Attributes in top-level lib: ${builtins.toString (builtins.attrNames lib)}" null;
+  _ = builtins.trace "Is mkOutOfStoreSymlink in top-level lib? ${toString (builtins.hasAttr "mkOutOfStoreSymlink" lib)}" null;
+  _ = builtins.trace "Attributes in config.lib: ${builtins.toString (builtins.attrNames config.lib)}" null;
+  _ = builtins.trace "Is mkOutOfStoreSymlink in config.lib? ${toString (builtins.hasAttr "mkOutOfStoreSymlink" config.lib)}" null;
+  _ = builtins.trace "--- End Debugging Home Manager Libs ---\n" null;
+  # --- END DEBUGGING ---
+
   # Path to the directory containing the tmuxai package's default.nix
-  # This path is relative to THIS home.nix file.
-  # From home-manager/ up to nix-config/, then down into pkgs/tmuxai/
   tmuxaiPackageDir = ../pkgs/tmuxai;
 
-  # Let pkgs.callPackage handle the import and argument passing for the derivation
   tmuxai-pkg = pkgs.callPackage tmuxaiPackageDir {
-    # No explicit arguments like `cacert` needed here,
-    # pkgs.callPackage will find `cacert = pkgs.cacert` automatically.
+    # No explicit arguments needed here if default.nix now expects `cacert`,
+    # as pkgs.callPackage will automatically provide pkgs.cacert.
   };
 
   # Path to your tmuxai configuration template
@@ -26,7 +32,6 @@ in
   };
 
   home.packages = with pkgs; [
-    # ... (your other packages from before) ...
     fastfetch
     nnn
     zip
@@ -70,11 +75,9 @@ in
     usbutils
     waveterm
     halloy
-    tmux # tmuxai needs this
+    tmux
     nextcloud-client
     (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
-
-    # Add the tmuxai package
     tmuxai-pkg
   ];
 
@@ -125,16 +128,13 @@ in
     };
   };
 
-  # tmuxai configuration file
   xdg.configFile."tmuxai/config.yaml" = {
-    # Use the `lib` passed to this module, which includes Home Manager's helpers
-    source = lib.mkOutOfStoreSymlink tmuxaiConfigTemplatePath;
+    # Using config.lib as it's the standard way Home Manager provides its lib
+    source = config.lib.mkOutOfStoreSymlink tmuxaiConfigTemplatePath;
   };
 
-  # Environment variables for tmuxai (e.g., API key)
-  # Manage secrets securely!
   home.sessionVariables = {
-    # TMUXAI_OPENROUTER_API_KEY = "your-secret-key-here";
+    # TMUXAI_OPENROUTER_API_KEY = "your-secret-key"; # Manage securely
   };
 
   home.stateVersion = "24.11";
