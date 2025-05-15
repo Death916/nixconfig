@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 
   # Use the SRI formatted hashes
   srcHash = if stdenv.isLinux && stdenv.hostPlatform.isx86_64 then
-              "sha256-kWs5Cig9QV+dMD/XBcwWJA congenial/Bq29hA6mhzSciko=" # Your provided correct SRI hash
+              "sha256-kWs5Cig9QV+dMD/XBcwWJALtBx1hbb52IOpoO0nCik4=" # Your provided correct SRI hash
             else if stdenv.isLinux && stdenv.hostPlatform.isAarch64 then
               "sha256-WHcM8fmbrfBjXn+a0F+Md3lJVfSApSjpPoBq80VRUs=" # SRI for Linux arm64 (example)
             else throw "Unsupported platform for tmuxai precompiled binary hash: ${stdenv.hostPlatform.system}";
