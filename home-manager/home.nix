@@ -10,7 +10,7 @@ let
   };
 
   # Path to your tmuxai configuration template
-  tmuxaiConfigTemplatePath = ~/.config/tmuxai/tmuxai-config.yaml;
+  tmuxaiConfigTemplatePath = /home/death916/.config/tmuxai/tmuxai-config.yaml;
 in
 {
   home.username = "death916";
