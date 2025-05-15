@@ -1,10 +1,10 @@
 # ~/Documents/nix-config/home-manager/home.nix
-{ config, pkgs, lib, hmLib, ... }: # hmLib is now an argument from extraSpecialArgs
+{ config, pkgs, lib, hmLib, ... }: # hmLib is still passed, but we won't use it for config file
 
 let
   tmuxaiPackageDir = ../pkgs/tmuxai;
   tmuxai-pkg = pkgs.callPackage tmuxaiPackageDir {};
-  tmuxaiConfigTemplatePath = ../pkgs/tmuxai/tmuxai-config.yaml;
+  # tmuxaiConfigTemplatePath = ../pkgs/tmuxai/tmuxai-config.yaml; # Not used for now
 in
 {
   home.username = "death916";
@@ -62,7 +62,7 @@ in
     tmux
     nextcloud-client
     (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
-    tmuxai-pkg
+    tmuxai-pkg # Just install the package
   ];
 
   programs.git = {
@@ -112,10 +112,10 @@ in
     };
   };
 
-  xdg.configFile."tmuxai/config.yaml" = {
-    # Use the explicitly passed hmLib
-    source = hmLib.mkOutOfStoreSymlink tmuxaiConfigTemplatePath; # <--- USING hmLib
-  };
+  # --- TMUXAI CONFIGURATION REMOVED FOR NOW ---
+  # xdg.configFile."tmuxai/config.yaml" = {
+  #   source = hmLib.mkOutOfStoreSymlink tmuxaiConfigTemplatePath;
+  # };
 
   home.sessionVariables = {
     # TMUXAI_OPENROUTER_API_KEY = "your-secret-key"; # Manage securely
