@@ -11,7 +11,7 @@
     # e.g., (../modules/common-settings.nix)
   ];
   arrSuite.enable = true;
-  nixpkgs.config.allowUnfree = true;
+#  nixpkgs.config.allowUnfree = true;
   boot.loader.systemd-boot.enable = true; # Or grub, as appropriate for your server
   boot.loader.efi.canTouchEfiVariables = true;
 
