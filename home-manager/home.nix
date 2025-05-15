@@ -1,35 +1,18 @@
 # ~/Documents/nix-config/home-manager/home.nix
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, ... }: # Use THIS `lib` for mkOutOfStoreSymlink
 
 let
-  # --- DEBUGGING TRACE STATEMENTS (with unique assignments) ---
-  traceStart = builtins.trace "\n--- Debugging Home Manager Libs ---" null;
-  traceTopLevelLibAttrs = builtins.trace "Attributes in top-level lib: ${builtins.toString (builtins.attrNames lib)}" traceStart;
-  traceTopLevelLibHasFunc = builtins.trace "Is mkOutOfStoreSymlink in top-level lib? ${toString (builtins.hasAttr "mkOutOfStoreSymlink" lib)}" traceTopLevelLibAttrs;
-  traceConfigLibAttrs = builtins.trace "Attributes in config.lib: ${builtins.toString (builtins.attrNames config.lib)}" traceTopLevelLibHasFunc;
-  traceConfigLibHasFunc = builtins.trace "Is mkOutOfStoreSymlink in config.lib? ${toString (builtins.hasAttr "mkOutOfStoreSymlink" config.lib)}" traceConfigLibAttrs;
-  traceEnd = builtins.trace "--- End Debugging Home Manager Libs ---\n" traceConfigLibHasFunc;
-  # --- END DEBUGGING ---
-
   # Path to the directory containing the tmuxai package's default.nix
   tmuxaiPackageDir = ../pkgs/tmuxai;
 
   tmuxai-pkg = pkgs.callPackage tmuxaiPackageDir {
-    # No explicit arguments needed here if default.nix now expects `cacert`,
-    # as pkgs.callPackage will automatically provide pkgs.cacert.
+    # Arguments for the new derivation (like glibc) will be picked from pkgs automatically by callPackage
   };
 
   # Path to your tmuxai configuration template
   tmuxaiConfigTemplatePath = ../pkgs/tmuxai/tmuxai-config.yaml;
 in
 {
-  # This ensures the trace statements are evaluated before this block
-  # You can also remove this if the trace statements work without it,
-  # as their assignment in the let block should be enough.
-  # However, this makes it explicit.
-  _ = traceEnd;
-
-
   home.username = "death916";
   home.homeDirectory = "/home/death916";
 
@@ -136,7 +119,7 @@ in
   };
 
   xdg.configFile."tmuxai/config.yaml" = {
-    source = config.lib.mkOutOfStoreSymlink tmuxaiConfigTemplatePath;
+    source = lib.mkOutOfStoreSymlink tmuxaiConfigTemplatePath; # Uses the top-level lib
   };
 
   home.sessionVariables = {
