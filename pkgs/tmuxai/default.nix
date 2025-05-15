@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
 
   src = srcFetching;
 
-  sourceRoot = ".";
+  sourceRoot = "."; # The binary is directly in the archive after extraction
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -51,23 +51,36 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
   dontBuild = true;
-  dontCheck = true; # No Go tests to run on a pre-compiled binary
-  doCheck = false;   # No Go tests to run on a pre-compiled binary
+  dontCheck = true;
+  doCheck = false;
 
-  # Test phase: check if the binary runs and prints version
   installCheckPhase = ''
     runHook preInstallCheck
-    echo "Checking installed tmuxai version..."
-    # Create a temporary, writable HOME directory for the check phase
+    echo "--- Starting installCheckPhase ---"
     export HOME=$(mktemp -d)
-    echo "Set temporary HOME to $HOME for install check"
-    $out/bin/tmuxai version | grep "tmuxai version: v${version}"
-    if [ $? -ne 0 ]; then
-      echo "Version check failed!"
-      $out/bin/tmuxai version # Print actual output for debugging
+    echo "Set temporary HOME to $HOME for install check."
+
+    echo "Attempting to run: $out/bin/tmuxai version"
+    # Try to capture output and exit code separately
+    VERSION_OUTPUT=$($out/bin/tmuxai version 2>&1)
+    EXIT_CODE=$?
+    echo "EXIT_CODE of 'tmuxai version': $EXIT_CODE"
+    echo "OUTPUT of 'tmuxai version':"
+    echo "$VERSION_OUTPUT"
+    echo "--- End of 'tmuxai version' output ---"
+
+    if [ "$EXIT_CODE" -ne 0 ]; then
+      echo "Error: 'tmuxai version' exited with code $EXIT_CODE."
       exit 1
     fi
-    echo "Version check passed."
+
+    echo "$VERSION_OUTPUT" | grep "tmuxai version: v${version}"
+    if [ $? -ne 0 ]; then
+      echo "Error: Version string 'tmuxai version: v${version}' not found in output."
+      exit 1
+    fi
+
+    echo "Install check passed."
     runHook postInstallCheck
   '';
   doInstallCheck = true;
