@@ -22,10 +22,13 @@
     let
       system = "x86_64-linux";
 
-      # Pass home-manager.lib in commonSpecialArgs
+      # Define hmLib once
+      hmLib = home-manager.lib; # <--- Define hmLib here
+
       commonSpecialArgs = {
         inherit inputs system;
-        hmLib = home-manager.lib; # <--- ADD THIS
+        # No need to pass hmLib here for NixOS modules unless they also directly use it.
+        # We will pass it to Home Manager's own extraSpecialArgs.
       };
 
       pkgsWithOverlays = import nixpkgs {
@@ -40,7 +43,7 @@
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = commonSpecialArgs; # This now includes hmLib
+        specialArgs = commonSpecialArgs;
         modules = [
           {
             nixpkgs.pkgs = pkgsWithOverlays;
@@ -56,26 +59,17 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = { inherit hmLib; }; # <--- PASS hmLib HERE
             home-manager.users.death916 = {
               imports = [ ./home-manager/home.nix ];
-              # Pass hmLib to the user's Home Manager config if needed there directly,
-              # or rely on it being in `specialArgs` for modules imported by home.nix.
-              # For modules imported by Home Manager itself, it passes its own specialArgs.
-              # The `config` argument in home.nix should already have `config.lib` correctly set by HM.
-              # However, we are passing `hmLib` via `specialArgs` to the NixOS module system,
-              # which then makes it available to all modules including home.nix.
             };
-            # If you wanted to pass it specifically to HM modules for that user:
-            # home-manager.extraSpecialArgs = { inherit (commonSpecialArgs) hmLib; };
-            # But it should be available via the top-level specialArgs passed to nixosSystem.
           }
         ];
       };
 
-      # Homelab config also needs specialArgs if its home.nix needs hmLib
       homelab = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = commonSpecialArgs; # Includes hmLib
+        specialArgs = commonSpecialArgs;
         modules = [
           { nixpkgs.pkgs = pkgsWithOverlays; }
           ./nixos/homelab.nix
@@ -84,6 +78,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = { inherit hmLib; }; # <--- ALSO PASS hmLib HERE if needed for homelab's HM config
             home-manager.users.death916 = {
               imports = [ ./home-manager/death916-homelab.nix ];
             };

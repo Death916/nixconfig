@@ -1,10 +1,7 @@
 # ~/Documents/nix-config/home-manager/home.nix
-{ config, pkgs, lib, hmLib, ... }: # Add hmLib to the function arguments
+{ config, pkgs, lib, hmLib, ... }: # hmLib is now an argument from extraSpecialArgs
 
 let
-  # Remove or comment out previous trace statements if they were causing issues
-  # or if this new approach works.
-
   tmuxaiPackageDir = ../pkgs/tmuxai;
   tmuxai-pkg = pkgs.callPackage tmuxaiPackageDir {};
   tmuxaiConfigTemplatePath = ../pkgs/tmuxai/tmuxai-config.yaml;
