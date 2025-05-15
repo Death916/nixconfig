@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
                 else throw "Unsupported platform for tmuxai precompiled binary: ${stdenv.hostPlatform.system}";
 
   srcHash = if stdenv.isLinux && stdenv.hostPlatform.isx86_64 then
-              "sha256-0klaq94kns7a41vbwvb13l3ys0i42v60bmrz62fmyh9x5053jswi"
+              "sha256-kWs5Cig9QV+dMD/XBcwWJALtBx1hbb52IOpoO0nCik4="
             else if stdenv.isLinux && stdenv.hostPlatform.isAarch64 then
               "sha256-kWs5Cig9QV+dMD/XBcwWJALtBx1hbb52IOpoO0nCik4="
             else throw "Unsupported platform for tmuxai precompiled binary hash: ${stdenv.hostPlatform.system}";
