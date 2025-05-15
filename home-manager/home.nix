@@ -1,16 +1,14 @@
 # ~/Documents/nix-config/home-manager/home.nix
-{ config, pkgs, lib, ... }: # Use THIS `lib` for mkOutOfStoreSymlink
+{ config, pkgs, lib, ... }: # lib here is nixpkgs.lib, config.lib should be hm.lib
 
 let
-  # Path to the directory containing the tmuxai package's default.nix
+  # --- DEBUGGING TRACE STATEMENTS ---
+  debugLibTrace = builtins.trace "\n--- Debug Libs (home.nix) ---\nconfig.lib keys: ${builtins.toString (lib.attrNames config.lib)}\nhas mkOutOfStoreSymlink in config.lib: ${toString (lib.hasAttr "mkOutOfStoreSymlink" config.lib)}\n--- End Debug ---\n" null;
+  _forceDebugEvaluation = debugLibTrace; # Ensure trace is evaluated
+
   tmuxaiPackageDir = ../pkgs/tmuxai;
-
-  tmuxai-pkg = pkgs.callPackage tmuxaiPackageDir {
-    # Arguments for the new derivation (like glibc) will be picked from pkgs automatically by callPackage
-  };
-
-  # Path to your tmuxai configuration template
-  tmuxaiConfigTemplatePath = /home/death916/.config/tmuxai/tmuxai-config.yaml;
+  tmuxai-pkg = pkgs.callPackage tmuxaiPackageDir {};
+  tmuxaiConfigTemplatePath = ../pkgs/tmuxai/tmuxai-config.yaml;
 in
 {
   home.username = "death916";
@@ -119,7 +117,8 @@ in
   };
 
   xdg.configFile."tmuxai/config.yaml" = {
-    source = lib.mkOutOfStoreSymlink tmuxaiConfigTemplatePath; # Uses the top-level lib
+    # Using config.lib, which is the standard Home Manager way
+    source = config.lib.mkOutOfStoreSymlink tmuxaiConfigTemplatePath;
   };
 
   home.sessionVariables = {
