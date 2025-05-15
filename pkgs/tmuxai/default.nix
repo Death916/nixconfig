@@ -1,48 +1,107 @@
 # ~/Documents/nix-config/pkgs/tmuxai/default.nix
 { lib
 , stdenv
-, fetchFromGitHub
-, buildGoModule
-, cacert # Provided by pkgs.callPackage from pkgs.cacert
+, fetchurl
+, autoPatchelfHook
+, makeWrapper
+  # Add runtime dependencies of the binary if known/needed.
+  # For a Go binary, it's often self-contained, but sometimes needs libc, libpthread.
+  # These are usually part of stdenv.cc.cc.lib or glibc.
+  # autoPatchelfHook will try to find them.
+, glibc # For basic C library dependencies
+# , tmux # tmux is a runtime dep, but typically installed separately by the user
 }:
 
-buildGoModule rec {
+stdenv.mkDerivation rec {
   pname = "tmuxai";
   version = "1.0.3"; # Current release
 
-  src = fetchFromGitHub {
-    owner = "alvinunreal";
-    repo = "tmuxai";
-    rev = "46754690d4348a21c35ac3cc51c0b9f811597cf5"; # Specific commit for v1.0.3
-    # IMPORTANT: You MUST verify/correct this hash.
-    # The one from your previous message was: "sha256-V8ShkIJLHU6IsqNqrr2Ty1DmhAkQDF3XXXb2bBHCviw="
-    # If "XXX" is part of the hash, it's a placeholder.
-    # Get the correct hash by running in your terminal:
-    # nix-prefetch-github alvinunreal tmuxai --rev 46754690d4348a21c35ac3cc51c0b9f811597cf5
-    # Then copy the 'hash' field from the output here.
-    hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # <-- REPLACE THIS WITH CORRECT SRC HASH
+  # Determine src based on system architecture
+  # The install.sh script constructs the filename as:
+  # ${PROJECT_NAME}_${os_raw}_${arch}.${archive_ext}
+  # os_raw is `Linux` or `Darwin`. arch is `amd64` or `arm64`.
+  # Example: tmuxai_Linux_amd64.tar.gz
+
+  # For Linux x86_64:
+  srcFilename = "${pname}_Linux_amd64.tar.gz";
+  srcHash = "sha256-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx="; # <-- TODO: GET HASH for tmuxai_Linux_amd64.tar.gz v1.0.3
+
+  # For Linux aarch64 (if you need it):
+  # srcFilename = if stdenv.hostPlatform.system == "aarch64-linux"
+  #               then "${pname}_Linux_arm64.tar.gz"
+  #               else "${pname}_Linux_amd64.tar.gz";
+  # srcHash = if stdenv.hostPlatform.system == "aarch64-linux"
+  #           then "sha256-yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy=" # <-- TODO: HASH for arm64
+  #           else "sha256-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx="; # <-- TODO: HASH for amd64
+
+  src = fetchurl {
+    url = "https://github.com/alvinunreal/tmuxai/releases/download/v${version}/${srcFilename}";
+    # The hash needs to be for the specific binary archive you download.
+    # To get the hash:
+    # 1. Go to: https://github.com/alvinunreal/tmuxai/releases/tag/v1.0.3
+    # 2. Download the correct .tar.gz file (e.g., tmuxai_Linux_amd64.tar.gz)
+    # 3. Run: nix-prefetch-url file:///path/to/downloaded/tmuxai_Linux_amd64.tar.gz
+    #    OR directly: nix-prefetch-url https://github.com/alvinunreal/tmuxai/releases/download/v1.0.3/tmuxai_Linux_amd64.tar.gz
+    # 4. Copy the sha256 hash here.
+    hash = srcHash;
   };
 
-  # This will be filled in after the first failed build attempt.
-  # For now, use an empty string to trigger buildGoModule to tell you the correct hash.
-  vendorHash = ""; # <-- KEEP AS "" INITIALLY
+  # autoPatchelfHook needs to know where to find the ELF files.
+  # The binary is typically at the root of the tar.gz.
+  sourceRoot = "."; # The binary is directly in the archive after extraction
 
-  ldflags = let
-    commitRevDate = src.revDate or "19700101"; # YYYYMMDD from fetchFromGitHub
-    formattedDate = lib.strings.substring 0 4 commitRevDate
-      + "-" + lib.strings.substring 4 2 commitRevDate
-      + "-" + lib.strings.substring 6 2 commitRevDate; # YYYY-MM-DD
-    actualShortRev = lib.strings.substring 0 7 src.rev; # First 7 chars of the full rev
-  in [
-    "-s -w"
-    "-X github.com/alvinunreal/tmuxai/internal.Version=v${version}"
-    "-X github.com/alvinunreal/tmuxai/internal.Commit=${actualShortRev}"
-    "-X github.com/alvinunreal/tmuxai/internal.Date=${formattedDate}"
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper # To potentially wrap the binary if needed later
   ];
 
-  # buildGoModule automatically sets CGO_ENABLED=0 if no Cgo is detected.
-  # cacert is needed for HTTPS calls made by the Go program.
-  nativeBuildInputs = [ cacert ];
+  # buildInputs are dependencies the binary might need at runtime.
+  # For a typical Go binary, glibc might be enough.
+  # autoPatchelfHook will use these to patch the RPATH.
+  buildInputs = [
+    glibc
+    # If tmuxai dynamically links against other specific libraries, add them here.
+    # e.g., if it used libcurl directly (unlikely for Go), you'd add pkgs.curl.
+    # The .goreleaser.yml sets CGO_ENABLED=0, so it should be statically linked against Go libs,
+    # but will still dynamically link against system C libraries like glibc, libpthread.
+  ];
+
+  # We don't need to build anything, just install the pre-compiled binary.
+  # The install.sh script does `install -m755 "$binary_path" "$target_path"`
+  installPhase = ''
+    runHook preInstall
+
+    mkdir -p $out/bin
+    # The binary is named 'tmuxai' inside the archive.
+    install -m755 -D tmuxai $out/bin/tmuxai
+
+    # If you need to wrap the binary to set environment variables (e.g., for API keys if not handled by user env)
+    # or ensure tmux is found:
+    # wrapProgram $out/bin/tmuxai \
+    #   --prefix PATH : ${lib.makeBinPath [ tmux ]} # Example: ensure tmux is in PATH for the binary
+
+    runHook postInstall
+  '';
+
+  # We are not building from source, so some Go-specific phases are not needed.
+  dontConfigure = true;
+  dontBuild = true;
+  dontCheck = true; # No tests to run on a pre-compiled binary
+  doCheck = false;
+
+  # Test phase: check if the binary runs and prints version
+  # This is optional but good practice.
+  # It uses the version embedded by goreleaser.
+  installCheckPhase = ''
+    runHook preInstallCheck
+    echo "Checking installed tmuxai version..."
+    $out/bin/tmuxai version | grep "tmuxai version: v${version}"
+    # The goreleaser config sets internal.Version to "v{{.Version}}"
+    # So we grep for "v1.0.3" for example.
+    runHook postInstallCheck
+  '';
+  doInstallCheck = true;
+
 
   meta = with lib; {
     description = "Your intelligent pair programmer directly within your tmux sessions";
@@ -54,7 +113,9 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/alvinunreal/tmuxai";
     license = licenses.asl20;
-    maintainers = with maintainers; [ "death916" ]; # Your GitHub username
-    platforms = platforms.unix; # Linux and macOS
+    maintainers = with maintainers; [ "death916" ];
+    platforms = platforms.linux; # The binaries are provided for Linux and Darwin
+    # If you need macOS, you'd add another src/hash conditional block or a separate derivation.
+    sourceProvenance = [แหล่งที่มา.binaryTarball inputs.src]; # Indicate it's a binary
   };
 }
