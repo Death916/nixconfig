@@ -81,6 +81,7 @@
     wget
     tailscale
     halloy  # Add halloy to your system packages
+    conda
   ];
   
   # to make exit nodes work
