@@ -63,6 +63,7 @@ in
     nextcloud-client
     (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
     tmuxai-pkg # Just install the package
+    obsidian
   ];
 
   programs.git = {
