@@ -82,7 +82,14 @@ in
       aws.disabled = true;
       gcloud.disabled = true;
       line_break.disabled = true;
-      conda.ignorebase = false;
+      conda = {
+          truncation_length = 1;
+          format = "[$symbol$environment]($style) ";
+          symbol = " ";
+          style = "green bold";
+          ignore_base = true;
+          disabled = false;
+        };
     };
   };
 
