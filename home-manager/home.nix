@@ -87,7 +87,7 @@ in
           format = "[$symbol$environment]($style) ";
           symbol = " ";
           style = "green bold";
-          ignore_base = true;
+          ignore_base = false;
           disabled = false;
         };
     };
