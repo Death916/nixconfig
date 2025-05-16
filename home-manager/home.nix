@@ -82,6 +82,7 @@ in
       aws.disabled = true;
       gcloud.disabled = true;
       line_break.disabled = true;
+      conda.ignorebase = false;
     };
   };
 
