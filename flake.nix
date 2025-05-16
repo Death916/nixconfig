@@ -18,9 +18,10 @@
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    flox.url = "github:flox/flox";
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager, nixos-cosmic, rust-overlay, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager, nixos-cosmic, rust-overlay, flox,  ... }:
     let
       system = "x86_64-linux";
       hmLib = home-manager.lib;
