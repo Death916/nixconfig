@@ -158,6 +158,7 @@
     pkgs.jellyfin-web
     pkgs.jellyfin-ffmpeg
     pkgs.jellyfin
+    unzip
   ];
   
   # If you use custom overlays specific to this server:
