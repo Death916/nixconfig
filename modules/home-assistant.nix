@@ -12,6 +12,11 @@
       "radio_browser"
       "wled"
     ];
+
+    extraPackages = python3Packages: with python3Packages; [
+      aiogithubapi # Added dependency for HACS
+    ];
+
     config = {
       default_config = {};
       homeassistant = {
