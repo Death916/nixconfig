@@ -77,11 +77,11 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1747319400,
-        "narHash": "sha256-feYTzCdayg3i4BFM5c5RjHcAqXAfFd38RlYUmfIy+5E=",
+        "lastModified": 1747398605,
+        "narHash": "sha256-3RSdLD4FYDrXLEDfIGp2DTE1ky9NtlezRGNh19Rm9Wg=",
         "owner": "flox",
         "repo": "flox",
-        "rev": "b0cb7d66b153325117d877cb5590295f181cbfd8",
+        "rev": "15a32d9954da22e46400d7dc3e34a2f14f58b78f",
         "type": "github"
       },
       "original": {
@@ -158,19 +158,11 @@
     },
     "nixpkgs": {
       "locked": {
-<<<<<<< HEAD
-        "lastModified": 1747335874,
-        "narHash": "sha256-IKKIXTSYJMmUtE+Kav5Rob8SgLPnfnq4Qu8LyT4gdqQ=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "ba8b70ee098bc5654c459d6a95dfc498b91ff858",
-=======
         "lastModified": 1742889210,
         "narHash": "sha256-hw63HnwnqU3ZQfsMclLhMvOezpM7RSB0dMAtD5/sOiw=",
         "owner": "flox",
         "repo": "nixpkgs",
         "rev": "698214a32beb4f4c8e3942372c694f40848b360d",
->>>>>>> f631651f99ce1ed02bb692ba5269ab6a6dd079b2
         "type": "github"
       },
       "original": {
@@ -198,19 +190,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-<<<<<<< HEAD
         "lastModified": 1747327360,
         "narHash": "sha256-LSmTbiq/nqZR9B2t4MRnWG7cb0KVNU70dB7RT4+wYK4=",
         "owner": "NixOS",
         "repo": "nixpkgs",
         "rev": "e06158e58f3adee28b139e9c2bcfcc41f8625b46",
-=======
-        "lastModified": 1747179050,
-        "narHash": "sha256-qhFMmDkeJX9KJwr5H32f1r7Prs7XbQWtO0h3V0a0rFY=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "adaa24fbf46737f3f1b5497bf64bae750f82942e",
->>>>>>> f631651f99ce1ed02bb692ba5269ab6a6dd079b2
         "type": "github"
       },
       "original": {
@@ -220,15 +204,13 @@
         "type": "github"
       }
     },
-<<<<<<< HEAD
-=======
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1747209494,
-        "narHash": "sha256-fLise+ys+bpyjuUUkbwqo5W/UyIELvRz9lPBPoB0fbM=",
+        "lastModified": 1747335874,
+        "narHash": "sha256-IKKIXTSYJMmUtE+Kav5Rob8SgLPnfnq4Qu8LyT4gdqQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "5d736263df906c5da72ab0f372427814de2f52f8",
+        "rev": "ba8b70ee098bc5654c459d6a95dfc498b91ff858",
         "type": "github"
       },
       "original": {
@@ -261,17 +243,12 @@
         "type": "github"
       }
     },
->>>>>>> f631651f99ce1ed02bb692ba5269ab6a6dd079b2
     "root": {
       "inputs": {
         "flox": "flox",
         "home-manager": "home-manager",
         "nixos-cosmic": "nixos-cosmic",
-<<<<<<< HEAD
-        "nixpkgs": "nixpkgs",
-=======
         "nixpkgs": "nixpkgs_2",
->>>>>>> f631651f99ce1ed02bb692ba5269ab6a6dd079b2
         "nixpkgs-unstable": "nixpkgs-unstable",
         "rust-overlay": "rust-overlay_2"
       }
