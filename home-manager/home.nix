@@ -63,6 +63,7 @@ in
     nextcloud-client
     (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
     tmuxai-pkg # Just install the package
+    obsidian
   ];
 
   programs.git = {
@@ -81,6 +82,14 @@ in
       aws.disabled = true;
       gcloud.disabled = true;
       line_break.disabled = true;
+      conda = {
+          truncation_length = 1;
+          format = "[$symbol$environment]($style) ";
+          symbol = " ";
+          style = "green bold";
+          ignore_base = false;
+          disabled = false;
+        };
     };
   };
 
