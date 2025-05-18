@@ -10,6 +10,7 @@
       "esphome"
       "met"
       "radio_browser"
+      "wled"
     ];
     config = {
       default_config = {};
