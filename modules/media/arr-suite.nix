@@ -28,11 +28,9 @@
     };
    # users.groups.prowlarr = {};
    
-   services.unpackerr = {
-      enable = true;
-      openFirewall = false;
-      dataDir = "/media/storage/media/downloads";
-    };   
+    environment.systemPackages = [
+      pkgs.unpackerr
+  ];   
 
 
      
