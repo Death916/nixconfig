@@ -27,8 +27,10 @@
      # extraGroups = [ "media_services" ];
     };
    # users.groups.prowlarr = {};
-   
-   # users.groups.prowlarr = {};
+    
+    users.groups.radarr = {};
+    users.groups.sonarr = {};
+    users.groups.readarr = {};
     users.users.sonarr.extraGroups = [ "media_services" ];
     users.users.radarr.extraGroups = [ "media_services" ];
     users.users.readarr.extraGroups = [ "media_services" ];
