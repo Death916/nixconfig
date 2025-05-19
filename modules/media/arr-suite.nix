@@ -31,11 +31,14 @@
     environment.systemPackages = [
       pkgs.unpackerr
   ];
-    users.users.unpackerr.group = "unpackerr";
-       users.groups.unpackerr = {};
-     users.users.unpackerr = { # Unpackerr user (created by its service) added to group
-      extraGroups = [ "media_services" ];
-     };
+    users.groups.unpackerr = {};
+
+    # 2. Define the 'unpackerr' user
+    users.users.unpackerr = {
+      description = "Unpackerr daemon user";
+      isSystemUser = true;  # This tells NixOS it's a system user
+      group = "unpackerr";  # Sets the primary group
+      extraGroups = [ "media_services" ]; # Add 
      
     users.groups.radarr = {};
     users.groups.sonarr = {};
