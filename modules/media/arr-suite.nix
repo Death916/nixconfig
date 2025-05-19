@@ -32,7 +32,7 @@
       enable = true;
       # This tells Unpackerr service where to find its configuration.
       # You will need to create and manage the content of this file.
-      configFile = "/var/lib/unpackerr/unpackerr.conf";
+      #configFile = "/var/lib/unpackerr/unpackerr.conf";
     };   
 
      users.users.unpackerr = { # Unpackerr user (created by its service) added to group
