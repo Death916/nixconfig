@@ -27,7 +27,15 @@
      # extraGroups = [ "media_services" ];
     };
    # users.groups.prowlarr = {};
-    
+   
+   services.unpackerr = {
+      enable = true;
+      openFirewall = false;
+      dataDir = "/media/storage/media/downloads";
+    };   
+
+
+     
     users.groups.radarr = {};
     users.groups.sonarr = {};
     users.groups.readarr = {};
