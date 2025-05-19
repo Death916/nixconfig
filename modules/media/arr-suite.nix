@@ -31,7 +31,8 @@
     environment.systemPackages = [
       pkgs.unpackerr
   ];
-
+    users.users.unpackerr.group = "unpackerr";
+       users.groups.unpackerr = {};
      users.users.unpackerr = { # Unpackerr user (created by its service) added to group
       extraGroups = [ "media_services" ];
      };
