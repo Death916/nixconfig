@@ -59,7 +59,7 @@
   };
   networking.firewall.checkReversePath = "loose"; #needed for tailscale nodes
   # Define the 'death916' user for the server
-  users.users.death916 = {
+claimTokenFile = "/var/lib/netdata/cloud.d/token";  users.users.death916 = {
     isNormalUser = true;
     extraGroups = [ "wheel" "media_services" "nextcloud"]; # For sudo access
     openssh.authorizedKeys.keys = [
@@ -106,6 +106,7 @@
       withCloud = true;
     };  
     enable = true;
+    claimTokenFile = "/var/lib/netdata/cloud.d";
     config = {
       global = {
         "memory mode" = "ram";
