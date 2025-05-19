@@ -39,7 +39,7 @@
       isSystemUser = true;  # This tells NixOS it's a system user
       group = "unpackerr";  # Sets the primary group
       extraGroups = [ "media_services" ]; # Add 
-     
+    };     
     users.groups.radarr = {};
     users.groups.sonarr = {};
     users.groups.readarr = {};
