@@ -14,7 +14,8 @@
 #  nixpkgs.config.allowUnfree = true;
   boot.loader.systemd-boot.enable = true; # Or grub, as appropriate for your server
   boot.loader.efi.canTouchEfiVariables = true;
-
+  powerManagement.cpuFreqGovernor = "ondemand"; # hopefully fix low cpu freq
+  hardware.cpu.amd.updateMicrocode = true; # same 
   networking.hostName = "homelab"; # Set the server's hostname
   boot.initrd.kernelModules = [ "dm_mod" "dm_thin_pool" ]; # Device mapper core
   boot.initrd.availableKernelModules = [
