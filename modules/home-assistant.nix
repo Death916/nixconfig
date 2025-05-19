@@ -18,7 +18,7 @@
     extraPackages = python3Packages: with python3Packages; [
       aiogithubapi # Added dependency for HACS
       python-kasa
-      cgi
+      
     ];
 
     config = {
