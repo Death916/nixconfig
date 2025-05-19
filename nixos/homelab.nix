@@ -98,7 +98,7 @@ claimTokenFile = "/var/lib/netdata/cloud.d/token";  users.users.death916 = {
     port = 13378;   
   };
   
-  networking.firewall.allowedTCPPorts = [19999];
+  #networking.firewall.allowedTCPPorts = [19999];
 #  services.netdata.package = pkgs.netdata.override { withCloud = true; };
   services.netdata = {
     
