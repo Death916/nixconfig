@@ -15,7 +15,8 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
+  powerManagement.cpuFreqGovernor = "ondemand"; # hopefully fix low cpu freq
+  hardware.cpu.amd.updateMicrocode = true; # same 
   # networking.hostName = "nixos"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
