@@ -97,6 +97,7 @@ in
 
     conda = {
       truncation_length = 1;
+      # Using ''...'' for conda's format string for consistency and safety
       format = ''[$symbol$environment]($style) '';
       symbol = " ";
       style = "green bold";
@@ -106,15 +107,19 @@ in
 
     custom.flox_prompt_indicator = {
       description = "Shows the active Flox environment name";
+      # Using ''...'' for command and when for Nix literal interpretation
       command = ''if [ -n "$FLOX_ENV_NAME" ]; then echo "via [❄️ $FLOX_ENV_NAME](bold blue) "; fi'';
       when = ''test -n "$FLOX_ENV_NAME"'';
+      # Using ''...'' for format for Nix literal interpretation
       format = ''$output'';
-      # --- MODIFIED LINE ---
-      shell = "bash"; 
-      # --- END MODIFIED LINE ---
+      shell = "bash"; # Keep this as a simple string
     };
 
+    # --- Reverting main 'format' to use Nix verbatim strings ''...'' ---
+    # This ensures $custom.flox_prompt_indicator, $conda, $directory, etc.
+    # are passed literally to Starship for its own variable expansion.
     format = ''$directory $git_branch $conda$custom.flox_prompt_indicator$nix_shell$cmd_duration$status$character'';
+    # --- End of main 'format' string ---
   };
 };
 
