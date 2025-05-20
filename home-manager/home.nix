@@ -64,6 +64,7 @@ in
     (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
     tmuxai-pkg # Just install the package
     obsidian
+    atuin
   ];
 
   programs.git = {
