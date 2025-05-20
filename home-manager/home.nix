@@ -110,7 +110,7 @@ in
       description = "Shows the active Flox environment name";
     };
 
-    format = "\$directory \$git_branch \$conda\$env_var.flox_active_env\$nix_shell\$cmd_duration\$status\$character";
+    format = "\$directory \$git_branch \$conda\$flox_active_env\$nix_shell\$cmd_duration\$status\$character";
   };
 };
 
