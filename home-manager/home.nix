@@ -97,22 +97,25 @@ in
 
     conda = {
       truncation_length = 1;
-      format = "[\$symbol\$environment](\$style) ";
+      format = ''[$symbol$environment]($style) '';
       symbol = " ";
       style = "green bold";
       ignore_base = false;
       disabled = false;
     };
 
-    env_var.flox_active_env = {
-      variable = "FLOX_ENV_NAME";
-      format = "via [❄️ \$env_value](bold blue) ";
+    custom.flox_prompt_indicator = {
       description = "Shows the active Flox environment name";
+      command = ''if [ -n "$FLOX_ENV_NAME" ]; then echo "via [❄️ $FLOX_ENV_NAME](bold blue) "; fi'';
+      when = ''test -n "$FLOX_ENV_NAME"'';
+      format = ''$output'';
+      shell = ["bash", "-c"];
     };
 
-    format = "\$directory \$git_branch \$conda\$flox_active_env\$nix_shell\$cmd_duration\$status\$character";
+    format = ''$directory $git_branch $conda$custom.flox_prompt_indicator$nix_shell$cmd_duration$status$character'';
   };
 };
+
 
 
 
