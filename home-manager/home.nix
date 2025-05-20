@@ -61,7 +61,7 @@ in
     halloy
     tmux
     nextcloud-client
-    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
+#    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
     tmuxai-pkg # Just install the package
     obsidian
     atuin
