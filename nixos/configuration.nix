@@ -103,6 +103,7 @@
     useRoutingFeatures = "both"; # Or "client", or "both" depending on your needs
     # Other Tailscale options...
   };
+  networking.interfaces.tailscale0.mtu = 1500;
   programs.firefox.enable = true;
   
   system.stateVersion = "24.11"; # Did you read the comment?
