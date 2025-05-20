@@ -104,9 +104,9 @@ users.users.death916 = {
 #  services.netdata.package = pkgs.netdata.override { withCloud = true; };
   services.netdata = {
     
-    package = pkgs.netdata.override {
-      withCloud = true;
-    };  
+  #  package = pkgs.netdata.override {
+    #  withCloud = true;
+   # };  
     enable = true;
    # claimTokenFile = "/var/lib/netdata/cloud.d";
     config = {
