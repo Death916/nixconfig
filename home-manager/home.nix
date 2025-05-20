@@ -65,6 +65,7 @@ in
     tmuxai-pkg # Just install the package
     obsidian
     atuin
+    ghostty
   ];
 
   programs.git = {
