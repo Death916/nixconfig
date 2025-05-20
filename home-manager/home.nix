@@ -88,12 +88,12 @@ in
   };
   
   programs.starship = {
-    enable = true;
-    settings = {
-      add_newline = false;
-      aws.disabled = true;
-      gcloud.disabled = true;
-      line_break.disabled = true;
+  enable = true;
+  settings = {
+    add_newline = false;
+    aws.disabled = true;
+    gcloud.disabled = true;
+    line_break.disabled = true;
 
     conda = {
       truncation_length = 1;
@@ -110,7 +110,8 @@ in
       description = "Shows the active Flox environment name";
     };
 
-    format = """
+    # --- MODIFIED FORMAT STRING ---
+    format = ''
     $username\
     $hostname\
     $directory\
@@ -122,7 +123,8 @@ in
     $cmd_duration\
     $status\
     $character\
-    """;
+    ''; # Note the closing double single quote
+    # --- END MODIFIED FORMAT STRING ---
   };
 };
 
