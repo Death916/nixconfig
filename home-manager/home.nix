@@ -109,12 +109,15 @@ in
       command = ''if [ -n "$FLOX_ENV_NAME" ]; then echo "via [❄️ $FLOX_ENV_NAME](bold blue) "; fi'';
       when = ''test -n "$FLOX_ENV_NAME"'';
       format = ''$output'';
-      shell = ["bash", "-c"];
+      # --- MODIFIED LINE ---
+      shell = "bash"; 
+      # --- END MODIFIED LINE ---
     };
 
     format = ''$directory $git_branch $conda$custom.flox_prompt_indicator$nix_shell$cmd_duration$status$character'';
   };
 };
+
 
 
 
