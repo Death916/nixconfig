@@ -108,7 +108,7 @@ users.users.death916 = {
       withCloud = true;
     };  
     enable = true;
-    claimTokenFile = "/var/lib/netdata/cloud.d";
+   # claimTokenFile = "/var/lib/netdata/cloud.d";
     config = {
       global = {
         "memory mode" = "ram";
