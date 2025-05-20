@@ -64,7 +64,7 @@ in
 #    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
     tmuxai-pkg # Just install the package
     obsidian
-    atuin
+    
     ghostty
   ];
 
@@ -76,7 +76,17 @@ in
       credential.helper = "store";
     };
   };
-
+  
+  programs.atuin = {
+    enable = true;
+    settings = {
+      #auto_sync = true;
+      #sync_frequency = "5m";
+      #sync_address = "https://api.atuin.sh";
+      search_mode = "fuzzy";
+    };
+  };
+  
   programs.starship = {
     enable = true;
     settings = {
