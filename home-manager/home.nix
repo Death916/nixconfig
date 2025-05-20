@@ -61,9 +61,11 @@ in
     halloy
     tmux
     nextcloud-client
-    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
+#    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
     tmuxai-pkg # Just install the package
     obsidian
+    
+    ghostty
   ];
 
   programs.git = {
@@ -74,7 +76,17 @@ in
       credential.helper = "store";
     };
   };
-
+  
+  programs.atuin = {
+    enable = true;
+    settings = {
+      #auto_sync = true;
+      #sync_frequency = "5m";
+      #sync_address = "https://api.atuin.sh";
+      search_mode = "fuzzy";
+    };
+  };
+  
   programs.starship = {
     enable = true;
     settings = {
