@@ -59,7 +59,7 @@
   };
   networking.firewall.checkReversePath = "loose"; #needed for tailscale nodes
   # Define the 'death916' user for the server
-claimTokenFile = "/var/lib/netdata/cloud.d/token";  
+#claimTokenFile = "/var/lib/netdata/cloud.d/token";  
 users.users.death916 = {
     isNormalUser = true;
     shell = pkgs.bash;
