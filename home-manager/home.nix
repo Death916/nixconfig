@@ -88,22 +88,44 @@ in
   };
   
   programs.starship = {
-    enable = true;
-    settings = {
-      add_newline = false;
-      aws.disabled = true;
-      gcloud.disabled = true;
-      line_break.disabled = true;
-      conda = {
-          truncation_length = 1;
-          format = "[$symbol$environment]($style) ";
-          symbol = " ";
-          style = "green bold";
-          ignore_base = false;
-          disabled = false;
-        };
+  enable = true;
+  settings = {
+    add_newline = false;
+    aws.disabled = true;
+    gcloud.disabled = true;
+    line_break.disabled = true;
+
+    conda = {
+      truncation_length = 1;
+      format = "[$symbol$environment]($style) ";
+      symbol = " ";
+      style = "green bold";
+      ignore_base = false;
+      disabled = false;
     };
+
+    env_var.flox_active_env = {
+      variable = "FLOX_ENV_NAME";
+      format = "via [❄️ $env_value](bold blue) ";
+      description = "Shows the active Flox environment name";
+    };
+
+    format = """
+    $username\
+    $hostname\
+    $directory\
+    $git_branch\
+    $git_status\
+    $conda\
+    $env_var.flox_active_env\
+    $nix_shell\
+    $cmd_duration\
+    $status\
+    $character\
+    """;
   };
+};
+
 
   programs.alacritty = {
     enable = true;
