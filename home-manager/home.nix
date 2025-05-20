@@ -110,23 +110,12 @@ in
       description = "Shows the active Flox environment name";
     };
 
-    # --- MODIFIED FORMAT STRING ---
-    format = ''
-    $username\
-    $hostname\
-    $directory\
-    $git_branch\
-    $git_status\
-    $conda\
-    $env_var.flox_active_env\
-    $nix_shell\
-    $cmd_duration\
-    $status\
-    $character\
-    ''; # Note the closing double single quote
+    # --- MODIFIED FORMAT STRING (Single Line) ---
+    format = "$username$hostname$directory$git_branch$git_status$conda$env_var.flox_active_env$nix_shell$cmd_duration$status$character";
     # --- END MODIFIED FORMAT STRING ---
   };
 };
+
 
 
   programs.alacritty = {
