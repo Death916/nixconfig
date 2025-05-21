@@ -147,7 +147,34 @@ users.users.death916 = {
     listenAddress = "0.0.0.0";
   };
 
+  virtualisation.docker.enable = true;
+  users.users.death916.extraGroups = [ "docker" ]; # If needed
 
+  virtualisation.oci-containers = {
+    backend = "docker"; # Specify Docker as the backend [2]
+    containers = {
+      c2c-scraper = {
+        image = "death916/c2cscrape:latest";
+        volumes = [
+          "/media/storage/media/books/audio/podcasts/C2C:/downloads"
+          "/media/storage/media/docker/volumes/c2cscrape:/app/data"
+        ];
+        # The 'restart: unless-stopped' behavior is typically handled by the
+        # systemd service created by oci-containers.
+        # Systemd services default to restarting on failure, which is similar.
+        # You can further customize systemd service options if needed.
+        environment = {
+          TZ = "America/Los_Angeles";
+        };
+        # If you needed to specify ports, you would add:
+        # ports = [ "host_port:container_port" ];
+        # For 'restart: unless-stopped', the systemd unit generated will typically
+        # handle restarts. If more specific control is needed, you might need
+        # to configure the systemd service unit options directly, though
+        # oci-containers handles common cases well.
+      };
+    };
+  };
 
   # Sudo access for the wheel group (which death916 is part of)
   security.sudo.wheelNeedsPassword = true; # Or false if you prefer passwordless sudo for wheel
