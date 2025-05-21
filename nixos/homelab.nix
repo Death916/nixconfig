@@ -140,8 +140,13 @@ users.users.death916 = {
   
   services.jellyfin.enable = true;
   
-    
- 
+  services.actual = {
+    enable = true;
+      dataDir = "/var/lib/actual-server"; # Default
+    # port = 5006; # Default
+    listenAddress = "0.0.0.0";
+  };
+
 
 
   # Sudo access for the wheel group (which death916 is part of)
