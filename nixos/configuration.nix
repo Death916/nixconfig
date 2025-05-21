@@ -86,6 +86,7 @@
     halloy  # Add halloy to your system packages
     conda
     inputs.flox.packages.${pkgs.system}.flox
+    kopia-ui
 
   ];
   
