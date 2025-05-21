@@ -144,7 +144,7 @@ users.users.death916 = {
     enable = true;
     # dataDir = "/var/lib/actual-server"; # Default
     # port = 5006; # Default
-    listenAddress = "0.0.0.0";
+   # listenAddress = "0.0.0.0";
   };
 
 
