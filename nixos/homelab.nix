@@ -175,7 +175,26 @@ users.users.death916 = {
       };
     };
   };
+  
+  systemd.services.kopia-backup = {
+    description = "Kopia backup service for NixOS server";
+    serviceConfig = {
+      Type = "oneshot";
+      User = "root"; # Run as root to access all files and Kopia config
+      ExecStart = "/usr/local/bin/nixos-kopia-backup.sh";
+    };
+  };
 
+   systemd.timers.kopia-backup = {
+    description = "Daily Kopia backup timer";
+    wantedBy = [ "timers.target" ];
+    partOf = [ "kopia-backup.service" ]; # Links timer to the service
+    timerConfig = {
+      OnCalendar = "daily"; # Or "hourly", "*-*-* 02:00:00" for 2 AM daily, etc.
+      Persistent = true;    # Run on next boot if a scheduled run was missed
+      Unit = "kopia-backup.service";
+    };
+  };
   # Sudo access for the wheel group (which death916 is part of)
   security.sudo.wheelNeedsPassword = true; # Or false if you prefer passwordless sudo for wheel
 
