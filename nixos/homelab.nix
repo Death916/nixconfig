@@ -195,6 +195,7 @@ users.users.death916 = {
     pkgs.jellyfin-ffmpeg
     pkgs.jellyfin
     unzip
+    kopia
   ];
   
   # If you use custom overlays specific to this server:
