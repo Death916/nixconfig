@@ -114,13 +114,13 @@ in
 
     format = ''$directory $git_branch $conda$custom_flox_prompt_indicator$nix_shell$cmd_duration$status$character'';
   };
+
 };
 
-
-
-
-
-
+  programs.emacs = {
+    enable = true;
+    package = pkgs.emacs; 
+};
 
   programs.alacritty = {
     enable = true;
