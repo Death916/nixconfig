@@ -107,14 +107,8 @@
   networking.interfaces.tailscale0.mtu = 1500;
   programs.firefox.enable = true;
   
-  services.fprintd = {
-    enable = true;
-    tod = {
-      enable = true;
-      # Use the Goodix driver for "Touch on Device" readers
-      driver = pkgs.libfprint-2-tod1-goodix;
-    };
-  };
+  services.fprintd.enable = true;
+
     
   system.stateVersion = "24.11"; # Did you read the comment?
 }
