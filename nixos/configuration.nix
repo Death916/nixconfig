@@ -107,11 +107,11 @@
   networking.interfaces.tailscale0.mtu = 1500;
   programs.firefox.enable = true;
   
-  systemd.services.fprintd = {
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig.Type = "simple";
-  };
-  services.fprintd.enable = true;
+ # systemd.services.fprintd = {
+  #  wantedBy = [ "multi-user.target" ];
+   # serviceConfig.Type = "simple";
+ # };
+#  services.fprintd.enable = true;
   services.fprintd.tod.driver = pkgs.libfprint-2-tod1-goodix;
   services.fprintd.tod.enable = true;
     
