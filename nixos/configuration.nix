@@ -107,7 +107,7 @@
   networking.interfaces.tailscale0.mtu = 1500;
   programs.firefox.enable = true;
   
-  systemd.services.fprintd.tod = {
+  systemd.services.fprintd = {
     wantedBy = [ "multi-user.target" ];
     serviceConfig.Type = "simple";
   };
