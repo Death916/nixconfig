@@ -107,13 +107,14 @@
   networking.interfaces.tailscale0.mtu = 1500;
   programs.firefox.enable = true;
   
-  systemd.services.fprintd = {
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig.Type = "simple";
+  services.fprintd = {
+    enable = true;
+    tod = {
+      enable = true;
+      # Use the Goodix driver for "Touch on Device" readers
+      driver = pkgs.libfprint-2-tod1-goodix;
+    };
   };
-  services.fprintd.enable = true;
-  services.fprintd.tod.driver = pkgs.libfprint-2-tod1-broadcom;
-  services.fprintd.tod.enable = true;
     
   system.stateVersion = "24.11"; # Did you read the comment?
 }
