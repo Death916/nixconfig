@@ -215,6 +215,7 @@ users.users.death916 = {
     pkgs.jellyfin
     unzip
     kopia
+    manix
   ];
   
   # If you use custom overlays specific to this server:
