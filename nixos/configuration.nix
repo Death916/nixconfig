@@ -86,6 +86,7 @@
     halloy  # Add halloy to your system packages
     conda
     inputs.flox.packages.${pkgs.system}.flox
+    kopia-ui
 
   ];
   
@@ -106,6 +107,13 @@
   networking.interfaces.tailscale0.mtu = 1500;
   programs.firefox.enable = true;
   
+  systemd.services.fprintd = {
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig.Type = "simple";
+  };
+  services.fprintd.tod.driver = pkgs.libfprint-2-tod1-goodix;
+
+    
   system.stateVersion = "24.11"; # Did you read the comment?
 }
 
