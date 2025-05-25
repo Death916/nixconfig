@@ -87,7 +87,7 @@
     conda
     inputs.flox.packages.${pkgs.system}.flox
     kopia-ui
-
+    stremio-shell
   ];
   
   # to make exit nodes work
