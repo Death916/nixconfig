@@ -87,7 +87,7 @@
     conda
     inputs.flox.packages.${pkgs.system}.flox
     kopia-ui
-    stremio
+
   ];
   
   # to make exit nodes work
@@ -107,8 +107,13 @@
   networking.interfaces.tailscale0.mtu = 1500;
   programs.firefox.enable = true;
   
+  systemd.services.fprintd.tod = {
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig.Type = "simple";
+  };
   services.fprintd.enable = true;
-
+  services.fprintd.tod.driver = pkgs.libfprint-2-tod1-goodix;
+  services.fprintd.tod.enable = true;
     
   system.stateVersion = "24.11"; # Did you read the comment?
 }
