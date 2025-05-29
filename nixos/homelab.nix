@@ -182,12 +182,12 @@ users.users.death916 = {
       image = "adguard/adguardhome:latest";
       autoStart = true;
       ports = [
-        "53:53/tcp",
-        "53:53/udp",
+        "53:53/tcp"
+        "53:53/udp"
         "3000:3000/tcp"
       ];
       volumes = [
-        "/storage/services/adguard/work:/opt/adguardhome/work",
+        "/storage/services/adguard/work:/opt/adguardhome/work"
         "/storage/services/adguard/data:/opt/adguardhome/conf"
       ];
       extraOptions = [
