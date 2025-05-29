@@ -134,7 +134,8 @@ users.users.death916 = {
 
   services.qbittorrent = {
     enable = true;
-    dataDir = "/storage/services/qbittorrent";
+    dataDir = "/storage/downloads";
+    configDir = "/storage/services/qbittorrent/config";
     user = "qbittorrent";
     group = "qbittorrent";
     port = 8090;
@@ -142,10 +143,11 @@ users.users.death916 = {
     package = pkgs.qbittorrent-nox;
   };
 
-  #systemd.tmpfiles.rules = [
-   # "d /storage/downloads 0775 root media_services - -"
-   # "d /storage/services/qbittorrent 0755 qbittorrent qbittorrent - -"
-  #];
+  systemd.tmpfiles.rules = [
+    "d /storage/downloads 0775 root media_services - -"
+    "d /storage/services/qbittorrent 0755 qbittorrent qbittorrent - -"
+    "d /storage/services/qbittorrent/config 0755 qbittorrent qbittorrent - -"
+  ];
 
   
   services.jellyfin.enable = true;
