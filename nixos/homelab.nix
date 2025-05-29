@@ -175,6 +175,7 @@ users.users.death916 = {
         TZ = "America/Los_Angeles";
       };
        autoStart = true; # Consider adding if not already present
+       removeContainer = false;
        extraOptions = [ "--restart=unless-stopped" ]; # Consider adding
     };
 
@@ -190,6 +191,7 @@ users.users.death916 = {
         "/storage/services/adguard/work:/opt/adguardhome/work"
         "/storage/services/adguard/data:/opt/adguardhome/conf"
       ];
+      removeContainer = false;
       extraOptions = [
         "--restart=unless-stopped"
       ];
