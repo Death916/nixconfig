@@ -66,6 +66,7 @@ in
     obsidian
     element-desktop    
     ghostty
+    manix
   ];
 
   programs.git = {
