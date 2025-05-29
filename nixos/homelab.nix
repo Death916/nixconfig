@@ -192,10 +192,10 @@ users.users.death916 = {
         "/storage/services/adguard/data:/opt/adguardhome/conf"
       ];
       #removeContainer = false;
-      autoStart = true;
+    #  autoStart = true;
 	#extraOptions = [
-        "--restart=unless-stopped"
-      ];
+   #     "--restart=unless-stopped"
+#      ];
     };
   };
 };
