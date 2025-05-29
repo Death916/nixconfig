@@ -44,7 +44,15 @@
  
   # Basic firewall
   networking.firewall.enable = true;
-  networking.firewall.allowedTCPPorts = [ 22 ]; # Allow SSH
+  networking.firewall.allowedTCPPorts = [
+     22
+     53
+
+  ]; 
+  networking.firewall.allowedUDPPorts = [
+  53   # AdGuard Home DNS over UDP
+];
+# Allow SSH
   networking.firewall.trustedInterfaces = [ "tailscale0" ]; # <--- ADDED for Tailscale access
   # SSH Server configuration
   services.openssh = {
