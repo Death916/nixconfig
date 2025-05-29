@@ -7,7 +7,7 @@
    ../modules/media/qbittorrent.nix
    ../modules/media/arr-suite.nix
    ../modules/home-assistant.nix
-   ../modules/adguard.nix 
+    
    # Import any shared modules from your ./modules directory if applicable
     # e.g., (../modules/common-settings.nix)
   ];
@@ -163,30 +163,39 @@ users.users.death916 = {
 #  users.users.death916.extraGroups = [ "docker" ]; # If needed
 
   virtualisation.oci-containers = {
-    backend = "docker"; # Specify Docker as the backend [2]
-    containers = {
-      c2c-scraper = {
-        image = "death916/c2cscrape:latest";
-        volumes = [
-          "/media/storage/media/books/audio/podcasts/C2C:/downloads"
-          "/media/storage/media/docker/volumes/c2cscrape:/app/data"
-        ];
-        # The 'restart: unless-stopped' behavior is typically handled by the
-        # systemd service created by oci-containers.
-        # Systemd services default to restarting on failure, which is similar.
-        # You can further customize systemd service options if needed.
-        environment = {
-          TZ = "America/Los_Angeles";
-        };
-        # If you needed to specify ports, you would add:
-        # ports = [ "host_port:container_port" ];
-        # For 'restart: unless-stopped', the systemd unit generated will typically
-        # handle restarts. If more specific control is needed, you might need
-        # to configure the systemd service unit options directly, though
-        # oci-containers handles common cases well.
+  backend = "docker";
+  containers = {
+    c2c-scraper = {
+      image = "death916/c2cscrape:latest";
+      volumes = [
+        "/media/storage/media/books/audio/podcasts/C2C:/downloads",
+        "/media/storage/media/docker/volumes/c2cscrape:/app/data"
+      ];
+      environment = {
+        TZ = "America/Los_Angeles";
       };
+       autoStart = true; # Consider adding if not already present
+       extraOptions = [ "--restart=unless-stopped" ]; # Consider adding
+    };
+
+    adguardhome = {
+      image = "adguard/adguardhome:latest";
+      autoStart = true;
+      ports = [
+        "53:53/tcp",
+        "53:53/udp",
+        "3000:3000/tcp"
+      ];
+      volumes = [
+        "/storage/services/adguard/work:/opt/adguardhome/work",
+        "/storage/services/adguard/data:/opt/adguardhome/conf"
+      ];
+      extraOptions = [
+        "--restart=unless-stopped"
+      ];
     };
   };
+};
   
   systemd.services.kopia-backup = {
     description = "Kopia backup service for NixOS server";
