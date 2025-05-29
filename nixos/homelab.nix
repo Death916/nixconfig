@@ -134,7 +134,7 @@ users.users.death916 = {
 
   services.qbittorrent = {
     enable = true;
-    dataDir = "/storage/downloads";
+    dataDir = "/media/storage/media/downloads";
    
     user = "qbittorrent";
     group = "qbittorrent";
