@@ -145,7 +145,7 @@ users.users.death916 = {
     enable = true;
     settings = {
       port = 5006; # Default
-      listenAddress = "127.0.0.1";
+     # listenAddress = "127.0.0.1";
     };
   };
 
