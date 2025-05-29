@@ -34,7 +34,7 @@
     fsType = "ext4";
     options = [ "defaults" "nofail" ]; 
   };
-
+  time.timeZone = "America/Los_Angeles";
   # Mount for your newly formatted storage LV
   fileSystems."/storage" = {
     device = "/dev/Storage/data_lv"; # Path to your new thick LV
