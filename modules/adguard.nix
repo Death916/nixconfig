@@ -11,7 +11,7 @@
         dns = {
           upstream_dns = [
             "9.9.9.9#dns.quad9.net"
-            "8.8.8.8#google"
+            "8.8.8.8#google.com"
           ];
         };
         filtering = {
