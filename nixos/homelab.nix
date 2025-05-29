@@ -198,6 +198,12 @@ users.users.death916 = {
       Unit = "kopia-backup.service";
     };
   };
+
+   users.users.adguardhome = {
+    isSystemUser = true;
+    group = "adguardhome";
+  };
+  users.groups.adguardhome = {};
   # Sudo access for the wheel group (which death916 is part of)
   security.sudo.wheelNeedsPassword = true; # Or false if you prefer passwordless sudo for wheel
 
