@@ -62,7 +62,7 @@
     settings.PasswordAuthentication = false; # Recommended: use SSH keys
     settings.PermitRootLogin = "no";       # Recommended
   };
-  networking.firewall.checkReversePath = "loose"
+  networking.firewall.checkReversePath = "loose";
   services.tailscale = {
     enable = true;
     useRoutingFeatures = "both";
