@@ -213,7 +213,7 @@ users.users.death916 = {
       mode = "u=rwx,g=r-x,o=";
       acl = "d:g:adguardhome-access:rwx,g:adguardhome-access:rwx";
     };
-
+  };
 
   # Sudo access for the wheel group (which death916 is part of)
   security.sudo.wheelNeedsPassword = true; # Or false if you prefer passwordless sudo for wheel
