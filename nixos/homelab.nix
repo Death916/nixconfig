@@ -135,7 +135,7 @@ users.users.death916 = {
   services.qbittorrent = {
     enable = true;
     dataDir = "/storage/downloads";
-    configDir = "/storage/services/qbittorrent/config";
+   
     user = "qbittorrent";
     group = "qbittorrent";
     port = 8090;
