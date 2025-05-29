@@ -142,10 +142,10 @@ users.users.death916 = {
     package = pkgs.qbittorrent-nox;
   };
 
-  systemd.tmpfiles.rules = [
-    "d /storage/downloads 0775 root media_services - -"
-    "d /storage/services/qbittorrent 0755 qbittorrent qbittorrent - -"
-  ];
+  #systemd.tmpfiles.rules = [
+   # "d /storage/downloads 0775 root media_services - -"
+   # "d /storage/services/qbittorrent 0755 qbittorrent qbittorrent - -"
+  #];
 
   
   services.jellyfin.enable = true;
@@ -168,7 +168,7 @@ users.users.death916 = {
     c2c-scraper = {
       image = "death916/c2cscrape:latest";
       volumes = [
-        "/media/storage/media/books/audio/podcasts/C2C:/downloads",
+        "/media/storage/media/books/audio/podcasts/C2C:/downloads"
         "/media/storage/media/docker/volumes/c2cscrape:/app/data"
       ];
       environment = {
