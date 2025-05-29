@@ -143,10 +143,12 @@ users.users.death916 = {
   
   services.actual = {
     enable = true;
-    # dataDir = "/var/lib/actual-server"; # Default
-     port = 5006; # Default
-   # listenAddress = "0.0.0.0";
+    settings = {
+      port = 5006; # Default
+     # listenAddress = "0.0.0.0";
+    };
   };
+
 
   virtualisation.docker.enable = true;
 #  users.users.death916.extraGroups = [ "docker" ]; # If needed
