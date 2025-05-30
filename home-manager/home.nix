@@ -100,11 +100,11 @@ in
       disabled = false;
     };
 
-    # Using env_var module - Test 1: Explicitly styled group
+    # Using env_var module - Test 2: Extremely simple debug format
     env_var.flox = {
       variable = "FLOX_PROMPT_ENVIRONMENTS";
-      format = "via ❄️ [$env_value]($style) "; # Explicit styled group for $env_value
-      style = "bold blue"; # Style for the [$env_value] part
+      format = "FLOX_IS:[$env_value] -- "; # Distinct debug format
+      style = "green"; # Simple style
       disabled = false;
     };
 
