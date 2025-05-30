@@ -100,18 +100,22 @@ in
       disabled = false;
     };
 
-    custom.flox_env_text = { # Yet another fresh name
-      description = "Displays Flox environment";
-      # This command will ONLY run if 'when' is true.
-      # It includes a trailing space.
-      command = ''echo -n "via ❄️ $FLOX_PROMPT_ENVIRONMENTS "'';
-      # The 'when' clause is the primary controller.
+    custom.flox_display = { # Fresh name
+      description = "Flox environment via internal formatting";
+      # Command now ONLY outputs the raw variable content or nothing. echo -n is vital.
+      command = ''echo -n "$FLOX_PROMPT_ENVIRONMENTS"'';
+      # When clause: Starship should still evaluate this first.
+      # If this is false, the module should be skipped.
       when = ''test -n "$FLOX_PROMPT_ENVIRONMENTS"'';
-      format = "$output";
+      # Format string now does the prefixing and styling.
+      # [$output] is the key: if $output (from command) is empty, this group might not render.
+      # The space after $output is inside the styled group.
+      format = "[via ❄️ $output ]($style)"; # If $output is empty, this *should* ideally not render.
+      style = "bold blue"; # Style applied to the entire "via ❄️ content " group.
       shell = "bash";
     };
 
-    format = ''$directory $git_branch $conda$custom.flox_env_text$nix_shell$cmd_duration$status$character'';
+    format = ''$directory $git_branch $conda$custom.flox_display$nix_shell$cmd_duration$status$character'';
   };
 
 };
