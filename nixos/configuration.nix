@@ -88,6 +88,7 @@
     inputs.flox.packages.${pkgs.system}.flox
     kopia-ui
     stremio
+    microsoft-edge
   ];
   
   # to make exit nodes work
