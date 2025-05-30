@@ -100,15 +100,12 @@ in
       disabled = false;
     };
 
-    # Using env_var module - MINIMAL configuration
+    # Using env_var module - Test 1: Explicitly styled group
     env_var.flox = {
       variable = "FLOX_PROMPT_ENVIRONMENTS";
-      # Format: if $env_value is empty, this entire segment should ideally not render.
-      # The trailing space is part of the format.
-      format = "via ❄️ $env_value ";
-      # No 'style' here for now.
-      # No 'default' here.
-      disabled = false; # Explicitly enable.
+      format = "via ❄️ [$env_value]($style) "; # Explicit styled group for $env_value
+      style = "bold blue"; # Style for the [$env_value] part
+      disabled = false;
     };
 
     # Main format string
