@@ -1,4 +1,3 @@
-# ~/Documents/nix-config/home-manager/home.nix
 { config, pkgs, lib, hmLib, ... }:
 
 let
@@ -94,27 +93,26 @@ in
     conda = {
       truncation_length = 1;
       format = ''[$symbol$environment]($style) '';
-      symbol = " ";
+      symbol = " ";
       style = "green bold";
       ignore_base = false;
       disabled = false;
     };
 
-    custom.flox_indicator = {
-      description = "Indicates active Flox environment";
-      # This command will ONLY run if 'when' is true.
-      # It outputs the desired string with a trailing space.
-      # echo -n prevents adding a newline character at the end of the string.
-      command = ''echo -n "via ❄️ $FLOX_PROMPT_ENVIRONMENTS "'';
-      # The 'when' clause is the primary controller.
-      # If this shell command returns a non-zero exit code (false),
-      # the module (command and format) is skipped.
-      when = ''test -n "$FLOX_PROMPT_ENVIRONMENTS"'';
-      format = "$output"; # Takes the output of the command.
-      shell = ["bash" "-c"];
+    env_var.current_user_display = {
+      variable = "USER";
+      format = "[USER: $env_value] ";
+      disabled = false;
     };
 
-    format = ''$directory $git_branch $conda$custom.flox_indicator$nix_shell$cmd_duration$status$character'';
+    env_var.flox_env = {
+      variable = "FLOX_ENV";
+      format = "[flox:$env_value]($style) ";
+      style = "purple bold";
+      disabled = false;
+    };
+
+    format = ''$directory $git_branch $conda$env_var_current_user_display$env_var_flox_env$cmd_duration$status$character'';
   };
 };
 
@@ -152,8 +150,10 @@ in
   };
 
   home.sessionVariables = {
+    FLOX_PROMPT_DISABLE = "1";
   };
 
   home.stateVersion = "24.11";
   programs.home-manager.enable = true;
 }
+
