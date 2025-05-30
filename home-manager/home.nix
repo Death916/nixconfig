@@ -86,11 +86,10 @@ in
   programs.starship = {
   enable = true;
   settings = {
-    add_newline = false;
-    aws.disabled = true;
-    gcloud.disabled = true;
-    line_break.disabled = true;
+    add_newline = false; # Keep this
+    # All other top-level settings like aws.disabled can remain or be commented for test
 
+    # Keep the conda definition if you use conda
     conda = {
       truncation_length = 1;
       format = ''[$symbol$environment]($style) '';
@@ -102,13 +101,14 @@ in
 
     env_var.flox_env_display = {
       variable = "FLOX_PROMPT_ENVIRONMENTS";
-      format = "via ❄️ [$env_value]($style) "; 
-      style = "bold blue"; 
-      default = "VAR_NOT_FOUND"; # ADDED FOR DEBUGGING
+      format = "via ❄️ [$env_value]($style) ";
+      style = "bold blue";
+      default = "VAR_NOT_FOUND"; # Keep this for debugging
       disabled = false;
     };
 
-    format = ''$directory $git_branch $conda$env_var_flox_env_display$nix_shell$cmd_duration$status$character'';
+    # SIMPLIFIED MAIN FORMAT STRING
+    format = ''TEST_PROMPT: $env_var_flox_env_display END_TEST'';
   };
 
 };
