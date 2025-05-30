@@ -102,8 +102,8 @@ in
 
     custom.flox_prompt_indicator = {
       description = "Shows the active Flox environment name";
-      command = ''if [ -n "$FLOX_PROMPT_ENVIRONMENTS" ]; then echo -n "via [❄️ $FLOX_PROMPT_ENVIRONMENTS](bold blue) "; else echo -n ""; fi''; # MODIFIED: explicit empty echo
-      when = ''test -n "$FLOX_PROMPT_ENVIRONMENTS"'';
+      command = ''if [ -n "$FLOX_PROMPT_ENVIRONMENTS" ]; then echo -n "via [❄️ $FLOX_PROMPT_ENVIRONMENTS](bold blue) "; else echo -n ""; fi'';
+      # when = ''test -n "$FLOX_PROMPT_ENVIRONMENTS"''; # REMOVED FOR TESTING
       format = "$output";
       shell = "bash";
     };
