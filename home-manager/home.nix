@@ -86,10 +86,11 @@ in
   programs.starship = {
   enable = true;
   settings = {
-    add_newline = false; # Keep this
-    # All other top-level settings like aws.disabled can remain or be commented for test
+    add_newline = false;
+    aws.disabled = true;
+    gcloud.disabled = true;
+    line_break.disabled = true;
 
-    # Keep the conda definition if you use conda
     conda = {
       truncation_length = 1;
       format = ''[$symbol$environment]($style) '';
@@ -99,16 +100,17 @@ in
       disabled = false;
     };
 
-    env_var.flox_env_display = {
-      variable = "FLOX_PROMPT_ENVIRONMENTS";
-      format = "via ❄️ [$env_value]($style) ";
-      style = "bold blue";
-      default = "VAR_NOT_FOUND"; # Keep this for debugging
-      disabled = false;
+    custom.flox_indicator = { # Renamed for a fresh attempt, just in case
+      description = "Flox environment indicator";
+      # Command: Only output if var exists. echo -n for no newline. Include trailing space.
+      command = ''echo -n "via ❄️ $FLOX_PROMPT_ENVIRONMENTS "'';
+      # When: Only run command if var exists and is non-empty.
+      when = ''test -n "$FLOX_PROMPT_ENVIRONMENTS"'';
+      format = "$output";
+      shell = "bash";
     };
 
-    # SIMPLIFIED MAIN FORMAT STRING
-    format = ''TEST_PROMPT: $env_var_flox_env_display END_TEST'';
+    format = ''$directory $git_branch $conda$custom.flox_indicator$nix_shell$cmd_duration$status$character'';
   };
 
 };
