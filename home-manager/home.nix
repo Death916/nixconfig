@@ -100,17 +100,19 @@ in
       disabled = false;
     };
 
-    custom.flox_indicator = { # Renamed for a fresh attempt, just in case
-      description = "Flox environment indicator";
-      # Command: Only output if var exists. echo -n for no newline. Include trailing space.
-      command = ''echo -n "via ❄️ $FLOX_PROMPT_ENVIRONMENTS "'';
-      # When: Only run command if var exists and is non-empty.
-      when = ''test -n "$FLOX_PROMPT_ENVIRONMENTS"'';
-      format = "$output";
+    custom.flox_status = { # Using a slightly different name again for a clean test
+      description = "Shows current Flox environment status";
+      # Command logic: if variable is set, echo "via text"; otherwise, echo an empty string.
+      # echo -n prevents trailing newlines.
+      # Ensure a trailing space in the "via..." string if desired.
+      command = ''if [ -n "$FLOX_PROMPT_ENVIRONMENTS" ]; then echo -n "via ❄️ $FLOX_PROMPT_ENVIRONMENTS "; else echo -n ""; fi'';
+      # NO 'when' CLAUSE HERE. The command itself handles the logic.
+      format = "$output"; # Take the output of the command as is.
       shell = "bash";
     };
 
-    format = ''$directory $git_branch $conda$custom.flox_indicator$nix_shell$cmd_duration$status$character'';
+    # Main format string, calling the custom module.
+    format = ''$directory $git_branch $conda$custom.flox_status$nix_shell$cmd_duration$status$character'';
   };
 
 };
