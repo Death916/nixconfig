@@ -100,18 +100,14 @@ in
       disabled = false;
     };
 
-    # REMOVE THE OLD CUSTOM MODULE ENTIRELY
-    # custom.flox_prompt_indicator = { ... };
-
-    # ADD THE BUILT-IN ENV_VAR MODULE INSTEAD
-    env_var.flox_env_display = { # The "flox_env_display" part is an arbitrary name for this module instance
-      variable = "FLOX_PROMPT_ENVIRONMENTS"; # The environment variable to check
-      format = "via ❄️ [$env_value]($style) "; # How to display it. $env_value holds the var's content. Space at the end.
-      style = "bold blue"; # Optional styling for the [$env_value] part
-      disabled = false; # Ensures the module is considered. It will auto-hide if 'variable' is not set.
+    env_var.flox_env_display = {
+      variable = "FLOX_PROMPT_ENVIRONMENTS";
+      format = "via ❄️ [$env_value]($style) "; 
+      style = "bold blue"; 
+      default = "VAR_NOT_FOUND"; # ADDED FOR DEBUGGING
+      disabled = false;
     };
 
-    # Update the main format string to use the new env_var module
     format = ''$directory $git_branch $conda$env_var_flox_env_display$nix_shell$cmd_duration$status$character'';
   };
 
