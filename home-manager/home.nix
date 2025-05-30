@@ -100,26 +100,19 @@ in
       disabled = false;
     };
 
-    custom.flox_status = {
-      description = "Shows current Flox environment status";
-      # Bash script: if variable is set, echo "via text "; otherwise, echo an empty string.
-      # Using explicit exit status as well, though output is primary.
-      command = ''
-        if [ -n "$FLOX_PROMPT_ENVIRONMENTS" ]; then
-          echo -n "via ❄️ $FLOX_PROMPT_ENVIRONMENTS " # Trailing space included
-          exit 0 # Explicitly succeed
-        else
-          echo -n "" # Output nothing
-          exit 0 # Still succeed, but with no output for Starship
-        fi
-      '';
-      # NO 'when' CLAUSE. Logic is fully in the command.
-      format = "$output"; # Take the output of the command as is.
-      shell = ["bash" "-c"]; # Ensure the command is run with bash -c
+    # Using env_var module - MINIMAL configuration
+    env_var.flox = {
+      variable = "FLOX_PROMPT_ENVIRONMENTS";
+      # Format: if $env_value is empty, this entire segment should ideally not render.
+      # The trailing space is part of the format.
+      format = "via ❄️ $env_value ";
+      # No 'style' here for now.
+      # No 'default' here.
+      disabled = false; # Explicitly enable.
     };
 
-    # Main format string, calling the custom module.
-    format = ''$directory $git_branch $conda$custom.flox_status$nix_shell$cmd_duration$status$character'';
+    # Main format string
+    format = ''$directory $git_branch $conda$env_var_flox$nix_shell$cmd_duration$status$character'';
   };
 
 };
