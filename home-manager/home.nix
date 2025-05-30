@@ -60,7 +60,7 @@ in
     waveterm
     halloy
     tmux
-    nextcloud-client # Corrected typo from nextold-client
+    nextcloud-client
 #    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
     tmuxai-pkg # Just install the package
     obsidian
@@ -108,12 +108,12 @@ in
     custom.flox_prompt_indicator = {
       description = "Shows the active Flox environment name (DEBUG)";
       command = ''echo "FLOX_DEBUG: <$FLOX_PROMPT_ENVIRONMENTS> ($(test -n "$FLOX_PROMPT_ENVIRONMENTS" && echo VAR_PRESENT || echo VAR_EMPTY_OR_UNSET))"'';
-      when = "true"; 
-      format = "$output"; # SIMPLIFIED FOR DEBUG (Corrected here)
+      when = "true";
+      format = "$output"; 
       shell = "bash";
     };
 
-    format = ''$directory $git_branch $conda$custom_flox_prompt_indicator$nix_shell$cmd_duration$status$character'';
+    format = ''$directory $git_branch $conda$custom.flox_prompt_indicator$nix_shell$cmd_duration$status$character''; # CORRECTED HERE
   };
 
 };
