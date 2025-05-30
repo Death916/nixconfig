@@ -60,7 +60,7 @@ in
     halloy
     tmux
     nextcloud-client
-    tmuxai-pkg 
+    tmuxai-pkg
     obsidian
     element-desktop
     ghostty
@@ -102,14 +102,13 @@ in
 
     custom.flox_prompt_indicator = {
       description = "Shows the active Flox environment name";
-      command = ''if [ -n "$FLOX_PROMPT_ENVIRONMENTS" ]; then echo -n "via [❄️ $FLOX_PROMPT_ENVIRONMENTS](bold blue) "; fi''; # MODIFIED: echo -n
+      command = ''if [ -n "$FLOX_PROMPT_ENVIRONMENTS" ]; then echo -n "via [❄️ $FLOX_PROMPT_ENVIRONMENTS](bold blue) "; fi''; 
       when = ''test -n "$FLOX_PROMPT_ENVIRONMENTS"'';
-      format = "$output"; # MODIFIED: Simplest format
+      format = "$output"; 
       shell = "bash";
-      # 'style' line removed for this test
     };
 
-    format = ''$directory $git_branch $conda [START_CUSTOM]$custom.flox_prompt_indicator[END_CUSTOM] $nix_shell$cmd_duration$status$character''; # MODIFIED: Added delimiters
+    format = ''$directory $git_branch $conda >>>$custom.flox_prompt_indicator<<< $nix_shell$cmd_duration$status$character''; # MODIFIED: Corrected delimiters
   };
 
 };
