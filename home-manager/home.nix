@@ -107,8 +107,8 @@ in
 
     custom.flox_prompt_indicator = {
       description = "Shows the active Flox environment name";
-      command = ''if [ -n "$FLOX_ENV_NAME" ]; then echo "via [❄️ $FLOX_ENV_NAME](bold blue) "; fi'';
-      when = ''test -n "$FLOX_ENV_NAME"'';
+      command = ''if [ -n "$FLOX_PROMPT_ENVIRONMENTS" ]; then echo "via [❄️ $FLOX_PROMPT_ENVIRONMENTS](bold blue) "; fi''; # MODIFIED HERE
+      when = ''test -n "$FLOX_PROMPT_ENVIRONMENTS"''; # MODIFIED HERE
       format = ''$output'';
       shell = "bash";
     };
@@ -141,7 +141,7 @@ in
     enableCompletion = true;
     bashrcExtra = ''
       export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/go/bin"
-    ''; # Removed the "flox hook" line from here
+    '';
     shellAliases = {
       k = "kubectl";
       pimox = "tailscale ssh pimox";
