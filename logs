@@ -402,3 +402,86 @@
 [INFO] 2025/05/19 12:32:34.648773 files.go:370: Deleted (recursively): /media/storage/media/downloads/Its.Always.Sunny.in.Philadelphia.S01E04.INTERNAL.MULTi.WEB.H264-SILVIODANTE_unpackerred
 [INFO] 2025/05/19 12:32:34.648890 handlers.go:221: Extraction Finished: Its.Always.Sunny.in.Philadelphia.S01E04.INTERNAL.MULTi.WEB.H264-SILVIODANTE => elapsed: 3s, archives: 6, extra archives: 0, files extracted: 1, wrote: 524MiB
 [DEBUG] 2025/05/19 12:32:34.648920 handlers.go:224: Extraction Finished: 9 files in path: [its.always.sunny.in.philadelphia.s01e04.internal.multi.web.h264-silviodante.r03 its.always.sunny.in.philadelphia.s01e04.internal.multi.web.h264-silviodante.sfv its.always.sunny.in.philadelphia.s01e04.internal.multi.web.h264-silviodante.r00 its.always.sunny.in.philadelphia.s01e04.internal.multi.web.h264-silviodante.rar its.always.sunny.in.philadelphia.s01e04.internal.multi.web.h264-silviodante.r04 its.always.sunny.in.philadelphia.s01e04.internal.multi.web.h264-silviodante.r01 its.always.sunny.in.philadelphia.s01e04.internal.multi.web.h264-silviodante.r02 its.always.sunny.in.philadelphia.s01e04.internal.multi.web.h264-silviodante.mkv its.always.sunny.in.philadelphia.s01e04.internal.multi.web.h264-silviodante.nfo]
+[INFO] 2025/05/30 00:37:28.978944 start.go:146: Unpackerr v0.14.5- Starting! PID: 212392, UID: 1000, GID: 100, Umask: 18, Now: 2025-05-30 00:37:29 -0700 PDT
+[DEBUG] 2025/05/30 00:37:28.979078 start.go:149: unpackerr, version 0.14.5 (branch: , revision: ), build user: , build date: , go version: go1.24.3, platform: linux/amd64, started: 2025-05-30 00:37:28.977133009 -0700 PDT m=+0.001273584
+[INFO] 2025/05/30 00:37:28.979364 logs.go:227: ==> GoLift Discord: https://golift.io/discord <==
+[INFO] 2025/05/30 00:37:28.979383 logs.go:228: ==> Startup Settings <==
+[INFO] 2025/05/30 00:37:28.979398 logs.go:229:  => Using Config File: /etc/unpackerr/unpackerr.conf, age: 16 mins 18 secs 639 ms
+[INFO] 2025/05/30 00:37:28.979428 sonarr.go:41:  => Sonarr Config: 1 server: http://homelab:8989, apikey:true, timeout:10s, verify_ssl:false, protos:torrent, syncthing:false, delete_orig:false, delete_delay:5m0s, paths:["/media/storage/media/downloads"]
+[INFO] 2025/05/30 00:37:28.979450 radarr.go:41:  => Radarr Config: 1 server: http://homelab:7878, apikey:true, timeout:10s, verify_ssl:false, protos:torrent, syncthing:false, delete_orig:false, delete_delay:5m0s, paths:["/media/storage/media/downloads" "/media/storage/media/movies" "/media/storage/media/movies/Sinners.2025.HDR.2160p.WEB.H265-RealFaithfulKestrelOfKarma"]
+[INFO] 2025/05/30 00:37:28.979468 lidarr.go:46:  => Lidarr Config: 0 servers
+[INFO] 2025/05/30 00:37:28.979478 readarr.go:46:  => Readarr Config: 0 servers
+[INFO] 2025/05/30 00:37:28.979490 folder.go:89:  => Folder Config: 0 paths, event_buffer:20000 
+[INFO] 2025/05/30 00:37:28.979511 logs.go:241:  => Parallel: 1
+[INFO] 2025/05/30 00:37:28.979520 logs.go:242:  => Passwords: 0 (rar/7z)
+[INFO] 2025/05/30 00:37:28.979532 logs.go:243:  => Interval: 2m
+[INFO] 2025/05/30 00:37:28.979542 logs.go:244:  => Start/Delete Delay: 1m/5m
+[INFO] 2025/05/30 00:37:28.979553 logs.go:245:  => Retry Delay: 5m, max: 3
+[INFO] 2025/05/30 00:37:28.979571 logs.go:246:  => GUI / StdErr: false / false
+[INFO] 2025/05/30 00:37:28.979584 logs.go:247:  => Debug / Quiet: true / false
+[INFO] 2025/05/30 00:37:28.979594 logs.go:248:  => Activity / Queues: false / 1m
+[INFO] 2025/05/30 00:37:28.979604 logs.go:251:  => Directory & File Modes: 0755 & 0644
+[INFO] 2025/05/30 00:37:28.979614 logs.go:260:  => Log File: ./logs (10 @ 10Mb)
+[INFO] 2025/05/30 00:37:28.979626 webhook.go:274:  => Webhook Configs: 0 URLs
+[INFO] 2025/05/30 00:37:28.979636 cmdhook.go:129:  => Command Hook Configs: 0 commands
+[INFO] 2025/05/30 00:37:28.979646 webserver.go:37:  => Webserver Disabled
+[INFO] 2025/05/30 00:37:28.986011 radarr.go:74: [Radarr] Updated (http://homelab:7878): 0 Items Queued, 0 Retrieved
+[INFO] 2025/05/30 00:37:28.989872 sonarr.go:74: [Sonarr] Updated (http://homelab:8989): 56 Items Queued, 56 Retrieved
+[DEBUG] 2025/05/30 00:37:28.990005 sonarr.go:110: Sonarr (http://homelab:8989): warning (torrent:98%): Star Trek Discovery S03 br 10bit hevc-d3g (remux) (Ep: 2255)
+[DEBUG] 2025/05/30 00:37:28.990047 sonarr.go:110: Sonarr (http://homelab:8989): warning (torrent:98%): Star Trek Discovery S03 br 10bit hevc-d3g (remux) (Ep: 2256)
+[DEBUG] 2025/05/30 00:37:28.990073 sonarr.go:110: Sonarr (http://homelab:8989): warning (torrent:98%): Star Trek Discovery S03 br 10bit hevc-d3g (remux) (Ep: 2257)
+[DEBUG] 2025/05/30 00:37:28.990097 sonarr.go:110: Sonarr (http://homelab:8989): warning (torrent:98%): Star Trek Discovery S03 br 10bit hevc-d3g (remux) (Ep: 2258)
+[DEBUG] 2025/05/30 00:37:28.990125 sonarr.go:110: Sonarr (http://homelab:8989): warning (torrent:98%): Star Trek Discovery S03 br 10bit hevc-d3g (remux) (Ep: 2259)
+[DEBUG] 2025/05/30 00:37:28.990152 sonarr.go:110: Sonarr (http://homelab:8989): warning (torrent:98%): Star Trek Discovery S03 br 10bit hevc-d3g (remux) (Ep: 2260)
+[DEBUG] 2025/05/30 00:37:28.990174 sonarr.go:110: Sonarr (http://homelab:8989): warning (torrent:98%): Star Trek Discovery S03 br 10bit hevc-d3g (remux) (Ep: 2261)
+[DEBUG] 2025/05/30 00:37:28.990228 sonarr.go:110: Sonarr (http://homelab:8989): warning (torrent:98%): Star Trek Discovery S03 br 10bit hevc-d3g (remux) (Ep: 2262)
+[DEBUG] 2025/05/30 00:37:28.990250 sonarr.go:110: Sonarr (http://homelab:8989): warning (torrent:98%): Star Trek Discovery S03 br 10bit hevc-d3g (remux) (Ep: 2263)
+[DEBUG] 2025/05/30 00:37:28.990272 sonarr.go:110: Sonarr (http://homelab:8989): warning (torrent:98%): Star Trek Discovery S03 br 10bit hevc-d3g (remux) (Ep: 2264)
+[DEBUG] 2025/05/30 00:37:28.990298 sonarr.go:110: Sonarr (http://homelab:8989): warning (torrent:98%): Star Trek Discovery S03 br 10bit hevc-d3g (remux) (Ep: 2265)
+[DEBUG] 2025/05/30 00:37:28.990328 sonarr.go:110: Sonarr (http://homelab:8989): warning (torrent:98%): Star Trek Discovery S03 br 10bit hevc-d3g (remux) (Ep: 2266)
+[DEBUG] 2025/05/30 00:37:28.990359 sonarr.go:110: Sonarr (http://homelab:8989): warning (torrent:98%): Star Trek Discovery S03 br 10bit hevc-d3g (remux) (Ep: 2267)
+[DEBUG] 2025/05/30 00:37:28.990383 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:17%): Star Trek Discovery S05 br avc-pir8 (Ep: 2281)
+[DEBUG] 2025/05/30 00:37:28.990406 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:17%): Star Trek Discovery S05 br avc-pir8 (Ep: 2282)
+[DEBUG] 2025/05/30 00:37:28.990439 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:17%): Star Trek Discovery S05 br avc-pir8 (Ep: 2283)
+[DEBUG] 2025/05/30 00:37:28.990473 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:17%): Star Trek Discovery S05 br avc-pir8 (Ep: 2284)
+[DEBUG] 2025/05/30 00:37:28.990507 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:17%): Star Trek Discovery S05 br avc-pir8 (Ep: 2285)
+[DEBUG] 2025/05/30 00:37:28.990533 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:17%): Star Trek Discovery S05 br avc-pir8 (Ep: 2286)
+[DEBUG] 2025/05/30 00:37:28.990559 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:17%): Star Trek Discovery S05 br avc-pir8 (Ep: 2287)
+[DEBUG] 2025/05/30 00:37:28.990583 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:17%): Star Trek Discovery S05 br avc-pir8 (Ep: 2288)
+[DEBUG] 2025/05/30 00:37:28.990604 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:17%): Star Trek Discovery S05 br avc-pir8 (Ep: 2289)
+[DEBUG] 2025/05/30 00:37:28.990624 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:17%): Star Trek Discovery S05 br avc-pir8 (Ep: 2290)
+[DEBUG] 2025/05/30 00:37:28.990645 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:16%): Star Trek Strange New Worlds (2022) S01 (1080p UHD BDRip DV HDR DDP5 1 x265) - Vialle (Ep: 2294)
+[DEBUG] 2025/05/30 00:37:28.990667 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:16%): Star Trek Strange New Worlds (2022) S01 (1080p UHD BDRip DV HDR DDP5 1 x265) - Vialle (Ep: 2295)
+[DEBUG] 2025/05/30 00:37:28.990688 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:16%): Star Trek Strange New Worlds (2022) S01 (1080p UHD BDRip DV HDR DDP5 1 x265) - Vialle (Ep: 2296)
+[DEBUG] 2025/05/30 00:37:28.990709 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:16%): Star Trek Strange New Worlds (2022) S01 (1080p UHD BDRip DV HDR DDP5 1 x265) - Vialle (Ep: 2297)
+[DEBUG] 2025/05/30 00:37:28.990729 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:16%): Star Trek Strange New Worlds (2022) S01 (1080p UHD BDRip DV HDR DDP5 1 x265) - Vialle (Ep: 2298)
+[DEBUG] 2025/05/30 00:37:28.990751 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:16%): Star Trek Strange New Worlds (2022) S01 (1080p UHD BDRip DV HDR DDP5 1 x265) - Vialle (Ep: 2299)
+[DEBUG] 2025/05/30 00:37:28.990772 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:16%): Star Trek Strange New Worlds (2022) S01 (1080p UHD BDRip DV HDR DDP5 1 x265) - Vialle (Ep: 2300)
+[DEBUG] 2025/05/30 00:37:28.990792 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:16%): Star Trek Strange New Worlds (2022) S01 (1080p UHD BDRip DV HDR DDP5 1 x265) - Vialle (Ep: 2301)
+[DEBUG] 2025/05/30 00:37:28.990904 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:16%): Star Trek Strange New Worlds (2022) S01 (1080p UHD BDRip DV HDR DDP5 1 x265) - Vialle (Ep: 2302)
+[DEBUG] 2025/05/30 00:37:28.990938 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:16%): Star Trek Strange New Worlds (2022) S01 (1080p UHD BDRip DV HDR DDP5 1 x265) - Vialle (Ep: 2303)
+[DEBUG] 2025/05/30 00:37:28.990960 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:8%): Star Trek Discovery S04 br hevc-d3g (Ep: 2268)
+[DEBUG] 2025/05/30 00:37:28.990982 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:8%): Star Trek Discovery S04 br hevc-d3g (Ep: 2269)
+[DEBUG] 2025/05/30 00:37:28.991002 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:8%): Star Trek Discovery S04 br hevc-d3g (Ep: 2270)
+[DEBUG] 2025/05/30 00:37:28.991023 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:8%): Star Trek Discovery S04 br hevc-d3g (Ep: 2271)
+[DEBUG] 2025/05/30 00:37:28.991045 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:8%): Star Trek Discovery S04 br hevc-d3g (Ep: 2272)
+[DEBUG] 2025/05/30 00:37:28.991066 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:8%): Star Trek Discovery S04 br hevc-d3g (Ep: 2273)
+[DEBUG] 2025/05/30 00:37:28.991086 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:8%): Star Trek Discovery S04 br hevc-d3g (Ep: 2274)
+[DEBUG] 2025/05/30 00:37:28.991107 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:8%): Star Trek Discovery S04 br hevc-d3g (Ep: 2275)
+[DEBUG] 2025/05/30 00:37:28.991128 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:8%): Star Trek Discovery S04 br hevc-d3g (Ep: 2276)
+[DEBUG] 2025/05/30 00:37:28.991149 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:8%): Star Trek Discovery S04 br hevc-d3g (Ep: 2277)
+[DEBUG] 2025/05/30 00:37:28.991170 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:8%): Star Trek Discovery S04 br hevc-d3g (Ep: 2278)
+[DEBUG] 2025/05/30 00:37:28.991191 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:8%): Star Trek Discovery S04 br hevc-d3g (Ep: 2279)
+[DEBUG] 2025/05/30 00:37:28.991211 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:8%): Star Trek Discovery S04 br hevc-d3g (Ep: 2280)
+[DEBUG] 2025/05/30 00:37:28.991232 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:2%): Star Trek Strange New Worlds S02 br avc-pir8 (Ep: 2304)
+[DEBUG] 2025/05/30 00:37:28.991253 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:2%): Star Trek Strange New Worlds S02 br avc-pir8 (Ep: 2305)
+[DEBUG] 2025/05/30 00:37:28.991274 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:2%): Star Trek Strange New Worlds S02 br avc-pir8 (Ep: 2306)
+[DEBUG] 2025/05/30 00:37:28.991303 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:2%): Star Trek Strange New Worlds S02 br avc-pir8 (Ep: 2307)
+[DEBUG] 2025/05/30 00:37:28.991325 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:2%): Star Trek Strange New Worlds S02 br avc-pir8 (Ep: 2308)
+[DEBUG] 2025/05/30 00:37:28.991347 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:2%): Star Trek Strange New Worlds S02 br avc-pir8 (Ep: 2309)
+[DEBUG] 2025/05/30 00:37:28.991368 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:2%): Star Trek Strange New Worlds S02 br avc-pir8 (Ep: 2310)
+[DEBUG] 2025/05/30 00:37:28.991389 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:2%): Star Trek Strange New Worlds S02 br avc-pir8 (Ep: 2311)
+[DEBUG] 2025/05/30 00:37:28.991410 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:2%): Star Trek Strange New Worlds S02 br avc-pir8 (Ep: 2312)
+[DEBUG] 2025/05/30 00:37:28.991430 sonarr.go:110: Sonarr (http://homelab:8989): paused (torrent:2%): Star Trek Strange New Worlds S02 br avc-pir8 (Ep: 2313)
+[INFO] 2025/05/30 00:37:37.165532 tray_other.go:15: [unpackerr] Need help? GoLift Discord: https://golift.io/discord
+=====> Exiting! Caught Signal: interrupt
