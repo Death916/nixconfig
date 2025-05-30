@@ -60,7 +60,7 @@ in
     waveterm
     halloy
     tmux
-    nextold-client
+    nextcloud-client
 #    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
     tmuxai-pkg # Just install the package
     obsidian
