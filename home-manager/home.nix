@@ -88,6 +88,10 @@ in
     };
   };
   
+  programs.flox = {
+    enable = true;
+  };
+  
   programs.starship = {
   enable = true;
   settings = {
