@@ -93,24 +93,26 @@ in
 
     conda = {
       truncation_length = 1;
-      format = ''[$symbol$environment]($style) ''; # conda often includes its own trailing space in its default format.
+      format = ''[$symbol$environment]($style) '';
       symbol = " ";
       style = "green bold";
       ignore_base = false;
       disabled = false;
     };
 
-    custom.flox_prompt_indicator = {
-      description = "Shows the active Flox environment name";
-      # Command outputs desired text with a trailing space, or nothing. echo -n prevents extra newlines.
-      command = ''if [ -n "$FLOX_PROMPT_ENVIRONMENTS" ]; then echo -n "via ❄️ $FLOX_PROMPT_ENVIRONMENTS "; else echo -n ""; fi'';
-      when = ''test -n "$FLOX_PROMPT_ENVIRONMENTS"''; # Only evaluate further if the variable is set
-      format = "$output"; # Take the output of the command as is
-      shell = "bash";
+    # REMOVE THE OLD CUSTOM MODULE ENTIRELY
+    # custom.flox_prompt_indicator = { ... };
+
+    # ADD THE BUILT-IN ENV_VAR MODULE INSTEAD
+    env_var.flox_env_display = { # The "flox_env_display" part is an arbitrary name for this module instance
+      variable = "FLOX_PROMPT_ENVIRONMENTS"; # The environment variable to check
+      format = "via ❄️ [$env_value]($style) "; # How to display it. $env_value holds the var's content. Space at the end.
+      style = "bold blue"; # Optional styling for the [$env_value] part
+      disabled = false; # Ensures the module is considered. It will auto-hide if 'variable' is not set.
     };
 
-    # Main format string
-    format = ''$directory $git_branch $conda$custom.flox_prompt_indicator$nix_shell$cmd_duration$status$character'';
+    # Update the main format string to use the new env_var module
+    format = ''$directory $git_branch $conda$env_var_flox_env_display$nix_shell$cmd_duration$status$character'';
   };
 
 };
