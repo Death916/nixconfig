@@ -1,92 +1,15 @@
 # ~/Documents/nix-config/home-manager/home.nix
-{ config, pkgs, lib, hmLib, ... }: # hmLib is still passed, but we won't use it for config file
-
-let
-  tmuxaiPackageDir = ../pkgs/tmuxai;
-  tmuxai-pkg = pkgs.callPackage tmuxaiPackageDir {};
+{ config, pkgs, lib, hmLib, ... }:
+# ... (rest of your usual Nix setup, packages, git, atuin, etc.) ...
 in
 {
-  home.username = "death916";
-  home.homeDirectory = "/home/death916";
-
-  xresources.properties = {
-    "Xcursor.size" = 16;
-    "Xft.dpi" = 172;
-  };
-
-  home.packages = with pkgs; [
-    fastfetch
-    nnn
-    zip
-    xz
-    unzip
-    p7zip
-    ripgrep
-    jq
-    yq-go
-    eza
-    fzf
-    mtr
-    iperf3
-    dnsutils
-    ldns
-    aria2
-    socat
-    nmap
-    ipcalc
-    cowsay
-    file
-    which
-    tree
-    gnused
-    gnutar
-    gawk
-    zstd
-    gnupg
-    nix-output-monitor
-    glow
-    btop
-    iotop
-    iftop
-    strace
-    ltrace
-    lsof
-    sysstat
-    lm_sensors
-    ethtool
-    pciutils
-    usbutils
-    waveterm
-    halloy
-    tmux
-    nextcloud-client
-    tmuxai-pkg
-    obsidian
-    element-desktop
-    ghostty
-    manix
-  ];
-
-  programs.git = {
-    enable = true;
-    userName = "death916";
-    userEmail = "mail@trentnelson.dev";
-    extraConfig = {
-      credential.helper = "store";
-    };
-  };
-
-  programs.atuin = {
-    enable = true;
-    settings = {
-      search_mode = "fuzzy";
-    };
-  };
+  # ... (home.username, home.homeDirectory, xresources, packages, git, atuin) ...
 
   programs.starship = {
   enable = true;
   settings = {
     add_newline = false;
+    # For this test, we can comment out other modules if needed, but let's try with them first.
     aws.disabled = true;
     gcloud.disabled = true;
     line_break.disabled = true;
@@ -100,60 +23,19 @@ in
       disabled = false;
     };
 
-    custom.flox_prompt = { # Fresh name one last time
-      description = "Flox environment prompt";
-      # This command ONLY runs if 'when' is true.
-      # It outputs the desired string with a trailing space.
-      # Using echo -n to prevent any extra newlines from echo itself.
-      command = ''echo -n "via ❄️ $FLOX_PROMPT_ENVIRONMENTS "'';
-      # The 'when' clause is the sole controller for whether this module is active.
-      when = ''test -n "$FLOX_PROMPT_ENVIRONMENTS"'';
-      format = "$output"; # Takes the output of the command.
-      shell = ["bash" "-c"]; # Ensures the command is run with bash -c
+    # Test 1: Display the USER environment variable
+    env_var.current_user_display = {
+      variable = "USER"; # This variable should always be set
+      format = "[USER: $env_value] "; # Simple format with a clear prefix and trailing space
+      disabled = false;
     };
 
-    # Main format string
-    format = ''$directory $git_branch $conda$custom.flox_prompt$nix_shell$cmd_duration$status$character'';
+    # Main format string - includes the test module
+    format = ''$directory $git_branch $conda$env_var_current_user_display$nix_shell$cmd_duration$status$character'';
   };
-
 };
 
-  programs.emacs = {
-    enable = true;
-    package = pkgs.emacs;
-};
-
-  programs.alacritty = {
-    enable = true;
-    settings = {
-      env.TERM = "xterm-256color";
-      font = {
-        size = 12;
-      };
-      scrolling.multiplier = 5;
-      selection.save_to_clipboard = true;
-    };
-  };
-  services.gnome-keyring.enable = true;
-
-  programs.bash = {
-    enable = true;
-    enableCompletion = true;
-    bashrcExtra = ''
-      export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/go/bin"
-    '';
-    shellAliases = {
-      k = "kubectl";
-      pimox = "tailscale ssh pimox";
-      homelab = "tailscale ssh homelab";
-      urldecode = "python3 -c 'import sys, urllib.parse as ul; print(ul.unquote_plus(sys.stdin.read()))'";
-      urlencode = "python3 -c 'import sys, urllib.parse as ul; print(ul.quote_plus(sys.stdin.read()))'";
-    };
-  };
-
-  home.sessionVariables = {
-  };
-
-  home.stateVersion = "24.11";
+  # ... (rest of your emacs, alacritty, bash, etc. config) ...
+  home.stateVersion = "24.11"; # Ensure this matches your setup
   programs.home-manager.enable = true;
 }
