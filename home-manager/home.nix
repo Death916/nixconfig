@@ -141,10 +141,7 @@ in
     enableCompletion = true;
     bashrcExtra = ''
       export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/go/bin"
-      if [ -x "$(command -v flox)" ]; then
-        eval "$(flox hook bash)"
-      fi
-    '';
+    ''; # Removed the "flox hook" line from here
     shellAliases = {
       k = "kubectl";
       pimox = "tailscale ssh pimox";
