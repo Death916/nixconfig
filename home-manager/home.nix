@@ -106,14 +106,15 @@ in
     };
 
     custom.flox_prompt_indicator = {
-      description = "Shows the active Flox environment name"; # REVERTED
-      command = ''if [ -n "$FLOX_PROMPT_ENVIRONMENTS" ]; then echo "via [❄️ $FLOX_PROMPT_ENVIRONMENTS](bold blue) "; fi''; # REVERTED
-      when = ''test -n "$FLOX_PROMPT_ENVIRONMENTS"''; # REVERTED
-      format = "$output"; # Keep this corrected version
+      description = "Shows the active Flox environment name";
+      command = ''if [ -n "$FLOX_PROMPT_ENVIRONMENTS" ]; then echo "via [❄️ $FLOX_PROMPT_ENVIRONMENTS](bold blue) "; fi'';
+      when = ''test -n "$FLOX_PROMPT_ENVIRONMENTS"'';
+      format = "[$output]($style)"; # MODIFIED HERE
+      style = "fg:default"; # ADDED HERE (use "none" or omit if "default" adds unwanted color)
       shell = "bash";
     };
 
-    format = ''$directory $git_branch $conda$custom.flox_prompt_indicator$nix_shell$cmd_duration$status$character''; # Keep the dot
+    format = ''$directory $git_branch $conda$custom.flox_prompt_indicator$nix_shell$cmd_duration$status$character'';
   };
 
 };
