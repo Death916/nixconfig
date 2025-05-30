@@ -101,14 +101,16 @@ in
     };
 
     custom.flox_prompt_indicator = {
-      description = "Shows the active Flox environment name (FORCED OUTPUT TEST)";
-      command = ''echo -n "FORCED_OUTPUT"''; # FORCED OUTPUT TEST
-      # when = ''test -n "$FLOX_PROMPT_ENVIRONMENTS"''; # 'when' remains removed
-      format = "$output";
+      description = "Shows the active Flox environment name";
+      # Use echo -n to prevent any trailing newlines from the command's output
+      command = ''if [ -n "$FLOX_PROMPT_ENVIRONMENTS" ]; then echo -n "via [❄️ $FLOX_PROMPT_ENVIRONMENTS](bold blue) "; else echo -n ""; fi'';
+      when = ''test -n "$FLOX_PROMPT_ENVIRONMENTS"''; # Only run when variable is set
+      format = "$output"; # Output the command's result directly
       shell = "bash";
     };
 
-    format = ''$directory $git_branch $conda >>>$custom.flox_prompt_indicator<<< $nix_shell$cmd_duration$status$character'';
+    # Main format string with the corrected custom module call
+    format = ''$directory $git_branch $conda$custom.flox_prompt_indicator$nix_shell$cmd_duration$status$character'';
   };
 
 };
