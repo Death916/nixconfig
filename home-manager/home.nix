@@ -100,19 +100,20 @@ in
       disabled = false;
     };
 
-    # custom module that directly echoes the variable if found
-    custom.flox_check = {
-      description = "Direct Flox check";
-      # Command explicitly checks and outputs, or outputs nothing.
-      # Includes trailing space in the success case.
-      command = ''if [ -n "$FLOX_PROMPT_ENVIRONMENTS" ]; then echo -n "via ❄️ $FLOX_PROMPT_ENVIRONMENTS "; else echo -n ""; fi'';
-      # No 'when' clause.
-      format = "$output";
-      shell = ["bash" "-c"]; # Ensure it's run via bash -c
+    custom.flox_prompt = { # Fresh name one last time
+      description = "Flox environment prompt";
+      # This command ONLY runs if 'when' is true.
+      # It outputs the desired string with a trailing space.
+      # Using echo -n to prevent any extra newlines from echo itself.
+      command = ''echo -n "via ❄️ $FLOX_PROMPT_ENVIRONMENTS "'';
+      # The 'when' clause is the sole controller for whether this module is active.
+      when = ''test -n "$FLOX_PROMPT_ENVIRONMENTS"'';
+      format = "$output"; # Takes the output of the command.
+      shell = ["bash" "-c"]; # Ensures the command is run with bash -c
     };
 
     # Main format string
-    format = ''$directory $git_branch $conda$custom.flox_check$nix_shell$cmd_duration$status$character'';
+    format = ''$directory $git_branch $conda$custom.flox_prompt$nix_shell$cmd_duration$status$character'';
   };
 
 };
