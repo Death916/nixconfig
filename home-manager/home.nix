@@ -100,16 +100,19 @@ in
       disabled = false;
     };
 
-    # Using env_var module - Test 2: Extremely simple debug format
-    env_var.flox = {
-      variable = "FLOX_PROMPT_ENVIRONMENTS";
-      format = "FLOX_IS:[$env_value] -- "; # Distinct debug format
-      style = "green"; # Simple style
-      disabled = false;
+    # custom module that directly echoes the variable if found
+    custom.flox_check = {
+      description = "Direct Flox check";
+      # Command explicitly checks and outputs, or outputs nothing.
+      # Includes trailing space in the success case.
+      command = ''if [ -n "$FLOX_PROMPT_ENVIRONMENTS" ]; then echo -n "via ❄️ $FLOX_PROMPT_ENVIRONMENTS "; else echo -n ""; fi'';
+      # No 'when' clause.
+      format = "$output";
+      shell = ["bash" "-c"]; # Ensure it's run via bash -c
     };
 
     # Main format string
-    format = ''$directory $git_branch $conda$env_var_flox$nix_shell$cmd_duration$status$character'';
+    format = ''$directory $git_branch $conda$custom.flox_check$nix_shell$cmd_duration$status$character'';
   };
 
 };
