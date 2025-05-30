@@ -99,20 +99,14 @@ in
       disabled = false;
     };
 
-    env_var.current_user_display = {
-      variable = "USER";
-      format = "[USER: $env_value] ";
-      disabled = false;
-    };
-
-    env_var.flox_env = {
-      variable = "FLOX_ENV";
+    env_var = {
+      variable = "FLOX_PROMPT_ENVIRONMENTS";
       format = "[flox:$env_value]($style) ";
       style = "purple bold";
       disabled = false;
     };
 
-    format = ''$directory $git_branch $conda$env_var_current_user_display$env_var_flox_env$cmd_duration$status$character'';
+    format = ''$directory $git_branch $conda$env_var$cmd_duration$status$character'';
   };
 };
 
@@ -150,7 +144,6 @@ in
   };
 
   home.sessionVariables = {
-    FLOX_PROMPT_DISABLE = "1";
   };
 
   home.stateVersion = "24.11";
