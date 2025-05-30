@@ -93,25 +93,24 @@ in
 
     conda = {
       truncation_length = 1;
-      format = ''[$symbol$environment]($style) ''; # Keep space inside if needed
+      format = ''[$symbol$environment]($style) '';
       symbol = " ";
       style = "green bold";
       ignore_base = false;
       disabled = false;
     };
 
-    custom.flox_prompt_indicator = {
-      description = "Shows the active Flox environment name";
-      # Simplified command output, no Starship styling, no trailing space from echo
-      command = ''if [ -n "$FLOX_PROMPT_ENVIRONMENTS" ]; then echo -n "via ❄️ $FLOX_PROMPT_ENVIRONMENTS"; else echo -n ""; fi'';
-      when = ''test -n "$FLOX_PROMPT_ENVIRONMENTS"'';
-      format = "$output"; # Output the command's result directly
-      shell = "bash";
-    };
+    # custom.flox_prompt_indicator section REMOVED
+    # custom.flox_prompt_indicator = {
+    #   description = "Shows the active Flox environment name";
+    #   command = ''if [ -n "$FLOX_PROMPT_ENVIRONMENTS" ]; then echo -n "via ❄️ $FLOX_PROMPT_ENVIRONMENTS"; else echo -n ""; fi'';
+    #   when = ''test -n "$FLOX_PROMPT_ENVIRONMENTS"'';
+    #   format = "$output"; 
+    #   shell = "bash";
+    # };
 
-    # Main format string: Added a literal space after the custom module if it's not the last element.
-    # If $nix_shell or other modules follow, they need a preceding space if the custom module doesn't provide it.
-    format = ''$directory $git_branch $conda$custom.flox_prompt_indicator $nix_shell$cmd_duration$status$character''; # Note the space after $custom.flox_prompt_indicator
+    # Main format string: $custom.flox_prompt_indicator REMOVED
+    format = ''$directory $git_branch $conda $nix_shell$cmd_duration$status$character''; # REMOVED $custom.flox_prompt_indicator and adjusted spacing
   };
 
 };
