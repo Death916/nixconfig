@@ -4,7 +4,6 @@
 let
   tmuxaiPackageDir = ../pkgs/tmuxai;
   tmuxai-pkg = pkgs.callPackage tmuxaiPackageDir {};
-  # tmuxaiConfigTemplatePath = ../pkgs/tmuxai/tmuxai-config.yaml; # Not used for now
 in
 {
   home.username = "death916";
@@ -61,8 +60,7 @@ in
     halloy
     tmux
     nextcloud-client
-#    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
-    tmuxai-pkg # Just install the package
+    tmuxai-pkg 
     obsidian
     element-desktop
     ghostty
@@ -81,9 +79,6 @@ in
   programs.atuin = {
     enable = true;
     settings = {
-      #auto_sync = true;
-      #sync_frequency = "5m";
-      #sync_address = "https://api.atuin.sh";
       search_mode = "fuzzy";
     };
   };
@@ -107,14 +102,14 @@ in
 
     custom.flox_prompt_indicator = {
       description = "Shows the active Flox environment name";
-      command = ''if [ -n "$FLOX_PROMPT_ENVIRONMENTS" ]; then echo "via [❄️ $FLOX_PROMPT_ENVIRONMENTS](bold blue) "; fi'';
+      command = ''if [ -n "$FLOX_PROMPT_ENVIRONMENTS" ]; then echo -n "via [❄️ $FLOX_PROMPT_ENVIRONMENTS](bold blue) "; fi''; # MODIFIED: echo -n
       when = ''test -n "$FLOX_PROMPT_ENVIRONMENTS"'';
-      format = "[$output]($style)"; # MODIFIED HERE
-      style = "fg:default"; # ADDED HERE (use "none" or omit if "default" adds unwanted color)
+      format = "$output"; # MODIFIED: Simplest format
       shell = "bash";
+      # 'style' line removed for this test
     };
 
-    format = ''$directory $git_branch $conda$custom.flox_prompt_indicator$nix_shell$cmd_duration$status$character'';
+    format = ''$directory $git_branch $conda [START_CUSTOM]$custom.flox_prompt_indicator[END_CUSTOM] $nix_shell$cmd_duration$status$character''; # MODIFIED: Added delimiters
   };
 
 };
@@ -152,13 +147,7 @@ in
     };
   };
 
-  # --- TMUXAI CONFIGURATION REMOVED FOR NOW ---
-  # xdg.configFile."tmuxai/config.yaml" = {
-  #   source = hmLib.mkOutOfStoreSymlink tmuxaiConfigTemplatePath;
-  # };
-
   home.sessionVariables = {
-    # TMUXAI_OPENROUTER_API_KEY = "your-secret-key"; # Manage securely
   };
 
   home.stateVersion = "24.11";
