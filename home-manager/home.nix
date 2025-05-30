@@ -106,14 +106,14 @@ in
     };
 
     custom.flox_prompt_indicator = {
-      description = "Shows the active Flox environment name (DEBUG)";
-      command = ''echo "FLOX_DEBUG: <$FLOX_PROMPT_ENVIRONMENTS> ($(test -n "$FLOX_PROMPT_ENVIRONMENTS" && echo VAR_PRESENT || echo VAR_EMPTY_OR_UNSET))"'';
-      when = "true";
-      format = "$output"; 
+      description = "Shows the active Flox environment name"; # REVERTED
+      command = ''if [ -n "$FLOX_PROMPT_ENVIRONMENTS" ]; then echo "via [❄️ $FLOX_PROMPT_ENVIRONMENTS](bold blue) "; fi''; # REVERTED
+      when = ''test -n "$FLOX_PROMPT_ENVIRONMENTS"''; # REVERTED
+      format = "$output"; # Keep this corrected version
       shell = "bash";
     };
 
-    format = ''$directory $git_branch $conda$custom.flox_prompt_indicator$nix_shell$cmd_duration$status$character''; # CORRECTED HERE
+    format = ''$directory $git_branch $conda$custom.flox_prompt_indicator$nix_shell$cmd_duration$status$character''; # Keep the dot
   };
 
 };
