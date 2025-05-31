@@ -1,10 +1,8 @@
-# ~/Documents/nix-config/home-manager/home.nix
-{ config, pkgs, lib, hmLib, ... }: # hmLib is still passed, but we won't use it for config file
+{ config, pkgs, lib, hmLib, ... }:
 
 let
   tmuxaiPackageDir = ../pkgs/tmuxai;
   tmuxai-pkg = pkgs.callPackage tmuxaiPackageDir {};
-  # tmuxaiConfigTemplatePath = ../pkgs/tmuxai/tmuxai-config.yaml; # Not used for now
 in
 {
   home.username = "death916";
@@ -61,11 +59,11 @@ in
     halloy
     tmux
     nextcloud-client
-#    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
-    tmuxai-pkg # Just install the package
+    tmuxai-pkg
     obsidian
-    element-desktop    
+    element-desktop
     ghostty
+    manix
   ];
 
   programs.git = {
@@ -76,17 +74,14 @@ in
       credential.helper = "store";
     };
   };
-  
+
   programs.atuin = {
     enable = true;
     settings = {
-      #auto_sync = true;
-      #sync_frequency = "5m";
-      #sync_address = "https://api.atuin.sh";
       search_mode = "fuzzy";
     };
   };
-  
+
   programs.starship = {
   enable = true;
   settings = {
@@ -98,28 +93,26 @@ in
     conda = {
       truncation_length = 1;
       format = ''[$symbol$environment]($style) '';
-      symbol = " ";
+      symbol = " ";
       style = "green bold";
       ignore_base = false;
       disabled = false;
     };
 
-    custom.flox_prompt_indicator = {
-      description = "Shows the active Flox environment name";
-      command = ''if [ -n "$FLOX_ENV_NAME" ]; then echo "via [❄️ $FLOX_ENV_NAME](bold blue) "; fi'';
-      when = ''test -n "$FLOX_ENV_NAME"'';
-      format = ''$output'';
-      shell = "bash";
+    env_var = {
+      variable = "FLOX_PROMPT_ENVIRONMENTS";
+      format = "[flox:$env_value]($style) ";
+      style = "purple bold";
+      disabled = false;
     };
 
-    format = ''$directory $git_branch $conda$custom_flox_prompt_indicator$nix_shell$cmd_duration$status$character'';
+    format = ''$directory $git_branch $conda$env_var$cmd_duration$status$character'';
   };
-
 };
 
   programs.emacs = {
     enable = true;
-    package = pkgs.emacs; 
+    package = pkgs.emacs;
 };
 
   programs.alacritty = {
@@ -150,15 +143,10 @@ in
     };
   };
 
-  # --- TMUXAI CONFIGURATION REMOVED FOR NOW ---
-  # xdg.configFile."tmuxai/config.yaml" = {
-  #   source = hmLib.mkOutOfStoreSymlink tmuxaiConfigTemplatePath;
-  # };
-
   home.sessionVariables = {
-    # TMUXAI_OPENROUTER_API_KEY = "your-secret-key"; # Manage securely
   };
 
   home.stateVersion = "24.11";
   programs.home-manager.enable = true;
 }
+
