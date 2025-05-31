@@ -6,8 +6,8 @@
    ../modules/nextcloud-setup.nix
    ../modules/media/qbittorrent.nix
    ../modules/media/arr-suite.nix
-   ../modules/home-assistant.nix
-    
+#  ../modules/home-assistant.nix
+#   ../modules/home-assistant-vm.nix
    # Import any shared modules from your ./modules directory if applicable
     # e.g., (../modules/common-settings.nix)
   ];
@@ -41,8 +41,11 @@
     fsType = "ext4";                 # Or xfs if you chose that
     options = [ "defaults" "nofail" ];
   }; 
+  virtualisation.incus.enable = true;
+
  
   # Basic firewall
+  networking.nftables.enable = true;
   networking.firewall.enable = true;
   networking.firewall.allowedTCPPorts = [
      22
