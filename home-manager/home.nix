@@ -127,7 +127,13 @@ in
     };
   };
   services.gnome-keyring.enable = true;
+  
+  programs.vscode = {
+  enable = true;
+  package = pkgs.vscode.fhs;
+};
 
+  
   programs.bash = {
     enable = true;
     enableCompletion = true;
