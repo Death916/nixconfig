@@ -29,6 +29,7 @@
     # Any user-specific packages for death916 on the server
     fastfetch
     wget
+    atuin
   ];
 
   # Keep this consistent with your system's state version
