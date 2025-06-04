@@ -7,7 +7,7 @@
    ../modules/media/qbittorrent.nix
    ../modules/media/arr-suite.nix
 #  ../modules/home-assistant.nix
-   ../modules/home-assistant-vm.nix
+#   ../modules/home-assistant-vm.nix
    ../modules/vms/incus-base.nix   
 
   ];
