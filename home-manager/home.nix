@@ -73,18 +73,21 @@ in
   ];
 
   programs.helix = {
-    enable = true;
-    settings = {
-      theme = "autumn_night_transparent";
-      editor.soft-wrap = true;
-      editor.true-color = true;
-      editor.cursor-shape = {
+  enable = true;
+  settings = {
+    theme = "autumn_night_transparent";
+    editor = {
+      cursor-shape = {
         normal = "block";
         insert = "bar";
         select = "underline";
       };
-
+      true-color = true;
+      soft-wrap = {
+        enable = true;
+      };
     };
+  };
     languages.language = [
       {
         name = "nix";
