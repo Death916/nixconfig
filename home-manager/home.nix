@@ -70,7 +70,7 @@ in
     enable = true;
     settings = {
       theme = "autumn_night_transparent";
-      true-color = true;
+      editor.true-color = true;
       editor.cursor-shape = {
         normal = "block";
         insert = "bar";
