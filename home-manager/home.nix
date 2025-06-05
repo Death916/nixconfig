@@ -88,7 +88,7 @@ in
       "ui.background" = { };
     };
   };
-};
+
 
   programs.git = {
     enable = true;
