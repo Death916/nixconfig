@@ -88,19 +88,6 @@ in
     phpOptions = lib.mkForce { "memory_limit" = "2G"; };
   };
 
-  # --- Attempt to neutralize setup/update services ---
-  # This tells systemd that these services should not be started as dependencies by anything.
-  # And if they are somehow started, they will just run `/bin/true` which does nothing and exits successfully.
-  systemd.services."nextcloud-setup.service" = {
-    wantedBy = lib.mkForce [ ]; # Prevent auto-start
-    serviceConfig.ExecStart = lib.mkForce "${pkgs.coreutils}/bin/true"; # Do nothing successfully
-  };
-
-  systemd.services."nextcloud-update-db.service" = {
-    wantedBy = lib.mkForce [ ]; # Prevent auto-start
-    serviceConfig.ExecStart = lib.mkForce "${pkgs.coreutils}/bin/true"; # Do nothing successfully
-  };
-
   users.users.nextcloud = { isSystemUser = true; group = "nextcloud"; };
   users.groups.nextcloud = {}; 
 
