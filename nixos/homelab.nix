@@ -3,7 +3,7 @@
 
 {
   imports = [
-#   ../modules/nextcloud-setup.nix
+   ../modules/nextcloud-setup.nix
    ../modules/media/qbittorrent.nix
    ../modules/media/arr-suite.nix
 #  ../modules/home-assistant.nix
