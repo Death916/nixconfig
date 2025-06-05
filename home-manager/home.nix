@@ -75,6 +75,7 @@ in
         insert = "bar";
         select = "underline";
       };
+      true-color = true;
     };
     languages.language = [{
       name = "nix";
