@@ -58,15 +58,7 @@
 
 #bridge settings for vms
 
-  networking.bridges.br0.interfaces = [ "enp41s0" ];
-  networking.interfaces.enp41s0 = { # Replace "enp41s0"
-    useDHCP = false; 
-  };
-
-  networking.interfaces.br0 = {
-    useDHCP = true; # br0 will get an IP from your LAN router (e.g., 192.168.0.1)
-  };
-
+ 
 # Allow SSH
   networking.firewall.trustedInterfaces = [ "tailscale0" ]; # <--- ADDED for Tailscale access
   # SSH Server configuration
@@ -246,7 +238,7 @@ users.users.death916 = {
 
   users.groups.adguardhome = {};
   
-  services.homeAssistantVM.enable = true;
+  #services.homeAssistantVM.enable = true;
 
 
   # Sudo access for the wheel group (which death916 is part of)
