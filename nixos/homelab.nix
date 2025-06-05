@@ -91,12 +91,12 @@ users.users.death916 = {
     # extraGroups = [ "media_services" ]; # Alternatively, if you want a different primary group
   };
   
-  users.users.nextcloud = {
+#  users.users.nextcloud = {
     # This merges with the 'nextcloud' user definition from services.nextcloud in the imported module
-    extraGroups = [ "media_services" ];
-  };
+ #   extraGroups = [ "media_services" ];
+  #};
   users.groups.media_services = {};
-  users.groups.nextcloud = {};
+  #users.groups.nextcloud = {};
   # homelab services
 
   services.plex = {
