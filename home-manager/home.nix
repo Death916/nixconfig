@@ -70,29 +70,36 @@ in
     element-desktop
     ghostty
     manix
+
   ];
 
   programs.helix = {
-  enable = true;
-  settings = {
-    theme = "autumn_night_transparent";
-    editor = {
-      cursor-shape = {
-        normal = "block";
-        insert = "bar";
-        select = "underline";
-      };
-      true-color = true;
-      soft-wrap = {
-        enable = true;
+    enable = true;
+    settings = {
+      theme = "autumn_night_transparent";
+      editor = {
+        cursor-shape = {
+          normal = "block";
+          insert = "bar";
+          select = "underline";
+        };
+        true-color = true;
+        soft-wrap = {
+          enable = true;
+        };
       };
     };
-  };
     languages.language = [
       {
         name = "nix";
         auto-format = true;
         formatter.command = lib.getExe pkgs.nixfmt-rfc-style;
+      }
+      # Python configuration
+      {
+        name = "python";
+        language-servers = [ "pylsp" ];
+        auto-format = true;
       }
     ];
     themes = {
@@ -101,8 +108,10 @@ in
         "ui.background" = { };
       };
     };
+    extraPackages = [
+      pkgs.python3Packages.python-lsp-server # Required for pylsp
+    ];
   };
-
   programs.git = {
     enable = true;
     userName = "death916";
