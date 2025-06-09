@@ -179,10 +179,8 @@ users.users.death916 = {
        image = "sigoden/dufs:latest";
        ports = [ "5000:5000" ];
        volumes = [ "/media/storage/media/books/ebook:/data" ]; # <-- Remember to change this path
-       cmd = [
-          "/data" "-A"
-       ];
-       extraOptions = [ "--restart=unless-stopped" ];
+       cmd = [ "/data" "-A" ];
+       #extraOptions = [ "--restart=unless-stopped" ];
      };
 
    
