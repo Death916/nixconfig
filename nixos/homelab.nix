@@ -180,7 +180,7 @@ users.users.death916 = {
        ports = [ "5000:5000" ];
        volumes = [ "/media/storage/media/books/ebook:/data" ]; # <-- Remember to change this path
        cmd = [
-          "/data",          "-A"
+          "/data" "-A"
        ];
        extraOptions = [ "--restart=unless-stopped" ];
      };
