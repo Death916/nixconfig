@@ -174,6 +174,18 @@ users.users.death916 = {
   virtualisation.oci-containers = {
   backend = "docker";
   containers = {
+    
+    dufs = {
+       image = "sigoden/dufs:latest";
+       ports = [ "5000:5000" ];
+       volumes = [ "/media/storage/media/books/ebook:/data" ]; # <-- Remember to change this path
+       cmd = [
+          "/data",          "-A"
+       ];
+       extraOptions = [ "--restart=unless-stopped" ];
+     };
+
+   
     c2c-scraper = {
       image = "death916/c2cscrape:latest";
       volumes = [
