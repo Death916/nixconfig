@@ -34,7 +34,15 @@
   };
 
   # Firewall rule for Home Assistant
-  networking.firewall.allowedTCPPorts = [ 8123 ];
+  networking.firewall = {
+    allowedTCPPorts = [ 8123 ];
+    allowedUDPPorts = [ 
+      5353  # mDNS/Bonjour discovery
+      1900  # SSDP/UPnP discovery
+      1901  # UPnP
+      3702  # WS-Discovery (ONVIF specific)
+    ];
+  };
 
   # Ensure the `hass` user has access to necessary devices (e.g., Zigbee/Z-Wave dongles)
   users.users.hass.extraGroups = lib.mkIf (config.services.home-assistant.enable) [
