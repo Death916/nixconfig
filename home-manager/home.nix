@@ -1,8 +1,14 @@
-{ config, pkgs, lib, hmLib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  hmLib,
+  ...
+}:
 
 let
   tmuxaiPackageDir = ../pkgs/tmuxai;
-  tmuxai-pkg = pkgs.callPackage tmuxaiPackageDir {};
+  tmuxai-pkg = pkgs.callPackage tmuxaiPackageDir { };
 in
 {
   home.username = "death916";
@@ -64,8 +70,48 @@ in
     element-desktop
     ghostty
     manix
+
   ];
 
+  programs.helix = {
+    enable = true;
+    settings = {
+      theme = "autumn_night_transparent";
+      editor = {
+        cursor-shape = {
+          normal = "block";
+          insert = "bar";
+          select = "underline";
+        };
+        true-color = true;
+        soft-wrap = {
+          enable = true;
+        };
+      };
+    };
+    languages.language = [
+      {
+        name = "nix";
+        auto-format = true;
+        formatter.command = lib.getExe pkgs.nixfmt-rfc-style;
+      }
+      # Python configuration
+      {
+        name = "python";
+        language-servers = [ "pylsp" ];
+        auto-format = true;
+      }
+    ];
+    themes = {
+      autumn_night_transparent = {
+        "inherits" = "autumn_night";
+        "ui.background" = { };
+      };
+    };
+    extraPackages = [
+      pkgs.python3Packages.python-lsp-server # Required for pylsp
+    ];
+  };
   programs.git = {
     enable = true;
     userName = "death916";
@@ -83,37 +129,37 @@ in
   };
 
   programs.starship = {
-  enable = true;
-  settings = {
-    add_newline = false;
-    aws.disabled = true;
-    gcloud.disabled = true;
-    line_break.disabled = true;
+    enable = true;
+    settings = {
+      add_newline = false;
+      aws.disabled = true;
+      gcloud.disabled = true;
+      line_break.disabled = true;
 
-    conda = {
-      truncation_length = 1;
-      format = ''[$symbol$environment]($style) '';
-      symbol = " ";
-      style = "green bold";
-      ignore_base = false;
-      disabled = false;
+      conda = {
+        truncation_length = 1;
+        format = ''[$symbol$environment]($style) '';
+        symbol = " ";
+        style = "green bold";
+        ignore_base = false;
+        disabled = false;
+      };
+
+      env_var = {
+        variable = "FLOX_PROMPT_ENVIRONMENTS";
+        format = "[flox:$env_value]($style) ";
+        style = "purple bold";
+        disabled = false;
+      };
+
+      format = ''$directory $git_branch $conda$env_var$cmd_duration$status$character'';
     };
-
-    env_var = {
-      variable = "FLOX_PROMPT_ENVIRONMENTS";
-      format = "[flox:$env_value]($style) ";
-      style = "purple bold";
-      disabled = false;
-    };
-
-    format = ''$directory $git_branch $conda$env_var$cmd_duration$status$character'';
   };
-};
 
   programs.emacs = {
     enable = true;
     package = pkgs.emacs;
-};
+  };
 
   programs.alacritty = {
     enable = true;
@@ -127,6 +173,11 @@ in
     };
   };
   services.gnome-keyring.enable = true;
+
+  programs.vscode = {
+    enable = true;
+    package = pkgs.vscode.fhs;
+  };
 
   programs.bash = {
     enable = true;
@@ -149,4 +200,3 @@ in
   home.stateVersion = "24.11";
   programs.home-manager.enable = true;
 }
-
