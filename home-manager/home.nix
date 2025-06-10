@@ -70,7 +70,7 @@ in
     element-desktop
     ghostty
     manix
-    zed
+    zed-editor
   ];
 
   programs.helix = {
