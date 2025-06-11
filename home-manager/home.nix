@@ -160,7 +160,7 @@ in
         disabled = false;
       };
 
-      format = ''$directory $git_branch $conda$env_var$cmd_duration$status$character'';
+      format = ''$nix_shell$directory $git_branch $conda$env_var$cmd_duration$status$character'';
     };
   };
 
