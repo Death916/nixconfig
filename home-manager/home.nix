@@ -144,6 +144,13 @@ in
         ignore_base = false;
         disabled = false;
       };
+      # In your programs.starship.settings
+      nix_shell = {
+        disabled = false;
+        symbol = "❄️ "; # or "󱄅 " with Nerd Fonts
+        style = "blue bold";
+        format = "[$symbol($state)]($style) ";
+      };
 
       env_var = {
         variable = "FLOX_PROMPT_ENVIRONMENTS";
