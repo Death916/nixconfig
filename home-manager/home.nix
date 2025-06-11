@@ -73,6 +73,7 @@ in
     zed-editor
     zellij
     aichat
+    wl-clipboard
   ];
 
   programs.helix = {
