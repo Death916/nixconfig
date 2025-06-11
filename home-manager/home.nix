@@ -206,6 +206,7 @@ in
   };
 
   home.sessionVariables = {
+    EDITOR = "hx";
   };
 
   home.stateVersion = "24.11";
