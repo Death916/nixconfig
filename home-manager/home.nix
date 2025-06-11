@@ -72,6 +72,7 @@ in
     manix
     zed-editor
     zellij
+    aichat
   ];
 
   programs.helix = {
