@@ -71,6 +71,7 @@ in
     ghostty
     manix
     zed-editor
+    zellij
   ];
 
   programs.helix = {
