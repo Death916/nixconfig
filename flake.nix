@@ -113,7 +113,7 @@
 
             ./nixos/homelab.nix # Your main homelab config
             ./nixos/hardware-homelab.nix
-            ./modules/home-assistant.nix # Your HA configuration module
+           # ./modules/home-assistant.nix # Your HA configuration module
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
