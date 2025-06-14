@@ -186,7 +186,6 @@ users.users.death916 = {
    
     c2c-scraper = {
       image = "death916/c2cscrape:latest";
-      dns = [ "8.8.8.8" ];
       volumes = [
         "/media/storage/media/books/audio/podcasts/C2C:/downloads"
         "/media/storage/media/docker/volumes/c2cscrape:/app/data"
@@ -196,7 +195,8 @@ users.users.death916 = {
       };
        autoStart = true; # Consider adding if not already present
     #   removeContainer = false;
-     #  extraOptions = [ "--restart=unless-stopped" ]; # Consider adding
+       extraOptions = [  "--dns=8.8.8.8" 
+       ];
     };
 
     adguardhome = {
