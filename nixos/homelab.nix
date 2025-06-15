@@ -220,6 +220,13 @@ users.users.death916 = {
   };
 };
   
+  
+  boot.kernel.sysctl = {
+    "net.ipv4.ip_forward" = 1;
+    "net.ipv6.conf.all.forwarding" = 1;
+  };
+  
+    
   systemd.services.kopia-backup = {
     description = "Kopia backup service for NixOS server";
     serviceConfig = {
