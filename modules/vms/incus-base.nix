@@ -3,48 +3,56 @@
 with lib;
 
 let
-  storagePoolSource = "/var/lib/incus/storage-pools/default";
-  defaultDiskSize = "50GiB";
-  hostBridgeName = "br0"; # This must match the bridge name created in homelab.nix
+  hostBridgeName = "br0";
 in
 {
-  config = { 
+  config = {
     virtualisation.incus.preseed = {
+      # Define two storage pools: one on the SSD and one on /storage.
+      storage_pools = [
+        {
+          name = "ssd-pool";
+          driver = "dir";
+          config = {
+            # This path is on your root SSD.
+            source = "/home/death916/incus/incus-data";
+          };
+        }
+        {
+          name = "bulk-pool";
+          driver = "dir";
+          config = {
+            # This path points to your larger storage mount.
+            # Ensure this directory exists before rebuilding.
+            source = "/storage/incus-data";
+          };
+        }
+      ];
+
+      # Update the default profile to use the new pools.
       profiles = [
         {
           name = "default";
           config = {
-            "boot.autostart" = "true"; # VMs using this profile will auto-start
+            "boot.autostart" = "true";
           };
           devices = {
             eth0 = {
               name = "eth0";
-              nictype = "bridged";        # Use 'bridged' nictype
-              parent = hostBridgeName;    # Connect to the host-managed bridge 'br0'
+              nictype = "bridged";
+              parent = hostBridgeName;
               type = "nic";
             };
             root = {
               path = "/";
-              pool = "default";         # Use the default storage pool
-              size = defaultDiskSize;
+              # Point the root disk to the ssd-pool.
+              pool = "ssd-pool";
+              size = "50GiB";
               type = "disk";
             };
           };
         }
       ];
-
-      storage_pools = [
-        {
-          name = "default";
-          driver = "dir";   # Use directory-backed storage
-          config = {
-            source = storagePoolSource;
-          };
-        }
-      ];
     };
-    # If using NixOS firewall & VMs have DHCP issues (unlikely with host bridge but possible):
-    # consider adding to homelab.nix: networking.firewall.trustedInterfaces = [ "br0" ];
   };
 }
-
