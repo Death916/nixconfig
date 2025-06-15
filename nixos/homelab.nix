@@ -322,6 +322,8 @@
     unzip
     kopia
     manix
+    incus-tools
+    qemu
   ];
 
   # If you use custom overlays specific to this server:
