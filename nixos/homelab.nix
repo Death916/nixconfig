@@ -78,19 +78,18 @@
 
   networking.interfaces.br0 = {
     ipv4.addresses = [
-     {
-      address = "192.168.0.116"; # <-- SET YOUR SERVER'S DESIRED STATIC IP
-      prefixLength = 24;       # <-- SET YOUR SUBNET MASK (24 = 255.255.255.0)
-     }
+      {
+        address = "192.168.0.116"; # <-- SET YOUR SERVER'S DESIRED STATIC IP
+        prefixLength = 24; # <-- SET YOUR SUBNET MASK (24 = 255.255.255.0)
+      }
     ];
   };
 
   networking.defaultGateway = "192.168.1.1"; # <-- SET YOUR ROUTER'S IP
-    networking.nameservers = [
-      "1.1.1.1" # <-- SET YOUR PREFERRED DNS
-      "8.8.8.8"
+  networking.nameservers = [
+    "8.8.8.8" # <-- SET YOUR PREFERRED DNS
+    "9.9.9.9"
   ];
-
 
   networking.interfaces.enp41s0.useDHCP = false;
 
