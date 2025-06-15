@@ -322,7 +322,7 @@
     unzip
     kopia
     manix
-    incus-tools
+
     qemu
   ];
 
