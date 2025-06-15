@@ -77,8 +77,20 @@
   networking.bridges.br0.interfaces = [ "enp41s0" ];
 
   networking.interfaces.br0 = {
-    useDHCP = true;
+    ipv4.addresses = [
+     {
+      address = "192.168.0.116"; # <-- SET YOUR SERVER'S DESIRED STATIC IP
+      prefixLength = 24;       # <-- SET YOUR SUBNET MASK (24 = 255.255.255.0)
+     }
+    ];
   };
+
+  networking.defaultGateway = "192.168.1.1"; # <-- SET YOUR ROUTER'S IP
+    networking.nameservers = [
+      "1.1.1.1", # <-- SET YOUR PREFERRED DNS
+      "8.8.8.8"
+  ];
+
 
   networking.interfaces.enp41s0.useDHCP = false;
 
