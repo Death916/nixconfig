@@ -50,7 +50,7 @@
   networking.firewall.allowedTCPPorts = [
      22
      53
-
+     8096 # jellyfin
   ]; 
   networking.firewall.allowedUDPPorts = [
   53   # AdGuard Home DNS over UDP
