@@ -24,6 +24,47 @@
   #   ll = "ls -alh";
   #   update-system = "sudo nixos-rebuild switch --flake /etc/nixos#homelab";
   # };
+
+
+  programs.helix = {
+    enable = true;
+    settings = {
+      theme = "autumn_night_transparent";
+      editor = {
+        cursor-shape = {
+          normal = "block";
+          insert = "bar";
+          select = "underline";
+        };
+        true-color = true;
+        soft-wrap = {
+          enable = true;
+        };
+      };
+    };
+    languages.language = [
+      {
+        name = "nix";
+        auto-format = true;
+        formatter.command = lib.getExe pkgs.nixfmt-rfc-style;
+      }
+      # Python configuration
+      {
+        name = "python";
+        language-servers = [ "pylsp" ];
+        auto-format = true;
+      }
+    ];
+    themes = {
+      autumn_night_transparent = {
+        "inherits" = "autumn_night";
+        "ui.background" = { };
+      };
+    };
+    extraPackages = [
+      pkgs.python3Packages.python-lsp-server # Required for pylsp
+    ];
+  };
   
   programs.atuin = {
     enable = true;
@@ -36,7 +77,7 @@
     # Any user-specific packages for death916 on the server
     fastfetch
     wget
-    helix
+    
   ];
 
   # Keep this consistent with your system's state version
