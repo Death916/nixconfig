@@ -87,7 +87,7 @@
 
   networking.defaultGateway = "192.168.1.1"; # <-- SET YOUR ROUTER'S IP
     networking.nameservers = [
-      "1.1.1.1", # <-- SET YOUR PREFERRED DNS
+      "1.1.1.1" # <-- SET YOUR PREFERRED DNS
       "8.8.8.8"
   ];
 
