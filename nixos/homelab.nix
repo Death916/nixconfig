@@ -220,7 +220,7 @@
       dufs = {
         image = "sigoden/dufs:latest";
         ports = [ "5000:5000" ];
-        volumes = [ "/media/storage/media/books/ebook:/data" ]; # <-- Remember to change this path
+        volumes = [ "/media/storage/media/:/data" ]; # <-- Remember to change this path
         cmd = [
           "/data"
           "-A"
