@@ -18,7 +18,7 @@
     ../modules/smb.nix
   ];
   arrSuite.enable = true;
-  services.samba.shares.Media.path = "/media/storage/media"
+  services.samba.shares.Media.path = "/media/storage/media";
   #  nixpkgs.config.allowUnfree = true;
   boot.loader.systemd-boot.enable = true; # Or grub, as appropriate for your server
   boot.loader.efi.canTouchEfiVariables = true;
