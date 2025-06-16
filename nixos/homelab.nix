@@ -15,9 +15,10 @@
     #  ../modules/home-assistant.nix
     #   ../modules/home-assistant-vm.nix
     ../modules/vms/incus-base.nix
-
+    ../modules/smb.nix
   ];
   arrSuite.enable = true;
+  services.samba.shares.Media.path = "/media/storage/media"
   #  nixpkgs.config.allowUnfree = true;
   boot.loader.systemd-boot.enable = true; # Or grub, as appropriate for your server
   boot.loader.efi.canTouchEfiVariables = true;
@@ -284,7 +285,7 @@
     wantedBy = [ "timers.target" ];
     partOf = [ "kopia-backup.service" ]; # Links timer to the service
     timerConfig = {
-      OnCalendar = "daily"; # Or "hourly", "*-*-* 02:00:00" for 2 AM daily, etc.
+      OnCalendar = "hourly"; # Or "hourly", "*-*-* 02:00:00" for 2 AM daily, etc.
       Persistent = true; # Run on next boot if a scheduled run was missed
       Unit = "kopia-backup.service";
     };
