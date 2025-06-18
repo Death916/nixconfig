@@ -64,7 +64,7 @@ in
     waveterm
     halloy
     tmux
-    nextcloud-client
+    #    nextcloud-client
     tmuxai-pkg
     obsidian
     element-desktop
