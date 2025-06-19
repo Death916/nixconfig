@@ -1,16 +1,20 @@
 self: super:
 let
   rustNightly = super.rust-bin.nightly.latest.default.override {
-    extensions = [ "rust-src" "rustc-dev" ];
+    extensions = [
+      "rust-src"
+      "rustc-dev"
+    ];
   };
   nightlyRustPlatform = super.makeRustPlatform {
     cargo = rustNightly;
     rustc = rustNightly;
   };
-in {
+in
+{
   halloy = nightlyRustPlatform.buildRustPackage rec {
     pname = "halloy";
-    version = "2025.5";
+    version = "2025.6";
 
     src = super.fetchFromGitHub {
       owner = "squidowl";
@@ -20,14 +24,14 @@ in {
     };
 
     RUSTC_BOOTSTRAP = 1;
-    
+
     # Add doc_cfg to allowed features
     RUSTFLAGS = "-Z allow-features=edition2024,avx512_target_feature,stdarch_x86_avx512,doc_cfg";
 
     postPatch = ''
       # Add feature flags to all relevant crates
       find . -name '*.rs' -exec sed -i '1i #![feature(avx512_target_feature,stdarch_x86_avx512,doc_cfg)]' {} \;
-      
+
       # Add cargo-features to Cargo.toml files
       find . -name Cargo.toml -exec sh -c '
         if ! grep -q "cargo-features" {}; then
@@ -47,11 +51,11 @@ in {
       };
     };
 
-    nativeBuildInputs = with super; [ 
-      pkg-config 
+    nativeBuildInputs = with super; [
+      pkg-config
       makeWrapper
     ];
-    
+
     buildInputs = with super; [
       libxkbcommon
       openssl
@@ -63,17 +67,19 @@ in {
       wayland
       alsa-lib.dev
     ];
-    
+
     # Add this postInstall phase to set up proper library paths
     postInstall = ''
       wrapProgram $out/bin/halloy \
-        --prefix LD_LIBRARY_PATH : ${super.lib.makeLibraryPath [
-          super.wayland
-          super.libxkbcommon
-          super.vulkan-loader
-          super.alsa-lib
-          super.openssl
-        ]}
+        --prefix LD_LIBRARY_PATH : ${
+          super.lib.makeLibraryPath [
+            super.wayland
+            super.libxkbcommon
+            super.vulkan-loader
+            super.alsa-lib
+            super.openssl
+          ]
+        }
     '';
 
     meta = with super.lib; {
@@ -84,4 +90,3 @@ in {
     };
   };
 }
-
