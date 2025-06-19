@@ -55,7 +55,8 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-
+  services.gnome.gome-keyring.enable = true;
+  services.dbus.enable = true; # for nextcloud client
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = false;
   services.xserver.desktopManager.gnome.enable = false;
