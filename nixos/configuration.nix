@@ -104,6 +104,7 @@
     kopia-ui
     stremio
     wl-clipboard
+    tail-tray
   ];
 
   # to make exit nodes work
