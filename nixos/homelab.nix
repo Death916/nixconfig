@@ -277,7 +277,11 @@
       Type = "oneshot";
       User = "root"; # Run as root to access all files and Kopia config
       ExecStart = "/usr/local/bin/nixos-kopia-backup.sh";
-      DNS = "8.8.8.8 9.9.9.9 1.1.1.1";
+      path = with pkgs; [
+            coreutils # Provides basic tools like `sh`, `cat`, etc.
+                kopia     # The kopia binary itself
+                  ];
+      ]
     };
   };
 
