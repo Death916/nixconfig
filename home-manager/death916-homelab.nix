@@ -83,7 +83,7 @@
     fastfetch
     wget
     zellij
-
+    systemctl-tui
   ];
 
   # Keep this consistent with your system's state version
