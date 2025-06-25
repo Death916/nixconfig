@@ -186,7 +186,7 @@
 
   services.qbittorrent = {
     enable = true;
-    dataDir = "/media/storage/media/downloads/qBittorent";
+    dataDir = "/media/storage/media/downloads/";
 
     user = "qbittorrent";
     group = "qbittorrent";
