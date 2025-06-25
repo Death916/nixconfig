@@ -27,7 +27,7 @@
       nixpkgs,
       nixpkgs-unstable,
       home-manager,
-      nixos-cosmic,
+      #      nixos-cosmic,
       rust-overlay,
       flox,
       ...
