@@ -6,10 +6,10 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable"; # Added for Home Assistant
 
-    nixos-cosmic = {
-      url = "github:lilyinstarlight/nixos-cosmic";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    #    nixos-cosmic = {
+    #     url = "github:lilyinstarlight/nixos-cosmic";
+    #    inputs.nixpkgs.follows = "nixpkgs";
+    # };
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -81,12 +81,12 @@
           modules = [
             {
               nixpkgs.pkgs = pkgsForLaptop; # Use the pkgs definition with overlays for 'nixos'
-              nix.settings = {
-                substituters = [ "https://cosmic.cachix.org/" ];
-                trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
+#              nix.settings = {
+ #               substituters = [ "https://cosmic.cachix.org/" ];
+  #              trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
               };
             }
-            nixos-cosmic.nixosModules.default
+   #:         nixos-cosmic.nixosModules.default
             ./nixos/configuration.nix
             home-manager.nixosModules.home-manager
             {
@@ -113,7 +113,7 @@
 
             ./nixos/homelab.nix # Your main homelab config
             ./nixos/hardware-homelab.nix
-           # ./modules/home-assistant.nix # Your HA configuration module
+            # ./modules/home-assistant.nix # Your HA configuration module
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
