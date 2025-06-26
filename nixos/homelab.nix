@@ -89,8 +89,7 @@
   networking.defaultGateway = "192.168.0.1"; # <-- SET YOUR ROUTER'S IP
   networking.nameservers = [
     "192.168.0.116"
-    "8.8.8.8" # <-- SET YOUR PREFERRED DNS
-    "9.9.9.9"
+
   ];
 
   networking.interfaces.enp41s0.useDHCP = false;
@@ -98,6 +97,7 @@
   # Allow SSH
   networking.firewall.trustedInterfaces = [
     "tailscale0"
+    "docker0"
     "br0"
   ]; # <--- ADDED for Tailscale access
   # SSH Server configuration
@@ -260,9 +260,7 @@
         ];
         #removeContainer = false;
         #  autoStart = true;
-        extraOptions = [
-          "--dns=8.8.8.8"
-        ];
+
       };
     };
   };
