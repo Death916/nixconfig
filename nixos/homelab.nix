@@ -16,7 +16,7 @@
     #   ../modules/home-assistant-vm.nix
     ../modules/vms/incus-base.nix
     ../modules/smb.nix
-    ../modules/opencloud.nix
+    #    ../modules/opencloud.nix
   ];
   arrSuite.enable = true;
   services.samba.shares.Media.path = "/media/storage/media";
