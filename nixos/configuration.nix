@@ -123,7 +123,12 @@
   };
   networking.interfaces.tailscale0.mtu = 1500;
   programs.firefox.enable = true;
-
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 4d --keep 3";
+    flake = "/home/death916/Documents/nix-config/flake.nix";
+  };
   services.fprintd.enable = true;
 
   system.stateVersion = "24.11"; # Did you read the comment?
