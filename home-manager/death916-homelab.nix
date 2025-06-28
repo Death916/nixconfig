@@ -84,6 +84,7 @@
     wget
     zellij
     systemctl-tui
+    gemini-cli
   ];
 
   # Keep this consistent with your system's state version
