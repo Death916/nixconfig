@@ -329,7 +329,7 @@
     unzip
     kopia
     manix
-
+    nh
     qemu
   ];
 
