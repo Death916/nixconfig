@@ -11,7 +11,7 @@
 
   virtualisation.incus.enable = true;
 
-  users.users.death916.extraGroups = config.users.users.death916.extraGroups ++ [ "media_services" "nextcloud" "docker" "qbittorent" "incus-admin" ];
+  
 
   users.users.audiobookshelf = {
     isSystemUser = true;
