@@ -1,20 +1,27 @@
 #!/usr/bin/env bash
 
-#!/usr/bin/env bash
-
-# A wrapper for 'nh' that runs 'git push' on success.
+# A wrapper for 'nh' that runs 'git pull' and 'git push' on success.
 
 # Exit immediately if a command exits with a non-zero status.
 set -e
 
-# Run the 'nh' command with all arguments passed to the script.
-# The flake path is hardcoded for convenience.
-nh os switch "/home/death916/nixconfig#$@"
+# Determine the absolute path of the directory containing this script.
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+# The repository root is one level above the scripts directory.
+REPO_ROOT="$SCRIPT_DIR/.."
 
-# If the above command was successful, proceed to the next lines.
+# --- Git Operations ---
+echo "Pulling latest changes from git..."
+# Use -C to specify the repository path for git operations.
+git -C "$REPO_ROOT" pull
+
+# --- NixOS Build ---
+echo "Building NixOS configuration..."
+# Use --flake to specify the flake path.
+nh os switch --flake "$REPO_ROOT#nixosConfigurations.$@"
+
+# --- Git Push on Success ---
 echo "NixOS rebuild successful. Pushing to remote..."
-
-# Push the configuration to the git remote.
-git -C /home/death916/nixconfig push
+git -C "$REPO_ROOT" push
 
 echo "Push complete."

@@ -22,4 +22,8 @@
     systemctl-tui
     gemini-cli
   ];
+
+  programs.bash.shellAliases = {
+    nh-push = "/home/death916/nixconfig/scripts/nh-push";
+  };
 }
