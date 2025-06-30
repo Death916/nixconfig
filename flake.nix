@@ -51,6 +51,7 @@
           specialArgs = { inherit inputs system overlays primaryUser; }; # pkgs will be set via module below
           modules = [
             ./nixos/configuration.nix
+            ./nixos/hardware-configuration.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -72,6 +73,7 @@
           };
           modules = [
             ./nixos/homelab.nix # Your main homelab config
+            ./nixos/hardware-homelab.nix
             # ./modules/home-assistant.nix # Your HA configuration module
             home-manager.nixosModules.home-manager
             {
