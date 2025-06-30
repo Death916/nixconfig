@@ -1,0 +1,51 @@
+# ~/nixconfig/modules.new/nixos/laptop/desktop.nix
+{
+  config,
+  pkgs,
+  inputs,
+  ... 
+}:
+
+{
+  services.xserver.enable = true;
+  services.gnome.gnome-keyring.enable = true;
+  services.dbus.enable = true; # for nextcloud client
+  # Enable the GNOME Desktop Environment.
+  services.xserver.displayManager.gdm.enable = false;
+  services.xserver.desktopManager.gnome.enable = false;
+  #cosmic instead
+  services.desktopManager.cosmic.enable = true;
+  services.displayManager.cosmic-greeter.enable = true;
+  services.desktopManager.cosmic.xwayland.enable = true;
+
+  nix.settings.trusted-substituters = [ "https://cache.flox.dev" ];
+  nix.settings.trusted-public-keys = [
+    "flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs="
+  ];
+
+  environment.systemPackages = with pkgs; [
+    git
+    vim
+    wget
+    tailscale
+    halloy # Add halloy to your system packages
+    conda
+    inputs.flox.packages.${pkgs.system}.flox
+    kopia-ui
+    stremio
+    wl-clipboard
+    tail-tray
+  ];
+
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+
+  programs.firefox.enable = true;
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 7d --keep 10";
+    flake = "/home/death916/Documents/nix-config/";
+  };
+  services.fprintd.enable = true;
+}
