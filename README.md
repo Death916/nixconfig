@@ -69,3 +69,33 @@ To revert, follow these steps:
     ```
 
 This will restore your system to the exact state it was in before these changes were made.
+
+## Quick Reference: Where to Find Common Settings
+
+Here is a quick guide to help you locate the most common configuration settings in the new modular structure.
+
+### System-Wide Settings
+
+*   **Settings for BOTH Laptop & Homelab:**
+    *   `modules/nixos/common/base.nix`: Base system settings like the bootloader, timezone, and `allowUnfree`.
+    *   `modules/nixos/common/tailscale.nix`: Tailscale configuration.
+
+*   **Laptop-Specific System Settings:**
+    *   `modules/nixos/laptop/desktop.nix`: Desktop environment, system packages, and other laptop-specific services.
+    *   `nixos/hardware-configuration.nix`: Filesystems and hardware settings for the laptop.
+
+*   **Homelab-Specific System Settings:**
+    *   `modules/nixos/homelab/services.nix`: All homelab services (Docker, Jellyfin, etc.) and system packages.
+    *   `modules/nixos/homelab/networking.nix`: Static IP, firewall, and network settings for the homelab.
+    *   `nixos/hardware-homelab.nix`: Filesystems and hardware settings for the homelab.
+
+### User & Home-Manager Settings
+
+*   **Settings for YOUR USER on BOTH Systems:**
+    *   `modules/home-manager/common.nix`: Shared user settings like your shell (Bash), Git config, Helix, and default editor.
+
+*   **Laptop-Specific User Settings:**
+    *   `home-manager/home.nix`: User-specific packages, shell prompt (`starship`), and aliases for the laptop.
+
+*   **Homelab-Specific User Settings:**
+    *   `home-manager/death916-homelab.nix`: User-specific packages and aliases for the homelab.
