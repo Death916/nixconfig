@@ -13,6 +13,8 @@
   powerManagement.cpuFreqGovernor = "ondemand"; # hopefully fix low cpu freq
   hardware.cpu.amd.updateMicrocode = true; # same
 
+  nixpkgs.config.allowUnfree = true;
+
   time.timeZone = "America/Los_Angeles";
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

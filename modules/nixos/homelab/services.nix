@@ -20,11 +20,7 @@
 
   users.groups.media_services = { };
 
-  services.plex = {
-    enable = true;
-    openFirewall = true;
-    user = "death916";
-  };
+  
 
   services.audiobookshelf = {
     enable = true;
