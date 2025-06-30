@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+#!/usr/bin/env bash
+
+# A wrapper for 'nh' that runs 'git push' on success.
+
+# Exit immediately if a command exits with a non-zero status.
+set -e
+
+# Run the 'nh' command with all arguments passed to the script.
+# The flake path is hardcoded for convenience.
+nh os switch "/home/death916/nixconfig#$@"
+
+# If the above command was successful, proceed to the next lines.
+echo "NixOS rebuild successful. Pushing to remote..."
+
+# Push the configuration to the git remote.
+git -C /home/death916/nixconfig push
+
+echo "Push complete."

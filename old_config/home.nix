@@ -1,10 +1,9 @@
-# ~/nixconfig/home-manager/home.nix.new
 {
   config,
   pkgs,
   lib,
   hmLib,
-  ... 
+  ...
 }:
 
 let
@@ -12,8 +11,6 @@ let
   tmuxai-pkg = pkgs.callPackage tmuxaiPackageDir { };
 in
 {
-  imports = [ ../modules/home-manager/common.nix ];
-
   home.username = "death916";
   home.homeDirectory = "/home/death916";
 
@@ -23,6 +20,7 @@ in
   };
 
   home.packages = with pkgs; [
+    fastfetch
     nnn
     zip
     xz
@@ -67,14 +65,71 @@ in
     halloy
     tmux
     nextcloud-client
+    tmuxai-pkg
     obsidian
     element-desktop
     ghostty
     manix
     zed-editor
+    zellij
     aichat
     wl-clipboard
   ];
+
+  programs.helix = {
+    enable = true;
+    settings = {
+      theme = "autumn_night_transparent";
+      editor = {
+        cursor-shape = {
+          normal = "block";
+          insert = "bar";
+          select = "underline";
+        };
+        true-color = true;
+        soft-wrap = {
+          enable = true;
+        };
+      };
+    };
+    languages.language = [
+      {
+        name = "nix";
+        auto-format = true;
+        formatter.command = lib.getExe pkgs.nixfmt-rfc-style;
+      }
+      # Python configuration
+      {
+        name = "python";
+        language-servers = [ "pylsp" ];
+        auto-format = true;
+      }
+    ];
+    themes = {
+      autumn_night_transparent = {
+        "inherits" = "autumn_night";
+        "ui.background" = { };
+      };
+    };
+    extraPackages = [
+      pkgs.python3Packages.python-lsp-server # Required for pylsp
+    ];
+  };
+  programs.git = {
+    enable = true;
+    userName = "death916";
+    userEmail = "mail@trentnelson.dev";
+    extraConfig = {
+      credential.helper = "store";
+    };
+  };
+
+  programs.atuin = {
+    enable = true;
+    settings = {
+      search_mode = "fuzzy";
+    };
+  };
 
   programs.starship = {
     enable = true;
@@ -93,9 +148,10 @@ in
         ignore_base = false;
         disabled = false;
       };
+      # In your programs.starship.settings
       nix_shell = {
         disabled = false;
-        symbol = "❄️ ";
+        symbol = "❄️ "; # or "󱄅 " with Nerd Fonts
         style = "blue bold";
         format = "[$symbol($state)]($style) ";
       };
@@ -120,7 +176,9 @@ in
     enable = true;
     settings = {
       env.TERM = "xterm-256color";
-      font = { size = 12; };
+      font = {
+        size = 12;
+      };
       scrolling.multiplier = 5;
       selection.save_to_clipboard = true;
     };
@@ -146,4 +204,11 @@ in
       urlencode = "python3 -c 'import sys, urllib.parse as ul; print(ul.quote_plus(sys.stdin.read()))'";
     };
   };
+
+  home.sessionVariables = {
+    EDITOR = "hx";
+  };
+
+  home.stateVersion = "24.11";
+  programs.home-manager.enable = true;
 }
