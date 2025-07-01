@@ -1,5 +1,10 @@
 # ~/nixconfig/nixos/configuration.nix.new
+{ config, pkgs, overlays, ... }:
+
 {
+  # Apply the overlays passed from the flake
+  nixpkgs.overlays = [ overlays.halloy overlays.rust ];
+
   imports = [
     ./hardware-configuration.nix
     ../modules/nixos/laptop/desktop.nix
