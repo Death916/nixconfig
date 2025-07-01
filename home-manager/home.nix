@@ -75,6 +75,7 @@ in
     aichat
     wl-clipboard
     gemini-cli
+    zellij
   ];
 
   programs.starship = {
