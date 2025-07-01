@@ -3,7 +3,7 @@
 
 {
   # Apply the overlays passed from the flake
-  nixpkgs.overlays = [ overlays.halloy overlays.rust ];
+  nixpkgs.overlays = [ overlays.rust overlays.halloy ];
 
   imports = [
     ./hardware-configuration.nix
