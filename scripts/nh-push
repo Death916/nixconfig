@@ -18,7 +18,7 @@ git -C "$REPO_ROOT" pull
 # --- NixOS Build ---
 echo "Building NixOS configuration..."
 # Use --flake to specify the flake path.
-nh os switch --flake "$REPO_ROOT#nixosConfigurations.$@"
+nh os switch ".#$@"
 
 # --- Git Push on Success ---
 echo "NixOS rebuild successful. Pushing to remote..."
