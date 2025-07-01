@@ -13,6 +13,8 @@
   home.username = "death916";
   home.homeDirectory = "/home/death916";
 
+  programs.bash.enable = true;
+
   
 
   home.packages = with pkgs; [
