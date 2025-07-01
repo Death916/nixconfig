@@ -77,6 +77,7 @@ in
     gemini-cli
     zellij
     microsoft-edge
+    fastfetch
   ];
 
   programs.starship = {
