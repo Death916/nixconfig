@@ -76,6 +76,7 @@ in
     wl-clipboard
     gemini-cli
     zellij
+    microsoft-edge
   ];
 
   programs.starship = {
