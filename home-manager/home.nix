@@ -2,6 +2,7 @@
 {
   config,
   pkgs,
+  unstablePkgs,
   lib,
   hmLib,
   ...
@@ -71,7 +72,7 @@ in
     element-desktop
     ghostty
     manix
-    zed-editor
+    unstablePkgs.zed-editor
     aichat
     wl-clipboard
     gemini-cli

@@ -48,7 +48,10 @@
       nixosConfigurations = {
         nixos = nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit inputs system overlays primaryUser; }; # pkgs will be set via module below
+          specialArgs = {
+            inherit inputs system overlays primaryUser;
+            unstablePkgs = import nixpkgs-unstable { inherit system; };
+          };
           modules = [
             ./nixos/configuration.nix
             ./nixos/hardware-configuration.nix
