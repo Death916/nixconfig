@@ -79,6 +79,8 @@ in
     zellij
     microsoft-edge
     fastfetch
+    golly # alife/gameoflife sim
+    asciiquarium # fishies in my term
   ];
 
   programs.starship = {
