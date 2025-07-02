@@ -3,7 +3,7 @@
   config,
   pkgs,
   inputs,
-  ... 
+  ...
 }:
 
 {
@@ -36,7 +36,7 @@
     wl-clipboard
     tail-tray
   ];
-
+  virtualisation.docker.enable = true;
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
