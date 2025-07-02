@@ -55,12 +55,14 @@
           modules = [
             ./nixos/configuration.nix
             ./nixos/hardware-configuration.nix
-            home-manager.nixosModules.home-manager
+            home-manager.nixosModules.home-manager,
             ({ unstablePkgs, ... }: {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit hmLib unstablePkgs; };
-              home-manager.users.death916.imports = [ ./home-manager/home.nix ];
+              home-manager.users.death916 = {
+                imports = [ ./home-manager/home.nix ];
+              };
             })
           ];
         };
