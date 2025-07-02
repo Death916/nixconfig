@@ -105,6 +105,8 @@
 
   systemd.services.kopia-backup = {
     description = "Kopia backup service for NixOS server";
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
     serviceConfig = {
       Type = "oneshot";
       User = "root";
