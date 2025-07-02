@@ -55,7 +55,7 @@
           modules = [
             ./nixos/configuration.nix
             ./nixos/hardware-configuration.nix
-            home-manager.nixosModules.home-manager,
+            home-manager.nixosModules.home-manager
             ({ unstablePkgs, ... }: {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
