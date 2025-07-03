@@ -18,6 +18,9 @@
   services.displayManager.cosmic-greeter.enable = true;
   services.desktopManager.cosmic.xwayland.enable = true;
 
+  # This is to fix clementine gui not showing up on wayland
+  environment.variables.QT_QPA_PLATFORM = "wayland";
+
   nix.settings.trusted-substituters = [ "https://cache.flox.dev" ];
   nix.settings.trusted-public-keys = [
     "flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs="
