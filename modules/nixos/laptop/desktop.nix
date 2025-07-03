@@ -39,6 +39,7 @@
     wl-clipboard
     tail-tray
     clementine
+    systemctl-tui
   ];
   virtualisation.docker.enable = true;
   hardware.bluetooth.enable = true;
