@@ -35,6 +35,7 @@
     stremio
     wl-clipboard
     tail-tray
+    clementine
   ];
   virtualisation.docker.enable = true;
   hardware.bluetooth.enable = true;

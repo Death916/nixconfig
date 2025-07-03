@@ -81,7 +81,7 @@ in
     fastfetch
     golly # alife/gameoflife sim
     asciiquarium # fishies in my term
-    clementine
+    #    clementine
   ];
 
   programs.starship = {
