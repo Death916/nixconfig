@@ -93,6 +93,12 @@ in
       gcloud.disabled = true;
       line_break.disabled = true;
 
+      time = {
+        disabled = false;
+        format = "at [$time]($style) ";
+        style = "dimmed green";
+      };
+
       conda = {
         truncation_length = 1;
         format = ''[$symbol$environment]($style) '';
@@ -115,7 +121,7 @@ in
         disabled = false;
       };
 
-      format = ''$nix_shell$directory $git_branch $conda$env_var$cmd_duration$status$character'';
+      format = ''$nix_shell$directory $git_branch $conda$env_var$time$cmd_duration$status$character'';
     };
   };
 
