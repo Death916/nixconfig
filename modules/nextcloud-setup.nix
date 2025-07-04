@@ -62,7 +62,7 @@ in
       # Session lifetime for 30 days (2,592,000 seconds)
       session_lifetime = 2592000;
       # "Remember me" cookie lifetime for 90 days (7,776,000 seconds)
-      remember_login_cookie_lifetime = 7776000;
+      remember-login-cookie-lifetime = 7776000;
       # Keep session alive with heartbeats
       session_keepalive = true;
     };
