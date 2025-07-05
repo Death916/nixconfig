@@ -30,17 +30,7 @@
     port = 13378;
   };
 
-  services.netdata = {
-    enable = true;
-    config = {
-      global = {
-        "memory mode" = "ram";
-        "debug log" = "none";
-        "access log" = "none";
-        "error log" = "syslog";
-      };
-    };
-  };
+  
 
   users.users.qbittorrent.extraGroups = [ "media_services" ];
   users.groups.qbittorrent = { };
