@@ -131,7 +131,8 @@
   virtualisation.libvirtd = {
     enable = true;
     qemu = {
-      ovmf = true; # UEFI support for HAOS
+      package = pkgs.qemu_full;
+      runAsRoot = true;
     };
   };
 
