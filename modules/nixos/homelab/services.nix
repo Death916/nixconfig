@@ -137,11 +137,18 @@
   };
 
   services.homeassistant-vm = {
-    enable = false;
+    enable = true;
     imagePath = "/var/lib/libvirt/images/haos.qcow2";
     memory = 6096;
     vcpus = 4;
     bridge = "br0";
+  };
+
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 7d --keep 10";
+    flake = "/home/death916/nixconfig/";
   };
 
   environment.systemPackages = with pkgs; [
@@ -161,7 +168,6 @@
     unzip
     kopia
     manix
-    nh
     qemu
     virt-manager
     usbutils
