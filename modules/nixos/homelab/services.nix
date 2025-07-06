@@ -163,7 +163,6 @@
     manix
     nh
     qemu
-    virt-install
     virt-manager
     usbutils
   ];

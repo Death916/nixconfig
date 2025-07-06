@@ -4,7 +4,7 @@
   services.samba = {
     enable = true;
     openFirewall = false; 
-    shares = {
+    settings = {
       Media = {
         browseable = "yes";
         "read only" = "no";
