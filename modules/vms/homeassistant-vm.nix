@@ -1,3 +1,4 @@
+# modules/vms/homeassistant-vm.nix
 { config, lib, pkgs, ... }:
 
 with lib;
@@ -6,6 +7,11 @@ let
   cfg = config.services.homeassistant-vm;
 in
 {
+  imports = [
+    ./ha-deploy-script.nix
+    ./ha-control-script.nix
+  ];
+
   options.services.homeassistant-vm = {
     enable = mkEnableOption "Home Assistant OS Virtual Machine";
     imagePath = mkOption {
@@ -30,11 +36,6 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
-    imports = [
-      ./ha-deploy-script.nix
-      ./ha-control-script.nix
-    ];
-  };
+  config = mkIf cfg.enable { };
 }
 
