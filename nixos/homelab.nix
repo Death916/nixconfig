@@ -14,5 +14,8 @@
     ../modules/nixos/common/base.nix
     ../modules/nixos/homelab/user.nix
     ../modules/nixos/common/tailscale.nix
+    ../modules/vms/ha-control-script.nix
+    ../modules/vms/homeassistant-vm.nix
+    ../modules/vms/ha-deploy-script.nix
   ];
 }

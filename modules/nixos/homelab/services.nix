@@ -2,16 +2,14 @@
 {
   config,
   pkgs,
-  ... 
+  ...
 }:
 
 {
   arrSuite.enable = true;
   services.samba.shares.Media.path = "/media/storage/media";
 
-  virtualisation.incus.enable = true;
-
-  
+  #  virtualisation.incus.enable = true;
 
   users.users.audiobookshelf = {
     isSystemUser = true;
@@ -20,8 +18,6 @@
 
   users.groups.media_services = { };
 
-  
-
   services.audiobookshelf = {
     enable = true;
     user = "audiobookshelf";
@@ -29,8 +25,6 @@
     host = "0.0.0.0";
     port = 13378;
   };
-
-  
 
   users.users.qbittorrent.extraGroups = [ "media_services" ];
   users.groups.qbittorrent = { };
@@ -69,7 +63,10 @@
         image = "sigoden/dufs:latest";
         ports = [ "5000:5000" ];
         volumes = [ "/media/storage/media/:/data" ];
-        cmd = [ "/data" "-A" ];
+        cmd = [
+          "/data"
+          "-A"
+        ];
       };
       c2c-scraper = {
         image = "death916/c2cscrape:latest";
@@ -77,7 +74,9 @@
           "/media/storage/media/books/audio/podcasts/C2C:/downloads"
           "/media/storage/media/docker/volumes/c2cscrape:/app/data"
         ];
-        environment = { TZ = "America/Los_Angeles"; };
+        environment = {
+          TZ = "America/Los_Angeles";
+        };
         autoStart = true;
         extraOptions = [ "--dns=8.8.8.8" ];
       };
@@ -101,7 +100,10 @@
       Type = "oneshot";
       User = "root";
       ExecStart = "/usr/local/bin/nixos-kopia-backup.sh";
-      path = with pkgs; [ coreutils kopia ];
+      path = with pkgs; [
+        coreutils
+        kopia
+      ];
     };
   };
 
@@ -126,6 +128,21 @@
 
   security.sudo.wheelNeedsPassword = true;
 
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu = {
+      ovmf = true; # UEFI support for HAOS
+    };
+  };
+
+  services.homeassistant-vm = {
+    enable = false;
+    imagePath = "/var/lib/libvirt/images/haos.qcow2";
+    memory = 6096;
+    vcpus = 4;
+    bridge = "br0";
+  };
+
   environment.systemPackages = with pkgs; [
     git
     vim
@@ -145,5 +162,8 @@
     manix
     nh
     qemu
+    virt-install
+    virt-manager
+    usbutils
   ];
 }
