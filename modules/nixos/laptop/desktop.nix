@@ -33,7 +33,7 @@
     tailscale
     halloy # Add halloy to your system packages
     conda
-    inputs.flox.packages.${pkgs.system}.flox
+    flox
     kopia-ui
     stremio
     wl-clipboard
