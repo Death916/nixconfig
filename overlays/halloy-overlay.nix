@@ -1,6 +1,10 @@
 self: super:
 let
-  rustNightly = super.rust-bin.nightly.latest.default.override {
+  rustNightly = super.rust-bin.fromRustupToolchain {
+    channel = "nightly";
+    date = "2024-05-01";
+    sha256 = "0000000000000000000000000000000000000000000000000000"; # Replace with the correct hash after the build fails
+  }.override {
     extensions = [
       "rust-src"
       "rustc-dev"
