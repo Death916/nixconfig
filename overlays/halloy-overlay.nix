@@ -1,23 +1,10 @@
 self: super:
 let
-  rustNightly = (super.rust-bin.fromTarball {
-    src = super.fetchurl {
-      url = "https://static.rust-lang.org/dist/2024-05-01/rust-nightly-x86_64-unknown-linux-gnu.tar.xz";
-      sha256 = "0000000000000000000000000000000000000000000000000000"; # Replace with the correct hash after the build fails
-    };
-  }).override {
-    extensions = [
-      "rust-src"
-      "rustc-dev"
-    ];
-  };
-  nightlyRustPlatform = super.makeRustPlatform {
-    cargo = rustNightly;
-    rustc = rustNightly;
-  };
+  # Use the standard stable rust platform provided by nixpkgs
+  stableRustPlatform = super.rustPlatform;
 in
 {
-  halloy = nightlyRustPlatform.buildRustPackage rec {
+  halloy = stableRustPlatform.buildRustPackage rec {
     pname = "halloy";
     version = "2025.6";
 
@@ -27,20 +14,6 @@ in
       rev = version;
       sha256 = "sha256-a95PmVEx4j9euqh+z9MvzvwfmWCGydeZjDCfYLOM4tI=";
     };
-
-    RUSTC_BOOTSTRAP = 1;
-
-    RUSTFLAGS = "-Z allow-features=edition2024,avx512_target_feature,stdarch_x86_avx512,doc_cfg";
-
-    postPatch = ''
-      find . -name '*.rs' -exec sed -i '1i #![feature(avx512_target_feature,stdarch_x86_avx512,doc_cfg)]' {} \;
-
-      find . -name Cargo.toml -exec sh -c '
-        if ! grep -q "cargo-features" {}; then
-          sed -i "1i cargo-features = [\"edition2024\"]" {}
-        fi
-      ' \;
-    '';
 
     cargoLock = {
       lockFile = src + "/Cargo.lock";
