@@ -19,6 +19,7 @@
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    flox.url = "github:flox/flox";
   };
 
   outputs =
@@ -29,6 +30,7 @@
       home-manager,
       #      nixos-cosmic,
       rust-overlay,
+      flox,
       ...
     }:
     let
