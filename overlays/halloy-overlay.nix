@@ -1,9 +1,10 @@
 self: super:
 let
-  rustNightly = (super.rust-bin.fromRustupToolchain {
-    channel = "nightly";
-    date = "2024-05-01";
-    sha256 = "0000000000000000000000000000000000000000000000000000"; # Replace with the correct hash after the build fails
+  rustNightly = (super.rust-bin.fromTarball {
+    src = super.fetchurl {
+      url = "https://static.rust-lang.org/dist/2024-05-01/rust-nightly-x86_64-unknown-linux-gnu.tar.xz";
+      sha256 = "0000000000000000000000000000000000000000000000000000"; # Replace with the correct hash after the build fails
+    };
   }).override {
     extensions = [
       "rust-src"
