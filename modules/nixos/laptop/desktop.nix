@@ -40,6 +40,7 @@
     tail-tray
     clementine
     systemctl-tui
+    btrfs-progs
   ];
   virtualisation.docker.enable = true;
   hardware.bluetooth.enable = true;
