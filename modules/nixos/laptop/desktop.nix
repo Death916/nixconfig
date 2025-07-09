@@ -27,6 +27,7 @@
   ];
 
   environment.systemPackages = with pkgs; [
+    coreutils
     git
     vim
     wget
