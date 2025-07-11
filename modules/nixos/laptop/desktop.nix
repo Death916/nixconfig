@@ -42,6 +42,7 @@
     clementine
     systemctl-tui
     btrfs-progs
+    rust-analyzer
   ];
   virtualisation.docker.enable = true;
   hardware.bluetooth.enable = true;
