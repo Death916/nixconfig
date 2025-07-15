@@ -31,7 +31,7 @@
 
   services.qbittorrent = {
     enable = true;
-    dataDir = "/media/storage/media/downloads/";
+    dataDir = "/storage/services/qbittorrent";
     user = "qbittorrent";
     group = "qbittorrent";
     port = 8090;
@@ -40,7 +40,6 @@
   };
 
   systemd.tmpfiles.rules = [
-    "d /media/storage/media/downloads/qBittorrent 0775 root media_services - -"
     "d /storage/services/qbittorrent 0755 qbittorrent qbittorrent - -"
     "d /storage/services/qbittorrent/config 0755 qbittorrent qbittorrent - -"
   ];
