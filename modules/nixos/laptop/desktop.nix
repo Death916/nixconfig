@@ -45,9 +45,9 @@
     btrfs-progs
     unstablePkgs.btrfs-assistant
     rust-analyzer
+    snapper
   ];
 
-  services.snapper.enable = true;
   services.snapper.configs.nix = {
     subvolume = "/nix";
     extraConfig = ''
