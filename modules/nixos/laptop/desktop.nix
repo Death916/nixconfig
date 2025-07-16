@@ -55,5 +55,6 @@
     clean.extraArgs = "--keep-since 7d --keep 10";
     flake = "/home/death916/Documents/nix-config/";
   };
+  programs.btrfs-assistant.enable = true;
   services.fprintd.enable = false;
 }
