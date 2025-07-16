@@ -49,7 +49,6 @@
   ];
 
   services.snapper.configs.nix = {
-    subvolume = "/nix";
     SUBVOLUME = "/nix";
     allowUsers = [ "death916" ];
     timeline = {
@@ -70,7 +69,6 @@
   };
 
   services.snapper.configs.home = {
-    subvolume = "/home";
     SUBVOLUME = "/home";
     allowUsers = [ "death916" ];
     timeline = {
