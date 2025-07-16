@@ -23,4 +23,4 @@
   zramSwap.enable = true;
   swapDevices = [ { device = "/swapfile"; size = 16 * 1024; priority = -1; } ];
 
-  
+}
