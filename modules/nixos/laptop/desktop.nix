@@ -61,11 +61,9 @@
         yearly = 0;
       };
     };
-    cleanup = {
-      timeline = true;
-      number = true;
-      empty = true;
-    };
+    CLEANUP_EMPTY = true;
+    CLEANUP_NUMBER = true;
+    CLEANUP_TIMELINE = true;
   };
 
   services.snapper.configs.home = {
@@ -81,11 +79,9 @@
         yearly = 0;
       };
     };
-    cleanup = {
-      timeline = true;
-      number = true;
-      empty = true;
-    };
+    CLEANUP_EMPTY = true;
+    CLEANUP_NUMBER = true;
+    CLEANUP_TIMELINE = true;
   };
 
   virtualisation.docker.enable = true;
