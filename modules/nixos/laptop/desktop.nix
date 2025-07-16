@@ -3,6 +3,7 @@
   config,
   pkgs,
   inputs,
+  unstablePkgs,
   ...
 }:
 
@@ -42,7 +43,7 @@
     clementine
     systemctl-tui
     btrfs-progs
-    btrfs-assistant
+    unstablePkgs.btrfs-assistant
     rust-analyzer
     snapper
   ];
