@@ -51,37 +51,31 @@
   services.snapper.configs.nix = {
     SUBVOLUME = "/nix";
     allowUsers = [ "death916" ];
-    timeline = {
-      create = true;
-      limit = {
-        hourly = 5;
-        daily = 7;
-        weekly = 0;
-        monthly = 0;
-        yearly = 0;
-      };
-    };
+
     CLEANUP_EMPTY = true;
     CLEANUP_NUMBER = true;
     CLEANUP_TIMELINE = true;
+    TIMELINE_CREATE = true;
+    TIMELINE_LIMIT_HOURLY = 5;
+    TIMELINE_LIMIT_DAILY = 7;
+    TIMELINE_LIMIT_WEEKLY = 0;
+    TIMELINE_LIMIT_MONTHLY = 0;
+    TIMELINE_LIMIT_YEARLY = 0;
   };
 
   services.snapper.configs.home = {
     SUBVOLUME = "/home";
     allowUsers = [ "death916" ];
-    timeline = {
-      create = true;
-      limit = {
-        hourly = 5;
-        daily = 7;
-        weekly = 0;
-        monthly = 0;
-        yearly = 0;
-      };
-    };
+
     CLEANUP_EMPTY = true;
     CLEANUP_NUMBER = true;
     CLEANUP_TIMELINE = true;
+    TIMELINE_CREATE = true;
+    TIMELINE_LIMIT_HOURLY = 5;
+    TIMELINE_LIMIT_DAILY = 7;
+    TIMELINE_LIMIT_WEEKLY = 0;
+    TIMELINE_LIMIT_MONTHLY = 0;
+    TIMELINE_LIMIT_YEARLY = 0;
   };
 
   virtualisation.docker.enable = true;

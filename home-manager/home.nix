@@ -75,7 +75,7 @@ in
     unstablePkgs.zed-editor-fhs
     aichat
     wl-clipboard
-    gemini-cli
+    unstablePkgs.gemini-cli
     zellij
     microsoft-edge
     fastfetch
