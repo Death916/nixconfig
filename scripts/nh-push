@@ -15,6 +15,14 @@ echo "Pulling latest changes from git..."
 # Use -C to specify the repository path for git operations.
 git -C "$REPO_ROOT" pull
 
+# --- Snapshot Creation (Laptop only) ---
+if [ "$(hostname)" = "nixos" ]; then
+    echo "Creating Btrfs snapshots for /nix and /home..."
+    sudo btrfs subvolume snapshot -r /nix "/snapshots/nix_$(date +%Y-%m-%d_%H%M)"
+    sudo btrfs subvolume snapshot -r /home "/snapshots/home_$(date +%Y-%m-%d_%H%M)"
+    echo "Snapshots created."
+fi
+
 # --- NixOS Build ---
 echo "Building NixOS configuration..."
 # Use --flake to specify the flake path.
