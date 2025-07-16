@@ -45,8 +45,43 @@
     btrfs-progs
     unstablePkgs.btrfs-assistant
     rust-analyzer
-    snapper
   ];
+
+  services.snapper.enable = true;
+  services.snapper.configs.nix = {
+    subvolume = "/nix";
+    extraConfig = ''
+      ALLOW_USERS="death916"
+      TIMELINE_CREATE="yes"
+      TIMELINE_LIMIT_HOURLY="5"
+      TIMELINE_LIMIT_DAILY="7"
+      TIMELINE_LIMIT_WEEKLY="0"
+      TIMELINE_LIMIT_MONTHLY="0"
+      TIMELINE_LIMIT_YEARLY="0"
+      # Cleanup algorithms
+      CLEANUP_TIMELINE="yes"
+      CLEANUP_NUMBER="yes"
+      CLEANUP_EMPTY="yes"
+    '';
+  };
+
+  services.snapper.configs.home = {
+    subvolume = "/home";
+    extraConfig = ''
+      ALLOW_USERS="death916"
+      TIMELINE_CREATE="yes"
+      TIMELINE_LIMIT_HOURLY="5"
+      TIMELINE_LIMIT_DAILY="7"
+      TIMELINE_LIMIT_WEEKLY="0"
+      TIMELINE_LIMIT_MONTHLY="0"
+      TIMELINE_LIMIT_YEARLY="0"
+      # Cleanup algorithms
+      CLEANUP_TIMELINE="yes"
+      CLEANUP_NUMBER="yes"
+      CLEANUP_EMPTY="yes"
+    '';
+  };
+
   virtualisation.docker.enable = true;
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
