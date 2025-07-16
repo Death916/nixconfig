@@ -44,6 +44,7 @@
     btrfs-progs
     btrfs-assistant
     rust-analyzer
+    snapper
   ];
   virtualisation.docker.enable = true;
   hardware.bluetooth.enable = true;
