@@ -42,6 +42,7 @@
     clementine
     systemctl-tui
     btrfs-progs
+    btrfs-assistant
     rust-analyzer
   ];
   virtualisation.docker.enable = true;
@@ -55,6 +56,5 @@
     clean.extraArgs = "--keep-since 7d --keep 10";
     flake = "/home/death916/Documents/nix-config/";
   };
-  programs.btrfs-assistant.enable = true;
   services.fprintd.enable = false;
 }
