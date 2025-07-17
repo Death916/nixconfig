@@ -28,7 +28,7 @@ in
         "/storage/services/kopia/logs:/app/logs"
         "/etc/nixos/secrets/kopia_password:/run/secrets/kopia-control-password:ro"
       ];
-      entrypoint = [
+      command = [
         "kopia"
         "server"
         "start"
