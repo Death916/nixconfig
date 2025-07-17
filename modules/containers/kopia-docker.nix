@@ -29,7 +29,6 @@ in
         "/etc/nixos/secrets/kopia_password:/run/secrets/kopia-control-password:ro"
       ];
       cmd = [
-        "kopia"
         "server"
         "start"
         "--insecure"
