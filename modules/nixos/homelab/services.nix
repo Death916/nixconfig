@@ -5,7 +5,7 @@
   ...
 }:
 {
-  imports = [ /home/death916/nixconfg/modules/containers/kopia-docker.nix ];
+  imports = [ ../../containers/kopia-docker.nix ];
   arrSuite.enable = true;
   services.kopia-docker.enable = true;
   services.samba.shares.Media.path = "/media/storage/media";
