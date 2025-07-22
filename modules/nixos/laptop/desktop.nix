@@ -46,6 +46,7 @@
     unstablePkgs.btrfs-assistant
     rust-analyzer
     snapper
+    inetutils
   ];
 
   services.snapper.configs.nix = {
