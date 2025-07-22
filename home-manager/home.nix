@@ -83,6 +83,7 @@ in
     asciiquarium # fishies in my term
     vlc
     jellyfin-media-player
+    syncterm
   ];
 
   programs.starship = {
