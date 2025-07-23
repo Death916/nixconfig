@@ -3,28 +3,31 @@
   config,
   ...
 }: {
-  # agenix
-  age.secrets.restic-hetzner.file = ../../secrets/restic-hetzner.age;
-  age.secrets.restic-hetzner-password.file = ../../secrets/restic-hetzner-password.age;
+  
 
-  # ssh known hosts
-  programs.ssh.knownHosts = {
-    "u419690.your-storagebox.de".publicKey = "<the public key>";
-  };
+  
 
   services.restic.backups = {
     remotebackup = {
+      exclude = [
+        *cache
+      ]
       initialize = true;
       paths = [ # what to backup
-        "/persistent"
+        "/etc"
+        "/srv"
+        "/var/log"
+        "/home"
+        "/var/lib"
+        "/root"
+        "/storage"
       ];
-      passwordFile = config.age.secrets.restic-hetzner-password.path; # encryption
-      repository = "sftp://<boxname>-<subN>@<boxname>.your-storagebox.de/"; @ where to store it
-      
-      extraOptions = [
-        # how to connect
-        "sftp.command='${pkgs.sshpass}/bin/sshpass -f ${config.age.secrets.restic-hetzner.path} -- ssh -4 u419690.your-storagebox.de -l u419690-sub1 -s sftp'"
-      ];
+      passwordFile = "/etc/nixos/secrets/restic-password"; # encryption
+      repository = "s3:s3.idrivee2.com/your-bucket-name"; # where to store it
+      environment = {
+        AWS_ACCESS_KEY_ID = "/etc/nixos/secrets/restic-s3-access-key-id";
+        AWS_SECRET_ACCESS_KEY = "/etc/nixos/secrets/restic-s3-secret-access-key";
+      };
       timerConfig = { # when to backup
         OnCalendar = "00:05";
         RandomizedDelaySec = "5h";

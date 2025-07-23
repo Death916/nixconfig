@@ -84,6 +84,7 @@ in
     vlc
     jellyfin-media-player
     syncterm
+    tradingview
   ];
 
   programs.starship = {
