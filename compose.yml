@@ -1,0 +1,44 @@
+ # compose
+  
+  version: '3.7'
+services:
+    kopia:
+        image: kopia/kopia:latest
+        hostname: Hostname
+        container_name: Kopia
+        restart: unless-stopped
+        network_mode: bridge
+        ports:
+            - 51515:51515
+        # Setup the server that provides the web gui
+        command:
+            - server
+            - start
+            - --disable-csrf-token-checks
+            - --tls-cert-file=/certs/pimox.bandicoot-skate.ts.net.crt
+            - --tls-key-file=/certs/pimox.bandicoot-skate.ts.net.key
+            
+            - --address=0.0.0.0:51515
+            - --server-username=death916
+            - --server-password=REDACTED
+
+
+        environment:
+            # Set repository password
+            KOPIA_PASSWORD: "REDACTED"
+            USER: "death916"
+            TZ:  "America/Los_Angeles"
+          
+            
+        volumes:
+            # Mount local folders needed by kopia
+            - /home/death916/certs:/certs
+            - /home/death916/docker/volumes/kopia:/app/config
+            - /home/death916/docker/volumes/kopia:/app/cache
+            - /home/death916/docker/volumes/kopia:/app/logs
+            # Mount local folders to snapshot
+            - /:/data:ro
+            # Mount repository location
+            #- /path/to/repository/dir:/repository
+            # Mount path for browsing mounted snaphots
+            - /tmp:/tmp:shared

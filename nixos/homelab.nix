@@ -14,5 +14,10 @@
     ../modules/nixos/common/base.nix
     ../modules/nixos/homelab/user.nix
     ../modules/nixos/common/tailscale.nix
+    # ../modules/containers/kopia.nix
   ];
+
+  #  config = {
+  # services.kopia.enable = true;
+  #};
 }
