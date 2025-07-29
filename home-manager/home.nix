@@ -85,6 +85,8 @@ in
     jellyfin-media-player
     syncterm
     tradingview
+    comma
+    mdcat
   ];
 
   programs.starship = {
