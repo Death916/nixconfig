@@ -33,12 +33,7 @@ in
         User = "root";
         EnvironmentFile = secretsFile;
         ExecStart = ''
-                   ${pkgs.kopia}/bin/kopia server start \
-                     --disable-csrf-token-checks \
-                     --address=${listenAddress}  \
-                     --insecure 
-                     --tls-cert-file=${tlsCert} \
-                     --tls-key-file=${tlsKey}
+          ${pkgs.kopia}/bin/kopia server start --disable-csrf-token-checks --address=${listenAddress} --tls-cert-file=${tlsCert} --tls-key-file=${tlsKey}
         '';
         Restart = "on-failure";
         ReadWritePaths = [ dataDir ];
