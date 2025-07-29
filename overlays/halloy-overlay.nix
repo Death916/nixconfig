@@ -6,7 +6,7 @@ in
 {
   halloy = stableRustPlatform.buildRustPackage rec {
     pname = "halloy";
-    version = "2025.6";
+    version = "2025.7";
 
     src = super.fetchFromGitHub {
       owner = "squidowl";
