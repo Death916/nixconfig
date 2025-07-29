@@ -1,12 +1,17 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   # All settings are defined here for easy editing
-  secretsFile   = "/etc/nixos/secrets/kopia.env";
-  tlsCert       = "/home/death916/certs/pimox.bandicoot-skate.ts.net.crt";
-  tlsKey        = "/home/death916/certs/pimox.bandicoot-skate.ts.net.key";
+  secretsFile = "/etc/nixos/secrets/kopia.env";
+  tlsCert = "/home/death916/certs/pimox.bandicoot-skate.ts.net.crt";
+  tlsKey = "/home/death916/certs/pimox.bandicoot-skate.ts.net.key";
   listenAddress = "0.0.0.0:51515";
-  dataDir       = "/var/lib/kopia";
+  dataDir = "/var/lib/kopia";
 in
 {
   options.services.kopia-server.enable = lib.mkEnableOption "Self-contained Kopia Server";
@@ -14,28 +19,29 @@ in
   config = lib.mkIf config.services.kopia-server.enable {
     systemd.services.kopia-server = {
       description = "Kopia Backup Server";
-      wantedBy    = [ "multi-user.target" ];
-      after       = [ "network-online.target" ];
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network-online.target" ];
 
       environment = {
-        KOPIA_CONFIG_PATH     = "${dataDir}/repository.config";
-        KOPIA_LOG_DIR         = "${dataDir}/logs";
+        KOPIA_CONFIG_PATH = "${dataDir}/repository.config";
+        KOPIA_LOG_DIR = "${dataDir}/logs";
         KOPIA_CACHE_DIRECTORY = "${dataDir}/cache";
       };
 
       serviceConfig = {
-        Type            = "simple";
-        User            = "root";
+        Type = "simple";
+        User = "root";
         EnvironmentFile = secretsFile;
         ExecStart = ''
-          ${pkgs.kopia}/bin/kopia server start \
-            --disable-csrf-token-checks \
-            --address=${listenAddress} 
-  #          --tls-cert-file=${tlsCert} \
- #           --tls-key-file=${tlsKey}
+                   ${pkgs.kopia}/bin/kopia server start \
+                     --disable-csrf-token-checks \
+                     --address=${listenAddress}  \
+                     --insecure 
+           #          --tls-cert-file=${tlsCert} \
+          #           --tls-key-file=${tlsKey}
         '';
-        Restart         = "on-failure";
-        ReadWritePaths  = [ dataDir ];
+        Restart = "on-failure";
+        ReadWritePaths = [ dataDir ];
       };
 
       preStart = "mkdir -p ${dataDir}";
