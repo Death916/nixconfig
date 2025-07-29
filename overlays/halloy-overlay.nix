@@ -1,27 +1,30 @@
 self: super:
 let
-  # Use the standard stable rust platform provided by nixpkgs
-  stableRustPlatform = super.rustPlatform;
+  nightlyRustPlatform = super.makeRustPlatform {
+    cargo = super.rust-bin.nightly."2025-07-28".default;
+    rustc = super.rust-bin.nightly."2025-07-28".default;
+  };
 in
 {
-  halloy = stableRustPlatform.buildRustPackage rec {
+  halloy = nightlyRustPlatform.buildRustPackage rec {
     pname = "halloy";
-    version = "2025.6";
+    version = "2025.7";
 
     src = super.fetchFromGitHub {
       owner = "squidowl";
       repo = pname;
       rev = version;
-      sha256 = "sha256-a95PmVEx4j9euqh+z9MvzvwfmWCGydeZjDCfYLOM4tI=";
+      sha256 = "sha256-qBBJAW2QKwcqZRS3D/giT2EzruuGLrCne7odz2vl9is=";
     };
+
+    RUSTC_BOOTSTRAP = 1;
+    RUSTFLAGS = "-Z allow-features=let_chains";
 
     cargoLock = {
       lockFile = src + "/Cargo.lock";
       outputHashes = {
-        "cryoglyph-0.1.0" = "sha256-X7S9jq8wU6g1DDNEzOtP3lKWugDnpopPDBK49iWvD4o=";
-        "dark-light-2.0.0" = "sha256-e826vF7iSkGUqv65TXHBUX04Kz2aaJJEW9f7JsAMaXE=";
-        "iced-0.14.0-dev" = "sha256-FEGk1zkXM9o+fGMoDtmi621G6pL+Yca9owJz4q2Lzks=";
-        "winit-0.30.8" = "sha256-hlVhlQ8MmIbNFNr6BM4edKdZbe+ixnPpKm819zauFLQ=";
+        "cryoglyph-0.1.0" = "sha256-Jc+rhzd5BIT7aYBtIfsBFFKkGChdEYhDHdYGiv4KE+c=";
+        "iced-0.14.0-dev" = "sha256-mt9PsX3FjLFIaE8OyPxCRFeSaxrmZaiVs+QwV2oYtVc=";
         "dpi-0.1.1" = "sha256-hlVhlQ8MmIbNFNr6BM4edKdZbe+ixnPpKm819zauFLQ=";
       };
     };
@@ -75,3 +78,4 @@ in
     };
   };
 }
+
