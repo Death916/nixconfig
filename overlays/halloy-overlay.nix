@@ -12,7 +12,7 @@ in
       owner = "squidowl";
       repo = pname;
       rev = version;
-      sha256 = "sha256-a95PmVEx4j9euqh+z9MvzvwfmWCGydeZjDCfYLOM4tI=";
+      sha256 = "sha256-qBBJAW2QKwcqZRS3D/giT2EzruuGLrCne7odz2vl9is=";
     };
 
     cargoLock = {
