@@ -8,8 +8,8 @@
 let
   # All settings are defined here for easy editing
   secretsFile = "/etc/nixos/secrets/kopia.env";
-  tlsCert = "/home/death916/certs/pimox.bandicoot-skate.ts.net.crt";
-  tlsKey = "/home/death916/certs/pimox.bandicoot-skate.ts.net.key";
+  tlsCert = "/var/lib/kopia/homelab.bandicoot-skate.ts.net.crt";
+  tlsKey = "/var/lib/kopia/homelab.bandicoot-skate.ts.net.key";
   listenAddress = "0.0.0.0:51515";
   dataDir = "/var/lib/kopia";
 in
@@ -37,8 +37,8 @@ in
                      --disable-csrf-token-checks \
                      --address=${listenAddress}  \
                      --insecure 
-           #          --tls-cert-file=${tlsCert} \
-          #           --tls-key-file=${tlsKey}
+                     --tls-cert-file=${tlsCert} \
+                     --tls-key-file=${tlsKey}
         '';
         Restart = "on-failure";
         ReadWritePaths = [ dataDir ];
