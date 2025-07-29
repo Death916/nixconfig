@@ -12,7 +12,7 @@ in
   options.services.kopia-server.enable = lib.mkEnableOption "Self-contained Kopia Server";
 
   config = lib.mkIf config.services.kopia-server.enable {
-    systemd.services.kopia = {
+    systemd.services.kopia-server = {
       description = "Kopia Backup Server";
       wantedBy    = [ "multi-user.target" ];
       after       = [ "network-online.target" ];
