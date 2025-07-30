@@ -7,10 +7,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable"; # Added for Home Assistant
 
-    #    nixos-cosmic = {
-    #     url = "github:lilyinstarlight/nixos-cosmic";
-    #    inputs.nixpkgs.follows = "nixpkgs";
-    # };
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -28,7 +24,6 @@
       nixpkgs,
       nixpkgs-unstable,
       home-manager,
-      #      nixos-cosmic,
       rust-overlay,
       flox,
       ...
@@ -89,6 +84,11 @@
             }
           ];
         };
+
+        oracle-proxy = nixpkgs.lib.nixosSystem {
+          inherit system;
+          
+        }
       };
     };
 }
