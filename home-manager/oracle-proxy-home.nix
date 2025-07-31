@@ -10,6 +10,13 @@
   imports = [ ../modules/home-manager/common.nix ];
 
   home.username = "death916";
+  home.stateVersion = "25.05";
+
+  users.users.death916 = {
+    isNormalUser = true;
+    group = "death916";
+  };
+  users.groups.death916 = {};
 
   programs.bash.enable = true;
 
