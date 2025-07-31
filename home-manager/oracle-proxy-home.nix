@@ -20,6 +20,7 @@
     zellij
     systemctl-tui
     gemini-cli
+    nh
   ];
 
   programs.bash.shellAliases = {
