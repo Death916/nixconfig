@@ -17,7 +17,9 @@
     ../modules/containers/kopia-server.nix
   ];
 
-    config = {
-   services.kopia-server.enable = true;
+  config = {
+    services.kopia-server.enable = true;
   };
+
+  system.stateVersion = "24.11";
 }

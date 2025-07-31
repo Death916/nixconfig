@@ -1,9 +1,17 @@
 # ~/nixconfig/nixos/configuration.nix.new
-{ config, pkgs, overlays, ... }:
+{
+  config,
+  pkgs,
+  overlays,
+  ...
+}:
 
 {
   # Apply the overlays passed from the flake
-  nixpkgs.overlays = [ overlays.rust overlays.halloy ];
+  nixpkgs.overlays = [
+    overlays.rust
+    overlays.halloy
+  ];
 
   imports = [
     ./hardware-configuration.nix
@@ -12,4 +20,6 @@
     ../modules/nixos/laptop/user.nix
     ../modules/nixos/common/tailscale.nix
   ];
+
+  system.stateVersion = "24.11";
 }
