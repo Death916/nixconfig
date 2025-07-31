@@ -10,7 +10,6 @@
   imports = [ ../modules/home-manager/common.nix ];
 
   home.username = "death916";
-  home.homeDirectory = "/home/death916";
 
   programs.bash.enable = true;
 
