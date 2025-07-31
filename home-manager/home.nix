@@ -22,7 +22,7 @@ in
     "Xcursor.size" = 16;
     "Xft.dpi" = 172;
   };
-
+  home.stateVersion = "24.11";
   home.packages = with pkgs; [
     nnn
     zip

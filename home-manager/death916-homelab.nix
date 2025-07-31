@@ -4,7 +4,7 @@
   pkgs,
   lib,
   inputs,
-  ... 
+  ...
 }:
 
 {
@@ -12,10 +12,8 @@
 
   home.username = "death916";
   home.homeDirectory = "/home/death916";
-
+  home.stateVersion = "24.11";
   programs.bash.enable = true;
-
-  
 
   home.packages = with pkgs; [
     fastfetch

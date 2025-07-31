@@ -3,7 +3,7 @@
   config,
   pkgs,
   lib,
-  ... 
+  ...
 }:
 
 {
@@ -29,7 +29,9 @@
           select = "underline";
         };
         true-color = true;
-        soft-wrap = { enable = true; };
+        soft-wrap = {
+          enable = true;
+        };
       };
     };
     languages.language = [
@@ -55,11 +57,14 @@
 
   programs.atuin = {
     enable = true;
-    settings = { search_mode = "fuzzy"; };
+    settings = {
+      search_mode = "fuzzy";
+    };
   };
 
-  home.sessionVariables = { EDITOR = "hx"; };
+  home.sessionVariables = {
+    EDITOR = "hx";
+  };
 
-  home.stateVersion = "24.11";
   programs.home-manager.enable = true;
 }
