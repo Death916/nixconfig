@@ -64,7 +64,6 @@
 
         homelab = nixpkgs.lib.nixosSystem {
           inherit system;
-          # Pass the unstable pkgs set for HA to the homelab configuration
           specialArgs = {
             inherit inputs system overlays primaryUser;
             unstablePkgsHA = import nixpkgs-unstable { inherit system; };
@@ -72,7 +71,6 @@
           modules = [
             ./nixos/homelab.nix # Your main homelab config
             ./nixos/hardware-homelab.nix
-            # ./modules/home-assistant.nix # Your HA configuration module
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -88,6 +86,22 @@
         oracle-proxy = nixpkgs.lib.nixosSystem {
           inherit system;
           
+          specialArgs = {
+            inherit inputs system overlays primaryUser;
+          };
+          modules = [
+            ./nixos/oracle-proxy.nix  # Your main homelab config
+            ./nixos/oracle-proxy-hardware.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit hmLib; };
+              home-manager.users.death916 = {
+                imports = [ ./home-manager/oracle-proxy-home.nix ];
+              };
+            }
+          ];
         }
       };
     };
