@@ -1,6 +1,6 @@
 {
   imports = [
-    ../modules/nixos/common/base.nix
+    # ../modules/nixos/common/base.nix broke grub last time
     ../modules/nixos/common/tailscale.nix
     ../nixos/orac-hardware.nix
     #../modules/nixos/orac/services.nix
