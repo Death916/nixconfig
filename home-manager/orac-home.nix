@@ -21,6 +21,8 @@
     systemctl-tui
     gemini-cli
     nh
+    atuin
+    helix
   ];
 
   programs.bash.shellAliases = {
