@@ -52,5 +52,6 @@
     unzip
     kopia
     manix
+    pipes-rs
   ];
 }
