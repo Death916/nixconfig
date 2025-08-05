@@ -10,7 +10,7 @@
     "flakes"
   ];
   nixpkgs.config.allowUnfree = true;
-
+  services.openssh.settings.PasswordAuthentication = false;
   time.timeZone = "America/Los_Angeles";
   users.users.death916 = {
     isNormalUser = true;
