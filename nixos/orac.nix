@@ -11,7 +11,15 @@
     "flakes"
   ];
   nixpkgs.config.allowUnfree = true;
-  services.openssh.settings.PasswordAuthentication = false;
+  services.openssh = {                                                                                                                                                                                                                                               │
+    enable = true;                                                                                                                                                                                                                                                   │
+    settings = {                                                                                                                                                                                                                                                     │
+      PasswordAuthentication = false;                                                                                                                                                                                                                                │
+      KbdInteractiveAuthentication = false;                                                                                                                                                                                                                          │
+      PermitRootLogin = "yes";                                                                                                                                                                                                                                       │
+      AllowUsers = [ "death916" ];                                                                                                                                                                                                                                   │
+    };                                                                                                                                                                                                                                                               │
+  };            
   time.timeZone = "America/Los_Angeles";
   users.users.death916 = {
     isNormalUser = true;
