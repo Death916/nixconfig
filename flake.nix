@@ -28,7 +28,6 @@
       ...
     }:
     let
-      system = "x86_64-linux";
       hmLib = home-manager.lib;
       primaryUser = "death916";
 
@@ -40,7 +39,7 @@
     in
     {
       nixosConfigurations = {
-        nixos = nixpkgs.lib.nixosSystem {
+        nixos = let system = "x86_64-linux"; in nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {
             inherit
@@ -69,7 +68,7 @@
           ];
         };
 
-        homelab = nixpkgs.lib.nixosSystem {
+        homelab = let system = "x86_64-linux"; in nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {
             inherit
@@ -95,7 +94,7 @@
           ];
         };
 
-        oracle-proxy = nixpkgs.lib.nixosSystem {
+        oracle-proxy = let system = "x86_64-linux"; in nixpkgs.lib.nixosSystem {
           inherit system;
 
           specialArgs = {
