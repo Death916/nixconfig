@@ -2,6 +2,7 @@
 {
   imports = [
     ../modules/nixos/orac/services.nix
+    ../modules/nixos/common/tailscale.nix
 
   ];
 
