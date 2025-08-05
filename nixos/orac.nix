@@ -9,7 +9,9 @@
     "nix-command"
     "flakes"
   ];
+  nixpkgs.config.allowUnfree = true;
 
+  time.timeZone = "America/Los_Angeles";
   users.users.death916 = {
     isNormalUser = true;
     home = "/home/death916";
