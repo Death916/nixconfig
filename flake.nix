@@ -120,16 +120,15 @@
           ];
         };
 
-        orac = nixpkgs.lib.nixosSystem {
-          system = "aarch64-linux";
-
+        orac = let system = "aarch64-linux"; in nixpkgs.lib.nixosSystem {
+          inherit system;
           specialArgs = {
             inherit
               inputs
+              system
               overlays
               primaryUser
               ;
-            system = "aarch64-linux";
           };
           modules = [
             ./nixos/orac.nix # Your main homelab config
