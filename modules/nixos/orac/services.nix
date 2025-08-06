@@ -6,7 +6,7 @@
 {
 
   services.vaultwarden = {
-    enable = false;
+    enable = true;
     #    dbBackend = "mysql";
     backupDir = "/var/lib/backups";
     config = {
