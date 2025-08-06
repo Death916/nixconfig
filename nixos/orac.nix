@@ -6,6 +6,12 @@
     ../modules/containers/docker/pangolin.nix
   ];
 
+  networking.firewall = {
+  enable = true;
+  allowedTCPPorts = [ 80 443 ];
+  allowedUDPPorts = [ 80 443 ];
+  };
+
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
