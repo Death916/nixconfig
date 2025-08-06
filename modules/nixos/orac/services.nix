@@ -7,12 +7,12 @@
 
   services.vaultwarden = {
     enable = true;
-    dbBackend = "mysql";
-    #    backupDir = "/var/lib/backups";
+    #    dbBackend = "mysql";
+    backupDir = "/var/lib/backups";
     config = {
       # Refer to https://github.com/dani-garcia/vaultwarden/blob/main/.env.template
       DOMAIN = "https://vaultwarden.death916.xyz";
-      SIGNUPS_ALLOWED = false;
+      SIGNUPS_ALLOWED = true;
 
       ROCKET_ADDRESS = "0.0.0.0";
       ROCKET_PORT = 8222;
