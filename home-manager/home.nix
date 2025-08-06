@@ -87,6 +87,7 @@ in
     tradingview
     comma
     mdcat
+    bash-completion
   ];
 
   programs.starship = {
