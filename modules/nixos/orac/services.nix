@@ -11,7 +11,7 @@
     config = {
       # Refer to https://github.com/dani-garcia/vaultwarden/blob/main/.env.template
       DOMAIN = "https://vaultwarden.death916.xyz";
-      SIGNUPS_ALLOWED = true;
+      SIGNUPS_ALLOWED = false;
 
       ROCKET_ADDRESS = "0.0.0.0";
       ROCKET_PORT = 8222;
