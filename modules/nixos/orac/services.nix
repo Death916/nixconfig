@@ -7,8 +7,8 @@
 
   services.vaultwarden = {
     enable = true;
-    #    dbBackend = "mysql";
-    backupDir = "/var/lib/backups";
+    dbBackend = "mysql";
+    #    backupDir = "/var/lib/backups";
     config = {
       # Refer to https://github.com/dani-garcia/vaultwarden/blob/main/.env.template
       DOMAIN = "https://vaultwarden.death916.xyz";
