@@ -3,6 +3,7 @@
     ../modules/nixos/orac/services.nix
     ../modules/nixos/common/tailscale.nix
     ../modules/soju.nix
+    ../modules/containers/docker/pangolin.nix
   ];
 
   nix.settings.experimental-features = [
@@ -27,6 +28,7 @@
     extraGroups = [
       "wheel"
       "networkmanager"
+      "docker"
     ];
   };
   boot.tmp.cleanOnBoot = true;
