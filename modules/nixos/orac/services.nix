@@ -10,7 +10,7 @@
     backupDir = "/var/lib/backups";
     config = {
       # Refer to https://github.com/dani-garcia/vaultwarden/blob/main/.env.template
-      DOMAIN = "vaultwarden.death916.xyz";
+      DOMAIN = "https://vaultwarden.death916.xyz";
       SIGNUPS_ALLOWED = false;
 
       ROCKET_ADDRESS = "127.0.0.1";
