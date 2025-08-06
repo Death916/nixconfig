@@ -7,9 +7,17 @@
   ];
 
   networking.firewall = {
-  enable = true;
-  allowedTCPPorts = [ 80 443 ];
-  allowedUDPPorts = [ 80 443 ];
+    enable = true;
+    allowedTCPPorts = [
+      80
+      443
+      8222
+    ];
+    allowedUDPPorts = [
+      80
+      443
+      8222
+    ];
   };
 
   nix.settings.experimental-features = [
