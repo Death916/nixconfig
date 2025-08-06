@@ -7,6 +7,7 @@
 
   services.vaultwarden = {
     enable = true;
+    dbBackend = "mysql"
     backupDir = "/var/lib/backups";
     config = {
       # Refer to https://github.com/dani-garcia/vaultwarden/blob/main/.env.template
