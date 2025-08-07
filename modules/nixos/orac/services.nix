@@ -60,6 +60,6 @@
     kopia
     manix
     pipes-rs
-
+    soju
   ];
 }
