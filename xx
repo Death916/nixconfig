@@ -1,3 +1,0 @@
- copying path '/nix/store/jw1srqayqs5a820v343913gbxh7i8m65-sudo-1.9.17p1' from 'https://cache.nixos.org'
-∙ copying path '/nix/store/yb71zmfx7f86lbk06alnbc8j9y6d3cql-tcb-1.2' from 'https://cache.nixos.org'
-∙ error: a 'x86_64-linux' with features {} is required to build '/nix/store/2lcgfv0lrd0hy5m100n30jfrkzgnchj3-X-Restart-Triggers-dhcpcd.drv', but I am a 'aarch64-linux' with features {benchmark, big-parallel, gccarch-armv8-a, kvm, nixo
