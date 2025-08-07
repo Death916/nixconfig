@@ -39,12 +39,6 @@
     clean.extraArgs = "--keep-since 7d --keep 10";
     flake = "/home/death916/nixconfig/";
   };
-  services.soju = {
-    enable = true;
-    hostName = "oracle";
-    listen = [ "irc+insecure://0.0.0.0" ];
-    package = pkgs.soju;
-  };
 
   environment.systemPackages = with pkgs; [
     git
