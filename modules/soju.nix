@@ -10,7 +10,7 @@
     services.soju = {
 
       enable = true;
-      hostName = "orac";
+      hostName = "0.0.0.0";
       listen = [ "irc+insecure://0.0.0.0:6667" ];
       enableMessageLogging = true;
     };
