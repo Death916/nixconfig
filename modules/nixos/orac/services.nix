@@ -44,7 +44,9 @@
     hostName = "oracle";
     listen = [ "irc+insecure://0.0.0.0" ];
     configFile = "/var/lib/soju";
-    package = pkgs.soju;
+    package = with pkgs; [
+      soju
+    ];
   };
 
   environment.systemPackages = with pkgs; [
@@ -60,6 +62,5 @@
     kopia
     manix
     pipes-rs
-    soju
   ];
 }
