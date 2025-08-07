@@ -2,7 +2,7 @@
   imports = [
     ../modules/nixos/orac/services.nix
     ../modules/nixos/common/tailscale.nix
-    #    ../modules/soju.nix
+    ../modules/soju.nix
     ../modules/containers/docker/pangolin.nix
   ];
 
