@@ -39,7 +39,13 @@
     clean.extraArgs = "--keep-since 7d --keep 10";
     flake = "/home/death916/nixconfig/";
   };
-
+    services.soju = {  
+     enable = true;                                                      
+     hostName = "oracle";                                                  
+     listen = [ "irc+insecure://0.0.0.0" ];
+     configFile = "/var/lib/soju"
+     };                           
+  
   environment.systemPackages = with pkgs; [
     git
     vim
@@ -53,6 +59,6 @@
     kopia
     manix
     pipes-rs
-    soju
+
   ];
 }
