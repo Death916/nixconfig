@@ -44,6 +44,7 @@
     hostName = "oracle";
     listen = [ "irc+insecure://0.0.0.0" ];
     configFile = "/var/lib/soju";
+    package = pkgs.soju
   };
 
   environment.systemPackages = with pkgs; [
