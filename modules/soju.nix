@@ -11,7 +11,7 @@
 
       enable = true;
       hostName = "orac";
-      listen = [ "irc+insecure://0.0.0.0:6697" ];
+      listen = [ "irc+insecure://0.0.0.0:6667" ];
       enableMessageLogging = true;
     };
   };
