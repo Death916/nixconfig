@@ -42,7 +42,7 @@
 
   services.vaultwarden = {
     enable = true;
-    backupDir = "/var/lib/vaultwarden/backup";
+    backupDir = "/var/lib/backups/vaultwarden";
     config = {
       # Refer to https://github.com/dani-garcia/vaultwarden/blob/main/.env.template
       DOMAIN = "https://vaultwarden.death916.xyz";
