@@ -47,6 +47,7 @@
     rust-analyzer
     snapper
     inetutils
+    rustdesk
   ];
 
   services.snapper.configs.nix = {
