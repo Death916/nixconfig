@@ -40,6 +40,13 @@
     flake = "/home/death916/nixconfig/";
   };
 
+  servcies.karakeep = {
+    enable = true;
+    meilisearch.enable = true;
+    browser.enable = true;
+
+  };
+
   services.vaultwarden = {
     enable = true;
     backupDir = "/var/lib/backups/vaultwarden";
