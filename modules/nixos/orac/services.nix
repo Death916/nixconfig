@@ -40,7 +40,7 @@
     flake = "/home/death916/nixconfig/";
   };
 
-  servcies.karakeep = {
+  services.karakeep = {
     enable = true;
     meilisearch.enable = true;
     browser.enable = true;
