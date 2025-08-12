@@ -19,9 +19,6 @@
   # services.displayManager.cosmic-greeter.enable = true;
   # services.desktopManager.cosmic.xwayland.enable = true;
 
-  # Enable Hyprland system-wide
-  programs.hyprland.enable = true;
-
   # This is to fix clementine gui not showing up on wayland
   environment.variables.QT_QPA_PLATFORM = "wayland";
 

@@ -15,7 +15,6 @@
       exec-once = [
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        "/usr/lib/xdg-desktop-portal-hyprland &"
         "swww init &" # Wallpaper daemon
         "swww img /path/to/your/wallpaper.jpg &" # Set your wallpaper path here
         "waybar &" # Start Waybar
@@ -138,7 +137,7 @@
         "SUPER, T, exec, waveterm" # Wave Terminal
         "SUPER, D, exec, rofi -show drun" # Rofi application launcher
         "SUPER, W, exec, firefox" # Web browser
-        "SUPER, E, exec, dolphin" # File manager
+        "SUPER, E, exec, ${pkgs.kdePackages.dolphin}" # File manager
 
         # Screenshots
         "SUPER, Print, exec, grim -g \"$(slurp)\" - | wl-copy" # Screenshot selection to clipboard
@@ -168,6 +167,12 @@
         "nofocus,class:^(blueman-applet)"
       ];
     };
+  };
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+    ];
   };
 
   # Waybar (status bar)
@@ -241,7 +246,7 @@
         };
       };
     };
-    style = ''
+    style = '''
       /* Catppuccin Mocha colors */
       @define-color rosewater #f5e0dc;
       @define-color flamingo #f2cdcd;
@@ -440,6 +445,7 @@
     blueman
     waybar # Ensure waybar is installed
     kitty
+    libnotify # For dunst
     kdePackages.dolphin
   ];
 }
