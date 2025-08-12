@@ -134,11 +134,11 @@
         "SUPER, mouse_up, workspace, e-1"
 
         # Multimedia keys
-        "XF86AudioMute, exec, pamixer --toggle-mute"
-        "XF86AudioRaiseVolume, exec, pamixer --increase 5"
-        "XF86AudioLowerVolume, exec, pamixer --decrease 5"
-        "XF86MonBrightnessUp, exec, brightnessctl set +5%"
-        "XF86MonBrightnessDown, exec, brightnessctl set 5%-"
+        "XF86AudioMute, exec, ${pkgs.pamixer}/bin/pamixer --toggle-mute"
+        "XF86AudioRaiseVolume, exec, ${pkgs.pamixer}/bin/pamixer --increase 5"
+        "XF86AudioLowerVolume, exec, ${pkgs.pamixer}/bin/pamixer --decrease 5"
+        "XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl set +5%"
+        "XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl set 5%-"
 
         # Application launchers
         "SUPER, Return, exec, alacritty" # Terminal
