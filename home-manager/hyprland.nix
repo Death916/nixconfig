@@ -1,9 +1,4 @@
-# home-manager/hyprland.nix
-
-{ config, pkgs, inputs, ... }:
-
-{
-  # Enable Hyprland and XWayland
+# Enable Hyprland and XWayland
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true; # For XWayland applications
