@@ -435,7 +435,7 @@
   };
 
   # Fonts
-  fonts.fontconfig.enable = true;
+fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
     # Nerd Fonts for icons in Waybar, Rofi, etc.
     nerd-fonts.jetbrains-mono
@@ -454,5 +454,4 @@
     libnotify # For dunst
     kdePackages.dolphin
   ];
-}
 }
