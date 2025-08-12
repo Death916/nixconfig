@@ -454,4 +454,3 @@
     libnotify # For dunst
     kdePackages.dolphin
   ];
-}
