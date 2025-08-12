@@ -13,7 +13,10 @@ let
   tmuxai-pkg = pkgs.callPackage tmuxaiPackageDir { };
 in
 {
-  imports = [ ../modules/home-manager/common.nix ];
+  imports = [
+    ../modules/home-manager/common.nix
+    ./hyprland.nix # Add this line to import your Hyprland configuration
+  ];
 
   home.username = "death916";
   home.homeDirectory = "/home/death916";

@@ -11,6 +11,6 @@
     isNormalUser = true;
     home = "/home/${primaryUser}";
     description = "${primaryUser}";
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [ "wheel" "networkmanager" "video" ];
   };
 }

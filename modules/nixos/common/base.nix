@@ -22,6 +22,9 @@
     "flakes"
   ];
 
+  nix.settings.substituters = [ "https://hyprland.cachix.org" ];
+  nix.settings.trusted-public-keys = [ "hyprland.cachix.org-1:fAmf/fNyvJx5Jzlkz2eX2/RjY8w+FzB9q/t0B/s/aA4=" ];
+
   zramSwap.enable = true;
   swapDevices = [
     {
