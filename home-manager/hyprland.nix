@@ -4,7 +4,8 @@
   # Enable Hyprland and XWayland
   wayland.windowManager.hyprland = {
     enable = true;
-    xwayland.enable = true; # For XWayland applications
+    xwayland.enable = true;
+    systemd.variables = ["--all"]; # Ensure environment variables are passed to systemd service # For XWayland applications
 
     # Hyprland configuration settings
     settings = {
