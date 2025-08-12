@@ -57,6 +57,7 @@
             ./nixos/configuration.nix
             ./nixos/hardware-configuration.nix
             home-manager.nixosModules.home-manager
+            hyprland.homeManagerModules.default
             (
               { unstablePkgs, ... }:
               {

@@ -169,11 +169,6 @@
     };
   };
 
-  programs.hyprland = {
-    enable = true;
-    package = pkgs.hyprland;
-  };
-
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
