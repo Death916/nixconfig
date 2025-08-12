@@ -149,10 +149,10 @@
 
         # Multimedia keys
         "XF86AudioMute, exec, ${pkgs.pamixer}/bin/pamixer --toggle-mute"
-        ", XF86AudioRaiseVolume, binde, ${pkgs.pamixer}/bin/pamixer --increase 5"
-        ", XF86AudioLowerVolume, binde, ${pkgs.pamixer}/bin/pamixer --decrease 5"
-        ", XF86MonBrightnessUp, binde, ${pkgs.brightnessctl}/bin/brightnessctl set +5%"
-        ", XF86MonBrightnessDown, binde, ${pkgs.brightnessctl}/bin/brightnessctl set 5%-"
+        "XF86AudioRaiseVolume, binde, ${pkgs.pamixer}/bin/pamixer --increase 5"
+        "XF86AudioLowerVolume, binde, ${pkgs.pamixer}/bin/pamixer --decrease 5"
+        "XF86MonBrightnessUp, binde, ${pkgs.brightnessctl}/bin/brightnessctl set +5%"
+        "XF86MonBrightnessDown, binde, ${pkgs.brightnessctl}/bin/brightnessctl set 5%-"
 
         # Application launchers
         "SUPER, Return, exec, alacritty" # Terminal
