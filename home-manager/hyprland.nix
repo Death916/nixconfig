@@ -425,7 +425,7 @@
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
     # Nerd Fonts for icons in Waybar, Rofi, etc.
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    nerd-fonts.jetbrains-mono
     noto-fonts
     noto-fonts-cjk
     noto-fonts-emoji
