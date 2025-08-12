@@ -427,7 +427,7 @@
     # Nerd Fonts for icons in Waybar, Rofi, etc.
     nerd-fonts.jetbrains-mono
     noto-fonts
-    noto-fonts-cjk
+    noto-fonts-cjk-sans
     noto-fonts-emoji
     font-awesome # For some older icons
     # Tools for screenshots
