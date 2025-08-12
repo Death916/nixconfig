@@ -91,6 +91,8 @@ in
     comma
     mdcat
     bash-completion
+    pamixer
+    brightnessctl
   ];
 
   programs.starship = {
