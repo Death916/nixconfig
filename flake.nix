@@ -15,6 +15,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flox.url = "github:flox/flox";
+    hyprland.url = "github:hyprwm/Hyprland";
   };
 
   outputs =
@@ -25,6 +26,7 @@
       home-manager,
       rust-overlay,
       flox,
+      hyprland,
       ...
     }:
     let
@@ -47,10 +49,12 @@
               system
               overlays
               primaryUser
+              hyprland # Pass hyprland to specialArgs
               ;
             unstablePkgs = import nixpkgs-unstable { inherit system; };
           };
           modules = [
+            hyprland.nixosModules.default # Add this line
             ./nixos/configuration.nix
             ./nixos/hardware-configuration.nix
             home-manager.nixosModules.home-manager

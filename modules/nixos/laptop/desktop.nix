@@ -15,12 +15,14 @@
   services.xserver.displayManager.gdm.enable = false;
   services.xserver.desktopManager.gnome.enable = false;
   #cosmic instead
-  services.desktopManager.cosmic.enable = true;
-  services.displayManager.cosmic-greeter.enable = true;
-  services.desktopManager.cosmic.xwayland.enable = true;
+  # services.desktopManager.cosmic.enable = true;
+  # services.displayManager.cosmic-greeter.enable = true;
+  # services.desktopManager.cosmic.xwayland.enable = true;
 
   # This is to fix clementine gui not showing up on wayland
   environment.variables.QT_QPA_PLATFORM = "wayland";
+
+  environment.sessionVariables.NIXOS_OZONE_WL = "1"; # Required for some Electron apps
 
   nix.settings.trusted-substituters = [ "https://cache.flox.dev" ];
   nix.settings.trusted-public-keys = [
