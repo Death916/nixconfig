@@ -57,7 +57,6 @@
             ./nixos/configuration.nix
             ./nixos/hardware-configuration.nix
             home-manager.nixosModules.home-manager
-            hyprland.homeManagerModules.default
             (
               { unstablePkgs, ... }:
               {
@@ -65,7 +64,10 @@
                 home-manager.useUserPackages = true;
                 home-manager.extraSpecialArgs = { inherit hmLib unstablePkgs; };
                 home-manager.users.death916 = {
-                  imports = [ ./home-manager/home.nix ];
+                  imports = [
+                    ./home-manager/home.nix
+                    hyprland.homeManagerModules.default
+                  ];
                 };
               }
             )
