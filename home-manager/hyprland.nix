@@ -367,7 +367,7 @@
         max_icon_size = 32;
         sticky_history = true;
         history_length = 20;
-        browser = pkgs.firefox;
+        browser = "${pkgs.firefox}/bin/firefox";
         always_run_script = true;
         startup_notification = false;
         indicate_hidden = true;
