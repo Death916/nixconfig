@@ -436,5 +436,6 @@
     # Network/Bluetooth applets
     networkmanagerapplet
     blueman
+    waybar # Ensure waybar is installed
   ];
 }
