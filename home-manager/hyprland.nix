@@ -440,6 +440,6 @@
     blueman
     waybar # Ensure waybar is installed
     kitty
-    dolphin
+    kdePackages.dolphin
   ];
 }
