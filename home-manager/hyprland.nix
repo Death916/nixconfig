@@ -418,7 +418,6 @@
       name = "Catppuccin-Mocha-Dark-Cursors";
       package = pkgs.catppuccin-cursors.override {
         accents = [ "lavender" ];
-        variant = "mocha";
       };
       size = 24;
     };
