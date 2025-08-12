@@ -105,6 +105,10 @@
         "SUPER SHIFT, up, movewindow, u"
         "SUPER SHIFT, down, movewindow, d"
 
+        # Resize active window
+        "SUPER SHIFT, right, resizeactive, 10 0"
+        "SUPER SHIFT, left, resizeactive, -10 0"
+
         # Workspaces
         "SUPER, 1, workspace, 1"
         "SUPER, 2, workspace, 2"
@@ -133,12 +137,22 @@
         "SUPER, mouse_down, workspace, e+1"
         "SUPER, mouse_up, workspace, e-1"
 
+        # Window resizing
+        "SUPER, R, submap, resize"
+        "submap = resize"
+        "binde = , right, resizeactive, 10 0"
+        "binde = , left, resizeactive, -10 0"
+        "binde = , up, resizeactive, 0 -10"
+        "binde = , down, resizeactive, 0 10"
+        "bind = , escape, submap, reset"
+        "submap = reset"
+
         # Multimedia keys
-        "XF86AudioMute, exec, sh -c "${pkgs.pamixer}/bin/pamixer --toggle-mute""
-        "XF86AudioRaiseVolume, exec, sh -c "${pkgs.pamixer}/bin/pamixer --increase 5""
-        "XF86AudioLowerVolume, exec, sh -c "${pkgs.pamixer}/bin/pamixer --decrease 5""
-        "XF86MonBrightnessUp, exec, sh -c "${pkgs.brightnessctl}/bin/brightnessctl set +5%""
-        "XF86MonBrightnessDown, exec, sh -c "${pkgs.brightnessctl}/bin/brightnessctl set 5%-""
+        "XF86AudioMute, exec, ${pkgs.pamixer}/bin/pamixer --toggle-mute"
+        "XF86AudioRaiseVolume, binde, , ${pkgs.pamixer}/bin/pamixer --increase 5"
+        "XF86AudioLowerVolume, binde, , ${pkgs.pamixer}/bin/pamixer --decrease 5"
+        "XF86MonBrightnessUp, binde, , ${pkgs.brightnessctl}/bin/brightnessctl set +5%"
+        "XF86MonBrightnessDown, binde, , ${pkgs.brightnessctl}/bin/brightnessctl set 5%-"
 
         # Application launchers
         "SUPER, Return, exec, alacritty" # Terminal
@@ -438,7 +452,8 @@
 
   # Fonts
   fonts.fontconfig.enable = true;
-  home.packages = with pkgs; [
+  home.packages = with pkgs;
+  [
     # Nerd Fonts for icons in Waybar, Rofi, etc.
     nerd-fonts.jetbrains-mono
     noto-fonts
