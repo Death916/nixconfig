@@ -15,6 +15,7 @@
       exec-once = [
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        "/usr/lib/xdg-desktop-portal-hyprland &"
         "swww init &" # Wallpaper daemon
         "swww img /path/to/your/wallpaper.jpg &" # Set your wallpaper path here
         "waybar &" # Start Waybar
@@ -134,6 +135,7 @@
 
         # Application launchers
         "SUPER, Return, exec, alacritty" # Terminal
+        "SUPER, T, exec, waveterm" # Wave Terminal
         "SUPER, D, exec, rofi -show drun" # Rofi application launcher
         "SUPER, W, exec, firefox" # Web browser
         "SUPER, E, exec, dolphin" # File manager
@@ -437,5 +439,7 @@
     networkmanagerapplet
     blueman
     waybar # Ensure waybar is installed
+    kitty
+    dolphin
   ];
 }
