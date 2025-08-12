@@ -54,7 +54,6 @@
             unstablePkgs = import nixpkgs-unstable { inherit system; };
           };
           modules = [
-            hyprland.nixosModules.default # Add this line
             ./nixos/configuration.nix
             ./nixos/hardware-configuration.nix
             home-manager.nixosModules.home-manager

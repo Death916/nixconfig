@@ -34,4 +34,6 @@
     }
   ];
 
+  services.networking.networkmanager.enable = true;
+
 }
