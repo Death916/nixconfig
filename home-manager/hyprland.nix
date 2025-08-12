@@ -252,7 +252,7 @@
         };
       };
     };
-    style = """""
+    style = '''
       /* Catppuccin Mocha colors */
       @define-color rosewater #f5e0dc;
       @define-color flamingo #f2cdcd;
@@ -330,7 +330,7 @@
       #battery.critical:not(.charging) {
         color: @red;
       }
-    """"";
+    '''
   };
 
   # Rofi (application launcher)
