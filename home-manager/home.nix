@@ -91,7 +91,6 @@ in
     comma
     mdcat
     bash-completion
-    fonts.jetbrains-mono # Added JetBrainsMono font
   ];
 
   programs.starship = {
