@@ -455,3 +455,4 @@
     kdePackages.dolphin
   ];
 }
+}
