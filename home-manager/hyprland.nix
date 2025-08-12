@@ -148,9 +148,9 @@
         "submap = reset"
 
         # Multimedia keys
-        ", XF86AudioMute, exec, ${pkgs.pactl}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle"
-        ", XF86AudioRaiseVolume, exec, ${pkgs.pactl}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%"
-        ", XF86AudioLowerVolume, exec, ${pkgs.pactl}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%"
+        ", XF86AudioMute, exec, ${pkgs.pamixer}/bin/pamixer --toggle-mute"
+        ", XF86AudioRaiseVolume, exec, ${pkgs.pamixer}/bin/pamixer --increase 5"
+        ", XF86AudioLowerVolume, exec, ${pkgs.pamixer}/bin/pamixer --decrease 5"
         ", XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl set +5%"
         ", XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl set 5%-"
 
