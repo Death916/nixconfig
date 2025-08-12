@@ -10,7 +10,7 @@
     # Hyprland configuration settings
     settings = {
       # Monitors
-      monitor = ",preferred,auto,1"; # Auto-detect primary monitor
+      monitor = ",1920x1080,auto,1"; # Set primary monitor to 1080p
 
       # Execute on startup
       exec-once = [
@@ -42,10 +42,10 @@
           size = 3;
           passes = 1;
         };
-        drop_shadow = true;
-        shadow_range = 4;
-        shadow_render_power = 3;
-        "col.shadow" = "rgba(1a1a1aee)";
+        # drop_shadow = true;
+        # shadow_range = 4;
+        # shadow_render_power = 3;
+        # "col.shadow" = "rgba(1a1a1aee)";
       };
 
       # Animations
