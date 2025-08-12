@@ -330,7 +330,7 @@
       #battery.critical:not(.charging) {
         color: @red;
       }
-    '''
+    '';
   };
 
   # Rofi (application launcher)
@@ -435,7 +435,7 @@
   };
 
   # Fonts
-fonts.fontconfig.enable = true;
+  fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
     # Nerd Fonts for icons in Waybar, Rofi, etc.
     nerd-fonts.jetbrains-mono
