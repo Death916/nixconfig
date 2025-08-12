@@ -416,9 +416,7 @@
     };
     cursorTheme = {
       name = "Catppuccin-Mocha-Dark-Cursors";
-      package = pkgs.catppuccin-cursors.override {
-        accents = [ "lavender" ];
-      };
+      package = pkgs.catppuccin-cursors;
       size = 24;
     };
   };
