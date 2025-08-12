@@ -2,7 +2,7 @@
 
 {
   # Enable Hyprland and XWayland
-  wayland.windowManager.hyprland = {
+  programs.hyprland = {
     enable = true;
     xwayland.enable = true; # For XWayland applications
 
