@@ -1,3 +1,4 @@
+{
 # Enable Hyprland and XWayland
   wayland.windowManager.hyprland = {
     enable = true;
