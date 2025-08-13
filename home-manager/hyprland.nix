@@ -159,7 +159,7 @@
         "SUPER, Return, exec, alacritty" # Terminal
         "SUPER, T, exec, waveterm" # Wave Terminal
         "SUPER, D, exec, rofi -show drun" # Rofi application launcher
-        "SUPER, W, exec, firefox" # Web browser
+        "SUPER, W, exec, microsoft-edge"
         "SUPER, E, exec, ${pkgs.kdePackages.dolphin}" # File manager
 
         # Screenshots
@@ -197,6 +197,7 @@
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
+      xdg-desktop-portal-hyprland
     ];
   };
 
@@ -472,24 +473,28 @@
     };
   };
 
+  # Qt Theming
+  qt = {
+    enable = true;
+    platformTheme = "gtk";
+  };
+
   # Fonts
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
-    # Nerd Fonts for icons in Waybar, Rofi, etc.
     nerd-fonts.jetbrains-mono
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-emoji
-    font-awesome # For some older icons
-    # Tools for screenshots
-    grim # Screenshot tool
-    slurp # Selection tool for grim
-    # Network/Bluetooth applets
+    font-awesome
+    grim
+    slurp
     networkmanagerapplet
     blueman
-    waybar # Ensure waybar is installed
+    waybar
     kitty
-    libnotify # For dunst
+    libnotify
     kdePackages.dolphin
+    catppuccin-rofi
   ];
 }
