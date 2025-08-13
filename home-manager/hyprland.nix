@@ -374,7 +374,7 @@
   # Rofi (application launcher)
   programs.rofi = {
     enable = true;
-    theme = "catppuccin"; # Use a Catppuccin theme for Rofi
+    theme = "arthur"; # Use a Catppuccin theme for Rofi
     extraConfig = {
       modi = "drun,run,ssh";
       show-icons = true;
