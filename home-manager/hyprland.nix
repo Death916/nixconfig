@@ -160,7 +160,7 @@
         "SUPER, T, exec, waveterm" # Wave Terminal
         "SUPER, D, exec, rofi -show drun" # Rofi application launcher
         "SUPER, W, exec, microsoft-edge"
-        "SUPER, E, exec, ${pkgs.kdePackages.dolphin}" # File manager
+        "SUPER, E, exec, nautilus" # File manager
 
         # Screenshots
         "SUPER, Print, exec, grim -g \"$(slurp)\" - | wl-copy" # Screenshot selection to clipboard
