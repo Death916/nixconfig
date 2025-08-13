@@ -245,7 +245,7 @@
         };
 
         "clock" = {
-          format = "{:%H:%M:%S}";
+          format = "{:%Y-%m-%d %H:%M:%S}";
         };
 
         "pulseaudio" = {
