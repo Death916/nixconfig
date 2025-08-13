@@ -22,7 +22,7 @@
   # This is to fix clementine gui not showing up on wayland
   environment.variables.QT_QPA_PLATFORM = "wayland";
 
-  environment.sessionVariables.NIXOS_OZONE_WL = "1"; # Required for some Electron apps
+  # environment.sessionVariables.NIXOS_OZONE_WL = "1"; # Required for some Electron apps
 
   nix.settings.trusted-substituters = [ "https://cache.flox.dev" ];
   nix.settings.trusted-public-keys = [
