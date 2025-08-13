@@ -37,7 +37,7 @@
       # Decoration
       decoration = {
         rounding = 10;
-        fullscreen_opacity = 0.7;
+        fullscreen_opacity = 0.9;
         blur = {
           enabled = true;
           size = 3;
