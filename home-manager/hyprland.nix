@@ -5,7 +5,7 @@
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
-    systemd.variables = ["--all"]; # Ensure environment variables are passed to systemd service # For XWayland applications
+    systemd.variables = [ "--all" ]; # Ensure environment variables are passed to systemd service # For XWayland applications
 
     # Hyprland configuration settings
     settings = {
@@ -37,6 +37,7 @@
       # Decoration
       decoration = {
         rounding = 10;
+        fullscreen_opacity = 0.7;
         blur = {
           enabled = true;
           size = 3;
@@ -139,13 +140,13 @@
 
         # Window resizing
         "SUPER, R, submap, resize"
-        "submap = resize"
-        "binde = , right, resizeactive, 10 0"
-        "binde = , left, resizeactive, -10 0"
-        "binde = , up, resizeactive, 0 -10"
-        "binde = , down, resizeactive, 0 10"
-        "bind = , escape, submap, reset"
-        "submap = reset"
+        # "submap = resize"
+        # # "binde = , right, resizeactive, 10 0"
+        # # "binde = , left, resizeactive, -10 0"
+        # # "binde = , up, resizeactive, 0 -10"
+        # # "binde = , down, resizeactive, 0 10"
+        # "bind = , escape, submap, reset"
+        # "submap = reset"
 
         # Multimedia keys
         ", XF86AudioMute, exec, ${pkgs.pamixer}/bin/pamixer --toggle-mute"
@@ -168,6 +169,8 @@
 
       # Window rules
       windowrulev2 = [
+        "opacity 0.8 0.8,floating:0"
+        "opacity 1.0 1.0,class:^(vlc)$"
         "float,title:^(Picture-in-Picture)$"
         "float,class:^(confirm)$"
         "float,class:^(dialog)$"
@@ -206,9 +209,18 @@
         position = "top";
         height = 30;
         spacing = 4;
-        modules-left = [ "hyprland/workspaces" "hyprland/window" ];
+        modules-left = [
+          "hyprland/workspaces"
+          "hyprland/window"
+        ];
         modules-center = [ "clock" ];
-        modules-right = [ "pulseaudio" "network" "cpu" "memory" "battery" ];
+        modules-right = [
+          "pulseaudio"
+          "network"
+          "cpu"
+          "memory"
+          "battery"
+        ];
 
         "hyprland/workspaces" = {
           format = "{icon}";
@@ -241,7 +253,11 @@
           format = "{icon} {volume}%";
           format-muted = " Muted";
           format-icons = {
-            "default" = [ "" "" "" ];
+            "default" = [
+              ""
+              ""
+              ""
+            ];
           };
         };
 
@@ -264,7 +280,13 @@
           format-charging = " {capacity}%";
           format-plugged = " {capacity}%";
           format-alt = "{time} {icon}";
-          format-icons = [ "" "" "" "" "" ];
+          format-icons = [
+            ""
+            ""
+            ""
+            ""
+            ""
+          ];
         };
       };
     };
@@ -452,8 +474,7 @@
 
   # Fonts
   fonts.fontconfig.enable = true;
-  home.packages = with pkgs;
-  [
+  home.packages = with pkgs; [
     # Nerd Fonts for icons in Waybar, Rofi, etc.
     nerd-fonts.jetbrains-mono
     noto-fonts
