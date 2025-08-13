@@ -245,8 +245,7 @@
         };
 
         "clock" = {
-          format = " {:%H:%M:%S}  {:%Y-%m-%d}";
-          tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
+          format = "{:%H:%M:%S}";
         };
 
         "pulseaudio" = {
