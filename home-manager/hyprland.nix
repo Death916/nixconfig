@@ -495,6 +495,6 @@
     kitty
     libnotify
     kdePackages.dolphin
-    unstablePkgs.catppuccin-gtk
+    catppuccin-gtk
   ];
 }
