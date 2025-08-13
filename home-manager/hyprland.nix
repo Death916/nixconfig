@@ -169,6 +169,7 @@
 
       # Window rules
       windowrulev2 = [
+        "opacity 0.5 0.5,floating:0"
         "float,title:^(Picture-in-Picture)$"
         "float,class:^(confirm)$"
         "float,class:^(dialog)$"
@@ -188,7 +189,6 @@
         "float,class:^(nm-applet)"
         "nofocus,class:^(nm-applet)"
         "nofocus,class:^(blueman-applet)"
-        "opacity 0.5 0.5, tile:1"
       ];
     };
   };
