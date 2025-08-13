@@ -188,6 +188,7 @@
         "float,class:^(nm-applet)"
         "nofocus,class:^(nm-applet)"
         "nofocus,class:^(blueman-applet)"
+        "opacity 0.5 0.5, tile:1"
       ];
     };
   };
