@@ -15,5 +15,5 @@
   fonts.fontDir.enable = true;
 
   # Enable xdg-desktop-portal-hyprland for proper portal functionality
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+  # xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
 }
