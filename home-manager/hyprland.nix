@@ -213,6 +213,7 @@
         height = 30;
         spacing = 4;
         modules-left = [
+          "tray"
           "hyprland/workspaces"
           "hyprland/window"
         ];
@@ -224,6 +225,10 @@
           "memory"
           "battery"
         ];
+
+        "tray" = {
+          "spacing" = 10;
+        };
 
         "hyprland/workspaces" = {
           format = "{icon}";
