@@ -495,6 +495,6 @@
     kitty
     libnotify
     kdePackages.dolphin
-    catppuccin-rofi
+    unstablePkgs.catppuccin-rofi
   ];
 }
