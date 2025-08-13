@@ -37,11 +37,11 @@
       # Decoration
       decoration = {
         rounding = 10;
+        fullscreen_opacity = 0.7;
         blur = {
           enabled = true;
           size = 3;
           passes = 1;
-          fullscreen_opacity = 0.7;
         };
         # drop_shadow = true;
         # shadow_range = 4;
