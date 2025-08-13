@@ -169,7 +169,8 @@
 
       # Window rules
       windowrulev2 = [
-        "opacity 0.5 0.5,floating:0"
+        "opacity 0.8 0.8,floating:0"
+        "opacity 1.0 1.0,class:^(vlc)$"
         "float,title:^(Picture-in-Picture)$"
         "float,class:^(confirm)$"
         "float,class:^(dialog)$"
