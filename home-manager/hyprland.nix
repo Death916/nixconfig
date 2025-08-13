@@ -5,7 +5,7 @@
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
-    systemd.variables = ["--all"]; # Ensure environment variables are passed to systemd service # For XWayland applications
+    systemd.variables = [ "--all" ]; # Ensure environment variables are passed to systemd service # For XWayland applications
 
     # Hyprland configuration settings
     settings = {
@@ -41,6 +41,7 @@
           enabled = true;
           size = 3;
           passes = 1;
+          fullscreen_opacity = 0.7;
         };
         # drop_shadow = true;
         # shadow_range = 4;
@@ -206,9 +207,18 @@
         position = "top";
         height = 30;
         spacing = 4;
-        modules-left = [ "hyprland/workspaces" "hyprland/window" ];
+        modules-left = [
+          "hyprland/workspaces"
+          "hyprland/window"
+        ];
         modules-center = [ "clock" ];
-        modules-right = [ "pulseaudio" "network" "cpu" "memory" "battery" ];
+        modules-right = [
+          "pulseaudio"
+          "network"
+          "cpu"
+          "memory"
+          "battery"
+        ];
 
         "hyprland/workspaces" = {
           format = "{icon}";
@@ -241,7 +251,11 @@
           format = "{icon} {volume}%";
           format-muted = " Muted";
           format-icons = {
-            "default" = [ "" "" "" ];
+            "default" = [
+              ""
+              ""
+              ""
+            ];
           };
         };
 
@@ -264,7 +278,13 @@
           format-charging = " {capacity}%";
           format-plugged = " {capacity}%";
           format-alt = "{time} {icon}";
-          format-icons = [ "" "" "" "" "" ];
+          format-icons = [
+            ""
+            ""
+            ""
+            ""
+            ""
+          ];
         };
       };
     };
@@ -452,8 +472,7 @@
 
   # Fonts
   fonts.fontconfig.enable = true;
-  home.packages = with pkgs;
-  [
+  home.packages = with pkgs; [
     # Nerd Fonts for icons in Waybar, Rofi, etc.
     nerd-fonts.jetbrains-mono
     noto-fonts
