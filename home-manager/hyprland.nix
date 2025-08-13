@@ -93,6 +93,7 @@
         "SUPER, Space, togglefloating,"
         "SUPER, P, pseudo," # Master switch for pseudotiling.
         "SUPER, J, togglesplit," # Master switch for splitting.
+        "SUPER, L, exec, hyprlock" # Lock the screen
 
         # Move focus
         "SUPER, left, movefocus, l"
@@ -388,6 +389,10 @@
       show-icons = true;
       icon-theme = "Papirus-Dark";
     };
+  };
+
+  programs.hyprlock = {
+    enable = true;
   };
 
   # Dunst (notification daemon)
