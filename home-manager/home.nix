@@ -93,6 +93,7 @@ in
     bash-completion
     pamixer
     brightnessctl
+    nautilus
   ];
 
   programs.starship = {
