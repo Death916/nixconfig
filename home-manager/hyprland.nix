@@ -41,7 +41,7 @@
         blur = {
           enabled = true;
           size = 3;
-          passes = 1;
+          passes = 3;
         };
         # drop_shadow = true;
         # shadow_range = 4;
