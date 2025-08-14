@@ -24,11 +24,6 @@
 
   # environment.sessionVariables.NIXOS_OZONE_WL = "1"; # Required for some Electron apps
 
-  nix.settings.trusted-substituters = [ "https://cache.flox.dev" ];
-  nix.settings.trusted-public-keys = [
-    "flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs="
-  ];
-
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
