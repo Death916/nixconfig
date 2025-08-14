@@ -22,16 +22,16 @@
     "flakes"
   ];
 
-  # nix.settings.substituters = [
-  #   "https://hyprland.cachix.org"
-  #   "https://cache.flox.dev"
-  #   # "https://nix-community.cachix.org"
-  # ];
-  # nix.settings.trusted-public-keys = [
-  #   "hyprland.cachix.org-1:fAmf/fNyvJx5Jzlkz2eX2/RjY8w+FzB9q/t0B/s/aA4="
-  #   "flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs="
-  #   # "nix-community.cachix.org-1:mB9FSh9xQBNtfPKv2zntfNAxZ/7ITrQA3bFxIf/acADf4z68QUS+Njp/PVhvKK/l"
-  # ];
+  nix.settings.substituters = [
+    "https://hyprland.cachix.org"
+    "https://cache.flox.dev"
+    "https://nix-community.cachix.org"
+  ];
+  nix.settings.trusted-public-keys = [
+    "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" # Corrected Hyprland key
+    "flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs="
+    "nix-community.cachix.org-1:mB9FSh9xQBNtfPKv2zntfNAxZ/7ITrQA3bFxIf/acADf4z68QUS+Njp/PVhvKK/l"
+  ];
 
   zramSwap.enable = true;
   swapDevices = [
