@@ -62,7 +62,7 @@
               {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
-                home-manager.extraSpecialArgs = { inherit hmLib unstablePkgs; };
+                home-manager.extraSpecialArgs = { inherit hmLib unstablePkgs inputs; };
                 home-manager.users.death916 = {
                   imports = [
                     ./home-manager/home.nix

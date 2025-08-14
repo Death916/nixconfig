@@ -1,9 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   # Enable Hyprland and XWayland
   wayland.windowManager.hyprland = {
     enable = true;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     xwayland.enable = true;
     systemd.variables = [ "--all" ]; # Ensure environment variables are passed to systemd service # For XWayland applications
 
