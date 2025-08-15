@@ -88,7 +88,6 @@ in
     jellyfin-media-player
     syncterm
     tradingview
-    comma
     mdcat
     bash-completion
     pamixer
