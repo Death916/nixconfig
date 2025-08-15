@@ -166,7 +166,7 @@
         "SUPER, E, exec, nautilus" # File manager
 
         # Screenshots
-        "SUPER SHIFT, Space, exec, bash -c \"grim -g '$(slurp)' - | tee ~/Pictures/screenshots/$(date +%s).png | wl-copy\"" # Screenshot selection to clipboard
+        "SUPER SHIFT, S, exec, bash -c \"grim -g '$(slurp)' - | tee ~/Pictures/screenshots/$(date +%s).png | wl-copy\"" # Screenshot selection to clipboard
         "SUPER SHIFT, Print, exec, bash -c \"grim - | tee ~/Pictures/screenshots/$(date +%s).png | wl-copy\"" # Screenshot full screen to clipboard
       ];
 
