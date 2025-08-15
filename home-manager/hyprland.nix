@@ -166,7 +166,7 @@
         "SUPER, E, exec, nautilus" # File manager
 
         # Screenshots
-        "SUPER SHIFT S, exec, grim -g \"$(slurp)\" - | wl-copy" # Screenshot selection to clipboard
+        "SUPER SPACE, exec, grim -g \"$(slurp)\" - | wl-copy" # Screenshot selection to clipboard
         "SUPER SHIFT, Print, exec, grim - | wl-copy" # Screenshot full screen to clipboard
       ];
 
