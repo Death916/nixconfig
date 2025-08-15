@@ -18,7 +18,7 @@
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "swww init &" # Wallpaper daemon
-        "swww img /home/death916/Pictures/wallpapers/hampaper &" # Set your wallpaper path here
+        "swww img /home/death916/Pictures/wallpapers/hampaper &"
         "waybar &" # Start Waybar
         "dunst &" # Start Dunst notification daemon
         "nm-applet --indicator &" # NetworkManager applet
@@ -187,8 +187,8 @@
         "float,class:^(pinentry)$"
         "float,class:^(ssh-askpass)$"
         "float,class:^(lxpolkit)$"
-        "float,class:^(thunar)" # Example: float Thunar if you prefer
-        "float,class:^(pavucontrol)" # Example: float Pavucontrol
+        "float,class:^(thunar)"
+        "float,class:^(pavucontrol)"
         "float,class:^(blueman-applet)"
         "float,class:^(nm-applet)"
         "nofocus,class:^(nm-applet)"
