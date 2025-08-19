@@ -16,6 +16,11 @@
     group = "media_services";
   };
 
+  users.users.c2c = {
+    isSystemUser = true;
+    group = "media_services";
+  };
+
   users.groups.media_services = { };
 
   services.audiobookshelf = {
@@ -42,6 +47,7 @@
   systemd.tmpfiles.rules = [
     "d /storage/services/qbittorrent 0755 qbittorrent qbittorrent - -"
     "d /storage/services/qbittorrent/config 0755 qbittorrent qbittorrent - -"
+    "d /media/storage/media/books/audio/podcasts/C2C 0775 c2c media_services - -"
   ];
 
   services.jellyfin.enable = true;
@@ -73,6 +79,7 @@
           "/media/storage/media/books/audio/podcasts/C2C:/downloads"
           "/media/storage/media/docker/volumes/c2cscrape:/app/data"
         ];
+        user = "c2c:media_services";
         environment = {
           TZ = "America/Los_Angeles";
         };
