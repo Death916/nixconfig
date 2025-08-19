@@ -32,19 +32,21 @@
   };
 
   users.groups.qbittorrent = { };
-  users.users.qbittorrent.group = "qbittorrent";
-  # users.groups.qbittorrent = {};
-  users.users.qbittorrent.extraGroups = [ "media_services" ];
+  users.users.qbittorrent = {
+    isSystemUser = true;
+    group = "qbittorrent";
+    extraGroups = [ "media_services" ];
+  };
 
-  # services.qbittorrent = {
-  #   enable = true;
-  #   dataDir = "/storage/services/qbittorrent";
-  #   user = "qbittorrent";
-  #   group = "qbittorrent";
-  #   port = 8090;
-  #   openFirewall = true;
-  #   package = pkgs.qbittorrent-nox;
-  # };
+  services.qbittorrent = {
+    enable = true;
+    profileDir = "/storage/services/qbittorrent";
+    user = "qbittorrent";
+    group = "qbittorrent";
+    webuiPort = 8090;
+    openFirewall = true;
+    package = pkgs.qbittorrent-nox;
+  };
 
   systemd.tmpfiles.rules = [
     "d /storage/services/qbittorrent 0755 qbittorrent qbittorrent - -"
