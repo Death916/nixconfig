@@ -34,7 +34,6 @@
   users.users.qbittorrent.group = "qbittorrent";
   # users.groups.qbittorrent = {};
   users.users.qbittorrent.extraGroups = [ "media_services" ];
-  users.groups.qbittorrent = { };
 
   # services.qbittorrent = {
   #   enable = true;
