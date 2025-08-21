@@ -93,6 +93,7 @@ in
     pamixer
     brightnessctl
     nautilus
+    strawberry
   ];
 
   programs.starship = {
