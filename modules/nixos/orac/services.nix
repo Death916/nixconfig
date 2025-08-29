@@ -46,7 +46,7 @@
     browser.enable = true;
     extraEnvironment = {
       PORT = "3003"
-    }
+    };
   };
 
   services.vaultwarden = {
