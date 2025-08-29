@@ -45,7 +45,7 @@
     meilisearch.enable = true;
     browser.enable = true;
     extraEnvironment = {
-      PORT = "3003"
+      PORT = "3003";
     };
   };
 
