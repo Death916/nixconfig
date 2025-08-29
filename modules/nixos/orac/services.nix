@@ -44,7 +44,9 @@
     enable = true;
     meilisearch.enable = true;
     browser.enable = true;
-
+    extraEnvironment = {
+      PORT = "3003"
+    }
   };
 
   services.vaultwarden = {
