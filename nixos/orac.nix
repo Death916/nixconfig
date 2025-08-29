@@ -4,6 +4,7 @@
     ../modules/nixos/common/tailscale.nix
     ../modules/soju.nix
     ../modules/containers/docker/pangolin.nix
+    ../modules/adguard.nix
   ];
 
   networking.firewall = {
