@@ -1,9 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   config = {
     services.adguardhome = {
       enable = true;
+      openFirewall = true;
       settings = {
         http = {
           address = "127.0.0.1:3003";
@@ -22,13 +28,18 @@
             enabled = false;
           };
         };
-        filters = lib.map (url: { enabled = true; url = url; }) [
-          "https://adguardteam.github.io/HostlistsRegistry/assets/filter_9.txt"
-          "https://adguardteam.github.io/HostlistsRegistry/assets/filter_11.txt"
-          "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt"
-        ];
+        filters =
+          lib.map
+            (url: {
+              enabled = true;
+              url = url;
+            })
+            [
+              "https://adguardteam.github.io/HostlistsRegistry/assets/filter_9.txt"
+              "https://adguardteam.github.io/HostlistsRegistry/assets/filter_11.txt"
+              "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt"
+            ];
       };
     };
   };
 }
-
