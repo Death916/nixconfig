@@ -94,6 +94,7 @@ in
     brightnessctl
     nautilus
     strawberry
+    gcr # gnome keyring prompter
   ];
 
   services.udiskie = {
@@ -165,7 +166,6 @@ in
     };
   };
   services.gnome-keyring.enable = true;
-  home.packages = [ pkgs.gcr ]; # Provides org.gnome.keyring.SystemPrompter
 
   programs.vscode = {
     enable = true;
