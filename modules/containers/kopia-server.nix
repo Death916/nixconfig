@@ -21,7 +21,7 @@ in
       description = "Kopia Backup Server";
       wantedBy = [ "multi-user.target" ];
       after = [ "network-online.target" ];
-
+      wants = [ "network-online.target" ];
       environment = {
         KOPIA_CONFIG_PATH = "${dataDir}/repository.config";
         KOPIA_LOG_DIR = "${dataDir}/logs";
