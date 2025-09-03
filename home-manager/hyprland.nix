@@ -159,8 +159,8 @@
         ", XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl set 5%-"
 
         # Application launchers
-        "SUPER, Return, exec, alacritty" # Terminal
-        "SUPER, T, exec, waveterm" # Wave Terminal
+        "SUPER, Return, exec, waveterm" # Terminal
+        "SUPER, T, exec, ghostty" # Wave Terminal
         "SUPER, D, exec, rofi -show drun" # Rofi application launcher
         "SUPER, W, exec, microsoft-edge"
         "SUPER, E, exec, nautilus" # File manager
