@@ -14,24 +14,20 @@
       enable = true;
       openFirewall = false;
       dataDir = "/storage/services/sonarr";
-      group = "media_services";
     };
     services.radarr = {
       enable = true;
       openFirewall = false;
       dataDir = "/storage/services/radarr";
-      group = "media_services";
     };
     services.readarr = {
       enable = true;
       openFirewall = false;
       dataDir = "/storage/services/readarr";
-      group = "media_services";
     };
     services.prowlarr = {
       enable = true;
       openFirewall = false;
-      group = "media_services";
     };
 
     # Add users to the media group
