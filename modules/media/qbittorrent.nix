@@ -78,15 +78,6 @@ in
       };
     };
 
-    users.users = mkIf (cfg.user == "qbittorrent") {
-      qbittorrent = {
-        group = cfg.group;
-        extraGroups = [ "media_services" ];
-      };
-    };
-
-    users.groups = mkIf (cfg.group == "qbittorrent") {
-      qbittorrent = {};
-    };
+    
   };
 }

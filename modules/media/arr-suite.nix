@@ -30,11 +30,34 @@
       openFirewall = false;
     };
 
-    # Add users to the media group
-    users.users.sonarr.extraGroups = [ "media_services" ];
-    users.users.radarr.extraGroups = [ "media_services" ];
-    users.users.readarr.extraGroups = [ "media_services" ];
-    users.users.prowlarr.extraGroups = [ "media_services" ];
+    # Define users and groups
+    users.users.sonarr = {
+      isSystemUser = true;
+      group = "sonarr";
+      extraGroups = [ "media_services" ];
+    };
+    users.groups.sonarr = {};
+
+    users.users.radarr = {
+      isSystemUser = true;
+      group = "radarr";
+      extraGroups = [ "media_services" ];
+    };
+    users.groups.radarr = {};
+
+    users.users.readarr = {
+      isSystemUser = true;
+      group = "readarr";
+      extraGroups = [ "media_services" ];
+    };
+    users.groups.readarr = {};
+
+    users.users.prowlarr = {
+      isSystemUser = true;
+      group = "prowlarr";
+      extraGroups = [ "media_services" ];
+    };
+    users.groups.prowlarr = {};
 
     # Configure unpackerr
     environment.systemPackages = [ pkgs.unpackerr ];
