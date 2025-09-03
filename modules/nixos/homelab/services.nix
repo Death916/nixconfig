@@ -19,9 +19,8 @@
   users.users.c2c = {
     isSystemUser = true;
     group = "media_services";
+    extraGroups = [ "media_services" ];
   };
-
-  users.groups.media_services = { };
 
   services.audiobookshelf = {
     enable = true;
@@ -31,26 +30,19 @@
     port = 13378;
   };
 
-  users.groups.qbittorrent = { };
-  users.users.qbittorrent = {
-    isSystemUser = true;
-    group = "qbittorrent";
-    extraGroups = [ "media_services" ];
-  };
-
   services.qbittorrent = {
     enable = true;
     profileDir = "/storage/services/qbittorrent";
     user = "qbittorrent";
-    group = "qbittorrent";
+    group = "media_services";
     webuiPort = 8090;
     openFirewall = true;
     package = pkgs.qbittorrent-nox;
   };
 
   systemd.tmpfiles.rules = [
-    "d /storage/services/qbittorrent 0755 qbittorrent qbittorrent - -"
-    "d /storage/services/qbittorrent/config 0755 qbittorrent qbittorrent - -"
+    "d /storage/services/qbittorrent 0755 qbittorrent media_services - -"
+    "d /storage/services/qbittorrent/config 0755 qbittorrent media_services - -"
     "d /media/storage/media/books/audio/podcasts/C2C 0775 c2c media_services - -"
   ];
 
@@ -83,7 +75,7 @@
           "/media/storage/media/books/audio/podcasts/C2C:/downloads"
           "/media/storage/media/docker/volumes/c2cscrape:/app/data"
         ];
-        user = "c2c:media_services";
+        user = "${toString config.users.users.c2c.uid}:${toString config.users.groups.media_services.gid}";
         environment = {
           TZ = "America/Los_Angeles";
         };

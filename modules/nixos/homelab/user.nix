@@ -16,7 +16,7 @@
       "media_services"
       "nextcloud"
       "docker"
-      "qbittorent"
+      "qbittorrent"
       "incus-admin"
       "libvirtd"
     ];

@@ -4,8 +4,6 @@ with lib;
 
 let
   cfg = config.services.qbittorrent;
-  UID = 888;
-  GID = 888;
 in
 {
   options.services.qbittorrent = {
@@ -25,7 +23,7 @@ in
 
     group = mkOption {
       type = types.str;
-      default = "qbittorrent";
+      default = "media_services";
       description = "Group under which qBittorrent runs.";
     };
 
@@ -83,12 +81,12 @@ in
     users.users = mkIf (cfg.user == "qbittorrent") {
       qbittorrent = {
         group = cfg.group;
-        uid = UID;
+        extraGroups = [ "media_services" ];
       };
     };
 
     users.groups = mkIf (cfg.group == "qbittorrent") {
-      qbittorrent = { gid = GID; };
+      qbittorrent = {};
     };
   };
 }
