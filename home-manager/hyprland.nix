@@ -405,7 +405,7 @@
         monitor = 0;
         follow = "keyboard";
         width = 300;
-        height = 50;
+        height = 150;
         offset = "10x50";
         origin = "top-right";
         font = "JetBrainsMono Nerd Font 10";
