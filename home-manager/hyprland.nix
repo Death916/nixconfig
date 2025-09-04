@@ -426,7 +426,7 @@
         idle_threshold = 120;
         markup = "full";
         # format = "<b>%s</b>\n%b";
-        format = "<b>%a</b>\n<i>%s</i>\n%b%% literal %";
+        format = "<small>%a</small>\n<big><b>%s</b></big>\n%b";
         alignment = "left";
         bounce_freq = 0;
         show_age_threshold = 60;
