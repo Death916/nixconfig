@@ -95,7 +95,7 @@ in
     nautilus
     strawberry
     gcr # gnome keyring prompter
-    kdeconnect-kde
+    libsForQt5.kdeconnect-kde
   ];
 
   services.udiskie = {
