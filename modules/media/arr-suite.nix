@@ -1,4 +1,10 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  unstablePkgsHA,
+  ...
+}:
 
 {
   options.arrSuite = {
@@ -7,7 +13,7 @@
 
   config = lib.mkIf config.arrSuite.enable {
     # Define a common group for media services
-    users.groups.media_services = {};
+    users.groups.media_services = { };
 
     # Enable and configure the arr services
     services.sonarr = {
@@ -28,6 +34,7 @@
     services.prowlarr = {
       enable = true;
       openFirewall = false;
+      package = unstablePkgsHA.prowlarr;
     };
 
     # Define users and groups
@@ -36,28 +43,28 @@
       group = "sonarr";
       extraGroups = [ "media_services" ];
     };
-    users.groups.sonarr = {};
+    users.groups.sonarr = { };
 
     users.users.radarr = {
       isSystemUser = true;
       group = "radarr";
       extraGroups = [ "media_services" ];
     };
-    users.groups.radarr = {};
+    users.groups.radarr = { };
 
     users.users.readarr = {
       isSystemUser = true;
       group = "readarr";
       extraGroups = [ "media_services" ];
     };
-    users.groups.readarr = {};
+    users.groups.readarr = { };
 
     users.users.prowlarr = {
       isSystemUser = true;
       group = "prowlarr";
       extraGroups = [ "media_services" ];
     };
-    users.groups.prowlarr = {};
+    users.groups.prowlarr = { };
 
     # Configure unpackerr
     environment.systemPackages = [ pkgs.unpackerr ];
