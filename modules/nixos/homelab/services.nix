@@ -10,7 +10,14 @@
   services.samba.shares.Media.path = "/media/storage/media";
 
   #  virtualisation.incus.enable = true;
-
+  services.qbittorrent = {
+    enable = true;
+    profileDir = "/storage/services/qbittorrent";
+    user = "qbittorrent";
+    group = "media_services";
+    webuiPort = 8090;
+    openFirewall = true;
+    package = pkgs.qbittorrent-nox;
   users.users.audiobookshelf = {
     isSystemUser = true;
     group = "media_services";
