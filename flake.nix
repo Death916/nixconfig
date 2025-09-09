@@ -10,10 +10,10 @@
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # rust-overlay = {
+    #   url = "github:oxalica/rust-overlay";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     flox.url = "github:flox/flox";
     hyprland.url = "github:hyprwm/Hyprland";
   };
@@ -24,7 +24,7 @@
       nixpkgs,
       nixpkgs-unstable,
       home-manager,
-      rust-overlay,
+      # rust-overlay,
       flox,
       hyprland,
       ...
