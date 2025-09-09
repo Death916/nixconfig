@@ -34,121 +34,137 @@
       primaryUser = "death916";
 
       overlays = {
-        rust = rust-overlay.overlays.default;
-        halloy = import ./overlays/halloy-overlay.nix;
+        # rust = rust-overlay.overlays.default;
+        # halloy = import ./overlays/halloy-overlay.nix;
       };
 
     in
     {
       nixosConfigurations = {
-        nixos = let system = "x86_64-linux"; in nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = {
-            inherit
-              inputs
-              system
-              overlays
-              primaryUser
-              hyprland # Pass hyprland to specialArgs
-              ;
-            unstablePkgs = import nixpkgs-unstable { inherit system; };
+        nixos =
+          let
+            system = "x86_64-linux";
+          in
+          nixpkgs.lib.nixosSystem {
+            inherit system;
+            specialArgs = {
+              inherit
+                inputs
+                system
+                overlays
+                primaryUser
+                hyprland # Pass hyprland to specialArgs
+                ;
+              unstablePkgs = import nixpkgs-unstable { inherit system; };
+            };
+            modules = [
+              ./nixos/configuration.nix
+              ./nixos/hardware-configuration.nix
+              home-manager.nixosModules.home-manager
+              (
+                { unstablePkgs, ... }:
+                {
+                  home-manager.useGlobalPkgs = true;
+                  home-manager.useUserPackages = true;
+                  home-manager.extraSpecialArgs = { inherit hmLib unstablePkgs inputs; };
+                  home-manager.users.death916 = {
+                    imports = [
+                      ./home-manager/home.nix
+                    ];
+                  };
+                }
+              )
+            ];
           };
-          modules = [
-            ./nixos/configuration.nix
-            ./nixos/hardware-configuration.nix
-            home-manager.nixosModules.home-manager
-            (
-              { unstablePkgs, ... }:
+
+        homelab =
+          let
+            system = "x86_64-linux";
+          in
+          nixpkgs.lib.nixosSystem {
+            inherit system;
+            specialArgs = {
+              inherit
+                inputs
+                system
+                overlays
+                primaryUser
+                ;
+              unstablePkgsHA = import nixpkgs-unstable { inherit system; };
+            };
+            modules = [
+              ./nixos/homelab.nix # Your main homelab config
+              ./nixos/hardware-homelab.nix
+              home-manager.nixosModules.home-manager
               {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
-                home-manager.extraSpecialArgs = { inherit hmLib unstablePkgs inputs; };
+                home-manager.extraSpecialArgs = { inherit hmLib; };
                 home-manager.users.death916 = {
-                  imports = [
-                    ./home-manager/home.nix
-                  ];
+                  imports = [ ./home-manager/death916-homelab.nix ];
                 };
               }
-            )
-          ];
-        };
-
-        homelab = let system = "x86_64-linux"; in nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = {
-            inherit
-              inputs
-              system
-              overlays
-              primaryUser
-              ;
-            unstablePkgsHA = import nixpkgs-unstable { inherit system; };
+            ];
           };
-          modules = [
-            ./nixos/homelab.nix # Your main homelab config
-            ./nixos/hardware-homelab.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit hmLib; };
-              home-manager.users.death916 = {
-                imports = [ ./home-manager/death916-homelab.nix ];
-              };
-            }
-          ];
-        };
 
-        oracle-proxy = let system = "x86_64-linux"; in nixpkgs.lib.nixosSystem {
-          inherit system;
+        oracle-proxy =
+          let
+            system = "x86_64-linux";
+          in
+          nixpkgs.lib.nixosSystem {
+            inherit system;
 
-          specialArgs = {
-            inherit
-              inputs
-              system
-              overlays
-              primaryUser
-              ;
+            specialArgs = {
+              inherit
+                inputs
+                system
+                overlays
+                primaryUser
+                ;
+            };
+            modules = [
+              ./nixos/oracle-proxy.nix # Your main homelab config
+              ./nixos/oracle-proxy-hardware.nix
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.extraSpecialArgs = { inherit hmLib; };
+                home-manager.users.death916 = {
+                  imports = [ ./home-manager/oracle-proxy-home.nix ];
+                };
+              }
+            ];
           };
-          modules = [
-            ./nixos/oracle-proxy.nix # Your main homelab config
-            ./nixos/oracle-proxy-hardware.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit hmLib; };
-              home-manager.users.death916 = {
-                imports = [ ./home-manager/oracle-proxy-home.nix ];
-              };
-            }
-          ];
-        };
 
-        orac = let system = "aarch64-linux"; in nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = {
-            inherit
-              inputs
-              system
-              overlays
-              primaryUser
-              ;
+        orac =
+          let
+            system = "aarch64-linux";
+          in
+          nixpkgs.lib.nixosSystem {
+            inherit system;
+            specialArgs = {
+              inherit
+                inputs
+                system
+                overlays
+                primaryUser
+                ;
+            };
+            modules = [
+              ./nixos/orac.nix # Your main homelab config
+              ./nixos/orac-hardware.nix
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.extraSpecialArgs = { inherit hmLib; };
+                home-manager.users.death916 = {
+                  imports = [ ./home-manager/orac-home.nix ];
+                };
+              }
+            ];
           };
-          modules = [
-            ./nixos/orac.nix # Your main homelab config
-            ./nixos/orac-hardware.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit hmLib; };
-              home-manager.users.death916 = {
-                imports = [ ./home-manager/orac-home.nix ];
-              };
-            }
-          ];
-        };
       };
     };
 }

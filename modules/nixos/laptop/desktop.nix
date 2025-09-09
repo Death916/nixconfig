@@ -38,11 +38,10 @@
     vim
     wget
     tailscale
-    halloy # Add halloy to your system packages
+    halloy
     conda
     inputs.flox.packages.${pkgs.system}.flox
     kopia-ui
-    stremio
     wl-clipboard
     tail-tray
     clementine
