@@ -68,7 +68,7 @@ in
     pciutils
     usbutils
     waveterm
-    halloy
+    unstablePkgs.halloy
     tmux
     nextcloud-client
     obsidian
