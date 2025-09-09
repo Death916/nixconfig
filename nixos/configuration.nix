@@ -9,8 +9,8 @@
 {
   # Apply the overlays passed from the flake
   nixpkgs.overlays = [
-    overlays.rust
-    overlays.halloy
+    # overlays.rust
+    # overlays.halloy
   ];
 
   imports = [
