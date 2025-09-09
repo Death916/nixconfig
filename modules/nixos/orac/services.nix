@@ -35,8 +35,8 @@
 
   programs.nh = {
     enable = true;
-    clean.enable = true;
-    clean.extraArgs = "--keep-since 7d --keep 10";
+    # clean.enable = true;
+    # clean.extraArgs = "--keep-since 14d --keep 3";
     flake = "/home/death916/nixconfig/";
   };
 
