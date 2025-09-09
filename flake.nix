@@ -96,14 +96,17 @@
               ./nixos/homelab.nix # Your main homelab config
               ./nixos/hardware-homelab.nix
               home-manager.nixosModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.extraSpecialArgs = { inherit hmLib; };
-                home-manager.users.death916 = {
-                  imports = [ ./home-manager/death916-homelab.nix ];
-                };
-              }
+              (
+                { unstablePkgsHA, ... }:
+                {
+                  home-manager.useGlobalPkgs = true;
+                  home-manager.useUserPackages = true;
+                  home-manager.extraSpecialArgs = { inherit hmLib unstablePkgsHA inputs; };
+                  home-manager.users.death916 = {
+                    imports = [ ./home-manager/death916-homelab.nix ];
+                  };
+                }
+              )
             ];
           };
 
