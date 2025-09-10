@@ -50,7 +50,7 @@
   systemd.tmpfiles.rules = [
     "d /storage/services/qbittorrent 0755 qbittorrent media_services - -"
     "d /storage/services/qbittorrent/config 0755 qbittorrent media_services - -"
-    "d /media/storage/media/books/audio/podcasts/C2C 0775 c2c media_services - -"
+    "d /media/storage/media/books/audio/podcasts/C2C 0777 c2c media_services - -"
   ];
 
   services.jellyfin.enable = true;
