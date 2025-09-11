@@ -21,7 +21,7 @@
       "sh"
       "-c"
       ''
-        source /run/secrets/juicefs.env && \
+        . /run/secrets/juicefs.env && \
         juicefs mount postgres://death916@postgres:5432/juicefs?sslmode=disable /mnt/jfs
       ''
     ];
