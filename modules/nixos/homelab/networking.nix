@@ -13,7 +13,6 @@
 
   services.lvm.enable = true;
   services.lvm.boot.thin.enable = true;
-  services.lvm.volumeGroups = [ "Storage" "media" ];
 
   fileSystems."/media" = {
     device = "/dev/media/vm-101-disk-0";
