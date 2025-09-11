@@ -12,18 +12,18 @@
   # Containers
   virtualisation.oci-containers.containers."myjfs-mount-service" = {
     image = "juicedata/mount:ce-v1.2.1";
-    environment = {
-      POSTGRES_PASSWORD = postgresPassword;
-    };
     volumes = [
       "/mnt/myjfs:/mnt/jfs:rw,rshared"
       "juice_juicefs_cache:/var/jfsCache:rw"
+      "/etc/nixos/secrets/juicefs.env:/run/secrets/juicefs.env:ro"
     ];
     cmd = [
-      "juicefs"
-      "mount"
-      "postgres://death916@postgres:5432/juicefs?sslmode=disable"
-      "/mnt/jfs"
+      "sh"
+      "-c"
+      ''
+        source /run/secrets/juicefs.env && \
+        juicefs mount postgres://death916@postgres:5432/juicefs?sslmode=disable /mnt/jfs
+      ''
     ];
     dependsOn = [
       "postgres-for-juicefs"
