@@ -1,5 +1,5 @@
 # Auto-generated using compose2nix v0.3.1.
-{ pkgs, lib, postgresPassword, ... }:
+{ pkgs, lib, ... }:
 
 {
   # Runtime
@@ -21,8 +21,7 @@
       "sh"
       "-c"
       ''
-        . /run/secrets/juicefs.env && \
-        juicefs mount postgres://death916@postgres:5432/juicefs?sslmode=disable /mnt/jfs
+        . /run/secrets/juicefs.env &&         PGPASSWORD="$POSTGRES_PASSWORD" juicefs mount postgres://death916@postgres:5432/juicefs?sslmode=disable /mnt/jfs
       ''
     ];
     dependsOn = [
