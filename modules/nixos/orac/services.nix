@@ -47,7 +47,7 @@
     browser.enable = true;
     extraEnvironment = {
       PORT = "3003";
-      DATA_DIR = lib.mkDefault "/mnt/myjfs/volumes/hoarder/";
+      DATA_DIR = lib.mkForce "/mnt/myjfs/volumes/hoarder/";
     };
   };
 
