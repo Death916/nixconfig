@@ -16,11 +16,6 @@
       "/mnt/myjfs:/mnt/jfs:rw,rshared"
       "juice_juicefs_cache:/var/jfsCache:rw"
     ];
-    environment = {
-      POSTGRES_USER = "death916";
-      POSTGRES_PASSWORD = builtins.readFile /etc/nixos/secrets/postgres_password;
-      POSTGRES_DB = "juicefs";
-    };
     cmd = [
       "sh"
       "-c"
@@ -41,6 +36,7 @@
   };
   systemd.services."docker-myjfs-mount-service" = {
     serviceConfig = {
+      EnvironmentFile = "/etc/nixos/secrets/juicefs.env";
       Restart = lib.mkOverride 90 "always";
       RestartMaxDelaySec = lib.mkOverride 90 "1m";
       RestartSec = lib.mkOverride 90 "100ms";
@@ -63,11 +59,6 @@
   };
   virtualisation.oci-containers.containers."postgres-for-juicefs" = {
     image = "postgres:alpine";
-    environment = {
-      POSTGRES_USER = "death916";
-      POSTGRES_PASSWORD = builtins.readFile /etc/nixos/secrets/postgres_password;
-      POSTGRES_DB = "juicefs";
-    };
     volumes = [
       "/home/death916/docker/volumes/postgres:/var/lib/postgresql/data:rw"
     ];
@@ -86,6 +77,7 @@
   };
   systemd.services."docker-postgres-for-juicefs" = {
     serviceConfig = {
+      EnvironmentFile = "/etc/nixos/secrets/juicefs.env";
       Restart = lib.mkOverride 90 "always";
       RestartMaxDelaySec = lib.mkOverride 90 "1m";
       RestartSec = lib.mkOverride 90 "100ms";
