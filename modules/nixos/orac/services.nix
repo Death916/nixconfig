@@ -46,6 +46,7 @@
     browser.enable = true;
     extraEnvironment = {
       PORT = "3003";
+      DATA_DIR = "/mnt/myjfs/volumes/hoarder/"
     };
   };
 
