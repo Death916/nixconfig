@@ -19,7 +19,7 @@
     cmd = [
       "sh"
       "-c"
-      "juicefs mount postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@postgres:5432/juicefs?sslmode=disable /mnt/jfs"
+      "juicefs mount postgres://death916:$POSTGRES_PASSWORD@postgres:5432/juicefs?sslmode=disable /mnt/jfs"
     ];
     dependsOn = [
       "postgres-for-juicefs"
