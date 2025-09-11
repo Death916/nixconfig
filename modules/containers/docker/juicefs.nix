@@ -1,10 +1,5 @@
 # Auto-generated using compose2nix v0.3.1.
-{ pkgs, lib, ... }:
-
-let
-  juicefsEnv = builtins.fromTOML (builtins.readFile /etc/nixos/secrets/juicefs.env);
-  postgresPassword = juicefsEnv.POSTGRES_PASSWORD;
-in
+{ pkgs, lib, postgresPassword, ... }:
 
 {
   # Runtime
@@ -25,9 +20,10 @@ in
       "juice_juicefs_cache:/var/jfsCache:rw"
     ];
     cmd = [
-      "sh"
-      "-c"
-      "juicefs mount postgres://death916:$POSTGRES_PASSWORD@postgres:5432/juicefs?sslmode=disable /mnt/jfs"
+      "juicefs"
+      "mount"
+      "postgres://death916@postgres:5432/juicefs?sslmode=disable"
+      "/mnt/jfs"
     ];
     dependsOn = [
       "postgres-for-juicefs"
@@ -70,19 +66,6 @@ in
     volumes = [
       "/home/death916/docker/volumes/postgres:/var/lib/postgresql/data:rw"
     ];
-    ports = [
-      "5432:5432/tcp"
-    ];
-    log-driver = "journald";
-    extraOptions = [
-      "--health-cmd=sh -c 'pg_isready -U death916 -d juicefs'"
-      "--health-interval=10s"
-      "--health-retries=5"
-      "--health-timeout=5s"
-      "--network-alias=postgres"
-      "--network=juice_default"
-    ];
-  };
   systemd.services."docker-postgres-for-juicefs" = {
     serviceConfig = {
       EnvironmentFile = "/etc/nixos/secrets/juicefs.env";
