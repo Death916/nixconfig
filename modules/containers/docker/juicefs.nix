@@ -67,7 +67,7 @@
     ];
     log-driver = "journald";
     extraOptions = [
-      "--health-cmd=sh -c 'pg_isready -U $POSTGRES_USER -d $POSTGRES_DB'"
+      "      "--health-cmd=sh -c 'pg_isready -U death916 -d juicefs'""
       "--health-interval=10s"
       "--health-retries=5"
       "--health-timeout=5s"
