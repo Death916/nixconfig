@@ -16,7 +16,11 @@
       "/mnt/myjfs:/mnt/jfs:rw,rshared"
       "juice_juicefs_cache:/var/jfsCache:rw"
     ];
-    env_file = "/etc/nixos/secrets/juicefs.env";
+    environment = {
+      POSTGRES_USER = "death916";
+      POSTGRES_PASSWORD = builtins.readFile /etc/nixos/secrets/postgres_password;
+      POSTGRES_DB = "juicefs";
+    };
     cmd = [
       "sh"
       "-c"
@@ -59,7 +63,11 @@
   };
   virtualisation.oci-containers.containers."postgres-for-juicefs" = {
     image = "postgres:alpine";
-    env_file = "/etc/nixos/secrets/juicefs.env";
+    environment = {
+      POSTGRES_USER = "death916";
+      POSTGRES_PASSWORD = builtins.readFile /etc/nixos/secrets/postgres_password;
+      POSTGRES_DB = "juicefs";
+    };
     volumes = [
       "/home/death916/docker/volumes/postgres:/var/lib/postgresql/data:rw"
     ];
