@@ -5,6 +5,7 @@
     ../modules/soju.nix
     ../modules/containers/docker/pangolin.nix
     ../modules/adguard.nix
+    ../modules/containers/docker/juicefs.nix
   ];
 
   networking.firewall = {

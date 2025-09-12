@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }:
 {
@@ -44,6 +45,7 @@
     enable = true;
     meilisearch.enable = true;
     browser.enable = true;
+    environmentFile = "/etc/nixos/secrets/karakeep.env";
     extraEnvironment = {
       PORT = "3003";
     };
