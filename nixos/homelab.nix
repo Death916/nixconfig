@@ -20,5 +20,12 @@
   config = {
     services.kopia-server.enable = true;
     system.stateVersion = "24.11";
+
+    # Auto-reboot the system if it hangs (5 minute timeout)
+    boot.kernelModules = [ "sp5100_tco" ];
+    hardware.watchdog = {
+      enable = true;
+      timeout = 300;
+    };
   };
 }
