@@ -2,14 +2,20 @@
 {
   config,
   pkgs,
-  ... 
+  ...
 }:
 
 {
   networking.hostName = "homelab";
 
-  boot.initrd.kernelModules = [ "dm_mod" "dm_thin_pool" ];
-  boot.initrd.availableKernelModules = [ "ext4" "xfs" ];
+  boot.initrd.kernelModules = [
+    "dm_mod"
+    "dm_thin_pool"
+  ];
+  boot.initrd.availableKernelModules = [
+    "ext4"
+    "xfs"
+  ];
 
   services.lvm.enable = true;
   services.lvm.boot.thin.enable = true;
@@ -17,18 +23,28 @@
   fileSystems."/media" = {
     device = "/dev/media/vm-101-disk-0";
     fsType = "ext4";
-    options = [ "defaults" "nofail" ];
+    options = [
+      "defaults"
+      "nofail"
+    ];
   };
 
   fileSystems."/storage" = {
     device = "/dev/Storage/data_lv";
     fsType = "ext4";
-    options = [ "defaults" "nofail" ];
+    options = [
+      "defaults"
+      "nofail"
+    ];
   };
 
   networking.nftables.enable = true;
   networking.firewall.enable = true;
-  networking.firewall.allowedTCPPorts = [ 22 53 8096 ];
+  networking.firewall.allowedTCPPorts = [
+    22
+    53
+    8096
+  ];
   networking.firewall.allowedUDPPorts = [ 53 ];
 
   networking.bridges.br0.interfaces = [ "enp41s0" ];
@@ -47,7 +63,11 @@
 
   networking.interfaces.enp41s0.useDHCP = false;
 
-  networking.firewall.trustedInterfaces = [ "tailscale0" "docker0" "br0" ];
+  networking.firewall.trustedInterfaces = [
+    "tailscale0"
+    "docker0"
+    "br0"
+  ];
 
   services.openssh = {
     enable = true;
@@ -62,15 +82,15 @@
     "net.ipv6.conf.all.forwarding" = 1;
   };
 
-  systemd.services.lvm-activate = {
-    description = "Activate LVM volume groups";
-    wantedBy = [ "local-fs.target" ];
-    before = [ "local-fs.target" ];
-    path = [ pkgs.lvm2 ];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-      ExecStart = "${pkgs.lvm2}/bin/vgchange -ay";
-    };
-  };
+  # systemd.services.lvm-activate = {
+  #   description = "Activate LVM volume groups";
+  #   wantedBy = [ "local-fs.target" ];
+  #   before = [ "local-fs.target" ];
+  #   path = [ pkgs.lvm2 ];
+  #   serviceConfig = {
+  #     Type = "oneshot";
+  #     RemainAfterExit = true;
+  #     ExecStart = "${pkgs.lvm2}/bin/vgchange -ay";
+  #   };
+  # };
 }
