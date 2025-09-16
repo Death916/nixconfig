@@ -30,14 +30,9 @@
   };
 
   fileSystems."/storage" = {
-  device = "/dev/disk/by-label/storage";
-  fsType = "btrfs";
-  options = [ "compress=zstd" "noatime" ];
-    fsType = "ext4";
-    options = [
-      "defaults"
-      "nofail"
-    ];
+    device = "/dev/disk/by-label/storage";
+    fsType = "btrfs";
+    options = [ "compress=zstd" "noatime" "nofail" ];
   };
 
   networking.nftables.enable = true;
