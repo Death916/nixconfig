@@ -18,6 +18,7 @@
   ];
 
   config = {
+    arrSuite.unpackerr.enable = true;
     services.kopia-server.enable = true;
     system.stateVersion = "24.11";
 
