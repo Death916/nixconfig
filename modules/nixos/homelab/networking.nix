@@ -30,7 +30,9 @@
   };
 
   fileSystems."/storage" = {
-    device = "/dev/Storage/data_lv";
+  device = "/dev/disk/by-label/storage";
+  fsType = "btrfs";
+  options = [ "compress=zstd" "noatime" ];
     fsType = "ext4";
     options = [
       "defaults"
