@@ -88,6 +88,10 @@ in
       group = "media_services";
     };
 
+    systemd.tmpfiles.rules = mkIf unpackerrCfg.enable [
+      "d /var/log/unpackerr 0755 unpackerr media_services - -"
+    ];
+
     systemd.services.unpackerr = mkIf unpackerrCfg.enable {
       description = "Unpackerr Service";
       after = [ "network.target" ];
