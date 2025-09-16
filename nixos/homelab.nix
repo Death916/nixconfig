@@ -23,9 +23,6 @@
 
     # Auto-reboot the system if it hangs (5 minute timeout)
     boot.kernelModules = [ "sp5100_tco" ];
-    hardware.watchdog = {
-      enable = true;
-      timeout = 300;
-    };
+    systemd.watchdog.rebootTime = "300s";
   };
 }
