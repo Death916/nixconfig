@@ -15,7 +15,7 @@
     serviceConfig = {
       Type = "oneshot";
       User = "root";
-      ExecStart = "/usr/local/bin/nixos-kopia-backup.sh";
+      ExecStart = "/home/death916/nixconfig/modules/nixos/orac/kopia-backup.sh;
       path = with pkgs; [
         coreutils
         kopia
