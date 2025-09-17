@@ -38,7 +38,7 @@
     enable = true;
     # clean.enable = true;
     # clean.extraArgs = "--keep-since 14d --keep 3";
-    flake = "/home/death916/nixconfig/";
+    flake = "/home/death916/nixconfig";
   };
 
   services.karakeep = {
