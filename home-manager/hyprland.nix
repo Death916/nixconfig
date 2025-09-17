@@ -111,7 +111,7 @@
         # Resize active window
         "SUPER SHIFT, right, resizeactive, 10 0"
         "SUPER SHIFT, left, resizeactive, -10 0"
-        "SUPER SHIFT, down, resizeactive, -10 0 0 -10"
+        "SUPER SHIFT, down, resizeactive, 0 10 0 -10"
         # Workspaces
         "SUPER, 1, workspace, 1"
         "SUPER, 2, workspace, 2"
