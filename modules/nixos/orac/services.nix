@@ -15,7 +15,7 @@
     serviceConfig = {
       Type = "oneshot";
       User = "root";
-      ExecStart = "/home/death916/nixconfig/modules/nixos/orac/kopia-backup.sh;
+      ExecStart = "/home/death916/nixconfig/modules/nixos/orac/kopia-backup.sh";
       path = with pkgs; [
         coreutils
         kopia
@@ -38,7 +38,7 @@
     enable = true;
     # clean.enable = true;
     # clean.extraArgs = "--keep-since 14d --keep 3";
-    flake = "/home/death916/nixconfig";
+    flake = "/home/death916/nixconfig/";
   };
 
   services.karakeep = {
