@@ -173,7 +173,8 @@
       # Window rules
       windowrulev2 = [
         "opacity 1.0 1.0,fullscreen:0"
-        "opacity 0.5 0.5,floating:0"
+        "opacity 0.9 0.9,floating:0"
+        "opacity 0.6 0.6,floating:1"
         "opacity 1.0 1.0,class:^(vlc)$"
         "opacity 1.0 1.0,class:^(jellyfinmediaplayer)$"
         "float,title:^(Picture-in-Picture)$"
