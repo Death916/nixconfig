@@ -513,7 +513,7 @@
     package = pkgs.materia-kde-theme;
     name = "MateriaDark";
   };
-  platformTheme.name = "kde";  # Use 'kde' to better signal theme to Qt apps like VLC
+  platformTheme.name = "gtk";  # Use 'kde' to better signal theme to Qt apps like VLC
 };
 
 home.sessionVariables = {
