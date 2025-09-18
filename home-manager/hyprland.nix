@@ -509,11 +509,11 @@
   enable = true;
   style = {
     #package = pkgs.materia-kde-theme;
-    name = "gtk";  
+  platformTheme = "gtk";
     };
 };
 home.sessionVariables = {
-  #QT_QPA_PLATFORMTHEME = "qt5ct";  # Required for Qt apps like VLC
+  QT_QPA_PLATFORMTHEME = "gtk";  # Required for Qt apps like VLC
   QT_STYLE_OVERRIDE = "gtk";
 };
 
