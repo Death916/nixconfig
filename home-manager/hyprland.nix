@@ -470,13 +470,13 @@
   # GTK Theming
   gtk = {
     enable = true;
+    extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+    };
     theme = {
       name = "nightfox-gtk-theme";
       package = pkgs.nightfox-gtk-theme;
 
-      extraConfig = {
-        gtk-application-prefer-dark-theme = 1;
-      };
       # name = "Materia-dark";
       # package = pkgs.materia-theme;
       #name = "Catppuccin-Mocha-Standard-Lavender-Dark";
