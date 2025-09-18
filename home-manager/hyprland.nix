@@ -471,13 +471,13 @@
   gtk = {
     enable = true;
     theme = {
-      # name = "Materia-dark";
-      # package = pkgs.materia-theme;
-      name = "Catppuccin-Mocha-Standard-Lavender-Dark";
-      package = pkgs.catppuccin-gtk.override {
-        accents = [ "lavender" ];
-        size = "standard";
-        variant = "mocha";
+       name = "Materia-dark";
+       package = pkgs.materia-theme;
+      #name = #"Catppuccin-Mocha-Standard-Lavender-Dark";
+      #package = pkgs.catppuccin-gtk.override {
+       # accents = [ "lavender" ];
+        #size = "standard";
+        #variant = "mocha";
       };
     };
     iconTheme = {
