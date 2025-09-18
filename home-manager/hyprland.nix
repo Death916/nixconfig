@@ -471,13 +471,15 @@
   gtk = {
     enable = true;
     theme = {
-     name = "Materia-dark";
-     package = pkgs.materia-theme;
+      name = "rose-pine-gtk-theme";
+      package = pkgs.rose-pine-gtk-theme;
+      # name = "Materia-dark";
+      # package = pkgs.materia-theme;
       #name = "Catppuccin-Mocha-Standard-Lavender-Dark";
       #package = pkgs.catppuccin-gtk.override {
-        #accents = [ "lavender" ];
-        #size = "standard";
-       # variant = "mocha";
+      #accents = [ "lavender" ];
+      #size = "standard";
+      # variant = "mocha";
       #};
     };
     iconTheme = {
@@ -515,6 +517,7 @@
     kdePackages.dolphin
     catppuccin-gtk
     materia-theme
+    rose-pine-gtk-theme
     playerctl
     wl-clipboard
   ];
