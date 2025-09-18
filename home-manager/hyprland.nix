@@ -507,7 +507,7 @@
   # Qt Theming
   qt = {
   enable = true;
-  platformTheme = "gtk";
+  platformTheme.name = "gtk";
 };
 home.sessionVariables = {
   #QT_QPA_PLATFORMTHEME = "gtk";  # Required for Qt apps like VLC
