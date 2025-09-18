@@ -509,14 +509,15 @@
   # Qt Theming
   qt = {
   enable = true;
-  style = {
-    package = pkgs.materia-kde-theme;
-    name = "MateriaDark";
-  };
+  #style = {
+   # package = pkgs.materia-kde-theme;
+    #name = "MateriaDark";
+
+  #};
 };
 home.sessionVariables = {
   QT_QPA_PLATFORMTHEME = "gtk";  # Required for Qt apps like VLC
-  #QT_STYLE_OVERRIDE = "gtk";
+  QT_STYLE_OVERRIDE = "gtk";
 };
 
 
