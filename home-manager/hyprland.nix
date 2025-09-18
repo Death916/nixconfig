@@ -507,18 +507,18 @@
   };
 
   # Qt Theming
-  qt = {
-  enable = true;
-  style = {
-    package = pkgs.breeze;  # Breeze Qt theme package
-    name = "Breeze-Dark";   # Style name must match a style inside Breeze
+    qt = {
+    enable = true;
+    style = {
+      package = pkgs.materia-kde-theme;
+      name = "MateriaDark";  # The dark variant name inside Materia KDE theme
+    };
+    platformTheme.name = "gtk";  # use gtk platform theme for Qt apps
   };
-  platformTheme.name = "gtk";  # To align with GTK theming without qt5ct
-};
 
-home.sessionVariables = {
-  QT_STYLE_OVERRIDE = "Breeze-Dark"; # Ensure the style is applied on Qt apps
-};
+  home.sessionVariables = {
+    QT_STYLE_OVERRIDE = "MateriaDark";  # force the Materia dark style
+  };
 
 
 
@@ -542,7 +542,8 @@ home.sessionVariables = {
     materia-theme
     rose-pine-gtk-theme
     nightfox-gtk-theme
-    
+    materia-kde-theme
+
     playerctl
     wl-clipboard
   ];
