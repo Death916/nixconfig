@@ -471,8 +471,8 @@
   gtk = {
     enable = true;
     theme = {
-      name = "rose-pine-gtk-theme";
-      package = pkgs.rose-pine-gtk-theme;
+      name = "nightfox-gtk-theme";
+      package = pkgs.nightfox-gtk-theme;
       # name = "Materia-dark";
       # package = pkgs.materia-theme;
       #name = "Catppuccin-Mocha-Standard-Lavender-Dark";
@@ -518,6 +518,7 @@
     catppuccin-gtk
     materia-theme
     rose-pine-gtk-theme
+    nightfox-gtk-theme
     playerctl
     wl-clipboard
   ];
