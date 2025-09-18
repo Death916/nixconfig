@@ -508,9 +508,17 @@
 
   # Qt Theming
   qt = {
-    enable = true;
-    platformTheme.name = "gtk";
+  enable = true;
+  style = {
+    package = pkgs.breeze-qt5; # You can also use pkgs.materia-kde-theme, etc.
+    name = "Breeze-Dark";      # Name must match what the style package provides
   };
+  platformTheme.name = "gtk";  # This tries to align artwork with GTK, but does not require qt5ct
+};
+home.sessionVariables = {
+  QT_STYLE_OVERRIDE = "Breeze-Dark"; # This forces the style at runtime
+};
+
 
   # Fonts
   fonts.fontconfig.enable = true;
