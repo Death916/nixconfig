@@ -510,7 +510,7 @@
   qt = {
   enable = true;
   style = {
-    package =  pkgs.kdePackages.breeze-qt5;; # You can also use pkgs.materia-kde-theme, etc.
+    package =  pkgs.kdePackages.breeze-qt5; # You can also use pkgs.materia-kde-theme, etc.
     name = "Breeze-Dark";      # Name must match what the style package provides
   };
   platformTheme.name = "gtk";  # This tries to align artwork with GTK, but does not require qt5ct
