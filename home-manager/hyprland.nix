@@ -507,10 +507,16 @@
   # Qt Theming
   qt = {
   enable = true;
-  style = {
-    #package = pkgs.materia-kde-theme;
   platformTheme = "gtk";
+  qt5 = {
+    extraConfig = {
+      "Appearance" = {
+        "ColorScheme" = "PreferDark";
+        "IconTheme" = "Papirus-Dark";
+        "Style" = "BreezeDark";
+      };
     };
+  };
 };
 home.sessionVariables = {
   QT_QPA_PLATFORMTHEME = "gtk";  # Required for Qt apps like VLC
