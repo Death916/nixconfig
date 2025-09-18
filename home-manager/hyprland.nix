@@ -483,17 +483,15 @@
     };
 
     theme = {
-      name = "nightfox-gtk-theme";
-      package = pkgs.nightfox-gtk-theme;
-
+      
       # name = "Materia-dark";
       # package = pkgs.materia-theme;
-      #name = "Catppuccin-Mocha-Standard-Lavender-Dark";
-      #package = pkgs.catppuccin-gtk.override {
-      #accents = [ "lavender" ];
-      #size = "standard";
-      # variant = "mocha";
-      #};
+      name = "Catppuccin-Mocha-Standard-Lavender-Dark";
+      package = pkgs.catppuccin-gtk.override {
+      accents = [ "lavender" ];
+      size = "standard";
+      variant = "mocha";
+      };
     };
     iconTheme = {
       name = "Papirus-Dark";
@@ -518,9 +516,6 @@ home.sessionVariables = {
   #QT_QPA_PLATFORMTHEME = "qt5ct";  # Required for Qt apps like VLC
   QT_STYLE_OVERRIDE = "gtk";
 };
-
-
-
 
 
   # Fonts
