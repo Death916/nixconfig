@@ -507,18 +507,20 @@
   };
 
   # Qt Theming
-    qt = {
-    enable = true;
-    style = {
-      package = pkgs.materia-kde-theme;
-      name = "MateriaDark";  # The dark variant name inside Materia KDE theme
-    };
-    platformTheme.name = "gtk";  # use gtk platform theme for Qt apps
+   qt = {
+  enable = true;
+  style = {
+    package = pkgs.materia-kde-theme;
+    name = "MateriaDark";
   };
+  platformTheme.name = "kde";  # Use 'kde' to better signal theme to Qt apps like VLC
+};
 
-  home.sessionVariables = {
-    QT_STYLE_OVERRIDE = "MateriaDark";  # force the Materia dark style
-  };
+home.sessionVariables = {
+  QT_QPA_PLATFORMTHEME = "kde";  # Required for Qt apps like VLC
+  QT_STYLE_OVERRIDE = "MateriaDark";
+};
+
 
 
 
