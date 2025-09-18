@@ -540,7 +540,7 @@ home.sessionVariables = {
     materia-theme
     rose-pine-gtk-theme
     nightfox-gtk-theme
-    pkgs.kdePackages.breeze-qt5;
+    pkgs.kdePackages.breeze-qt5
     playerctl
     wl-clipboard
   ];
