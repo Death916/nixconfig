@@ -471,17 +471,17 @@
   gtk = {
     enable = true;
     gtk3 = {
-    extraConfig = {
-      gtk-application-prefer-dark-theme = 1;
+      extraConfig = {
+        gtk-application-prefer-dark-theme = 1;
+      };
     };
-  };
 
-  gtk4 = {
-    extraConfig = {
-      gtk-application-prefer-dark-theme = 1;
+    gtk4 = {
+      extraConfig = {
+        gtk-application-prefer-dark-theme = 1;
+      };
     };
-  };
-    };
+
     theme = {
       name = "nightfox-gtk-theme";
       package = pkgs.nightfox-gtk-theme;
