@@ -81,9 +81,9 @@
       };
 
       # Gestures
-      gestures = {
-        workspace_swipe = true;
-      };
+      # gestures = {
+      #   workspace_swipe = true;
+      # };
 
       # Keybindings
       bind = [
@@ -111,7 +111,7 @@
         # Resize active window
         "SUPER SHIFT, right, resizeactive, 10 0"
         "SUPER SHIFT, left, resizeactive, -10 0"
-
+        "SUPER SHIFT, down, resizeactive, 0 -10 0 -10"
         # Workspaces
         "SUPER, 1, workspace, 1"
         "SUPER, 2, workspace, 2"
@@ -159,8 +159,8 @@
         ", XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl set 5%-"
 
         # Application launchers
-        "SUPER, Return, exec, alacritty" # Terminal
-        "SUPER, T, exec, waveterm" # Wave Terminal
+        "SUPER, Return, exec, waveterm" # Terminal
+        "SUPER, T, exec, ghostty" # Wave Terminal
         "SUPER, D, exec, rofi -show drun" # Rofi application launcher
         "SUPER, W, exec, microsoft-edge"
         "SUPER, E, exec, nautilus" # File manager
@@ -173,7 +173,8 @@
       # Window rules
       windowrulev2 = [
         "opacity 1.0 1.0,fullscreen:0"
-        "opacity 0.8 0.8,floating:0"
+        "opacity 0.9 0.9,floating:0"
+        "opacity 0.6 0.6,floating:1"
         "opacity 1.0 1.0,class:^(vlc)$"
         "opacity 1.0 1.0,class:^(jellyfinmediaplayer)$"
         "float,title:^(Picture-in-Picture)$"
@@ -405,7 +406,7 @@
         monitor = 0;
         follow = "keyboard";
         width = 300;
-        height = 50;
+        height = 150;
         offset = "10x50";
         origin = "top-right";
         font = "JetBrainsMono Nerd Font 10";
@@ -425,7 +426,8 @@
         transparency = 5;
         idle_threshold = 120;
         markup = "full";
-        format = "<b>%s</b>\n%b";
+        # format = "<b>%s</b>\n%b";
+        format = "<small>%a</small>\n<big><b>%s</b></big>\n%b";
         alignment = "left";
         bounce_freq = 0;
         show_age_threshold = 60;
@@ -469,14 +471,14 @@
   gtk = {
     enable = true;
     theme = {
-      name = "Materia-dark";
-      package = pkgs.materia-theme;
-      # name = "Catppuccin-Mocha-Standard-Lavender-Dark";
-      #package = pkgs.catppuccin-gtk.override {
-      # accents = [ "lavender" ];
-      #size = "standard";
-      #variant = "mocha";
-      #};
+      # name = "Materia-dark";
+      # package = pkgs.materia-theme;
+      name = "Catppuccin-Mocha-Standard-Lavender-Dark";
+      package = pkgs.catppuccin-gtk.override {
+        accents = [ "lavender" ];
+        size = "standard";
+        variant = "mocha";
+      };
     };
     iconTheme = {
       name = "Papirus-Dark";
@@ -492,7 +494,7 @@
   # Qt Theming
   qt = {
     enable = true;
-    platformTheme = "gtk";
+    platformTheme.name = "gtk";
   };
 
   # Fonts
