@@ -516,7 +516,7 @@
 };
 home.sessionVariables = {
   QT_QPA_PLATFORMTHEME = "qt5ct";  # Required for Qt apps like VLC
-  #QT_STYLE_OVERRIDE = "gtk";
+  QT_STYLE_OVERRIDE = "MateriaDark";
 };
 
 
