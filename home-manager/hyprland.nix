@@ -510,14 +510,16 @@
   qt = {
   enable = true;
   style = {
-    package =  pkgs.kdePackages.breeze-qt5; # You can also use pkgs.materia-kde-theme, etc.
-    name = "Breeze-Dark";      # Name must match what the style package provides
+    package = pkgs.breeze;  # Breeze Qt theme package
+    name = "Breeze-Dark";   # Style name must match a style inside Breeze
   };
-  platformTheme.name = "gtk";  # This tries to align artwork with GTK, but does not require qt5ct
+  platformTheme.name = "gtk";  # To align with GTK theming without qt5ct
 };
+
 home.sessionVariables = {
-  QT_STYLE_OVERRIDE = "Breeze-Dark"; # This forces the style at runtime
+  QT_STYLE_OVERRIDE = "Breeze-Dark"; # Ensure the style is applied on Qt apps
 };
+
 
 
   # Fonts
@@ -540,7 +542,7 @@ home.sessionVariables = {
     materia-theme
     rose-pine-gtk-theme
     nightfox-gtk-theme
-    pkgs.kdePackages.breeze-qt5
+    
     playerctl
     wl-clipboard
   ];
