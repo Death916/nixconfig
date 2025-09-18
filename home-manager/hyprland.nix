@@ -510,7 +510,7 @@
   platformTheme = "gtk";
 };
 home.sessionVariables = {
-  QT_QPA_PLATFORMTHEME = "gtk";  # Required for Qt apps like VLC
+  #QT_QPA_PLATFORMTHEME = "gtk";  # Required for Qt apps like VLC
   QT_STYLE_OVERRIDE = "gtk";
 };
 
