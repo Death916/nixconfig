@@ -40,11 +40,6 @@ in
       openFirewall = false;
       dataDir = "/storage/services/radarr";
     };
-    services.readarr = {
-      enable = true;
-      openFirewall = false;
-      dataDir = "/storage/services/readarr";
-    };
     services.prowlarr = {
       enable = true;
       openFirewall = false;
@@ -65,13 +60,6 @@ in
       extraGroups = [ "media_services" ];
     };
     users.groups.radarr = { };
-
-    users.users.readarr = {
-      isSystemUser = true;
-      group = "readarr";
-      extraGroups = [ "media_services" ];
-    };
-    users.groups.readarr = { };
 
     users.users.prowlarr = {
       isSystemUser = true;
