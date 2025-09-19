@@ -164,7 +164,7 @@
         "SUPER, D, exec, rofi -show drun" # Rofi application launcher
         "SUPER, W, exec, microsoft-edge"
         "SUPER, E, exec, nautilus" # File manager
-
+        "SUPER, N, exec, dunstctl history-pop"
         # Screenshots
         "SUPER SHIFT, S, exec, bash -c \"grim -g '$(slurp)' - | tee ~/Pictures/screenshots/$(date +%s).png | wl-copy\"" # Screenshot selection to clipboard
         "SUPER SHIFT, Print, exec, bash -c \"grim - | tee ~/Pictures/screenshots/$(date +%s).png | wl-copy\"" # Screenshot full screen to clipboard
@@ -483,9 +483,9 @@
     };
 
     theme = {
-      
-       name = "Materia-dark";
-       package = pkgs.materia-theme;
+
+      name = "Materia-dark";
+      package = pkgs.materia-theme;
       #name = "Catppuccin-Mocha-Standard-Lavender-Dark";
       #package = pkgs.catppuccin-gtk.override {
       #accents = [ "lavender" ];
@@ -506,14 +506,13 @@
 
   # Qt Theming
   qt = {
-  enable = true;
-  platformTheme.name = "gtk";
-};
-home.sessionVariables = {
-  #QT_QPA_PLATFORMTHEME = "gtk";  # Required for Qt apps like VLC
-  QT_STYLE_OVERRIDE = "gtk";
-};
-
+    enable = true;
+    platformTheme.name = "gtk";
+  };
+  home.sessionVariables = {
+    #QT_QPA_PLATFORMTHEME = "gtk";  # Required for Qt apps like VLC
+    QT_STYLE_OVERRIDE = "gtk";
+  };
 
   # Fonts
   fonts.fontconfig.enable = true;
