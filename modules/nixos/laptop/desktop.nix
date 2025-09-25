@@ -8,6 +8,10 @@
 }:
 
 {
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+  };
   services.xserver.enable = true;
   services.gnome.gnome-keyring.enable = true;
   services.dbus.enable = true; # for nextcloud client
