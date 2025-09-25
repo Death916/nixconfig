@@ -39,13 +39,7 @@
     port = 13378;
   };
 
-  users.users.qbittorrent = {
-    isSystemUser = true;
-    group = "qbittorrent";
-    extraGroups = [ "media_services" ];
-  };
-
-  users.groups.qbittorrent = { };
+  
 
   systemd.tmpfiles.rules = [
     "d /storage/services/qbittorrent 0755 qbittorrent media_services - -"
