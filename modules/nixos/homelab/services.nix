@@ -15,7 +15,8 @@
     enable = true;
     profileDir = "/storage/services/qbittorrent";
     user = "qbittorrent";
-    # group = "media_services";
+    group = "media_services";
+    umask = "002";
     webuiPort = 8090;
     openFirewall = true;
     package = pkgs.qbittorrent-nox;
