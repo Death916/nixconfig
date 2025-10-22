@@ -67,13 +67,12 @@ in
     ethtool
     pciutils
     usbutils
-    waveterm
+    unstablePkgs.waveterm
     unstablePkgs.halloy
     tmux
     nextcloud-client
     obsidian
     element-desktop
-    ghostty
     manix
     unstablePkgs.zed-editor-fhs
     aichat
@@ -99,13 +98,21 @@ in
     kdePackages.kdeconnect-kde
   ];
 
+  programs.ghostty = {
+    enable = true;
+    enableBashIntegration = true;
+    settings = {
+      window-save-state = always;
+    };    
+    
+  },
+  
   services.udiskie = {
     enable = true;
     settings = {
       # workaround for
       # https://github.com/nix-community/home-manager/issues/632
       program_options = {
-        # replace with your favorite file manager
         file_manager = "${pkgs.nautilus}";
       };
     };
@@ -173,6 +180,7 @@ in
     enable = true;
     package = pkgs.vscode.fhs;
   };
+
 
   programs.bash = {
     enable = true;
