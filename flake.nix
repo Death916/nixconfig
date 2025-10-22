@@ -36,6 +36,7 @@
       overlays = {
         # rust = rust-overlay.overlays.default;
         # halloy = import ./overlays/halloy-overlay.nix;
+        waveterm = import ./overlays/waveterm-overlay.nix;
       };
 
     in
