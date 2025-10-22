@@ -102,7 +102,7 @@ in
     enable = true;
     enableBashIntegration = true;
     settings = {
-      window-save-state = always;
+      window-save-state = "always";
     };
 
   };
