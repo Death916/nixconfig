@@ -103,10 +103,10 @@ in
     enableBashIntegration = true;
     settings = {
       window-save-state = always;
-    };    
-    
-  },
-  
+    };
+
+  };
+
   services.udiskie = {
     enable = true;
     settings = {
@@ -180,7 +180,6 @@ in
     enable = true;
     package = pkgs.vscode.fhs;
   };
-
 
   programs.bash = {
     enable = true;
