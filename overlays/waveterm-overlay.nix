@@ -4,7 +4,7 @@ final: prev: {
 
     src = prev.fetchurl {
       url = "https://github.com/wavetermdev/waveterm/releases/download/v${version}/waveterm-linux-amd64-${version}.deb";
-      sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Placeholder - replace with actual hash
+      sha256 = "0kijpb1zym2whipvvf007z6rv8kk3srfjyv8gjgw55rp3xzg1154";
     };
   });
 }

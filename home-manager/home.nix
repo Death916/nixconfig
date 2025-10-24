@@ -67,7 +67,7 @@ in
     ethtool
     pciutils
     usbutils
-    unstablePkgs.waveterm
+    waveterm
     unstablePkgs.halloy
     tmux
     nextcloud-client
