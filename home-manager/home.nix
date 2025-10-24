@@ -98,6 +98,10 @@ in
     kdePackages.kdeconnect-kde
   ];
 
+  nixpkgs.overlays = [
+    (import ../overlays/waveterm-overlay.nix)
+  ];
+
   programs.ghostty = {
     enable = true;
     enableBashIntegration = true;
