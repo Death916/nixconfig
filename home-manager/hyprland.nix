@@ -18,7 +18,7 @@
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "swww init &" # Wallpaper daemon
-        "swww img /home/death916/Pictures/wallpapers/hampaper &"
+        "swww img /home/death916/Pictures/wallpapers/header.png &"
         "waybar &" # Start Waybar
         "dunst &" # Start Dunst notification daemon
         "nm-applet --indicator &" # NetworkManager applet
