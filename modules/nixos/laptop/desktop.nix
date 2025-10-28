@@ -59,6 +59,8 @@
     snapper
     inetutils
     rustdesk
+    sdrpp
+    gqrx
   ];
 
   services.snapper.configs.nix = {
