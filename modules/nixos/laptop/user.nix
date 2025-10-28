@@ -3,7 +3,7 @@
   config,
   pkgs,
   primaryUser,
-  ... 
+  ...
 }:
 
 {
@@ -11,6 +11,11 @@
     isNormalUser = true;
     home = "/home/${primaryUser}";
     description = "${primaryUser}";
-    extraGroups = [ "wheel" "networkmanager" "video" ];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "video"
+      "plugdev"
+    ];
   };
 }
