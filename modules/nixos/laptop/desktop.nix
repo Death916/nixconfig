@@ -61,6 +61,7 @@
     rustdesk
     sdrpp
     gqrx
+    unstablePkgs.sdrangel
   ];
 
   services.snapper.configs.nix = {
