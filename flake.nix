@@ -59,7 +59,7 @@
               unstablePkgs = import nixpkgs-unstable { inherit system; };
             };
             modules = [
-              { nixpkgs.overlays = [ overlays.waveterm ]; }
+              { nixpkgs.overlays = [ overlays.waveterm overlays.halloy ]; }
               ./nixos/configuration.nix
               ./nixos/hardware-configuration.nix
               home-manager.nixosModules.home-manager
