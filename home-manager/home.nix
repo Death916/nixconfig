@@ -99,7 +99,7 @@ in
   ];
 
   nixpkgs.overlays = [
-    (import ../overlays/waveterm-overlay.nix)
+    (import ../overlays/waveterm-overlay.nix ../overlays/halloy-overlay.nix)
   ];
 
   programs.ghostty = {
