@@ -96,6 +96,7 @@ in
     gcr # gnome keyring prompter
     # libsForQt5.kdeconnect-kde
     kdePackages.kdeconnect-kde
+    unstablePkgs.winboat
   ];
 
   nixpkgs.overlays = [
