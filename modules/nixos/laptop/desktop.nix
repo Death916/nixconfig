@@ -45,7 +45,7 @@
     vim
     wget
     tailscale
-    unstablePkgs.halloy
+    halloy
     conda
     inputs.flox.packages.${pkgs.system}.flox
     kopia-ui

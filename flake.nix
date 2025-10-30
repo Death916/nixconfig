@@ -34,8 +34,8 @@
       primaryUser = "death916";
 
       overlays = {
-        # rust = rust-overlay.overlays.default;
-        # halloy = import ./overlays/halloy-overlay.nix;
+        rust = rust-overlay.overlays.default;
+        halloy = import ./overlays/halloy-overlay.nix;
         waveterm = import ./overlays/waveterm-overlay.nix;
       };
 
