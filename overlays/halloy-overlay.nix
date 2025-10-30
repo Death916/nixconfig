@@ -25,7 +25,7 @@ in
       outputHashes = {
         "cryoglyph-0.1.0" = "sha256-Jc+rhzd5BIT7aYBtIfsBFFKkGChdEYhDHdYGiv4KE+c=";
         "iced-0.14.0-dev" = "sha256-OBay5XHpn0pUxOv8/QkgB8Nv9zbiXWeaHIEzJ/YkADo=";
-        "dpi-0.1.1" = "sha256-hlVhlQ8MmIbNFNr6BM4edKdZbe+ixnPpKm819zauFLQ=";
+        "dpi-0.1.1" = "sha256-pQn1lCFSJMkjUfHoggEzMHnm5k+Chnzi5JEDjahnjUA=";
       };
     };
 
