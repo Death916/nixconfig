@@ -24,7 +24,7 @@
       nixpkgs,
       nixpkgs-unstable,
       home-manager,
-      # rust-overlay,
+      rust-overlay,
       flox,
       hyprland,
       ...
