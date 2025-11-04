@@ -19,7 +19,6 @@
         "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "swww init &" # Wallpaper daemon
         "swww img /home/death916/Pictures/wallpapers/header.png &"
-        "waybar &" # Start Waybar
         "dunst &" # Start Dunst notification daemon
         "nm-applet --indicator &" # NetworkManager applet
         "blueman-applet &" # Bluetooth applet
