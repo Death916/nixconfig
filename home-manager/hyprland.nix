@@ -305,37 +305,27 @@
     style = ''
       /*
       *
-      * Catppuccin Mocha
+      * Tokyo Night
       *
       */
 
-      @define-color rosewater #f5e0dc;
-      @define-color flamingo #f2cdcd;
-      @define-color pink #f5c2e7;
-      @define-color mauve #cba6f7;
-      @define-color red #f38ba8;
-      @define-color maroon #eba0ac;
-      @define-color peach #fab387;
-      @define-color yellow #f9e2af;
-      @define-color green #a6e3a1;
-      @define-color teal #94e2d5;
-      @define-color sky #89dceb;
-      @define-color sapphire #74c7ec;
-      @define-color blue #89b4fa;
-      @define-color lavender #b4befe;
+      @define-color-default-text #c0caf5;
+      @define-color-default-bg #1a1b26;
+      @define-color-default-bg-dark #16161e;
 
-      @define-color text #cdd6f4;
-      @define-color subtext1 #bac2de;
-      @define-color subtext0 #a6adc8;
-      @define-color overlay2 #9399b2;
-      @define-color overlay1 #7f849c;
-      @define-color overlay0 #6c7086;
-      @define-color surface2 #585b70;
-      @define-color surface1 #45475a;
-      @define-color surface0 #313244;
-      @define-color base #1e1e2e;
-      @define-color mantle #181825;
-      @define-color crust #11111b;
+      @define-color-red #f7768e;
+      @define-color-green #9ece6a;
+      @define-color-yellow #e0af68;
+      @define-color-blue #7aa2f7;
+      @define-color-purple #bb9af7;
+      @define-color-cyan #7dcfff;
+      @define-color-white #a9b1d6;
+
+      /* Catppuccin colors for clock and battery */
+      @define-color-cat-blue #89b4fa;
+      @define-color-cat-red #f38ba8;
+      @define-color-cat-green #a6e3a1;
+      @define-color-cat-yellow #f9e2af;
 
       * {
         /* `otf-font-awesome` is required to be installed for icons */
@@ -344,72 +334,78 @@
       }
 
       window#waybar {
-        background-color: @crust;
-        border-bottom: 2px solid @surface0;
-        color: @text;
+        background-color: @default-bg;
+        border-bottom: 2px solid @default-bg-dark;
+        color: @default-text;
       }
 
       #workspaces button {
         padding: 0 5px;
         background-color: transparent;
-        color: @overlay1;
+        color: @default-text;
         border-radius: 0;
       }
 
       #workspaces button.active {
-        color: @lavender;
-        border-bottom: 2px solid @lavender;
+        color: @purple;
+        border-bottom: 2px solid @purple;
       }
 
       #workspaces button:hover {
-        background-color: @surface0;
+        background-color: @default-bg-dark;
       }
 
       #window, #clock, #pulseaudio, #network, #cpu, #memory, #battery, #tray {
         padding: 0 10px;
         margin: 0 4px;
         border-radius: 8px;
-        background-color: @mantle;
+        background-color: @default-bg-dark;
       }
 
       #clock {
-        background-color: @blue;
+        background-color: @cat-blue;
+        color: @default-bg;
       }
 
       #pulseaudio {
-        background-color: @mauve;
+        background-color: @purple;
+        color: @default-bg;
       }
 
       #network {
         background-color: @green;
+        color: @default-bg;
       }
 
       #cpu {
         background-color: @yellow;
+        color: @default-bg;
       }
 
       #memory {
-        background-color: @peach;
+        background-color: @cyan;
+        color: @default-bg;
       }
 
       #battery {
-        background-color: @red;
+        background-color: @cat-red;
+        color: @default-bg;
       }
 
       #pulseaudio.muted {
-        color: @red;
+        color: @default-bg;
       }
 
       #battery.charging, #battery.plugged {
-        color: @green;
+        color: @cat-green;
       }
 
       #battery.warning:not(.charging) {
-        color: @yellow;
+        color: @cat-yellow;
       }
 
       #battery.critical:not(.charging) {
-        color: @red;
+        color: @cat-red;
       }
     '';
 
