@@ -162,6 +162,7 @@
         "SUPER, Return, exec, waveterm" # Terminal
         "SUPER, T, exec, ghostty" # Wave Terminal
         "SUPER, D, exec, rofi -show drun" # Rofi application launcher
+        "SUPER A, exec, rofi -show window"
         "SUPER, W, exec, microsoft-edge"
         "SUPER, E, exec, nautilus" # File manager
         "SUPER, N, exec, dunstctl history-pop"
