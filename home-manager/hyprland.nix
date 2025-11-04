@@ -303,25 +303,8 @@
     };
     style = ''
       /*
-      * Tokyo Night, with custom clock and battery
+      * Gruvbox
       */
-
-      @define-color-default-text #c0caf5;
-      @define-color-default-bg #1a1b26;
-      @define-color-default-bg-dark #16161e;
-
-      @define-color-red #f7768e;
-      @define-color-green #9ece6a;
-      @define-color-yellow #e0af68;
-      @define-color-blue #7aa2f7;
-      @define-color-purple #bb9af7;
-      @define-color-cyan #7dcfff;
-
-      /* Catppuccin colors for clock and battery */
-      @define-color-cat-blue #89b4fa;
-      @define-color-cat-red #f38ba8;
-      @define-color-cat-green #a6e3a1;
-      @define-color-cat-yellow #f9e2af;
 
       * {
         font-family: "JetBrainsMono Nerd Font", FontAwesome, Roboto, Helvetica, Arial, sans-serif;
@@ -329,77 +312,71 @@
       }
 
       window#waybar {
-        background-color: @default-bg;
-        color: @default-text;
+        background-color: #282828;
+        color: #ebdbb2;
+        transition-property: background-color;
+        transition-duration: .5s;
       }
 
       #workspaces button {
         padding: 0 5px;
         background-color: transparent;
-        color: @default-text;
+        color: #ebdbb2;
         border-radius: 0;
       }
 
       #workspaces button.active {
-        color: @purple;
-        border-bottom: 2px solid @purple;
+        color: #fabd2f;
+        border-bottom: 2px solid #fabd2f;
       }
 
       #workspaces button:hover {
-        background: @default-bg-dark;
+        background: #3c3836;
       }
 
       #clock, #battery, #cpu, #memory, #network, #pulseaudio, #tray, #window {
         padding: 0 10px;
         margin: 3px 4px;
         border-radius: 8px;
-        background-color: @default-bg-dark;
+        background-color: #3c3836;
       }
 
       #clock {
-        background-color: @cat-blue;
-        color: #1a1b26;
+        background-color: #458588;
+        color: #282828;
       }
 
       #battery {
-        background-color: @cat-red;
-        color: #1a1b26;
+        background-color: #cc241d;
+        color: #282828;
       }
 
       #battery.charging, #battery.plugged {
-        background-color: @cat-green;
-      }
-
-      #battery.warning:not(.charging) {
-        background-color: @cat-yellow;
-      }
-
-      #battery.critical:not(.charging) {
-        background-color: @cat-red;
+        background-color: #98971a;
       }
 
       #cpu {
-        background-color: @yellow;
-        color: #1a1b26;
+        background-color: #d79921;
+        color: #282828;
       }
 
       #memory {
-        background-color: @cyan;
-        color: #1a1b26;
+        background-color: #b16286;
+        color: #282828;
       }
 
       #network {
-        background-color: @green;
-        color: #1a1b26;
+        background-color: #689d6a;
+        color: #282828;
       }
 
       #pulseaudio {
-        background-color: @purple;
-        color: #1a1b26;
+        background-color: #d65d0e;
+        color: #282828;
       }
 
       #pulseaudio.muted {
-        background-color: #414868;
+        background-color: #928374;
       }
     '';
 
