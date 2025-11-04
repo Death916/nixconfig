@@ -550,6 +550,7 @@
     noto-fonts-cjk-sans
     noto-fonts-emoji
     font-awesome
+    roboto
     grim
     slurp
     networkmanagerapplet
