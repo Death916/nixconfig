@@ -303,108 +303,80 @@
     };
     style = ''
       /*
-      *
       * Tokyo Night
-      *
       */
 
-      @define-color-default-text #c0caf5;
-      @define-color-default-bg #1a1b26;
-      @define-color-default-bg-dark #16161e;
-
-      @define-color-red #f7768e;
-      @define-color-green #9ece6a;
-      @define-color-yellow #e0af68;
-      @define-color-blue #7aa2f7;
-      @define-color-purple #bb9af7;
-      @define-color-cyan #7dcfff;
-      @define-color-white #a9b1d6;
-
-      /* Catppuccin colors for clock and battery */
-      @define-color-cat-blue #89b4fa;
-      @define-color-cat-red #f38ba8;
-      @define-color-cat-green #a6e3a1;
-      @define-color-cat-yellow #f9e2af;
-
       * {
-        /* `otf-font-awesome` is required to be installed for icons */
-        font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+        font-family: "JetBrainsMono Nerd Font", FontAwesome, Roboto, Helvetica, Arial, sans-serif;
         font-size: 13px;
       }
 
       window#waybar {
-        background-color: @default-bg;
-        border-bottom: 2px solid @default-bg-dark;
-        color: @default-text;
+        background-color: #1a1b26;
+        color: #c0caf5;
+        transition-property: background-color;
+        transition-duration: .5s;
       }
 
       #workspaces button {
         padding: 0 5px;
         background-color: transparent;
-        color: @default-text;
+        color: #c0caf5;
         border-radius: 0;
       }
 
       #workspaces button.active {
-        color: @purple;
-        border-bottom: 2px solid @purple;
+        color: #bb9af7;
+        border-bottom: 2px solid #bb9af7;
       }
 
       #workspaces button:hover {
-        background-color: @default-bg-dark;
+        background: #16161e;
       }
 
-      #window, #clock, #pulseaudio, #network, #cpu, #memory, #battery, #tray {
+      #clock, #battery, #cpu, #memory, #network, #pulseaudio, #tray, #window {
         padding: 0 10px;
-        margin: 0 4px;
+        margin: 3px 4px;
         border-radius: 8px;
-        background-color: @default-bg-dark;
+        background-color: #16161e;
       }
 
       #clock {
-        background-color: @cat-blue;
-        color: @default-bg;
-      }
-
-      #pulseaudio {
-        background-color: @purple;
-        color: @default-bg;
-      }
-
-      #network {
-        background-color: @green;
-        color: @default-bg;
-      }
-
-      #cpu {
-        background-color: @yellow;
-        color: @default-bg;
-      }
-
-      #memory {
-        background-color: @cyan;
-        color: @default-bg;
+        background-color: #7aa2f7;
+        color: #1a1b26;
       }
 
       #battery {
-        background-color: @cat-red;
-        color: @default-bg;
-      }
-
-      #pulseaudio.muted {
-        color: @default-bg;
+        background-color: #f7768e;
+        color: #1a1b26;
       }
 
       #battery.charging, #battery.plugged {
-        color: @cat-green;
+        background-color: #9ece6a;
       }
 
-      #battery.warning:not(.charging) {
-        color: @cat-yellow;
+      #cpu {
+        background-color: #e0af68;
+        color: #1a1b26;
       }
 
-      #battery.critical:not(.charging) {
-        color: @cat-red;
+      #memory {
+        background-color: #7dcfff;
+        color: #1a1b26;
+      }
+
+      #network {
+        background-color: #9ece6a;
+        color: #1a1b26;
+      }
+
+      #pulseaudio {
+        background-color: #bb9af7;
+        color: #1a1b26;
+      }
+
+      #pulseaudio.muted {
+        background-color: #414868;
       }
     '';
 
