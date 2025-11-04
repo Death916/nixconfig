@@ -303,7 +303,7 @@
     };
     style = ''
       /*
-      * Gruvbox
+      * Dracula
       */
 
       * {
@@ -312,8 +312,8 @@
       }
 
       window#waybar {
-        background-color: #282828;
-        color: #ebdbb2;
+        background-color: #282a36;
+        color: #f8f8f2;
         transition-property: background-color;
         transition-duration: .5s;
       }
@@ -321,62 +321,62 @@
       #workspaces button {
         padding: 0 5px;
         background-color: transparent;
-        color: #ebdbb2;
+        color: #f8f8f2;
         border-radius: 0;
       }
 
       #workspaces button.active {
-        color: #fabd2f;
-        border-bottom: 2px solid #fabd2f;
+        color: #bd93f9;
+        border-bottom: 2px solid #bd93f9;
       }
 
       #workspaces button:hover {
-        background: #3c3836;
+        background: #44475a;
       }
 
       #clock, #battery, #cpu, #memory, #network, #pulseaudio, #tray, #window {
         padding: 0 10px;
         margin: 3px 4px;
         border-radius: 8px;
-        background-color: #3c3836;
+        background-color: #44475a;
       }
 
       #clock {
-        background-color: #458588;
-        color: #282828;
+        background-color: #6272a4;
       }
 
       #battery {
-        background-color: #cc241d;
-        color: #282828;
+        background-color: #ff5555;
+        color: #f8f8f2;
       }
 
       #battery.charging, #battery.plugged {
-        background-color: #98971a;
+        background-color: #50fa7b;
+        color: #282a36;
       }
 
       #cpu {
-        background-color: #d79921;
-        color: #282828;
+        background-color: #f1fa8c;
+        color: #282a36;
       }
 
       #memory {
-        background-color: #b16286;
-        color: #282828;
+        background-color: #ffb86c;
+        color: #282a36;
       }
 
       #network {
-        background-color: #689d6a;
-        color: #282828;
+        background-color: #8be9fd;
+        color: #282a36;
       }
 
       #pulseaudio {
-        background-color: #d65d0e;
-        color: #282828;
+        background-color: #bd93f9;
+        color: #282a36;
       }
 
       #pulseaudio.muted {
-        background-color: #928374;
+        background-color: #6272a4;
       }
     '';
 
