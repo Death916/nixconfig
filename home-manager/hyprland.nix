@@ -415,7 +415,7 @@
     enable = true;
     theme = "arthur"; # Use a Catppuccin theme for Rofi
     extraConfig = {
-      modi = "drun,run,ssh";
+      modi = "drun,run,ssh,window";
       show-icons = true;
       icon-theme = "Papirus-Dark";
     };
