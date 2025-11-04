@@ -356,18 +356,17 @@
       }
 
       #cpu {
-        background-color: #f1fa8c;
+        background-color: #bd93f9; /* Purple */
         color: #282a36;
       }
 
       #memory {
-        background-color: #ffb86c;
-        color: #282a36;
+        background-color: #6272a4; /* Greyish Blue */
+        color: #f8f8f2;
       }
 
       #network {
-        background-color: #8be9fd;
-        color: #282a36;
+        background-color: #44475a; /* Darker Grey */
       }
 
       #pulseaudio {
