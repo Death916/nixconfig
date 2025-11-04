@@ -257,15 +257,11 @@
         };
 
         "clock" = {
-          "background-color" = "@blue";
-          "color" = "@text";
           format = "{:%Y-%m-%d %H:%M:%S}";
           tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
         };
 
         "pulseaudio" = {
-          "background-color" = "@mauve";
-          "color" = "@text";
           format = "{icon} {volume}%";
           format-muted = " Muted";
           format-icons = {
@@ -278,28 +274,20 @@
         };
 
         "network" = {
-          "background-color" = "@green";
-          "color" = "@text";
           format-wifi = " {essid} ({signalStrength}%)";
           format-ethernet = " {ifname}";
           format-disconnected = "⚠ Disconnected";
         };
 
         "cpu" = {
-          "background-color" = "@yellow";
-          "color" = "@text";
           format = " {usage}%";
         };
 
         "memory" = {
-          "background-color" = "@peach";
-          "color" = "@text";
           format = " {}%";
         };
 
         "battery" = {
-          "background-color" = "@red";
-          "color" = "@text";
           format = "{icon} {capacity}%";
           format-charging = " {capacity}%";
           format-plugged = " {capacity}%";
@@ -314,7 +302,117 @@
         };
       };
     };
-    style = builtins.readFile ./style.css;
+    style = ''
+      /*
+      *
+      * Catppuccin Mocha
+      *
+      */
+
+      @define-color rosewater #f5e0dc;
+      @define-color flamingo #f2cdcd;
+      @define-color pink #f5c2e7;
+      @define-color mauve #cba6f7;
+      @define-color red #f38ba8;
+      @define-color maroon #eba0ac;
+      @define-color peach #fab387;
+      @define-color yellow #f9e2af;
+      @define-color green #a6e3a1;
+      @define-color teal #94e2d5;
+      @define-color sky #89dceb;
+      @define-color sapphire #74c7ec;
+      @define-color blue #89b4fa;
+      @define-color lavender #b4befe;
+
+      @define-color text #cdd6f4;
+      @define-color subtext1 #bac2de;
+      @define-color subtext0 #a6adc8;
+      @define-color overlay2 #9399b2;
+      @define-color overlay1 #7f849c;
+      @define-color overlay0 #6c7086;
+      @define-color surface2 #585b70;
+      @define-color surface1 #45475a;
+      @define-color surface0 #313244;
+      @define-color base #1e1e2e;
+      @define-color mantle #181825;
+      @define-color crust #11111b;
+
+      * {
+        /* `otf-font-awesome` is required to be installed for icons */
+        font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+        font-size: 13px;
+      }
+
+      window#waybar {
+        background-color: @crust;
+        border-bottom: 2px solid @surface0;
+        color: @text;
+      }
+
+      #workspaces button {
+        padding: 0 5px;
+        background-color: transparent;
+        color: @overlay1;
+        border-radius: 0;
+      }
+
+      #workspaces button.active {
+        color: @lavender;
+        border-bottom: 2px solid @lavender;
+      }
+
+      #workspaces button:hover {
+        background-color: @surface0;
+      }
+
+      #window, #clock, #pulseaudio, #network, #cpu, #memory, #battery, #tray {
+        padding: 0 10px;
+        margin: 0 4px;
+        border-radius: 8px;
+        background-color: @mantle;
+      }
+
+      #clock {
+        background-color: @blue;
+      }
+
+      #pulseaudio {
+        background-color: @mauve;
+      }
+
+      #network {
+        background-color: @green;
+      }
+
+      #cpu {
+        background-color: @yellow;
+      }
+
+      #memory {
+        background-color: @peach;
+      }
+
+      #battery {
+        background-color: @red;
+      }
+
+      #pulseaudio.muted {
+        color: @red;
+      }
+
+      #battery.charging, #battery.plugged {
+        color: @green;
+      }
+
+      #battery.warning:not(.charging) {
+        color: @yellow;
+      }
+
+      #battery.critical:not(.charging) {
+        color: @red;
+      }
+    '';
+
   };
 
   # Rofi (application launcher)
