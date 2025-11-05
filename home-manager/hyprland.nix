@@ -224,12 +224,19 @@
         ];
         modules-center = [ "clock" ];
         modules-right = [
+          "custom/wttrbar"
           "pulseaudio"
           "network"
           "cpu"
           "memory"
           "battery"
         ];
+
+        "custom/wttrbar" = {
+          "format" = "{}";
+          "exec" = "wttrbar -l Sacramento";
+          "interval" = 3600;
+        };
 
         "tray" = {
           "spacing" = 10;
@@ -566,5 +573,6 @@
 
     playerctl
     wl-clipboard
+    unstablePkgs.wttrbar
   ];
 }
