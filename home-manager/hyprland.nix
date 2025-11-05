@@ -235,7 +235,7 @@
         "custom/wttrbar" = {
           "format" = "{text}°";
           "return-type" = "json";
-          "exec" = "wttrbar --location Sacramento";
+          "exec" = "wttrbar --location Sacramento --fahrenheit";
           "interval" = 3600;
         };
 
@@ -416,7 +416,7 @@
       }
 
       #custom-wttrbar {
-        background-color: @sky;
+        background-color: @teal;
         color: @crust;
       }
     '';
