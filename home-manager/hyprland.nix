@@ -233,9 +233,9 @@
         ];
 
         "custom/wttrbar" = {
-          "format" = "{text}";
+          "format" = "{text}°";
           "return-type" = "json";
-          "exec" = "wttrbar -l Sacramento";
+          "exec" = "wttrbar --location Sacramento";
           "interval" = 3600;
         };
 
@@ -413,6 +413,11 @@
 
       #pulseaudio.muted {
         background-color: @surface1;
+      }
+
+      #custom-wttrbar {
+        background-color: @sky;
+        color: @crust;
       }
     '';
 
