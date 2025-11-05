@@ -97,6 +97,7 @@ in
     # libsForQt5.kdeconnect-kde
     kdePackages.kdeconnect-kde
     unstablePkgs.winboat
+    cava
   ];
 
   nixpkgs.overlays = [
