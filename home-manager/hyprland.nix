@@ -233,7 +233,8 @@
         ];
 
         "custom/wttrbar" = {
-          "format" = "{}";
+          "format" = "{text}";
+          "return-type" = "json";
           "exec" = "wttrbar -l Sacramento";
           "interval" = 3600;
         };
