@@ -6,7 +6,7 @@
   ...
 }:
 {
-  #  imports = [ ../../containers/kopia-docker.nix ];
+  imports = [ ../../adguard.nix ];
   arrSuite.enable = true;
   services.samba.shares.Media.path = "/media/storage/media";
 
@@ -38,8 +38,6 @@
     host = "0.0.0.0";
     port = 13378;
   };
-
-  
 
   systemd.tmpfiles.rules = [
     "d /storage/services/qbittorrent 0755 qbittorrent media_services - -"
@@ -85,14 +83,14 @@
         extraOptions = [ "--dns=8.8.8.8" ];
       };
       #      adguardhome = {
-#        image = "adguard/adguardhome:latest";
-#        autoStart = true;
-#        volumes = [
-#          "/storage/services/adguard/work:/opt/adguardhome/work"
-#          "/storage/services/adguard/data:/opt/adguardhome/conf"
-#        ];
-#        extraOptions = [ "--network=host" ];
-#      };
+      #        image = "adguard/adguardhome:latest";
+      #        autoStart = true;
+      #        volumes = [
+      #          "/storage/services/adguard/work:/opt/adguardhome/work"
+      #          "/storage/services/adguard/data:/opt/adguardhome/conf"
+      #        ];
+      #        extraOptions = [ "--network=host" ];
+      #      };
     };
   };
 
