@@ -84,15 +84,15 @@
         autoStart = true;
         extraOptions = [ "--dns=8.8.8.8" ];
       };
-      adguardhome = {
-        image = "adguard/adguardhome:latest";
-        autoStart = true;
-        volumes = [
-          "/storage/services/adguard/work:/opt/adguardhome/work"
-          "/storage/services/adguard/data:/opt/adguardhome/conf"
-        ];
-        extraOptions = [ "--network=host" ];
-      };
+      #      adguardhome = {
+#        image = "adguard/adguardhome:latest";
+#        autoStart = true;
+#        volumes = [
+#          "/storage/services/adguard/work:/opt/adguardhome/work"
+#          "/storage/services/adguard/data:/opt/adguardhome/conf"
+#        ];
+#        extraOptions = [ "--network=host" ];
+#      };
     };
   };
 
