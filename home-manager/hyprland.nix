@@ -18,8 +18,8 @@
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "swww init &" # Wallpaper daemon
-        "swww img /home/death916/Pictures/wallpapers/header.png &"
         "waybar &" # Start Waybar
+        "swww img /home/death916/Pictures/wallpapers/jameswebb1.jpg &"
         "dunst &" # Start Dunst notification daemon
         "nm-applet --indicator &" # NetworkManager applet
         "blueman-applet &" # Bluetooth applet
@@ -162,6 +162,7 @@
         "SUPER, Return, exec, waveterm" # Terminal
         "SUPER, T, exec, ghostty" # Wave Terminal
         "SUPER, D, exec, rofi -show drun" # Rofi application launcher
+        "SUPER, A, exec, rofi -show window"
         "SUPER, W, exec, microsoft-edge"
         "SUPER, E, exec, nautilus" # File manager
         "SUPER, N, exec, dunstctl history-pop"
@@ -303,7 +304,10 @@
       };
     };
     style = ''
-      /* Catppuccin Mocha colors */
+      /*
+      * Catppuccin Mocha
+      */
+
       @define-color rosewater #f5e0dc;
       @define-color flamingo #f2cdcd;
       @define-color pink #f5c2e7;
@@ -318,6 +322,7 @@
       @define-color sapphire #74c7ec;
       @define-color blue #89b4fa;
       @define-color lavender #b4befe;
+
       @define-color text #cdd6f4;
       @define-color subtext1 #bac2de;
       @define-color subtext0 #a6adc8;
@@ -332,13 +337,12 @@
       @define-color crust #11111b;
 
       * {
-        font-family: "JetBrainsMono Nerd Font", monospace;
+        font-family: "JetBrainsMono Nerd Font", FontAwesome, Roboto, Helvetica, Arial, sans-serif;
         font-size: 13px;
       }
 
       window#waybar {
         background-color: @crust;
-        border-bottom: 2px solid @surface0;
         color: @text;
       }
 
@@ -358,29 +362,52 @@
         background-color: @surface0;
       }
 
-      #window, #clock, #pulseaudio, #network, #cpu, #memory, #battery {
+      #clock, #battery, #cpu, #memory, #network, #pulseaudio, #tray, #window {
         padding: 0 10px;
-        background-color: @mantle;
-        margin: 0 4px;
+        margin: 3px 4px;
         border-radius: 8px;
+        background-color: @mantle;
       }
 
-      #pulseaudio.muted {
-        color: @red;
+      #clock {
+        background-color: @blue;
+        color: @crust;
+      }
+
+      #battery {
+        background-color: @red;
+        color: @crust;
       }
 
       #battery.charging, #battery.plugged {
-        color: @green;
+        background-color: @green;
       }
 
-      #battery.warning:not(.charging) {
-        color: @yellow;
+      #cpu {
+        background-color: @yellow;
+        color: @crust;
       }
 
-      #battery.critical:not(.charging) {
-        color: @red;
+      #memory {
+        background-color: @peach;
+        color: @crust;
+      }
+
+      #network {
+        background-color: @green;
+        color: @crust;
+      }
+
+      #pulseaudio {
+        background-color: @mauve;
+        color: @crust;
+      }
+
+      #pulseaudio.muted {
+        background-color: @surface1;
       }
     '';
+
   };
 
   # Rofi (application launcher)
@@ -388,7 +415,7 @@
     enable = true;
     theme = "arthur"; # Use a Catppuccin theme for Rofi
     extraConfig = {
-      modi = "drun,run,ssh";
+      modi = "drun,run,ssh,window";
       show-icons = true;
       icon-theme = "Papirus-Dark";
     };
@@ -522,6 +549,7 @@
     noto-fonts-cjk-sans
     noto-fonts-emoji
     font-awesome
+    roboto
     grim
     slurp
     networkmanagerapplet
