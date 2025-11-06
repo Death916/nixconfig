@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  ;
+
   services.restic.backups.laptop = {
          user = "death916";
          initialize = true;
