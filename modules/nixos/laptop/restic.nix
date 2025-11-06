@@ -1,11 +1,11 @@
 { config, pkgs, ... }:
 
 {
-
+  ;
   services.restic.backups.laptop = {
          user = "death916";
          initialize = true;
-
+         passwordFile = "/etc/nixos/secrets/restic-auth";
          repository = "s3:backups.d8j2.or.idrivee2-38.com";
          environmentFile = "/etc/nixos/secrets/restic.env";
          paths = [
