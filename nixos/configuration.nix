@@ -20,6 +20,7 @@
     ../modules/nixos/laptop/user.nix
     ../modules/nixos/common/tailscale.nix
     ../modules/nixos/laptop/hyprland-deps.nix # New module for Hyprland dependencies
+    ../modules/nixos/laptop/restic.nix
   ];
 
   services.greetd = {

@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, unstablePkgs, ... }:
 
 {
   # Enable Hyprland and XWayland
@@ -224,12 +224,20 @@
         ];
         modules-center = [ "clock" ];
         modules-right = [
+          "custom/wttrbar"
           "pulseaudio"
           "network"
           "cpu"
           "memory"
           "battery"
         ];
+
+        "custom/wttrbar" = {
+          "format" = "{text}°";
+          "return-type" = "json";
+          "exec" = "wttrbar --location Sacramento --fahrenheit";
+          "interval" = 3600;
+        };
 
         "tray" = {
           "spacing" = 10;
@@ -406,6 +414,11 @@
       #pulseaudio.muted {
         background-color: @surface1;
       }
+
+      #custom-wttrbar {
+        background-color: @teal;
+        color: @crust;
+      }
     '';
 
   };
@@ -566,5 +579,6 @@
 
     playerctl
     wl-clipboard
+    unstablePkgs.wttrbar
   ];
 }

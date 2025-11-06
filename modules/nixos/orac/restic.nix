@@ -2,7 +2,7 @@
 
 {
 
-  services.restic.backups.laptop = {
+  services.restic.backups.orac = {
          user = "root";
          initialize = true;
          passwordFile = "/etc/nixos/secrets/restic-auth";

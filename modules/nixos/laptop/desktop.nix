@@ -62,6 +62,7 @@
     sdrpp
     gqrx
     unstablePkgs.sdrangel
+    restic
   ];
 
   services.snapper.configs.nix = {

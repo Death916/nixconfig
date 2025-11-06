@@ -2,7 +2,7 @@
 
 {
 
-  services.restic.backups.laptop = {
+  services.restic.backups.homelab = {
          user = "root";
          initialize = true;
          passwordFile = "/etc/nixos/secrets/restic-auth";
@@ -14,6 +14,7 @@
            "/var/lib/"
            "/var/log/"
            "/etc/"
+           "/storage/"
 
             ];
          pruneOpts = [
