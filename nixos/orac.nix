@@ -6,6 +6,7 @@
     ../modules/containers/docker/pangolin.nix
     ../modules/adguard.nix
     ../modules/containers/docker/juicefs.nix
+    ../modules/nixos/orac/restic.nix
   ];
 
   networking.firewall = {
