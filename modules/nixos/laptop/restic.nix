@@ -3,7 +3,7 @@
 {
 
   services.restic.backups.laptop = {
-         user = "death916";
+         user = "root";
          initialize = true;
          passwordFile = "/etc/nixos/secrets/restic-auth";
          repository = "s3:d8j2.or.idrivee2-38.com/backups";
