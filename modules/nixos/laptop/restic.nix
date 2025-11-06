@@ -6,7 +6,7 @@
          user = "death916";
          initialize = true;
          passwordFile = "/etc/nixos/secrets/restic-auth";
-         repository = "s3:backups.d8j2.or.idrivee2-38.com";
+         repository = "s3:d8j2.or.idrivee2-38.com/backups";
          environmentFile = "/etc/nixos/secrets/restic.env";
          paths = [
            "/home/"
