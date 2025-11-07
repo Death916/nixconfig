@@ -6,7 +6,11 @@
   ...
 }:
 {
-  imports = [ ../../adguard.nix ];
+  imports = [
+    ../../adguard.nix
+    ./restic.nix
+
+  ];
   arrSuite.enable = true;
   services.samba.shares.Media.path = "/media/storage/media";
 
