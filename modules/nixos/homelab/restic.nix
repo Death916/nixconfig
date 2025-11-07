@@ -17,6 +17,11 @@
       "/storage/"
 
     ];
+
+    exclude = [
+      "*/.cache/"
+    ];
+
     pruneOpts = [
       "--keep-hourly 48"
       "--keep-daily 7"
