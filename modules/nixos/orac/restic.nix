@@ -28,8 +28,9 @@
            "--exclude-caches"
          ];
          timerConfig = {
-           OnCalendar = "daily";
+           OnCalendar = "hourly";
            Persistent = true;
+           RandomizedDelaySec = "2h";
          };
        };
 

@@ -23,7 +23,6 @@
     ];
 
     pruneOpts = [
-      "--keep-hourly 48"
       "--keep-daily 7"
       "--keep-weekly 4"
       "--keep-monthly 12"
