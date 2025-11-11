@@ -19,6 +19,7 @@
     exclude = [
       "/home/death916/.local/share/*"
       "/home/death916/Downloads"
+      "*/.cache/*"
 
     ];
 
