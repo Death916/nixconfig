@@ -42,13 +42,13 @@
     in
     {
       nixConfig = {
-        extra-substituters = [
+        substituters = [
           "https://cache.nixos.org/"
           "https://hyprland.cachix.org"
           "https://cache.flox.dev"
           "https://nix-community.cachix.org"
         ];
-        extra-trusted-public-keys = [
+        trusted-public-keys = [
           "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
           "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
           "flox-store-public-0:8c/B+kjIaQ+BloCmNkRUKwaVPFWkriSAd0JJvuDu4F0="
