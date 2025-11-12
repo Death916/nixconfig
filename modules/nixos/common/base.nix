@@ -22,6 +22,19 @@
     "flakes"
   ];
 
+  nix.settings.substituters = lib.mkForce [
+    "https://cache.nixos.org/"
+    "https://hyprland.cachix.org"
+    "https://cache.flox.dev"
+    "https://nix-community.cachix.org"
+  ];
+  nix.settings.trusted-public-keys = lib.mkForce [
+    "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+    "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+    "flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs="
+    "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+  ];
+
 
   nix.settings.trusted-users = [ "root" "death916" ];
 
