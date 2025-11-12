@@ -63,6 +63,7 @@
     gqrx
     unstablePkgs.sdrangel
     restic
+    docker-compose # Added for Winboat
   ];
 
   services.snapper.configs.nix = {
