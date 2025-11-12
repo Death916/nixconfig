@@ -15,7 +15,7 @@
       "wheel"
       "networkmanager"
       "video"
-      "plugdev"
-    ];
-  };
+                "plugdev"
+                "docker"
+              ];  };
 }
