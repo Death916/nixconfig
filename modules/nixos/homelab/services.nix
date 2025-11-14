@@ -64,7 +64,7 @@
     backend = "docker";
     containers = {
       dufs = {
-        user = "1000:1000";
+        user = "root:root";
         image = "sigoden/dufs:latest";
         ports = [ "5000:5000" ];
         volumes = [ "/media/storage/media/:/data" ];
