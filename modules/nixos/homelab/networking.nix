@@ -56,7 +56,7 @@
   };
 
   networking.defaultGateway = "192.168.0.1";
-  networking.nameservers = [ "192.168.0.116" ];
+  networking.nameservers = [ "1.1.1.1" ];
 
   networking.interfaces.enp41s0.useDHCP = false;
 
