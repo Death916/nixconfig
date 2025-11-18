@@ -17,6 +17,21 @@
   ];
 
   config = {
+    # Wait for network to be online
+    systemd.services.NetworkManager-wait-online.enable = true;
+
+    # Service dependencies
+    systemd.services.sonarr.after = [ "network-online.target" "media.mount" "storage.mount" ];
+    systemd.services.sonarr.requires = [ "network-online.target" "media.mount" "storage.mount" ];
+    systemd.services.radarr.after = [ "network-online.target" "media.mount" "storage.mount" ];
+    systemd.services.radarr.requires = [ "network-online.target" "media.mount" "storage.mount" ];
+    systemd.services.prowlarr.after = [ "network-online.target" ];
+    systemd.services.prowlarr.requires = [ "network-online.target" ];
+    systemd.services.nextcloud-setup.after = [ "network-online.target" "postgresql.service" ];
+    systemd.services.nextcloud-setup.requires = [ "network-online.target" "postgresql.service" ];
+    systemd.services.kopia-server.after = [ "network-online.target" ];
+    systemd.services.kopia-server.requires = [ "network-online.target" ];
+
     arrSuite.unpackerr.enable = true;
     services.kopia-server.enable = true;
     system.stateVersion = "24.11";
