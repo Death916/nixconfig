@@ -18,7 +18,7 @@
 
   config = {
     # Wait for network to be online
-    systemd.services.NetworkManager-wait-online.enable = true;
+    # systemd.services.NetworkManager-wait-online.enable = true;
 
     # Service dependencies
     systemd.services.sonarr.after = [ "network-online.target" ];

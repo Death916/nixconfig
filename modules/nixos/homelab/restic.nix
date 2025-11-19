@@ -34,9 +34,9 @@
       "--exclude-caches"
     ];
     timerConfig = {
-      OnCalendar = "daily";
+      OnCalendar = "hourly";
       Persistent = true;
-      RandomizedDelaySec = "5h";
+      RandomizedDelaySec = "5m";
     };
   };
 
