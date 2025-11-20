@@ -10,6 +10,7 @@
     services.adguardhome = {
       enable = true;
       openFirewall = true;
+      mutableSettings = true;
       settings = {
         http = {
           address = "127.0.0.1:3000";
@@ -18,6 +19,7 @@
           upstream_dns = [
             "9.9.9.9"
             "8.8.8.8"
+            "100.100.100.100"
           ];
         };
         filtering = {
