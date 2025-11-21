@@ -15,10 +15,10 @@
   services.samba.shares.Media.path = "/media/storage/media";
 
   services.c2cscrape = {
-      enable = true;
-      dataDir = "/media/storage/media/books/audio/podcasts/C2C";
-      user = "death916";
-    };
+    enable = true;
+    dataDir = "/media/storage/media/books/audio/podcasts/C2C";
+    user = "death916";
+  };
   #  virtualisation.incus.enable = true;
   services.qbittorrent = {
     enable = true;
@@ -78,28 +78,19 @@
           "-A"
         ];
       };
-      c2c-scraper = {
-        image = "death916/c2cscrape:latest";
-        volumes = [
-          "/media/storage/media/books/audio/podcasts/C2C:/downloads"
-          "/media/storage/media/docker/volumes/c2cscrape:/app/data"
-        ];
-        user = "${toString config.users.users.c2c.uid}:${toString config.users.groups.media_services.gid}";
-        environment = {
-          TZ = "America/Los_Angeles";
-        };
-        autoStart = true;
-        extraOptions = [ "--dns=8.8.8.8" ];
-      };
-      #      adguardhome = {
-      #        image = "adguard/adguardhome:latest";
-      #        autoStart = true;
-      #        volumes = [
-      #          "/storage/services/adguard/work:/opt/adguardhome/work"
-      #          "/storage/services/adguard/data:/opt/adguardhome/conf"
-      #        ];
-      #        extraOptions = [ "--network=host" ];
-      #      };
+      # c2c-scraper = {
+      # image = "death916/c2cscrape:latest";
+      # volumes = [
+      # "/media/storage/media/books/audio/podcasts/C2C:/downloads"
+      # "/media/storage/media/docker/volumes/c2cscrape:/app/data"
+      # ];
+      # user = "${toString config.users.users.c2c.uid}:${toString config.users.groups.media_services.gid}";
+      # environment = {
+      # TZ = "America/Los_Angeles";
+      # };
+      # autoStart = true;
+      # extraOptions = [ "--dns=8.8.8.8" ];
+      # };
     };
   };
 
