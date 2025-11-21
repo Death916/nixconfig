@@ -14,6 +14,11 @@
   arrSuite.enable = true;
   services.samba.shares.Media.path = "/media/storage/media";
 
+  services.c2cscrape = {
+      enable = true;
+      dataDir = "/media/storage/media/books/audio/podcasts/C2C";
+      user = "death916";
+    };
   #  virtualisation.incus.enable = true;
   services.qbittorrent = {
     enable = true;
