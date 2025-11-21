@@ -15,7 +15,7 @@ in
     enable = lib.mkEnableOption "C2C Scraper Service";
 
     dataDir = lib.mkOption {
-      type = lib.types.Path;
+      type = lib.types.path;
       default = "/var/lib/c2cscrape";
       description = "Directory where episodes will be saved.";
     };
