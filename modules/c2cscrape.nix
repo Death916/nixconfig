@@ -21,7 +21,7 @@ in
     };
 
     user = lib.mkOption {
-      type = lib.types.Str;
+      type = lib.types.str;
       default = "c2cscrape";
       description = "user to run as";
     };
