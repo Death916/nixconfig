@@ -9,7 +9,7 @@
   imports = [
     ../../adguard.nix
     ./restic.nix
-    ../../modules/c2cscrape.nix
+    ../../c2cscrape.nix
   ];
   arrSuite.enable = true;
   services.samba.shares.Media.path = "/media/storage/media";
