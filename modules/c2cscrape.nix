@@ -1,9 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.services.c2cscrape;
   # Import the package relative to this file
-  c2cscrapePkg = pkgs.callPackage ../pkgs/c2cscrape/default.nix { };
+  c2cscrapePkg = pkgs.python3Packages.callPackage ../pkgs/c2cscrape/default.nix { };
 in
 {
   options.services.c2cscrape = {
@@ -36,7 +41,6 @@ in
 
       };
     };
-
 
     systemd.timers.c2cscrape = {
       wantedBy = [ "timers.target" ];
