@@ -44,7 +44,7 @@
     git
     vim
     wget
-    tailscale
+    unstablePkgs.tailscale
     halloy
     conda
     inputs.flox.packages.${pkgs.system}.flox
