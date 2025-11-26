@@ -1,4 +1,9 @@
-{ pkgs, inputs, unstablePkgs, ... }:
+{
+  pkgs,
+  inputs,
+  unstablePkgs,
+  ...
+}:
 
 {
   # Enable Hyprland and XWayland
@@ -551,7 +556,7 @@
   };
   home.sessionVariables = {
     #QT_QPA_PLATFORMTHEME = "gtk";  # Required for Qt apps like VLC
-    QT_STYLE_OVERRIDE = "gtk";
+    QT_STYLE_OVERRIDE = "qt5gtk2";
   };
 
   # Fonts
