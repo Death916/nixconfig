@@ -142,28 +142,26 @@
       ];
 
       windowrule = [
-        "opacity 1.0 override 1.0 override, match:class:^(vlc)$"
-        "opacity 1.0 override 1.0 override, match:class:^(jellyfinmediaplayer)$"
-
-        "float, match:title:^(Picture-in-Picture)$"
-        "float, match:class:^(confirm)$"
-        "float, match:class:^(dialog)$"
-        "float, match:class:^(file_progress)$"
-        "float, match:class:^(confirmreset)$"
-        "float, match:class:^(makeinput)$"
-        "float, match:class:^(download)$"
-        "float, match:class:^(notification)$"
-        "float, match:class:^(error)$"
-        "float, match:class:^(pinentry)$"
-        "float, match:class:^(ssh-askpass)$"
-        "float, match:class:^(lxpolkit)$"
-        "float, match:class:^(thunar)$"
-        "float, match:class:^(pavucontrol)$"
-        "float, match:class:^(blueman-applet)$"
-        "float, match:class:^(nm-applet)$"
-
-        "noinitialfocus, match:class:^(nm-applet)$"
-        "noinitialfocus, match:class:^(blueman-applet)$"
+        "opacity 1.0 override 1.0 override, match:class ^(vlc)$"
+        "opacity 1.0 override 1.0 override, match:class ^(jellyfinmediaplayer)$"
+        "float 1, match:title ^(Picture-in-Picture)$"
+        "float 1, match:class ^(confirm)$"
+        "float 1, match:class ^(dialog)$"
+        "float 1, match:class ^(file_progress)$"
+        "float 1, match:class ^(confirmreset)$"
+        "float 1, match:class ^(makeinput)$"
+        "float 1, match:class ^(download)$"
+        "float 1, match:class ^(notification)$"
+        "float 1, match:class ^(error)$"
+        "float 1, match:class ^(pinentry)$"
+        "float 1, match:class ^(ssh-askpass)$"
+        "float 1, match:class ^(lxpolkit)$"
+        "float 1, match:class ^(thunar)$"
+        "float 1, match:class ^(pavucontrol)$"
+        "float 1, match:class ^(blueman-applet)$"
+        "float 1, match:class ^(nm-applet)$"
+        "no_initial_focus 1, match:class ^(nm-applet)$"
+        "no_initial_focus 1, match:class ^(blueman-applet)$"
       ];
     };
   };
