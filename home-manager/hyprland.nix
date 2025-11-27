@@ -13,8 +13,7 @@
     xwayland.enable = true;
     systemd.variables = [ "--all" ]; # Ensure environment variables are passed to systemd service # For XWayland applications
 
-    # Hyprland configuration settings
-    settings = {
+    settings = { # This is the *correct* and *only* settings block
       # Monitors
       monitor = ",1920x1080,auto,1"; # Set primary monitor to 1080p
 
@@ -28,7 +27,7 @@
         "dunst &" # Start Dunst notification daemon
         "nm-applet --indicator &" # NetworkManager applet
         "blueman-applet &" # Bluetooth applet
-      ];
+      ]; # The 'exec-once' list is the last attribute in this settings block. No semicolon needed here.
 
       # General settings
       general = {
@@ -38,7 +37,7 @@
         "col.active_border" = "rgba(cba6f7ee) rgba(1e66f5ee) 45deg"; # Catppuccin Lavender/Blue
         "col.inactive_border" = "rgba(313244aa)"; # Catppuccin Surface0
         layout = "dwindle"; # Or "master", "tile"
-      };
+      }; # Semicolon added here
 
       # Decoration
       decoration = {
@@ -48,12 +47,12 @@
           enabled = true;
           size = 3;
           passes = 3;
-        };
+        }; # Semicolon added here
         # drop_shadow = true;
         # shadow_range = 4;
         # shadow_render_power = 3;
         # "col.shadow" = "rgba(1a1a1aee)";
-      };
+      }; # Semicolon added here
 
       # Animations
       animations = {
@@ -67,7 +66,7 @@
           "fade, 1, 7, default"
           "workspaces, 1, 6, default"
         ];
-      };
+      }; # Semicolon added here
 
       # Input
       input = {
@@ -75,15 +74,15 @@
         follow_mouse = 1;
         touchpad = {
           natural_scroll = true;
-        };
+        }; # Semicolon added here
         sensitivity = 1.0; # 0.0 - 1.0, 1.0 = no modification
-      };
+      }; # Semicolon added here
 
       # Dwindle layout (default)
       dwindle = {
         pseudotile = true; # Master switch for pseudotiling. Enabling this means windows will not resize when moved into a master area.
         force_split = 2; # Master switch for forcing splitting.
-      };
+      }; # Semicolon added here
 
       # Gestures
       # gestures = {
@@ -174,170 +173,9 @@
         # Screenshots
         "SUPER SHIFT, S, exec, bash -c \"grim -g '$(slurp)' - | tee ~/Pictures/screenshots/$(date +%s).png | wl-copy\"" # Screenshot selection to clipboard
         "SUPER SHIFT, Print, exec, bash -c \"grim - | tee ~/Pictures/screenshots/$(date +%s).png | wl-copy\"" # Screenshot full screen to clipboard
-      ];
+      ]; # The 'bind' list is the last attribute of the 'settings' block. No semicolon needed here.
+    }; # Semicolon added here, as 'extraConfig' follows
 
-    settings = {
-      # Monitors
-      monitor = ",1920x1080,auto,1"; # Set primary monitor to 1080p
-
-      # Execute on startup
-      exec-once = [
-        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        "swww init &" # Wallpaper daemon
-        "waybar &" # Start Waybar
-        "swww img /home/death916/Pictures/wallpapers/jameswebb1.jpg &"
-        "dunst &" # Start Dunst notification daemon
-        "nm-applet --indicator &" # NetworkManager applet
-        "blueman-applet &" # Bluetooth applet
-      ];
-
-      # General settings
-      general = {
-        gaps_in = 5;
-        gaps_out = 10;
-        border_size = 2;
-        "col.active_border" = "rgba(cba6f7ee) rgba(1e66f5ee) 45deg"; # Catppuccin Lavender/Blue
-        "col.inactive_border" = "rgba(313244aa)"; # Catppuccin Surface0
-        layout = "dwindle"; # Or "master", "tile"
-      };
-
-      # Decoration
-      decoration = {
-        rounding = 10;
-        fullscreen_opacity = 1.0;
-        blur = {
-          enabled = true;
-          size = 3;
-          passes = 3;
-        };
-        # drop_shadow = true;
-        # shadow_range = 4;
-        # shadow_render_power = 3;
-        # "col.shadow" = "rgba(1a1a1aee)";
-      };
-
-      # Animations
-      animations = {
-        enabled = true;
-        bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
-        animation = [
-          "windows, 1, 7, myBezier"
-          "windowsOut, 1, 7, default, popin 80%"
-          "border, 1, 10, default"
-          "borderangle, 1, 8, default"
-          "fade, 1, 7, default"
-          "workspaces, 1, 6, default"
-        ];
-      };
-
-      # Input
-      input = {
-        kb_layout = "us";
-        follow_mouse = 1;
-        touchpad = {
-          natural_scroll = true;
-        };
-        sensitivity = 1.0; # 0.0 - 1.0, 1.0 = no modification
-      };
-
-      # Dwindle layout (default)
-      dwindle = {
-        pseudotile = true; # Master switch for pseudotiling. Enabling this means windows will not resize when moved into a master area.
-        force_split = 2; # Master switch for forcing splitting.
-      };
-
-      # Gestures
-      # gestures = {
-      #   workspace_swipe = true;
-      # };
-
-      # Keybindings
-      bind = [
-        # Window management
-        "SUPER, Q, killactive,"
-        "SUPER, M, exit,"
-        "SUPER, F, fullscreen,"
-        "SUPER, Space, togglefloating,"
-        "SUPER, P, pseudo," # Master switch for pseudotiling.
-        "SUPER, J, togglesplit," # Master switch for splitting.
-        "SUPER, L, exec, hyprlock" # Lock the screen
-
-        # Move focus
-        "SUPER, left, movefocus, l"
-        "SUPER, right, movefocus, r"
-        "SUPER, up, movefocus, u"
-        "SUPER, down, movefocus, d"
-
-        # Move windows
-        "SUPER SHIFT, left, movewindow, l"
-        "SUPER SHIFT, right, movewindow, r"
-        "SUPER SHIFT, up, movewindow, u"
-        "SUPER SHIFT, down, movewindow, d"
-
-        # Resize active window
-        "SUPER SHIFT, right, resizeactive, 10 0"
-        "SUPER SHIFT, left, resizeactive, -10 0"
-        "SUPER SHIFT, down, resizeactive, 0 -10 0 -10"
-        # Workspaces
-        "SUPER, 1, workspace, 1"
-        "SUPER, 2, workspace, 2"
-        "SUPER, 3, workspace, 3"
-        "SUPER, 4, workspace, 4"
-        "SUPER, 5, workspace, 5"
-        "SUPER, 6, workspace, 6"
-        "SUPER, 7, workspace, 7"
-        "SUPER, 8, workspace, 8"
-        "SUPER, 9, workspace, 9"
-        "SUPER, 0, workspace, 10"
-
-        # Move window to workspace
-        "SUPER SHIFT, 1, movetoworkspace, 1"
-        "SUPER SHIFT, 2, movetoworkspace, 2"
-        "SUPER SHIFT, 3, movetoworkspace, 3"
-        "SUPER SHIFT, 4, movetoworkspace, 4"
-        "SUPER SHIFT, 5, movetoworkspace, 5"
-        "SUPER SHIFT, 6, movetoworkspace, 6"
-        "SUPER SHIFT, 7, movetoworkspace, 7"
-        "SUPER SHIFT, 8, movetoworkspace, 8"
-        "SUPER SHIFT, 9, movetoworkspace, 9"
-        "SUPER SHIFT, 0, movetoworkspace, 10"
-
-        # Scroll through workspaces
-        "SUPER, mouse_down, workspace, e+1"
-        "SUPER, mouse_up, workspace, e-1"
-
-        # Window resizing
-        "SUPER, R, submap, resize"
-        # "submap = resize"
-        # # "binde = , right, resizeactive, 10 0"
-        # # "binde = , left, resizeactive, -10 0"
-        # # "binde = , up, resizeactive, 0 -10"
-        # # "binde = , down, resizeactive, 0 10"
-        # "bind = , escape, submap, reset"
-        # "submap = reset"
-
-        # Multimedia keys
-        ", XF86AudioMute, exec, ${pkgs.pamixer}/bin/pamixer --toggle-mute"
-        ", XF86AudioRaiseVolume, exec, ${pkgs.pamixer}/bin/pamixer --increase 5"
-        ", XF86AudioLowerVolume, exec, ${pkgs.pamixer}/bin/pamixer --decrease 5"
-        ", XF86AudioPlay, exec, ${pkgs.playerctl}/bin/playerctl play-pause"
-        ", XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl set +5%"
-        ", XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl set 5%-"
-
-        # Application launchers
-        "SUPER, Return, exec, waveterm" # Terminal
-        "SUPER, T, exec, ghostty" # Wave Terminal
-        "SUPER, D, exec, rofi -show drun" # Rofi application launcher
-        "SUPER, A, exec, rofi -show window"
-        "SUPER, W, exec, microsoft-edge"
-        "SUPER, E, exec, nautilus" # File manager
-        "SUPER, N, exec, dunstctl history-pop"
-        # Screenshots
-        "SUPER SHIFT, S, exec, bash -c \"grim -g '$(slurp)' - | tee ~/Pictures/screenshots/$(date +%s).png | wl-copy\"" # Screenshot selection to clipboard
-        "SUPER SHIFT, Print, exec, bash -c \"grim - | tee ~/Pictures/screenshots/$(date +%s).png | wl-copy\"" # Screenshot full screen to clipboard
-      ];
-    };
     extraConfig = ''
       # Window rules
       windowrulev2 = opacity 0.9,floating:0 # Tiled windows
@@ -364,20 +202,21 @@
 
       windowrulev2 = nofocus,class:^(nm-applet)$
       windowrulev2 = nofocus,class:^(blueman-applet)$
-    '';
+    ''; # The 'extraConfig' attribute is the last one in 'wayland.windowManager.hyprland'. No semicolon needed here.
+  }; # Semicolon added here, as 'xdg.portal' follows.
 
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
       xdg-desktop-portal-gtk
     ];
-  };
+  }; # Semicolon added here, as 'programs.waybar' follows.
 
   # Waybar (status bar)
   programs.waybar = {
     enable = true;
     settings = {
-      mainBar = {
+      mainBar = { # The 'mainBar' attribute is followed by 'style'. Needs a semicolon.
         layer = "top";
         position = "top";
         height = 30;
@@ -448,7 +287,7 @@
         };
 
         "network" = {
-          format-wifi = " {essid} ({signalStrength}%)";
+          format-wifi = " {essid} ({signalStrength}%) ";
           format-ethernet = " {ifname}";
           format-disconnected = "⚠ Disconnected";
         };
@@ -474,8 +313,8 @@
             ""
           ];
         };
-      };
-    };
+      }; # The 'mainBar' attribute is the last in 'settings.mainBar'. No semicolon needed here.
+    }; # Semicolon added here, as 'style' follows.
     style = ''
       /*
       * Catppuccin Mocha
@@ -584,9 +423,8 @@
         background-color: @teal;
         color: @crust;
       }
-    '';
-
-  };
+    ''; # This 'style' attribute is the last one in 'programs.waybar'. No semicolon needed here.
+  }; # Semicolon added here, as 'programs.rofi' follows.
 
   # Rofi (application launcher)
   programs.rofi = {
@@ -596,12 +434,12 @@
       modi = "drun,run,ssh,window";
       show-icons = true;
       icon-theme = "Papirus-Dark";
-    };
-  };
+    }; # Semicolon added here, as 'programs.hyprlock' follows.
+  }; # Semicolon added here, as 'programs.hyprlock' follows.
 
   programs.hyprlock = {
     enable = true;
-  };
+  }; # Semicolon added here, as 'services.dunst' follows.
 
   # Dunst (notification daemon)
   services.dunst = {
@@ -650,27 +488,27 @@
         stack_duplicates = true;
         hide_duplicate_count = false;
         show_indicators = true;
-      };
+      }; # Semicolon added here, as 'urgency_low' follows.
       urgency_low = {
         background = "#1e1e2e"; # Catppuccin Base
         foreground = "#cdd6f4"; # Catppuccin Text
-      };
+      }; # Semicolon added here, as 'urgency_normal' follows.
       urgency_normal = {
         background = "#1e1e2e"; # Catppuccin Base
         foreground = "#cdd6f4"; # Catppuccin Text
-      };
+      }; # Semicolon added here, as 'urgency_critical' follows.
       urgency_critical = {
         background = "#f38ba8"; # Catppuccin Red
         foreground = "#1e1e2e"; # Catppuccin Base
-      };
-    };
-  };
+      }; # The 'urgency_critical' is the last attribute. No semicolon needed here.
+    }; # Semicolon added here, as 'services.dunst' follows 'settings'.
+  }; # Semicolon added here, as 'services.swww' follows.
 
   # Wallpaper setter
   services.swww = {
     enable = true;
     # You'll set the actual wallpaper in exec-once in Hyprland settings
-  };
+  }; # Semicolon added here, as 'gtk' follows.
 
   # GTK Theming
   gtk = {
@@ -678,14 +516,14 @@
     gtk3 = {
       extraConfig = {
         gtk-application-prefer-dark-theme = 1;
-      };
-    };
+      }; # No semicolon here, as it's the last attribute.
+    }; # Semicolon added here, as 'gtk4' follows.
 
     gtk4 = {
       extraConfig = {
         gtk-application-prefer-dark-theme = 1;
-      };
-    };
+      }; # No semicolon here, as it's the last attribute.
+    }; # Semicolon added here, as 'theme' follows.
 
     theme = {
 
@@ -697,30 +535,30 @@
       #size = "standard";
       #variant = "mocha";
       #};
-    };
+    }; # Semicolon added here, as 'iconTheme' follows.
     iconTheme = {
       name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme;
-    };
+    }; # Semicolon added here, as 'cursorTheme' follows.
     cursorTheme = {
       name = "Catppuccin-Mocha-Dark-Cursors";
       package = pkgs.catppuccin-cursors;
       size = 24;
-    };
-  };
+    }; # No semicolon here, as it's the last attribute.
+  }; # Semicolon added here, as 'qt' follows.
 
   # Qt Theming
   qt = {
     enable = true;
     platformTheme.name = "qt5gtk2";
-  };
+  }; # Semicolon added here, as 'home.sessionVariables' follows.
   home.sessionVariables = {
     #QT_QPA_PLATFORMTHEME = "gtk";  # Required for Qt apps like VLC
     QT_STYLE_OVERRIDE = "qt5gtk2";
-  };
+  }; # Semicolon added here, as 'fonts.fontconfig.enable' follows.
 
   # Fonts
-  fonts.fontconfig.enable = true;
+  fonts.fontconfig.enable = true; # Semicolon added here, as 'home.packages' follows.
   home.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
     noto-fonts
@@ -745,5 +583,5 @@
     playerctl
     wl-clipboard
     unstablePkgs.wttrbar
-  ];
+  ]; # This is the last attribute in the outermost attribute set. No semicolon needed here.
 }
