@@ -178,38 +178,38 @@
 
     extraConfig = ''
       # Window rules
-      windowrulev2 = opacity 0.9,floating:0 # Tiled windows
-      windowrulev2 = opacity 0.8,floating:1 # Floating windows
-      windowrulev2 = opacity 1.0,class:^(vlc)$
-      windowrulev2 = opacity 1.0,class:^(jellyfinmediaplayer)$
+      # Opacity rules for specific applications (dynamic opacity for floating/tiled not supported by windowrule V1)
+      windowrule = opacity 1.0, ^(vlc)$
+      windowrule = opacity 1.0, ^(jellyfinmediaplayer)$
 
-      windowrulev2 = float,title:^(Picture-in-Picture)$
-      windowrulev2 = float,class:^(confirm)$
-      windowrulev2 = float,class:^(dialog)$
-      windowrulev2 = float,class:^(file_progress)$
-      windowrulev2 = float,class:^(confirmreset)$
-      windowrulev2 = float,class:^(makeinput)$
-      windowrulev2 = float,class:^(download)$
-      windowrulev2 = float,class:^(notification)$
-      windowrulev2 = float,class:^(error)$
-      windowrulev2 = float,class:^(pinentry)$
-      windowrulev2 = float,class:^(ssh-askpass)$
-      windowrulev2 = float,class:^(lxpolkit)$
-      windowrulev2 = float,class:^(thunar)$
-      windowrulev2 = float,class:^(pavucontrol)$
-      windowrulev2 = float,class:^(blueman-applet)$
-      windowrulev2 = float,class:^(nm-applet)$
+      # Floating rules
+      windowrule = float, title:^(Picture-in-Picture)$
+      windowrule = float, class:^(confirm)$
+      windowrule = float, class:^(dialog)$
+      windowrule = float, class:^(file_progress)$
+      windowrule = float, class:^(confirmreset)$
+      windowrule = float, class:^(makeinput)$
+      windowrule = float, class:^(download)$
+      windowrule = float, class:^(notification)$
+      windowrule = float, class:^(error)$
+      windowrule = float, class:^(pinentry)$
+      windowrule = float, class:^(ssh-askpass)$
+      windowrule = float, class:^(lxpolkit)$
+      windowrule = float, class:^(thunar)$
+      windowrule = float, class:^(pavucontrol)$
+      windowrule = float, class:^(blueman-applet)$
+      windowrule = float, class:^(nm-applet)$
 
-      windowrulev2 = nofocus,class:^(nm-applet)$
-      windowrulev2 = nofocus,class:^(blueman-applet)$
+      # Other rules
+      windowrule = nofocus, class:^(nm-applet)$
+      windowrule = nofocus, class:^(blueman-applet)$
     ''; # The 'extraConfig' attribute is the last one in 'wayland.windowManager.hyprland'. No semicolon needed here.
   }; # Semicolon added here, as 'xdg.portal' follows.
 
   xdg.portal = {
     enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk
-    ];
+    extraPortals = with pkgs;
+      [ xdg-desktop-portal-gtk ];
   }; # Semicolon added here, as 'programs.waybar' follows.
 
   # Waybar (status bar)
@@ -559,29 +559,30 @@
 
   # Fonts
   fonts.fontconfig.enable = true; # Semicolon added here, as 'home.packages' follows.
-  home.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-    noto-fonts
-    noto-fonts-cjk-sans
-    noto-fonts-emoji
-    font-awesome
-    roboto
-    grim
-    slurp
-    networkmanagerapplet
-    blueman
-    waybar
-    kitty
-    libnotify
-    kdePackages.dolphin
-    catppuccin-gtk
-    materia-theme
-    rose-pine-gtk-theme
-    nightfox-gtk-theme
-    materia-kde-theme
+  home.packages = with pkgs;
+    [ 
+      nerd-fonts.jetbrains-mono
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-emoji
+      font-awesome
+      roboto
+      grim
+      slurp
+      networkmanagerapplet
+      blueman
+      waybar
+      kitty
+      libnotify
+      kdePackages.dolphin
+      catppuccin-gtk
+      materia-theme
+      rose-pine-gtk-theme
+      nightfox-gtk-theme
+      materia-kde-theme
 
-    playerctl
-    wl-clipboard
-    unstablePkgs.wttrbar
-  ]; # This is the last attribute in the outermost attribute set. No semicolon needed here.
+      playerctl
+      wl-clipboard
+      unstablePkgs.wttrbar
+    ]; # This is the last attribute in the outermost attribute set. No semicolon needed here.
 }
