@@ -141,27 +141,29 @@
         "SUPER SHIFT, Print, exec, bash -c \"grim - | tee ~/Pictures/screenshots/$(date +%s).png\""
       ];
 
-      windowrulev2 = [
-        "opacity 1.0 override 1.0 override, class:^(vlc)$"
-        "opacity 1.0 override 1.0 override, class:^(jellyfinmediaplayer)$"
-        "float, title:^(Picture-in-Picture)$"
-        "float, class:^(confirm)$"
-        "float, class:^(dialog)$"
-        "float, class:^(file_progress)$"
-        "float, class:^(confirmreset)$"
-        "float, class:^(makeinput)$"
-        "float, class:^(download)$"
-        "float, class:^(notification)$"
-        "float, class:^(error)$"
-        "float, class:^(pinentry)$"
-        "float, class:^(ssh-askpass)$"
-        "float, class:^(lxpolkit)$"
-        "float, class:^(thunar)$"
-        "float, class:^(pavucontrol)$"
-        "float, class:^(blueman-applet)$"
-        "float, class:^(nm-applet)$"
-        "noinitialfocus, class:^(nm-applet)$"
-        "noinitialfocus, class:^(blueman-applet)$"
+      windowrule = [
+        "opacity 1.0 override 1.0 override, match:class:^(vlc)$"
+        "opacity 1.0 override 1.0 override, match:class:^(jellyfinmediaplayer)$"
+
+        "float, match:title:^(Picture-in-Picture)$"
+        "float, match:class:^(confirm)$"
+        "float, match:class:^(dialog)$"
+        "float, match:class:^(file_progress)$"
+        "float, match:class:^(confirmreset)$"
+        "float, match:class:^(makeinput)$"
+        "float, match:class:^(download)$"
+        "float, match:class:^(notification)$"
+        "float, match:class:^(error)$"
+        "float, match:class:^(pinentry)$"
+        "float, match:class:^(ssh-askpass)$"
+        "float, match:class:^(lxpolkit)$"
+        "float, match:class:^(thunar)$"
+        "float, match:class:^(pavucontrol)$"
+        "float, match:class:^(blueman-applet)$"
+        "float, match:class:^(nm-applet)$"
+
+        "noinitialfocus, match:class:^(nm-applet)$"
+        "noinitialfocus, match:class:^(blueman-applet)$"
       ];
     };
   };
