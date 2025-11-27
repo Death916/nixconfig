@@ -142,6 +142,10 @@
       ];
 
       windowrule = [
+        "match:float, opacity 0.6"
+        # "opacity 1.0 1.0,fullscreen:0"
+        # "opacity 0.9 0.9,floating:0"
+        # "opacity 0.6 0.6,floating:1"
         "opacity 1.0 override 1.0 override, match:class ^(vlc)$"
         "opacity 1.0 override 1.0 override, match:class ^(jellyfinmediaplayer)$"
         "float 1, match:title ^(Picture-in-Picture)$"
@@ -500,30 +504,29 @@
   };
 
   fonts.fontconfig.enable = true;
-  home.packages = with pkgs;
-    [
-      nerd-fonts.jetbrains-mono
-      noto-fonts
-      noto-fonts-cjk-sans
-      noto-fonts-emoji
-      font-awesome
-      roboto
-      grim
-      slurp
-      networkmanagerapplet
-      blueman
-      waybar
-      kitty
-      libnotify
-      kdePackages.dolphin
-      catppuccin-gtk
-      materia-theme
-      rose-pine-gtk-theme
-      nightfox-gtk-theme
-      materia-kde-theme
+  home.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+    noto-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-emoji
+    font-awesome
+    roboto
+    grim
+    slurp
+    networkmanagerapplet
+    blueman
+    waybar
+    kitty
+    libnotify
+    kdePackages.dolphin
+    catppuccin-gtk
+    materia-theme
+    rose-pine-gtk-theme
+    nightfox-gtk-theme
+    materia-kde-theme
 
-      playerctl
-      wl-clipboard
-      unstablePkgs.wttrbar
-    ];
+    playerctl
+    wl-clipboard
+    unstablePkgs.wttrbar
+  ];
 }
