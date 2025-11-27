@@ -177,31 +177,34 @@
       ];
 
       # Window rules
-      windowrule = [
-        "opacity 1.0 1.0,fullscreen:0"
-        "opacity 0.9 0.9,floating:0"
-        "opacity 0.6 0.6,floating:1"
-        "opacity 1.0 1.0,class:^(vlc)$"
-        "opacity 1.0 1.0,class:^(jellyfinmediaplayer)$"
+      windowrulev2 = [
+        # Opacity rules
+        "opacity 0.9,floating:0" # Tiled windows
+        "opacity 0.8,floating:1" # Floating windows
+        "opacity 1.0,class:^(vlc)$"
+        "opacity 1.0,class:^(jellyfinmediaplayer)$"
+
+        # Floating rules
         "float,title:^(Picture-in-Picture)$"
         "float,class:^(confirm)$"
         "float,class:^(dialog)$"
         "float,class:^(file_progress)$"
         "float,class:^(confirmreset)$"
         "float,class:^(makeinput)$"
-        "float,class:^(dialog)$"
         "float,class:^(download)$"
         "float,class:^(notification)$"
         "float,class:^(error)$"
         "float,class:^(pinentry)$"
         "float,class:^(ssh-askpass)$"
         "float,class:^(lxpolkit)$"
-        "float,class:^(thunar)"
-        "float,class:^(pavucontrol)"
-        "float,class:^(blueman-applet)"
-        "float,class:^(nm-applet)"
-        "nofocus,class:^(nm-applet)"
-        "nofocus,class:^(blueman-applet)"
+        "float,class:^(thunar)$"
+        "float,class:^(pavucontrol)$"
+        "float,class:^(blueman-applet)$"
+        "float,class:^(nm-applet)$"
+
+        # Other rules
+        "nofocus,class:^(nm-applet)$"
+        "nofocus,class:^(blueman-applet)$"
       ];
     };
   };
