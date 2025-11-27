@@ -498,11 +498,11 @@
 
   qt = {
     enable = true;
-    platformTheme.name = "qt5gtk2";
+    platformTheme.name = "qt5ct";
   };
 
   home.sessionVariables = {
-    QT_STYLE_OVERRIDE = "qt5gtk2";
+    QT_STYLE_OVERRIDE = "qt5ct";
   };
 
   fonts.fontconfig.enable = true;
