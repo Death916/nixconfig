@@ -208,8 +208,7 @@
 
   xdg.portal = {
     enable = true;
-    extraPortals = with pkgs;
-      [ xdg-desktop-portal-gtk ];
+    extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
   }; # Semicolon added here, as 'programs.waybar' follows.
 
   # Waybar (status bar)
