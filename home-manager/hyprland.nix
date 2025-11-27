@@ -178,37 +178,39 @@
 
     extraConfig = ''
       # Window rules
-      # Opacity rules for specific applications (dynamic opacity for floating/tiled not supported by windowrule V1)
-      windowrule = opacity 1.0, ^(vlc)$
-      windowrule = opacity 1.0, ^(jellyfinmediaplayer)$
+      # Opacity rules for specific applications
+      windowrule = match:class:^(vlc)$, opacity 1.0
+      windowrule = match:class:^(jellyfinmediaplayer)$, opacity 1.0
 
       # Floating rules
-      windowrule = float, title:^(Picture-in-Picture)$
-      windowrule = float, class:^(confirm)$
-      windowrule = float, class:^(dialog)$
-      windowrule = float, class:^(file_progress)$
-      windowrule = float, class:^(confirmreset)$
-      windowrule = float, class:^(makeinput)$
-      windowrule = float, class:^(download)$
-      windowrule = float, class:^(notification)$
-      windowrule = float, class:^(error)$
-      windowrule = float, class:^(pinentry)$
-      windowrule = float, class:^(ssh-askpass)$
-      windowrule = float, class:^(lxpolkit)$
-      windowrule = float, class:^(thunar)$
-      windowrule = float, class:^(pavucontrol)$
-      windowrule = float, class:^(blueman-applet)$
-      windowrule = float, class:^(nm-applet)$
+      windowrule = match:title:^(Picture-in-Picture)$, float 1
+      windowrule = match:class:^(confirm)$, float 1
+      windowrule = match:class:^(dialog)$, float 1
+      windowrule = match:class:^(file_progress)$, float 1
+      windowrule = match:class:^(confirmreset)$, float 1
+      windowrule = match:class:^(makeinput)$, float 1
+      windowrule = match:class:^(download)$, float 1
+      windowrule = match:class:^(notification)$, float 1
+      windowrule = match:class:^(error)$, float 1
+      windowrule = match:class:^(pinentry)$, float 1
+      windowrule = match:class:^(ssh-askpass)$, float 1
+      windowrule = match:class:^(lxpolkit)$, float 1
+      windowrule = match:class:^(thunar)$, float 1
+      windowrule = match:class:^(pavucontrol)$, float 1
+      windowrule = match:class:^(blueman-applet)$, float 1
+      windowrule = match:class:^(nm-applet)$, float 1
 
       # Other rules
-      windowrule = nofocus, class:^(nm-applet)$
-      windowrule = nofocus, class:^(blueman-applet)$
+      windowrule = match:class:^(nm-applet)$, nofocus 1
+      windowrule = match:class:^(blueman-applet)$, nofocus 1
     ''; # The 'extraConfig' attribute is the last one in 'wayland.windowManager.hyprland'. No semicolon needed here.
   }; # Semicolon added here, as 'xdg.portal' follows.
 
   xdg.portal = {
     enable = true;
-    extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+    ];
   }; # Semicolon added here, as 'programs.waybar' follows.
 
   # Waybar (status bar)
@@ -500,7 +502,7 @@
         background = "#f38ba8"; # Catppuccin Red
         foreground = "#1e1e2e"; # Catppuccin Base
       }; # The 'urgency_critical' is the last attribute. No semicolon needed here.
-    }; # Semicolon added here, as 'services.dunst' follows 'settings'.
+    };
   }; # Semicolon added here, as 'services.swww' follows.
 
   # Wallpaper setter
@@ -559,7 +561,7 @@
   # Fonts
   fonts.fontconfig.enable = true; # Semicolon added here, as 'home.packages' follows.
   home.packages = with pkgs;
-    [ 
+    [
       nerd-fonts.jetbrains-mono
       noto-fonts
       noto-fonts-cjk-sans
