@@ -173,51 +173,51 @@
         # Screenshots
         "SUPER SHIFT, S, exec, bash -c \"grim -g '$(slurp)' - | tee ~/Pictures/screenshots/$(date +%s).png | wl-copy\"" # Screenshot selection to clipboard
         "SUPER SHIFT, Print, exec, bash -c \"grim - | tee ~/Pictures/screenshots/$(date +%s).png | wl-copy\"" # Screenshot full screen to clipboard
-      ]; # The 'bind' list is the last attribute of the 'settings' block. No semicolon needed here.
-    }; # Semicolon added here, as 'extraConfig' follows
-
-    extraConfig = ''
+      ];
+    };
+    extraConfig = [
       # Window rules
       # Opacity rules for specific applications
-      windowrule = match:class:^(vlc)$, opacity 1.0
-      windowrule = match:class:^(jellyfinmediaplayer)$, opacity 1.0
+      "windowrule = opacity 1.0, class:^(vlc)$"
+      "windowrule = opacity 1.0, class:^(jellyfinmediaplayer)$"
 
       # Floating rules
-      windowrule = match:title:^(Picture-in-Picture)$, float 1
-      windowrule = match:class:^(confirm)$, float 1
-      windowrule = match:class:^(dialog)$, float 1
-      windowrule = match:class:^(file_progress)$, float 1
-      windowrule = match:class:^(confirmreset)$, float 1
-      windowrule = match:class:^(makeinput)$, float 1
-      windowrule = match:class:^(download)$, float 1
-      windowrule = match:class:^(notification)$, float 1
-      windowrule = match:class:^(error)$, float 1
-      windowrule = match:class:^(pinentry)$, float 1
-      windowrule = match:class:^(ssh-askpass)$, float 1
-      windowrule = match:class:^(lxpolkit)$, float 1
-      windowrule = match:class:^(thunar)$, float 1
-      windowrule = match:class:^(pavucontrol)$, float 1
-      windowrule = match:class:^(blueman-applet)$, float 1
-      windowrule = match:class:^(nm-applet)$, float 1
+      "windowrule = float, title:^(Picture-in-Picture)$"
+      "windowrule = float, class:^(confirm)$"
+      "windowrule = float, class:^(dialog)$"
+      "windowrule = float, class:^(file_progress)$"
+      "windowrule = float, class:^(confirmreset)$"
+      "windowrule = float, class:^(makeinput)$"
+      "windowrule = float, class:^(download)$"
+      "windowrule = float, class:^(notification)$"
+      "windowrule = float, class:^(error)$"
+      "windowrule = float, class:^(pinentry)$"
+      "windowrule = float, class:^(ssh-askpass)$"
+      "windowrule = float, class:^(lxpolkit)$"
+      "windowrule = float, class:^(thunar)$"
+      "windowrule = float, class:^(pavucontrol)$"
+      "windowrule = float, class:^(blueman-applet)$"
+      "windowrule = float, class:^(nm-applet)$"
 
       # Other rules
-      windowrule = match:class:^(nm-applet)$, nofocus 1
-      windowrule = match:class:^(blueman-applet)$, nofocus 1
-    ''; # The 'extraConfig' attribute is the last one in 'wayland.windowManager.hyprland'. No semicolon needed here.
-  }; # Semicolon added here, as 'xdg.portal' follows.
+      "windowrule = nofocus, class:^(nm-applet)$"
+      "windowrule = nofocus, class:^(blueman-applet)$"
+    ];
+  };
 
   xdg.portal = {
     enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk
-    ];
-  }; # Semicolon added here, as 'programs.waybar' follows.
+    extraPortals = with pkgs;
+      [
+        xdg-desktop-portal-gtk
+      ];
+  };
 
   # Waybar (status bar)
   programs.waybar = {
     enable = true;
     settings = {
-      mainBar = { # The 'mainBar' attribute is followed by 'style'. Needs a semicolon.
+      mainBar = {
         layer = "top";
         position = "top";
         height = 30;
@@ -314,8 +314,8 @@
             ""
           ];
         };
-      }; # The 'mainBar' attribute is the last in 'settings.mainBar'. No semicolon needed here.
-    }; # Semicolon added here, as 'style' follows.
+      };
+    };
     style = ''
       /*
       * Catppuccin Mocha
@@ -424,8 +424,8 @@
         background-color: @teal;
         color: @crust;
       }
-    ''; # This 'style' attribute is the last one in 'programs.waybar'. No semicolon needed here.
-  }; # Semicolon added here, as 'programs.rofi' follows.
+    '';
+  };
 
   # Rofi (application launcher)
   programs.rofi = {
@@ -435,12 +435,12 @@
       modi = "drun,run,ssh,window";
       show-icons = true;
       icon-theme = "Papirus-Dark";
-    }; # Semicolon added here, as 'programs.hyprlock' follows.
-  }; # Semicolon added here, as 'programs.hyprlock' follows.
+    };
+  };
 
   programs.hyprlock = {
     enable = true;
-  }; # Semicolon added here, as 'services.dunst' follows.
+  };
 
   # Dunst (notification daemon)
   services.dunst = {
@@ -489,27 +489,27 @@
         stack_duplicates = true;
         hide_duplicate_count = false;
         show_indicators = true;
-      }; # Semicolon added here, as 'urgency_low' follows.
+      };
       urgency_low = {
         background = "#1e1e2e"; # Catppuccin Base
         foreground = "#cdd6f4"; # Catppuccin Text
-      }; # Semicolon added here, as 'urgency_normal' follows.
+      };
       urgency_normal = {
         background = "#1e1e2e"; # Catppuccin Base
         foreground = "#cdd6f4"; # Catppuccin Text
-      }; # Semicolon added here, as 'urgency_critical' follows.
+      };
       urgency_critical = {
         background = "#f38ba8"; # Catppuccin Red
         foreground = "#1e1e2e"; # Catppuccin Base
-      }; # The 'urgency_critical' is the last attribute. No semicolon needed here.
+      };
     };
-  }; # Semicolon added here, as 'services.swww' follows.
+  };
 
   # Wallpaper setter
   services.swww = {
     enable = true;
     # You'll set the actual wallpaper in exec-once in Hyprland settings
-  }; # Semicolon added here, as 'gtk' follows.
+  };
 
   # GTK Theming
   gtk = {
@@ -517,14 +517,14 @@
     gtk3 = {
       extraConfig = {
         gtk-application-prefer-dark-theme = 1;
-      }; # No semicolon here, as it's the last attribute.
-    }; # Semicolon added here, as 'gtk4' follows.
+      };
+    };
 
     gtk4 = {
       extraConfig = {
         gtk-application-prefer-dark-theme = 1;
-      }; # No semicolon here, as it's the last attribute.
-    }; # Semicolon added here, as 'theme' follows.
+      };
+    };
 
     theme = {
 
@@ -536,30 +536,30 @@
       #size = "standard";
       #variant = "mocha";
       #};
-    }; # Semicolon added here, as 'iconTheme' follows.
+    };
     iconTheme = {
       name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme;
-    }; # Semicolon added here, as 'cursorTheme' follows.
+    };
     cursorTheme = {
       name = "Catppuccin-Mocha-Dark-Cursors";
       package = pkgs.catppuccin-cursors;
       size = 24;
-    }; # No semicolon here, as it's the last attribute.
-  }; # Semicolon added here, as 'qt' follows.
+    };
+  };
 
   # Qt Theming
   qt = {
     enable = true;
     platformTheme.name = "qt5gtk2";
-  }; # Semicolon added here, as 'home.sessionVariables' follows.
+  };
   home.sessionVariables = {
     #QT_QPA_PLATFORMTHEME = "gtk";  # Required for Qt apps like VLC
     QT_STYLE_OVERRIDE = "qt5gtk2";
-  }; # Semicolon added here, as 'fonts.fontconfig.enable' follows.
+  };
 
   # Fonts
-  fonts.fontconfig.enable = true; # Semicolon added here, as 'home.packages' follows.
+  fonts.fontconfig.enable = true;
   home.packages = with pkgs;
     [
       nerd-fonts.jetbrains-mono
@@ -585,5 +585,5 @@
       playerctl
       wl-clipboard
       unstablePkgs.wttrbar
-    ]; # This is the last attribute in the outermost attribute set. No semicolon needed here.
+    ];
 }
