@@ -142,7 +142,9 @@
       ];
 
       windowrule = [
-        "opacity 0.8, match:float yes"
+        "opacity 0.5, match:float yes"
+        "opacity 0.8, match:float false"
+
         # "opacity 1.0 1.0,fullscreen:0"
         # "opacity 0.9 0.9,floating:0"
         # "opacity 0.6 0.6,floating:1"
