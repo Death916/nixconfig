@@ -61,7 +61,7 @@
     rustdesk
     sdrpp
     gqrx
-    unstablePkgs.sdrangel
+    # unstablePkgs.sdrangel
     restic
     docker-compose # Added for Winboat
   ];
