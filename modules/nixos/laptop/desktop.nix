@@ -58,7 +58,7 @@
     rust-analyzer
     snapper
     inetutils
-    rustdesk
+    # rustdesk
     sdrpp
     gqrx
     # unstablePkgs.sdrangel
