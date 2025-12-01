@@ -78,7 +78,7 @@
                 nixpkgs.overlays = [
                   overlays.waveterm
                   overlays.rust
-                  overlays.halloy
+                  # overlays.halloy
                 ];
               }
               ./nixos/configuration.nix
