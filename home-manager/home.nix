@@ -70,7 +70,7 @@ in
     waveterm
     halloy
     tmux
-    nextcloud-client
+    (pkgs.nextcloud-client.override { qtwebengine = null; })
     obsidian
     element-desktop
     manix
