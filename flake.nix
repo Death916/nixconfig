@@ -176,8 +176,9 @@
                 system
                 overlays
                 primaryUser
-                unstablePkgs = import nixpkgs-unstable { inherit system; };
-                
+                ;
+              unstablePkgs = import nixpkgs-unstable { inherit system; };
+
             };
             modules = [
               ./nixos/orac.nix # Your main homelab config
