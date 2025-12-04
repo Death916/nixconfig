@@ -42,6 +42,7 @@ in
       xorg.libXcursor
       xorg.libXi
       xorg.libXrandr
+      xorg.libxcb
       wayland
       alsa-lib.dev
     ];
@@ -55,6 +56,7 @@ in
             super.vulkan-loader
             super.alsa-lib
             super.openssl
+            super.xorg.libxcb
           ]
         }
 
