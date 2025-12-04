@@ -35,7 +35,7 @@
 
       overlays = {
         rust = rust-overlay.overlays.default;
-        halloy = import ./overlays/halloy-overlay.nix;
+        # halloy = import ./overlays/halloy-overlay.nix;
         waveterm = import ./overlays/waveterm-overlay.nix;
       };
 
@@ -78,7 +78,7 @@
                 nixpkgs.overlays = [
                   overlays.waveterm
                   overlays.rust
-                  overlays.halloy
+                  # overlays.halloy
                 ];
               }
               ./nixos/configuration.nix
