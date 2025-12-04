@@ -8,7 +8,7 @@ in
 {
   halloy = nightlyRustPlatform.buildRustPackage rec {
     pname = "halloy";
-    version = "2025.11";
+    version = "2025.12";
 
     src = super.fetchFromGitHub {
       owner = "squidowl";
