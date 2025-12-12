@@ -43,7 +43,7 @@
 
   services.karakeep = {
     enable = true;
-    meilisearch.enable = true;
+    meilisearch.enable = false;
     browser.enable = true;
     environmentFile = "/etc/nixos/secrets/karakeep.env";
     extraEnvironment = {
