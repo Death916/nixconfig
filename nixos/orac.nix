@@ -7,7 +7,7 @@
     ../modules/adguard.nix
     ../modules/containers/docker/juicefs.nix
     ../modules/nixos/orac/restic.nix
-    ../modules/containers/docker/karakeep/docker-compose.nix
+    # ../modules/containers/docker/karakeep/docker-compose.nix
   ];
 
   networking.firewall = {

@@ -37,6 +37,7 @@
         rust = rust-overlay.overlays.default;
         halloy = import ./overlays/halloy-overlay.nix;
         waveterm = import ./overlays/waveterm-overlay.nix;
+        karakeep = import ./overlays/karakeep-overlay.nix;
       };
 
     in
@@ -79,6 +80,7 @@
                   overlays.waveterm
                   overlays.rust
                   overlays.halloy
+                  overlays.karakeep
                 ];
               }
               ./nixos/configuration.nix
