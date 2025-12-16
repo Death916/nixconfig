@@ -43,7 +43,6 @@
   virtualisation.oci-containers.containers."karakeep-meilisearch" = {
     image = "getmeili/meilisearch:v1.13.3";
     environment = {
-      "DATA_DIR" = "/mnt/myjfs/volumes/hoarder/";
       "INFERENCE_IMAGE_MODEL" = "gemini-2.0-flash";
       "INFERENCE_TEXT_MODEL" = "gemini-2.0-flash";
       "KARAKEEP_VERSION" = "release";
@@ -101,10 +100,10 @@
       /etc/nixos/secrets/karakeep.env
     ];
     volumes = [
-      "karakeep_data:/data:rw"
+      "/mnt/myjfs/volumes/hoarder/:/data:rw"
     ];
     ports = [
-      "3000:3000/tcp"
+      "3003:3000/tcp"
     ];
     log-driver = "journald";
     extraOptions = [
@@ -121,11 +120,9 @@
     };
     after = [
       "docker-network-karakeep_default.service"
-      "docker-volume-karakeep_data.service"
     ];
     requires = [
       "docker-network-karakeep_default.service"
-      "docker-volume-karakeep_data.service"
     ];
     partOf = [
       "docker-compose-karakeep-root.target"
