@@ -13,7 +13,14 @@
   # Containers
   virtualisation.oci-containers.containers."karakeep-chrome" = {
     image = "gcr.io/zenika-hub/alpine-chrome:124";
-    cmd = [ "--no-sandbox" "--disable-gpu" "--disable-dev-shm-usage" "--remote-debugging-address=0.0.0.0" "--remote-debugging-port=9222" "--hide-scrollbars" ];
+    cmd = [
+      "--no-sandbox"
+      "--disable-gpu"
+      "--disable-dev-shm-usage"
+      "--remote-debugging-address=0.0.0.0"
+      "--remote-debugging-port=9222"
+      "--hide-scrollbars"
+    ];
     log-driver = "journald";
     extraOptions = [
       "--network-alias=chrome"
@@ -43,8 +50,8 @@
   virtualisation.oci-containers.containers."karakeep-meilisearch" = {
     image = "getmeili/meilisearch:v1.13.3";
     environment = {
-      "INFERENCE_IMAGE_MODEL" = "gemini-2.0-flash";
-      "INFERENCE_TEXT_MODEL" = "gemini-2.0-flash";
+      # "INFERENCE_IMAGE_MODEL" = "gemini-2.0-flash";
+      # "INFERENCE_TEXT_MODEL" = "gemini-2.0-flash";
       "KARAKEEP_VERSION" = "release";
       "MEILI_NO_ANALYTICS" = "true";
       "NEXTAUTH_URL" = "http://localhost";
