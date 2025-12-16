@@ -96,7 +96,7 @@ in
     gcr # gnome keyring prompter
     # libsForQt5.kdeconnect-kde
     kdePackages.kdeconnect-kde
-
+    restic-browser
     cava
   ];
 
