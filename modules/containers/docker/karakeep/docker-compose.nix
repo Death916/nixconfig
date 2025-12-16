@@ -101,7 +101,7 @@
       "KARAKEEP_VERSION" = "release";
       "MEILI_ADDR" = "http://meilisearch:7700";
       "NEXTAUTH_URL" = "http://localhost";
-      # "OPENAI_BASE_URL" = "https://generativelanguage.googleapis.com/v1beta";
+      "OPENAI_BASE_URL" = "https://generativelanguage.googleapis.com/v1beta";
     };
     environmentFiles = [
       /etc/nixos/secrets/karakeep.env
