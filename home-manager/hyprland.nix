@@ -317,7 +317,7 @@
       }
 
       window#waybar {
-        background-color: @crust;
+        background-color: rgba(17, 17, 27, 0.5);
         color: @text;
       }
 
@@ -345,13 +345,13 @@
       }
 
       #clock {
-        background-color: @blue;
-        color: @crust;
+        background-color: @crust;
+        color: @text;
       }
 
       #battery {
-        background-color: @red;
-        color: @crust;
+        background-color: @crust;
+        color: @text;
       }
 
       #battery.charging, #battery.plugged {
@@ -359,23 +359,23 @@
       }
 
       #cpu {
-        background-color: @yellow;
-        color: @crust;
+        background-color: @crust;
+        color: @text;
       }
 
       #memory {
-        background-color: @peach;
-        color: @crust;
+        background-color: @crust;
+        color: @text;
       }
 
       #network {
-        background-color: @green;
-        color: @crust;
+        background-color: @crust;
+        color: @text;
       }
 
       #pulseaudio {
-        background-color: @mauve;
-        color: @crust;
+        background-color: @crust;
+        color: @text;
       }
 
       #pulseaudio.muted {
@@ -383,8 +383,8 @@
       }
 
       #custom-wttrbar {
-        background-color: @teal;
-        color: @crust;
+        background-color: @crust;
+        color: @text;
       }
     '';
   };
