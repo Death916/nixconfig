@@ -55,7 +55,7 @@
       "KARAKEEP_VERSION" = "release";
       "MEILI_NO_ANALYTICS" = "true";
       "NEXTAUTH_URL" = "http://localhost";
-      "OPENAI_BASE_URL" = "https://generativelanguage.googleapis.com/v1beta/openai/";
+      # "OPENAI_BASE_URL" = "https://generativelanguage.googleapis.com/v1beta/";
     };
     environmentFiles = [
       /etc/nixos/secrets/karakeep.env
@@ -101,7 +101,8 @@
       "KARAKEEP_VERSION" = "release";
       "MEILI_ADDR" = "http://meilisearch:7700";
       "NEXTAUTH_URL" = "http://localhost";
-      "OPENAI_BASE_URL" = "https://generativelanguage.googleapis.com/v1beta";
+      "OPENAI_BASE_URL" =
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
     };
     environmentFiles = [
       /etc/nixos/secrets/karakeep.env
