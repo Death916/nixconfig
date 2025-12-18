@@ -41,15 +41,15 @@
     flake = "/home/death916/nixconfig/";
   };
 
-  services.karakeep = {
-    enable = true;
-    meilisearch.enable = true;
-    browser.enable = true;
-    environmentFile = "/etc/nixos/secrets/karakeep.env";
-    extraEnvironment = {
-      PORT = "3003";
-    };
-  };
+  # services.karakeep = {
+  # enable = true;
+  # meilisearch.enable = true;
+  # browser.enable = true;
+  # environmentFile = "/etc/nixos/secrets/karakeep.env";
+  # extraEnvironment = {
+  # PORT = "3003";
+  # };
+  # };
 
   services.vaultwarden = {
     enable = true;
