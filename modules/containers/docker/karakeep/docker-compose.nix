@@ -50,8 +50,8 @@
   virtualisation.oci-containers.containers."karakeep-meilisearch" = {
     image = "getmeili/meilisearch:v1.13.3";
     environment = {
-      "INFERENCE_IMAGE_MODEL" = "gemini-1.5-flash";
-      "INFERENCE_TEXT_MODEL" = "gemini-1.5-flash";
+      "INFERENCE_IMAGE_MODEL" = "gemini-2.0-flash";
+      "INFERENCE_TEXT_MODEL" = "gemini-2.0-flash";
       "KARAKEEP_VERSION" = "release";
       "MEILI_NO_ANALYTICS" = "true";
       "NEXTAUTH_URL" = "http://localhost";
