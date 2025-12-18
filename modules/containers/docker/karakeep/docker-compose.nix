@@ -96,6 +96,7 @@
     environment = {
       "BROWSER_WEB_URL" = "http://chrome:9222";
       "DATA_DIR" = "/data";
+      "INFERENCE_OUTPUT_SCHEMA" = "json";
       "INFERENCE_IMAGE_MODEL" = "gemini-2.0-flash";
       "INFERENCE_TEXT_MODEL" = "gemini-2.0-flash";
       "KARAKEEP_VERSION" = "release";
