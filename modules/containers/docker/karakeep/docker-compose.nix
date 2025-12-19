@@ -93,8 +93,8 @@
     environment = {
       "BROWSER_WEB_URL" = "http://chrome:9222";
       "DATA_DIR" = "/data";
-      "INFERENCE_IMAGE_MODEL" = "gemma-3-27b";
-      "INFERENCE_TEXT_MODEL" = "gemma-3-27b";
+      "INFERENCE_IMAGE_MODEL" = "gemma-3-27b-it";
+      "INFERENCE_TEXT_MODEL" = "gemma-3-27b-it";
       "KARAKEEP_VERSION" = "release";
       "MEILI_ADDR" = "http://meilisearch:7700";
       "NEXTAUTH_URL" = "http://localhost";
