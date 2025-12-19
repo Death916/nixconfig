@@ -93,12 +93,12 @@
     environment = {
       "BROWSER_WEB_URL" = "http://chrome:9222";
       "DATA_DIR" = "/data";
-      "INFERENCE_IMAGE_MODEL" = "google/gemma-3-27b-it:free";
-      "INFERENCE_TEXT_MODEL" = "google/gemma-3-27b-it:free";
+      "INFERENCE_IMAGE_MODEL" = "gemma-3-27b";
+      "INFERENCE_TEXT_MODEL" = "gemma-3-27b";
       "KARAKEEP_VERSION" = "release";
       "MEILI_ADDR" = "http://meilisearch:7700";
       "NEXTAUTH_URL" = "http://localhost";
-      "OPENAI_BASE_URL" = "https://openrouter.ai/api/v1";
+      "OPENAI_BASE_URL" = "https://generativelanguage.googleapis.com/v1beta";
     };
     environmentFiles = [
       /etc/nixos/secrets/karakeep.env
