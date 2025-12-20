@@ -7,9 +7,9 @@
 
 {
   config = {
-    systemd.tmpfiles.rules = [
-      "d /var/lib/AdGuardHome/data 0700 adguardhome adguardhome -"
-    ];
+    # systemd.tmpfiles.rules = [
+    # "d /var/lib/AdGuardHome/data 0700 adguardhome adguardhome -"
+    # ];
 
     services.adguardhome = {
       enable = true;
