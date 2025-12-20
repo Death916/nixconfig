@@ -62,8 +62,7 @@
   services.resolved = {
     enable = true;
     extraConfig = ''
-      DNS=8.8.8.8
-      FallbackDNS=8.8.4.4 1.1.1.1
+      DNS=192.168.0.1
       Cache=yes
       DNSStubListener=yes
     '';
