@@ -8,7 +8,7 @@
 {
   config = {
     systemd.tmpfiles.rules = [
-      "d /var/lib/private/AdGuardHome/data 0755 adguardhome adguardhome -"
+      "d /var/lib/AdGuardHome/data 0700 adguardhome adguardhome -"
     ];
 
     services.adguardhome = {
