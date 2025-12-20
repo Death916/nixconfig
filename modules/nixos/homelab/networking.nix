@@ -63,8 +63,7 @@
     enable = true;
     extraConfig = ''
       DNS=192.168.0.1
-      Cache=yes
-      DNSStubListener=yes
+      DNSStubListener=no
     '';
   };
 
