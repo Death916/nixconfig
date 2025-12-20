@@ -2,7 +2,7 @@
   config,
   pkgs,
   lib,
-  unstablePkgsHA,
+  unstablePkgs,
   ...
 }:
 
@@ -43,7 +43,7 @@ in
     services.prowlarr = {
       enable = true;
       openFirewall = false;
-      package = unstablePkgsHA.prowlarr;
+      package = unstablePkgs.prowlarr;
     };
 
     # Define users and groups
