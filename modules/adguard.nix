@@ -26,6 +26,10 @@
             "8.8.8.8"
             "100.100.100.100"
           ];
+          bootstrap_dns = [
+            "9.9.9.9"
+            "8.8.4.4"
+          ];
         };
         filtering = {
           protection_enabled = true;
