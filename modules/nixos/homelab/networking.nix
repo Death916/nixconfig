@@ -62,7 +62,7 @@
   services.resolved = {
     enable = true;
     extraConfig = ''
-      DNS=192.168.0.1
+      DNS=192.168.0.1 9.9.9.9
       DNSStubListener=no
     '';
   };
