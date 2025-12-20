@@ -56,7 +56,18 @@
   };
 
   networking.defaultGateway = "192.168.0.1";
-  networking.nameservers = [ "1.1.1.1" ];
+
+  # Explicitly configure NetworkManager to use systemd-resolved for DNS handling.
+  networking.networkmanager.dns = "systemd-resolved"; 
+  services.resolved = {
+    enable = true;
+    extraConfig = ''
+      DNS=8.8.8.8
+      FallbackDNS=8.8.4.4 1.1.1.1
+      Cache=yes
+      DNSStubListener=yes
+    '';
+  };
 
   networking.interfaces.enp41s0.useDHCP = false;
 
