@@ -7,6 +7,10 @@
 
 {
   config = {
+    systemd.tmpfiles.rules = [
+      "d /var/lib/private/AdGuardHome/data 0755 adguardhome adguardhome -"
+    ];
+
     services.adguardhome = {
       enable = true;
       openFirewall = true;
