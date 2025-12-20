@@ -116,18 +116,18 @@
                 overlays
                 primaryUser
                 ;
-              unstablePkgsHA = import nixpkgs-unstable { inherit system; };
+              unstablePkgs = import nixpkgs-unstable { inherit system; };
             };
             modules = [
               ./nixos/homelab.nix # Your main homelab config
               ./nixos/hardware-homelab.nix
               home-manager.nixosModules.home-manager
               (
-                { unstablePkgsHA, ... }:
+                { unstablePkgs, ... }:
                 {
                   home-manager.useGlobalPkgs = true;
                   home-manager.useUserPackages = true;
-                  home-manager.extraSpecialArgs = { inherit hmLib unstablePkgsHA inputs; };
+                  home-manager.extraSpecialArgs = { inherit hmLib unstablePkgs inputs; };
                   home-manager.users.death916 = {
                     imports = [ ./home-manager/death916-homelab.nix ];
                   };
