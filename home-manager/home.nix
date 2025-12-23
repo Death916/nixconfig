@@ -98,6 +98,7 @@ in
     kdePackages.kdeconnect-kde
     restic-browser
     cava
+    fedistar
   ];
 
   nixpkgs.overlays = [
