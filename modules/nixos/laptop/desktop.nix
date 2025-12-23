@@ -45,6 +45,7 @@
     vim
     wget
     unstablePkgs.tailscale
+    unstablePkgs.cosmic-session
     halloy
     conda
     inputs.flox.packages.${pkgs.system}.flox
