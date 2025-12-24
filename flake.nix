@@ -18,7 +18,7 @@
     hyprland.url = "github:hyprwm/Hyprland";
 
     stylix = {
-      url = "github:nix-community/stylix";
+      url = "github:nix-community/stylix/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -103,7 +103,6 @@
                   home-manager.users.death916 = {
                     imports = [
                       ./home-manager/home.nix
-                      stylix.homeModules.stylix
                     ];
                   };
                 }
