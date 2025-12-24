@@ -3,7 +3,7 @@
 {
   stylix.enable = true;
 
-  stylix.image = "/home/death916/Pictures/wallpapers/jameswebb1.jpg";
+  stylix.image = ./wallpaper.jpg;
 
   stylix.base16Scheme = {
     base00 = "#0f0f0f"; # background
