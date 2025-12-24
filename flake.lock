@@ -647,19 +647,6 @@
         "type": "github"
       }
     },
-    "my-wallpaper": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1766577769,
-        "narHash": "sha256-faUpqZ8CkOSiCOE4ihFqQp/xDbfHFtFLhX8FPBJ2K7E=",
-        "path": "/home/death916/Documents/nix-config/home-manager/wallpaper.jpg",
-        "type": "path"
-      },
-      "original": {
-        "path": "/home/death916/Documents/nix-config/home-manager/wallpaper.jpg",
-        "type": "path"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1761114652,
@@ -800,7 +787,6 @@
         "flox": "flox",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
-        "my-wallpaper": "my-wallpaper",
         "nixpkgs": "nixpkgs_3",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "rust-overlay": "rust-overlay",
