@@ -183,9 +183,10 @@
 
   xdg.portal = {
     enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk
-    ];
+    extraPortals = with pkgs;
+      [
+        xdg-desktop-portal-gtk
+      ];
   };
 
   programs.waybar = {
@@ -290,16 +291,16 @@
         };
       };
     };
-    style = config.stylix.waybar.css;
+    # style = config.stylix.waybar.css; # Stylix will manage this
   };
 
   programs.rofi = {
     enable = true;
-    theme = config.stylix.rofi.theme;
+    # theme = config.stylix.rofi.theme; # Stylix will manage this
     extraConfig = {
       modi = "drun,run,ssh,window";
       show-icons = true;
-      icon-theme = "Papirus-Dark"; # This might be overridden by stylix, but it's good to keep
+      icon-theme = "Papirus-Dark";
     };
   };
 
@@ -324,7 +325,7 @@
         padding = 8;
         horizontal_padding = 8;
         frame_width = 2;
-        frame_color = config.stylix.colors.base0C; # Blue accent
+        # frame_color = config.stylix.colors.base0C; # Stylix will manage this
         separator_color = "frame";
         word_wrap = true;
         ellipsize = "middle";
@@ -353,18 +354,18 @@
         hide_duplicate_count = false;
         show_indicators = true;
       };
-      urgency_low = {
-        background = config.stylix.colors.base00;
-        foreground = config.stylix.colors.base05;
-      };
-      urgency_normal = {
-        background = config.stylix.colors.base00;
-        foreground = config.stylix.colors.base05;
-      };
-      urgency_critical = {
-        background = config.stylix.colors.base08; # Red accent
-        foreground = config.stylix.colors.base00;
-      };
+      # urgency_low = { # Stylix will manage this
+      #   background = config.stylix.colors.base00;
+      #   foreground = config.stylix.colors.base05;
+      # };
+      # urgency_normal = { # Stylix will manage this
+      #   background = config.stylix.colors.base00;
+      #   foreground = config.stylix.colors.base05;
+      # };
+      # urgency_critical = { # Stylix will manage this
+      #   background = config.stylix.colors.base08;
+      #   foreground = config.stylix.colors.base00;
+      # };
     };
   };
 
@@ -373,29 +374,30 @@
   };
 
   fonts.fontconfig.enable = true;
-  home.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-    noto-fonts
-    noto-fonts-cjk-sans
-    noto-fonts-color-emoji
-    font-awesome
-    roboto
-    grim
-    slurp
-    networkmanagerapplet
-    blueman
-    waybar
-    kitty
-    libnotify
-    kdePackages.dolphin
-    catppuccin-gtk
-    materia-theme
-    rose-pine-gtk-theme
-    nightfox-gtk-theme
-    materia-kde-theme
+  home.packages = with pkgs;
+    [
+      nerd-fonts.jetbrains-mono
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-color-emoji
+      font-awesome
+      roboto
+      grim
+      slurp
+      networkmanagerapplet
+      blueman
+      waybar
+      kitty
+      libnotify
+      kdePackages.dolphin
+      catppuccin-gtk
+      materia-theme
+      rose-pine-gtk-theme
+      nightfox-gtk-theme
+      materia-kde-theme
 
-    playerctl
-    wl-clipboard
-    unstablePkgs.wttrbar
-  ];
+      playerctl
+      wl-clipboard
+      unstablePkgs.wttrbar
+    ];
 }

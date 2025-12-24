@@ -103,7 +103,7 @@
                   home-manager.users.death916 = {
                     imports = [
                       ./home-manager/home.nix
-                      stylix.homeManagerModules.stylix
+                      stylix.homeModules.stylix
                     ];
                   };
                 }
