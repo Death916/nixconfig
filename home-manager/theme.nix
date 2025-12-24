@@ -57,6 +57,5 @@
     gtk.enable = true;
     kde.enable = true;
     plymouth.enable = true;
-    plasma.enable = true;
   };
 }
