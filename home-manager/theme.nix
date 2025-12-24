@@ -2,6 +2,7 @@
 
 {
   stylix.enable = true;
+  stylix.polarity = "dark";
 
   stylix.base16Scheme = {
     base00 = "#0f0f0f"; # background
