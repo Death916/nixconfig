@@ -34,22 +34,26 @@
     monospace = {
       package = pkgs.nerd-fonts.jetbrains-mono;
       name = "JetBrainsMono Nerd Font";
-      size = 12;
     };
     sansSerif = {
       package = pkgs.noto-fonts;
       name = "Noto Sans";
-      size = 12;
     };
     serif = {
       package = pkgs.noto-fonts;
       name = "Noto Serif";
-      size = 12;
     };
     emoji = {
       package = pkgs.noto-fonts-color-emoji;
       name = "Noto Color Emoji";
     };
+  };
+
+  stylix.fontSizes = {
+    applications = 12;
+    desktop = 12;
+    terminal = 12;
+    waybar = 12;
   };
 
   stylix.targets = {
