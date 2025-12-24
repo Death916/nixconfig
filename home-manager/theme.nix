@@ -66,10 +66,10 @@
   };
 
   stylix.extraPackageModules = [
-    { config, pkgs, ... }: {
+    ({ config, pkgs, ... }: {
       programs.hyprland.settings.general.col.active_border = "rgb(${config.stylix.colors.base0C})"; # Blue
       programs.hyprland.settings.general.col.inactive_border = "rgb(${config.stylix.colors.base00})"; # Background
-    }
+    })
   ];
 
   programs.waybar = {
