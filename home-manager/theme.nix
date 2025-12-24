@@ -34,20 +34,23 @@
     monospace = {
       package = pkgs.nerd-fonts.jetbrains-mono;
       name = "JetBrainsMono Nerd Font";
+      size = 12;
     };
     sansSerif = {
       package = pkgs.noto-fonts;
       name = "Noto Sans";
+      size = 12;
     };
     serif = {
       package = pkgs.noto-fonts;
       name = "Noto Serif";
+      size = 12;
     };
     emoji = {
       package = pkgs.noto-fonts-color-emoji;
       name = "Noto Color Emoji";
+      size = 12;
     };
-    size = 10;
   };
 
   stylix.targets = {
