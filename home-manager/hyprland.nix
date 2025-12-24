@@ -15,6 +15,11 @@
     settings = {
       monitor = ",1920x1080,auto,1";
 
+      env = [
+        "QT_QPA_PLATFORM,wayland"
+        "GDK_BACKEND,wayland,x11"
+      ];
+
       exec-once = [
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"

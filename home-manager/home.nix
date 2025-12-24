@@ -99,6 +99,7 @@ in
     restic-browser
     cava
     fedistar
+    yazi
   ];
 
   nixpkgs.overlays = [
