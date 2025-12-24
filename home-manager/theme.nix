@@ -5,22 +5,22 @@
   stylix.polarity = "dark";
 
   stylix.base16Scheme = {
-    base00 = "#0f0f0f"; # background
-    base01 = "#1a1a1a"; # slightly lighter background
-    base02 = "#706a6a"; # bright_black
-    base03 = "#808080"; # comments
-    base04 = "#b0b0b0"; # dim foreground
-    base05 = "#eadccc"; # foreground
-    base06 = "#f0f0f0"; # brighter foreground
-    base07 = "#ffffff"; # white
-    base08 = "#e25d6c"; # red
-    base09 = "#f4bb54"; # yellow
-    base0A = "#e8ab3b"; # cyan
-    base0B = "#cea37f"; # green
-    base0C = "#e2be8a"; # blue
-    base0D = "#e8ab3b"; # cyan (duplicate)
-    base0E = "#ede4c8"; # magenta
-    base0F = "#ff8800"; # amber/orange
+    base00 = "#0F0F19"; # Main Background
+    base01 = "#181824"; # Lighter Background
+    base02 = "#202034"; # Selection Background
+    base03 = "#8C8CB8"; # Comments / Dim
+    base04 = "#8C8CB8"; # Secondary Foreground
+    base05 = "#EDEDFE"; # Main Foreground
+    base06 = "#F8F8FF"; # Lighter Foreground
+    base07 = "#EDEDFE"; # Main Foreground (as white)
+    base08 = "#FF3366"; # Red
+    base09 = "#FFEA00"; # Orange / Yellow
+    base0A = "#FFEA00"; # Yellow
+    base0B = "#00F59B"; # Green
+    base0C = "#3CFFED"; # Cyan
+    base0D = "#33A1FF"; # Blue
+    base0E = "#FF66F6"; # Magenta
+    base0F = "#FF66F6"; # Violet / Magenta
   };
 
   stylix.cursor = {
