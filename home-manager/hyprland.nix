@@ -400,7 +400,7 @@
 
   programs.rofi = {
     enable = true;
-    theme = "arthur";
+    # theme = "arthur"; # Managed by stylix
     extraConfig = {
       modi = "drun,run,ssh,window";
       show-icons = true;
