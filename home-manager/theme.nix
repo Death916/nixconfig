@@ -47,12 +47,7 @@
       package = pkgs.noto-fonts-color-emoji;
       name = "Noto Color Emoji";
     };
-    sizes = {
-      applications = 10;
-      desktop = 10;
-      terminal = 10;
-      waybar = 10;
-    };
+    size = 10;
   };
 
   stylix.targets = {
