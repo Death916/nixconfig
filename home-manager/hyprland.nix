@@ -404,7 +404,7 @@
     extraConfig = {
       modi = "drun,run,ssh,window";
       show-icons = true;
-      icon-theme = "Papirus-Dark";
+      # icon-theme = "Papirus-Dark"; # Managed by stylix
     };
   };
 
@@ -422,14 +422,14 @@
         height = 150;
         offset = "10x50";
         origin = "top-right";
-        font = "JetBrainsMono Nerd Font 10";
+        # font = "JetBrainsMono Nerd Font 10"; # Managed by stylix
         line_height = 0;
         notification_height = 0;
         separator_height = 2;
         padding = 8;
         horizontal_padding = 8;
         frame_width = 2;
-        frame_color = "#cba6f7";
+        # frame_color = "#cba6f7"; # Managed by stylix
         separator_color = "frame";
         word_wrap = true;
         ellipsize = "middle";
@@ -458,18 +458,19 @@
         hide_duplicate_count = false;
         show_indicators = true;
       };
-      urgency_low = {
-        background = "#1e1e2e";
-        foreground = "#cdd6f4";
-      };
-      urgency_normal = {
-        background = "#1e1e2e";
-        foreground = "#cdd6f4";
-      };
-      urgency_critical = {
-        background = "#f38ba8";
-        foreground = "#1e1e2e";
-      };
+      # The following blocks are managed by stylix
+      # urgency_low = {
+      #   background = "#1e1e2e";
+      #   foreground = "#cdd6f4";
+      # };
+      # urgency_normal = {
+      #   background = "#1e1e2e";
+      #   foreground = "#cdd6f4";
+      # };
+      # urgency_critical = {
+      #   background = "#f38ba8";
+      #   foreground = "#1e1e2e";
+      # };
     };
   };
 
