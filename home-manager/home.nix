@@ -100,6 +100,7 @@ in
     cava
     fedistar
     yazi
+    lazygit
   ];
 
   nixpkgs.overlays = [
