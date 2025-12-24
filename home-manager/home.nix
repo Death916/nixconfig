@@ -22,10 +22,10 @@ in
   home.username = "death916";
   home.homeDirectory = "/home/death916";
 
-  xresources.properties = {
-    "Xcursor.size" = 16;
-    "Xft.dpi" = 172;
-  };
+  # xresources.properties = {
+  #   "Xcursor.size" = 16;
+  #   "Xft.dpi" = 172;
+  # };
   home.stateVersion = "24.11";
   home.packages = with pkgs; [
     nnn
