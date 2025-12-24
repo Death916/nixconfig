@@ -49,7 +49,6 @@
     emoji = {
       package = pkgs.noto-fonts-color-emoji;
       name = "Noto Color Emoji";
-      size = 12;
     };
   };
 
