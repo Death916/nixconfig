@@ -3,8 +3,6 @@
 {
   stylix.enable = true;
 
-  stylix.image = inputs.my-wallpaper;
-
   stylix.base16Scheme = {
     base00 = "#0f0f0f"; # background
     base01 = "#1a1a1a"; # slightly lighter background
