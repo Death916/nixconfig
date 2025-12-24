@@ -1,9 +1,9 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   stylix.enable = true;
 
-  stylix.image = ./wallpaper.jpg;
+  stylix.image = inputs.my-wallpaper;
 
   stylix.base16Scheme = {
     base00 = "#0f0f0f"; # background

@@ -21,6 +21,11 @@
       url = "github:nix-community/stylix/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    my-wallpaper = {
+      url = "path:/home/death916/Documents/nix-config/home-manager/wallpaper.jpg";
+      flake = false;
+    };
   };
 
   outputs =
@@ -33,6 +38,7 @@
       flox,
       hyprland,
       stylix,
+      my-wallpaper,
       ...
     }:
     let
