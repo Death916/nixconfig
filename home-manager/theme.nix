@@ -49,13 +49,6 @@
     };
   };
 
-  stylix.fontSizes = {
-    applications = 12;
-    desktop = 12;
-    terminal = 12;
-    waybar = 12;
-  };
-
   stylix.targets = {
     hyprland.enable = true;
     waybar.enable = true;
