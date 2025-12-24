@@ -56,6 +56,5 @@
     dunst.enable = true;
     gtk.enable = true;
     kde.enable = true;
-    plymouth.enable = true;
   };
 }
