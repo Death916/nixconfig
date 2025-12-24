@@ -16,6 +16,11 @@
     };
     flox.url = "github:flox/flox";
     hyprland.url = "github:hyprwm/Hyprland";
+
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -27,6 +32,7 @@
       rust-overlay,
       flox,
       hyprland,
+      stylix,
       ...
     }:
     let
@@ -71,6 +77,7 @@
                 overlays
                 primaryUser
                 hyprland # Pass hyprland to specialArgs
+                stylix
                 ;
               unstablePkgs = import nixpkgs-unstable { inherit system; };
             };
@@ -96,6 +103,7 @@
                   home-manager.users.death916 = {
                     imports = [
                       ./home-manager/home.nix
+                      stylix.homeManagerModules.stylix
                     ];
                   };
                 }

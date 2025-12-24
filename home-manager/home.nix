@@ -16,6 +16,7 @@ in
   imports = [
     ../modules/home-manager/common.nix
     ./hyprland.nix # Add this line to import your Hyprland configuration
+    ./theme.nix # Import the stylix theme configuration
   ];
 
   home.username = "death916";
