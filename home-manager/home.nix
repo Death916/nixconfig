@@ -194,6 +194,7 @@ in
         zlib
         openssl.dev
         pkg-config
+        cargo
       ]
     );
   };
