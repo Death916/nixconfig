@@ -49,5 +49,6 @@
     zed.colors.enable = true;
     zellij.enable = true;
     zellij.colors.enable = true;
+    btop.enable = true;
   };
 }
