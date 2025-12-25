@@ -46,5 +46,8 @@
     gtk.enable = true;
     kde.enable = true;
     zed.enable = true;
+    zed.colors.enable = true;
+    zellij.enable = true;
+    zellij.colors.enable = true;
   };
 }
