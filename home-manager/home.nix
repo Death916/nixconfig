@@ -214,4 +214,13 @@ in
       nh-push = "/home/death916/Documents/nix-config/scripts/nh-push";
     };
   };
+
+  programs.zellij.enable = true;
+
+  programs.zed-editor = {
+    enable = true;
+    package = pkgs.zed-editor-fhs;
+  };
+
+  programs.btop.enable = true;
 }
