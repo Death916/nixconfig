@@ -188,7 +188,7 @@ in
 
   programs.vscode = {
     enable = true;
-    programs.vscode.package = pkgs.vscode.fhsWithPackages (
+    package = pkgs.vscode.fhsWithPackages (
       ps: with ps; [
         rustup
         zlib
