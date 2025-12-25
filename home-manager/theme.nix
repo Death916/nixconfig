@@ -1,4 +1,9 @@
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   imports = [
@@ -40,5 +45,6 @@
     dunst.enable = true;
     gtk.enable = true;
     kde.enable = true;
+    zed.enable = true;
   };
 }
