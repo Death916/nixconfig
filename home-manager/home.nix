@@ -75,7 +75,6 @@ in
     obsidian
     element-desktop
     manix
-    unstablePkgs.zed-editor-fhs
     aichat
     wl-clipboard
     unstablePkgs.gemini-cli
