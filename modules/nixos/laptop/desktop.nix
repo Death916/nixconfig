@@ -50,7 +50,6 @@
     halloy
     conda
     inputs.flox.packages.${pkgs.system}.flox
-    kopia-ui
     wl-clipboard
     tail-tray
     clementine

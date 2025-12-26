@@ -100,7 +100,6 @@ in
     cava
     fedistar
     yazi
-    lazygit
   ];
 
   nixpkgs.overlays = [
@@ -222,4 +221,6 @@ in
   };
 
   programs.btop.enable = true;
+
+  programs.lazygit.enable = true;
 }
