@@ -254,6 +254,8 @@ in
         };
       };
 
+      font.size = 16;
+
       buffer = {
         server_messages = {
           join = {
