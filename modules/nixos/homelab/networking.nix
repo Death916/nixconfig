@@ -32,7 +32,11 @@
   fileSystems."/storage" = {
     device = "/dev/disk/by-label/storage";
     fsType = "btrfs";
-    options = [ "compress=zstd" "noatime" "nofail" ];
+    options = [
+      "compress=zstd"
+      "noatime"
+      "nofail"
+    ];
   };
 
   networking.nftables.enable = true;
@@ -58,11 +62,11 @@
   networking.defaultGateway = "192.168.0.1";
 
   # Explicitly configure NetworkManager to use systemd-resolved for DNS handling.
-  networking.networkmanager.dns = "systemd-resolved"; 
+  networking.networkmanager.dns = "systemd-resolved";
   services.resolved = {
     enable = true;
     extraConfig = ''
-      DNS=9.9.9.9 192.168.0.1
+      DNS=192.168.0.1 9.9.9.9
       DNSStubListener=no
     '';
   };
