@@ -13,7 +13,6 @@
     ../modules/nixos/common/base.nix
     ../modules/nixos/homelab/user.nix
     ../modules/nixos/common/tailscale.nix
-    ../modules/containers/kopia-server.nix
   ];
 
   config = {
@@ -36,11 +35,8 @@
       "network-online.target"
       "postgresql.service"
     ];
-    systemd.services.kopia-server.after = [ "network-online.target" ];
-    systemd.services.kopia-server.requires = [ "network-online.target" ];
 
     arrSuite.unpackerr.enable = true;
-    services.kopia-server.enable = true;
     system.stateVersion = "24.11";
 
     # Auto-reboot the system if it hangs (5 minute timeout)
