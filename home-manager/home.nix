@@ -96,7 +96,6 @@ in
     # libsForQt5.kdeconnect-kde
     kdePackages.kdeconnect-kde
     restic-browser
-    cava
     fedistar
   ];
 
@@ -297,5 +296,6 @@ in
       show_hidden = true;
     };
   };
+  programs.cava.enable = true;
   programs.lazygit.enable = true;
 }
