@@ -19,8 +19,8 @@
   services.gnome.gnome-keyring.enable = true;
   services.dbus.enable = true; # for nextcloud client
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
   #cosmic instead
   services.desktopManager.cosmic.enable = true;
   # services.displayManager.cosmic-greeter.enable = true;
@@ -49,7 +49,7 @@
     unstablePkgs.cosmic-session
     halloy
     conda
-    inputs.flox.packages.${pkgs.system}.flox
+    inputs.flox.packages.${pkgs.stdenv.hostPlatform.system}.flox
     wl-clipboard
     tail-tray
     clementine

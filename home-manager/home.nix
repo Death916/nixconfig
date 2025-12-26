@@ -102,10 +102,6 @@ in
     yazi
   ];
 
-  nixpkgs.overlays = [
-    (import ../overlays/waveterm-overlay.nix ../overlays/halloy-overlay.nix)
-  ];
-
   programs.ghostty = {
     enable = true;
     enableBashIntegration = true;
