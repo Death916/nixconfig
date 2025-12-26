@@ -210,7 +210,7 @@ in
   };
 
   programs.zellij.enable = true;
-
+  programs.halloy.enable = true;
   programs.zed-editor = {
     enable = true;
     package = pkgs.zed-editor-fhs;

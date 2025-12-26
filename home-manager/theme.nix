@@ -7,7 +7,7 @@
 
 {
   imports = [
-    ./themes/aether.nix
+    ./themes/sunset.nix
   ];
 
   stylix.enable = true;
@@ -50,5 +50,6 @@
     zellij.enable = true;
     zellij.colors.enable = true;
     btop.enable = true;
+    halloy.enable = true;
   };
 }
