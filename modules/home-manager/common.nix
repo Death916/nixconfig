@@ -21,7 +21,7 @@
   programs.helix = {
     enable = true;
     settings = {
-      theme = "autumn_night_transparent";
+      # theme = "autumn_night_transparent"; # Managed by stylix
       editor = {
         cursor-shape = {
           normal = "block";

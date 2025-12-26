@@ -16,15 +16,16 @@ in
   imports = [
     ../modules/home-manager/common.nix
     ./hyprland.nix # Add this line to import your Hyprland configuration
+    ./theme.nix # Import the stylix theme configuration
   ];
 
   home.username = "death916";
   home.homeDirectory = "/home/death916";
 
-  xresources.properties = {
-    "Xcursor.size" = 16;
-    "Xft.dpi" = 172;
-  };
+  # xresources.properties = {
+  #   "Xcursor.size" = 16;
+  #   "Xft.dpi" = 172;
+  # };
   home.stateVersion = "24.11";
   home.packages = with pkgs; [
     nnn
@@ -74,7 +75,6 @@ in
     obsidian
     element-desktop
     manix
-    unstablePkgs.zed-editor-fhs
     aichat
     wl-clipboard
     unstablePkgs.gemini-cli
@@ -98,6 +98,9 @@ in
     kdePackages.kdeconnect-kde
     restic-browser
     cava
+    fedistar
+    yazi
+    lazygit
   ];
 
   nixpkgs.overlays = [
@@ -184,7 +187,15 @@ in
 
   programs.vscode = {
     enable = true;
-    package = pkgs.vscode.fhs;
+    package = pkgs.vscode.fhsWithPackages (
+      ps: with ps; [
+        rustup
+        zlib
+        openssl.dev
+        pkg-config
+        cargo
+      ]
+    );
   };
 
   programs.bash = {
@@ -202,4 +213,13 @@ in
       nh-push = "/home/death916/Documents/nix-config/scripts/nh-push";
     };
   };
+
+  programs.zellij.enable = true;
+
+  programs.zed-editor = {
+    enable = true;
+    package = pkgs.zed-editor-fhs;
+  };
+
+  programs.btop.enable = true;
 }

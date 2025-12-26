@@ -25,6 +25,7 @@
   services.desktopManager.cosmic.enable = true;
   # services.displayManager.cosmic-greeter.enable = true;
   services.desktopManager.cosmic.xwayland.enable = true;
+  services.system76-scheduler.enable = true;
 
   # This is to fix clementine gui not showing up on wayland
   environment.variables.QT_QPA_PLATFORM = "wayland";
@@ -35,8 +36,8 @@
     enable = true;
     xwayland.enable = true;
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    # portalPackage =
-    #   inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+    portalPackage =
+      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
   };
 
   environment.systemPackages = with pkgs; [
@@ -45,6 +46,7 @@
     vim
     wget
     unstablePkgs.tailscale
+    unstablePkgs.cosmic-session
     halloy
     conda
     inputs.flox.packages.${pkgs.system}.flox

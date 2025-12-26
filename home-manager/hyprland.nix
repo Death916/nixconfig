@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   inputs,
   unstablePkgs,
@@ -15,12 +16,18 @@
     settings = {
       monitor = ",1920x1080,auto,1";
 
+      env = [
+        "QT_QPA_PLATFORM,wayland"
+        "GDK_BACKEND,wayland,x11"
+      ];
+
       exec-once = [
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "swww init &"
         "waybar &"
-        "swww img /home/death916/Pictures/wallpapers/jameswebb1.jpg &"
+        # Stylix will manage the wallpaper
+        # "swww img /home/death916/Pictures/wallpapers/jameswebb1.jpg &"
         "dunst &"
         "nm-applet --indicator &"
         "blueman-applet &"
@@ -30,8 +37,9 @@
         gaps_in = 5;
         gaps_out = 10;
         border_size = 2;
-        "col.active_border" = "rgba(cba6f7ee) rgba(1e66f5ee) 45deg";
-        "col.inactive_border" = "rgba(313244aa)";
+        # Stylix will manage these
+        # "col.active_border" = "rgba(cba6f7ee) rgba(1e66f5ee) 45deg";
+        # "col.inactive_border" = "rgba(313244aa)";
         layout = "dwindle";
       };
 
@@ -175,9 +183,10 @@
 
   xdg.portal = {
     enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk
-    ];
+    extraPortals = with pkgs;
+      [
+        xdg-desktop-portal-gtk
+      ];
   };
 
   programs.waybar = {
@@ -282,120 +291,120 @@
         };
       };
     };
-    style = ''
-      @define-color rosewater #f5e0dc;
-      @define-color flamingo #f2cdcd;
-      @define-color pink #f5c2e7;
-      @define-color mauve #cba6f7;
-      @define-color red #f38ba8;
-      @define-color maroon #eba0ac;
-      @define-color peach #fab387;
-      @define-color yellow #f9e2af;
-      @define-color green #a6e3a1;
-      @define-color teal #94e2d5;
-      @define-color sky #89dceb;
-      @define-color sapphire #74c7ec;
-      @define-color blue #89b4fa;
-      @define-color lavender #b4befe;
+    # style = '' # Managed by stylix
+    #   @define-color rosewater #f5e0dc;
+    #   @define-color flamingo #f2cdcd;
+    #   @define-color pink #f5c2e7;
+    #   @define-color mauve #cba6f7;
+    #   @define-color red #f38ba8;
+    #   @define-color maroon #eba0ac;
+    #   @define-color peach #fab387;
+    #   @define-color yellow #f9e2af;
+    #   @define-color green #a6e3a1;
+    #   @define-color teal #94e2d5;
+    #   @define-color sky #89dceb;
+    #   @define-color sapphire #74c7ec;
+    #   @define-color blue #89b4fa;
+    #   @define-color lavender #b4befe;
 
-      @define-color text #cdd6f4;
-      @define-color subtext1 #bac2de;
-      @define-color subtext0 #a6adc8;
-      @define-color overlay2 #9399b2;
-      @define-color overlay1 #7f849c;
-      @define-color overlay0 #6c7086;
-      @define-color surface2 #585b70;
-      @define-color surface1 #45475a;
-      @define-color surface0 #313244;
-      @define-color base #1e1e2e;
-      @define-color mantle #181825;
-      @define-color crust #11111b;
+    #   @define-color text #cdd6f4;
+    #   @define-color subtext1 #bac2de;
+    #   @define-color subtext0 #a6adc8;
+    #   @define-color overlay2 #9399b2;
+    #   @define-color overlay1 #7f849c;
+    #   @define-color overlay0 #6c7086;
+    #   @define-color surface2 #585b70;
+    #   @define-color surface1 #45475a;
+    #   @define-color surface0 #313244;
+    #   @define-color base #1e1e2e;
+    #   @define-color mantle #181825;
+    #   @define-color crust #11111b;
 
-      * {
-        font-family: "JetBrainsMono Nerd Font", FontAwesome, Roboto, Helvetica, Arial, sans-serif;
-        font-size: 13px;
-      }
+    #   * {
+    #     font-family: "JetBrainsMono Nerd Font", FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    #     font-size: 13px;
+    #   }
 
-      window#waybar {
-        background-color: rgba(17, 17, 27, 0.5);
-        color: @text;
-      }
+    #   window#waybar {
+    #     background-color: rgba(17, 17, 27, 0.5);
+    #     color: @text;
+    #   }
 
-      #workspaces button {
-        padding: 0 5px;
-        background-color: transparent;
-        color: @overlay1;
-        border-radius: 0;
-      }
+    #   #workspaces button {
+    #     padding: 0 5px;
+    #     background-color: transparent;
+    #     color: @overlay1;
+    #     border-radius: 0;
+    #   }
 
-      #workspaces button.active {
-        color: @lavender;
-        border-bottom: 2px solid @lavender;
-      }
+    #   #workspaces button.active {
+    #     color: @lavender;
+    #     border-bottom: 2px solid @lavender;
+    #   }
 
-      #workspaces button:hover {
-        background-color: @surface0;
-      }
+    #   #workspaces button:hover {
+    #     background-color: @surface0;
+    #   }
 
-      #clock, #battery, #cpu, #memory, #network, #pulseaudio, #tray, #window {
-        padding: 0 10px;
-        margin: 3px 4px;
-        border-radius: 8px;
-        background-color: @mantle;
-      }
+    #   #clock, #battery, #cpu, #memory, #network, #pulseaudio, #tray, #window {
+    #     padding: 0 10px;
+    #     margin: 3px 4px;
+    #     border-radius: 8px;
+    #     background-color: @mantle;
+    #   }
 
-      #clock {
-        background-color: @crust;
-        color: @text;
-      }
+    #   #clock {
+    #     background-color: @crust;
+    #     color: @text;
+    #   }
 
-      #battery {
-        background-color: @crust;
-        color: @text;
-      }
+    #   #battery {
+    #     background-color: @crust;
+    #     color: @text;
+    #   }
 
-      #battery.charging, #battery.plugged {
-        background-color: @green;
-      }
+    #   #battery.charging, #battery.plugged {
+    #     background-color: @green;
+    #   }
 
-      #cpu {
-        background-color: @crust;
-        color: @text;
-      }
+    #   #cpu {
+    #     background-color: @crust;
+    #     color: @text;
+    #   }
 
-      #memory {
-        background-color: @crust;
-        color: @text;
-      }
+    #   #memory {
+    #     background-color: @crust;
+    #     color: @text;
+    #   }
 
-      #network {
-        background-color: @crust;
-        color: @text;
-      }
+    #   #network {
+    #     background-color: @crust;
+    #     color: @text;
+    #   }
 
-      #pulseaudio {
-        background-color: @crust;
-        color: @text;
-      }
+    #   #pulseaudio {
+    #     background-color: @crust;
+    #     color: @text;
+    #   }
 
-      #pulseaudio.muted {
-        background-color: @surface1;
-      }
+    #   #pulseaudio.muted {
+    #     background-color: @surface1;
+    #   }
 
-      #custom-wttrbar {
-        background-color: @crust;
-        color: @text;
-      }
-    '';
+    #   #custom-wttrbar {
+    #     background-color: @crust;
+    #     color: @text;
+    #   }
+    # '';
   };
 
   programs.rofi = {
     enable = true;
-    theme = "arthur";
+    # theme = "arthur"; # Managed by stylix
     extraConfig = {
       modi = "drun,run,ssh,window";
       show-icons = true;
-      icon-theme = "Papirus-Dark";
+      # icon-theme = "Papirus-Dark"; # Managed by stylix
     };
   };
 
@@ -413,15 +422,15 @@
         height = 150;
         offset = "10x50";
         origin = "top-right";
-        font = "JetBrainsMono Nerd Font 10";
+        # font = "JetBrainsMono Nerd Font 10"; # Managed by stylix
         line_height = 0;
         notification_height = 0;
         separator_height = 2;
         padding = 8;
         horizontal_padding = 8;
         frame_width = 2;
-        frame_color = "#cba6f7";
-        separator_color = "frame";
+        # frame_color = "#cba6f7"; # Managed by stylix
+        # separator_color = "frame"; # Managed by stylix
         word_wrap = true;
         ellipsize = "middle";
         ignore_dbus_close = false;
@@ -449,18 +458,19 @@
         hide_duplicate_count = false;
         show_indicators = true;
       };
-      urgency_low = {
-        background = "#1e1e2e";
-        foreground = "#cdd6f4";
-      };
-      urgency_normal = {
-        background = "#1e1e2e";
-        foreground = "#cdd6f4";
-      };
-      urgency_critical = {
-        background = "#f38ba8";
-        foreground = "#1e1e2e";
-      };
+      # The following blocks are managed by stylix
+      # urgency_low = {
+      #   background = "#1e1e2e";
+      #   foreground = "#cdd6f4";
+      # };
+      # urgency_normal = {
+      #   background = "#1e1e2e";
+      #   foreground = "#cdd6f4";
+      # };
+      # urgency_critical = {
+      #   background = "#f38ba8";
+      #   foreground = "#1e1e2e";
+      # };
     };
   };
 
@@ -468,68 +478,31 @@
     enable = true;
   };
 
-  gtk = {
-    enable = true;
-    gtk3 = {
-      extraConfig = {
-        gtk-application-prefer-dark-theme = 1;
-      };
-    };
-
-    gtk4 = {
-      extraConfig = {
-        gtk-application-prefer-dark-theme = 1;
-      };
-    };
-
-    theme = {
-      name = "Materia-dark";
-      package = pkgs.materia-theme;
-    };
-    iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
-    };
-    cursorTheme = {
-      name = "Catppuccin-Mocha-Dark-Cursors";
-      package = pkgs.catppuccin-cursors;
-      size = 24;
-    };
-  };
-
-  qt = {
-    enable = true;
-    platformTheme.name = "qt5ct";
-  };
-
-  home.sessionVariables = {
-    QT_STYLE_OVERRIDE = "qt5ct";
-  };
-
   fonts.fontconfig.enable = true;
-  home.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-    noto-fonts
-    noto-fonts-cjk-sans
-    noto-fonts-color-emoji
-    font-awesome
-    roboto
-    grim
-    slurp
-    networkmanagerapplet
-    blueman
-    waybar
-    kitty
-    libnotify
-    kdePackages.dolphin
-    catppuccin-gtk
-    materia-theme
-    rose-pine-gtk-theme
-    nightfox-gtk-theme
-    materia-kde-theme
+  home.packages = with pkgs;
+    [
+      nerd-fonts.jetbrains-mono
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-color-emoji
+      font-awesome
+      roboto
+      grim
+      slurp
+      networkmanagerapplet
+      blueman
+      waybar
+      kitty
+      libnotify
+      kdePackages.dolphin
+      catppuccin-gtk
+      materia-theme
+      rose-pine-gtk-theme
+      nightfox-gtk-theme
+      materia-kde-theme
 
-    playerctl
-    wl-clipboard
-    unstablePkgs.wttrbar
-  ];
+      playerctl
+      wl-clipboard
+      unstablePkgs.wttrbar
+    ];
 }
