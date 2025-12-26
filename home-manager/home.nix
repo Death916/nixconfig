@@ -98,7 +98,6 @@ in
     restic-browser
     cava
     fedistar
-    yazi
   ];
 
   programs.ghostty = {
@@ -262,9 +261,15 @@ in
             smart = 30;
             enabled = false;
           };
-          part = { smart = 30; };
-          quit = { smart = 30; };
-          topic = { enabled = false; };
+          part = {
+            smart = 30;
+          };
+          quit = {
+            smart = 30;
+          };
+          topic = {
+            enabled = false;
+          };
         };
         channel.nicklist.width = 100;
         scroll_position_on_open = "newest";
@@ -286,6 +291,11 @@ in
   };
 
   programs.btop.enable = true;
-
+  programs.yazi = {
+    enable = true;
+    settings = {
+      show_hidden = true;
+    };
+  };
   programs.lazygit.enable = true;
 }
