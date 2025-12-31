@@ -7,7 +7,7 @@
 
 {
   imports = [
-    ./themes/sunset.nix
+    ./themes/aether.nix
   ];
 
   stylix.enable = true;
