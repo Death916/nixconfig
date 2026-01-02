@@ -297,5 +297,6 @@ in
     };
   };
   programs.cava.enable = true;
+  programs.cavalier.enable = true;
   programs.lazygit.enable = true;
 }
