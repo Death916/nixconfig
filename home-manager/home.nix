@@ -72,7 +72,6 @@ in
     tmux
     nextcloud-client
     obsidian
-    element-desktop
     manix
     aichat
     wl-clipboard
