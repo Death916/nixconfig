@@ -300,5 +300,5 @@ in
   programs.cavalier.enable = true;
   programs.lazygit.enable = true;
   programs.obsidian.enable = true;
-  programs.element-desktop.enable;
+  programs.element-desktop.enable = true;
 }
