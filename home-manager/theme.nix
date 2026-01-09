@@ -51,5 +51,6 @@
     zellij.colors.enable = true;
     btop.enable = true;
     halloy.enable = true;
+    qt.enable = true;
   };
 }
