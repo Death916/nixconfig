@@ -109,4 +109,6 @@
     flake = "/home/death916/Documents/nix-config/";
   };
   services.fprintd.enable = false;
+  programs.direnv.enable = true;
+
 }

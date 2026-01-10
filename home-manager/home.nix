@@ -72,7 +72,6 @@ in
     tmux
     nextcloud-client
     obsidian
-    element-desktop
     manix
     aichat
     wl-clipboard
@@ -297,5 +296,8 @@ in
     };
   };
   programs.cava.enable = true;
+  programs.cavalier.enable = true;
   programs.lazygit.enable = true;
+  programs.obsidian.enable = true;
+  programs.element-desktop.enable = true;
 }
