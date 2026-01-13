@@ -48,10 +48,8 @@
     unstablePkgs.tailscale
     unstablePkgs.cosmic-session
     halloy
-    conda
     inputs.flox.packages.${pkgs.stdenv.hostPlatform.system}.flox
     wl-clipboard
-    tail-tray
     clementine
     systemctl-tui
     btrfs-progs
