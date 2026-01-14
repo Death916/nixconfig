@@ -48,29 +48,15 @@
     port = 13378;
   };
 
-    systemd.tmpfiles.rules = [
+      systemd.tmpfiles.rules = [
 
-      "d /storage/services/qbittorrent 0755 qbittorrent media_services - -"
+        "d /storage/services/qbittorrent 0755 qbittorrent media_services - -"
 
-      "d /storage/services/qbittorrent/config 0755 qbittorrent media_services - -"
+        "d /storage/services/qbittorrent/config 0755 qbittorrent media_services - -"
 
-      "d /media/storage/media/books/audio/podcasts/C2C 0777 c2c media_services - -"
+        "d /media/storage/media/books/audio/podcasts/C2C 0777 c2c media_services - -"
 
-      "d /storage/services/immich 0775 immich media_services - -"
-
-      "d /storage/services/immich/upload 0775 immich media_services - -"
-
-      "d /storage/services/immich/thumbs 0775 immich media_services - -"
-
-      "d /storage/services/immich/backups 0775 immich media_services - -"
-
-      "d /storage/services/immich/library 0775 immich media_services - -"
-
-      "d /storage/services/immich/profile 0775 immich media_services - -"
-
-      "d /storage/services/immich/encoded-video 0775 immich media_services - -"
-
-    ];
+      ];
 
   services.jellyfin.enable = true;
 
@@ -146,14 +132,7 @@
     flake = "/home/death916/nixconfig/";
   };
 
-  services.immich = {
-    enable = true;
-    redis.enable = true;
-    host = "0.0.0.0";
-    mediaLocation = "/storage/services/immich/";
-    user = "immich";
-    group = "media_services";
-  };
+
 
   users.users.immich = {
     isSystemUser = true;
