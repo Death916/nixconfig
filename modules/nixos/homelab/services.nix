@@ -70,7 +70,7 @@
     "f /storage/services/immich/upload/encoded-video/.immich 0660 immich media_services -"
     "f /storage/services/immich/upload/upload/.immich 0660 immich media_services -"
     "f /storage/services/immich/upload/profile/.immich 0660 immich media_services -"
-    "f /storage/services/immich/upload/backup/.immich 0660 immich media_services -"
+    "f /storage/services/immich/upload/backups/.immich 0660 immich media_services -"
   ];
 
   services.jellyfin.enable = true;
@@ -166,6 +166,8 @@
     host = "0.0.0.0";
     port = 2283;
     mediaLocation = "/storage/services/immich/upload";
+    environment.IMMICH_IGNORE_MOUNT_CHECK_ERRORS = "true";
+
   };
 
   environment.systemPackages = with pkgs; [
