@@ -56,6 +56,24 @@
     "d /storage/services/qbittorrent/config 0755 qbittorrent media_services - -"
 
     "d /media/storage/media/books/audio/podcasts/C2C 0777 c2c media_services - -"
+    # Create the base directory
+    "d /storage/services/immich/upload 0750 immich immich -"
+
+    # Create the subdirectories Immich expects
+    "d /storage/services/immich/upload/library 0750 immich immich -"
+    "d /storage/services/immich/upload/thumbs 0750 immich immich -"
+    "d /storage/services/immich/upload/encoded-video 0750 immicih immich -"
+    "d /storage/services/immich/upload/profile 0750 immich immich -"
+    "d /storage/services/immich/upload/upload 0750 immich immich -"
+    "d /storage/services/immich/upload/backup 0750 immich immich -"
+
+    # Create the hidden marker files Immich uses to check for successful mounts
+    "f /storage/services/immich/upload/library/.immich 0640 immich immich -"
+    "f /storage/services/immich/upload/thumbs/.immich 0640 immich immich -"
+    "f /storage/services/immich/upload/encoded-video/.immich 0640 immich immich -"
+    "f /storage/services/immich/upload/upload/.immich 0640 immich immich -"
+    "f /storage/services/immich/upload/profile/.immich 0640 immich immich -"
+    "f /storage/services/immich/upload/backup/.immich 0640 immich immich -"
 
   ];
 
