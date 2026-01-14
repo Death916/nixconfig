@@ -10,7 +10,7 @@
     ../../adguard.nix
     ./restic.nix
     ../../c2cscrape.nix
-    ../../containers/docker/immich.nix # Import the new Immich Docker container config
+    # ../../containers/docker/immich.nix # Import the new Immich Docker container config
   ];
   arrSuite.enable = true;
   services.samba.shares.Media.path = "/media/storage/media";
@@ -49,15 +49,15 @@
     port = 13378;
   };
 
-      systemd.tmpfiles.rules = [
+  systemd.tmpfiles.rules = [
 
-        "d /storage/services/qbittorrent 0755 qbittorrent media_services - -"
+    "d /storage/services/qbittorrent 0755 qbittorrent media_services - -"
 
-        "d /storage/services/qbittorrent/config 0755 qbittorrent media_services - -"
+    "d /storage/services/qbittorrent/config 0755 qbittorrent media_services - -"
 
-        "d /media/storage/media/books/audio/podcasts/C2C 0777 c2c media_services - -"
+    "d /media/storage/media/books/audio/podcasts/C2C 0777 c2c media_services - -"
 
-      ];
+  ];
 
   services.jellyfin.enable = true;
 
@@ -133,11 +133,16 @@
     flake = "/home/death916/nixconfig/";
   };
 
-
-
   users.users.immich = {
     isSystemUser = true;
     group = "media_services";
+  };
+
+  services.immich = {
+    enable = true;
+    host = "0.0.0.0";
+    port = 2283;
+    mediaLocation = "/storage/services/immich/upload";
   };
 
   environment.systemPackages = with pkgs; [
