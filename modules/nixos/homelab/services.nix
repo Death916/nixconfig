@@ -53,7 +53,6 @@
     "d /storage/services/qbittorrent/config 0755 qbittorrent media_services - -"
     "d /media/storage/media/books/audio/podcasts/C2C 0777 c2c media_services - -"
     "d /storage/services/immich 0755 immich media_services - -"
-    "f /etc/nixos/secrets/immich_db_password 0400 immich media_services -"
   ];
 
   services.jellyfin.enable = true;
@@ -137,11 +136,7 @@
     mediaLocation = "/storage/services/immich/";
     user = "immich";
     group = "media_services";
-    database = {
-      passwordFile = "/etc/nixos/secrets/immich_db_password";
-    };
   };
-
 
   users.users.immich = {
     isSystemUser = true;
