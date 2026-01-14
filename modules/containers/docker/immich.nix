@@ -11,7 +11,6 @@
       environmentFiles = [ "/etc/nixos/secrets/immich.env" ];
       ports = [ "2283:2283" ];
       dependsOn = [ "immich-redis" "immich-machine-learning" ];
-      extraFlags = [ "--restart=always" ]; # Corrected way to set restart policy
       environment = {
         DB_HOSTNAME = "localhost";
         DB_PORT = "5432";
@@ -32,7 +31,6 @@
         "/storage/services/immich/model-cache:/cache"
       ];
       environmentFiles = [ "/etc/nixos/secrets/immich.env" ];
-      extraFlags = [ "--restart=always" ]; # Corrected way to set restart policy
       environment = {
         REDIS_HOSTNAME = "immich-redis";
         REDIS_PORT = "6379";
@@ -50,8 +48,7 @@
       volumes = [
         "/var/lib/immich/redis-data:/data"
       ];
-      extraFlags = [ "--restart=always" ]; # Corrected way to set restart policy
-      user = "redis"; # Standard Redis user for consistency/permissions
+      user = "redis";
     };
   };
 }
