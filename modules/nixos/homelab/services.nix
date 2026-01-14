@@ -128,6 +128,12 @@
     flake = "/home/death916/nixconfig/";
   };
 
+  services.immich = {
+    enable = true;
+    redis.enable = true;
+    
+  }
+  
   environment.systemPackages = with pkgs; [
     git
     vim
