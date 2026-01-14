@@ -2,12 +2,11 @@
 
 {
   virtualisation.oci-containers.containers = {
-    # Immich Server Container
     immich-server = {
       image = "ghcr.io/immich-app/immich-server:release";
       ports = [ "2283:2283" ];
       volumes = [
-        "/storage/services/immich/upload:/data" # Consolidate upload data
+        "/storage/services/immich/upload:/data"
         "/etc/localtime:/etc/localtime:ro"
       ];
       user = "immich";
@@ -25,11 +24,10 @@
       autoStart = true;
     };
 
-    # Immich Machine Learning Container
     immich-machine-learning = {
       image = "ghcr.io/immich-app/immich-machine-learning:release";
       volumes = [
-        "/storage/services/immich/model-cache:/cache" # Host path for model cache
+        "/storage/services/immich/model-cache:/cache"
       ];
       user = "immich";
       environment = {
@@ -44,16 +42,12 @@
       autoStart = true;
     };
 
-    # Immich Redis Container
     immich-redis = {
       image = "redis:latest";
       volumes = [
-        "/storage/services/immich/redis-data:/data" # Persistent Redis data
+        "/storage/services/immich/redis-data:/data"
       ];
       autoStart = true;
     };
   };
-
-  # No named Docker volumes needed.
-  virtualisation.docker.volumes = { };
 }
