@@ -130,7 +130,7 @@
   };
 
   services.immich = {
-    enable = true;
+    # enable = true;
     redis.enable = true;
     host = "0.0.0.0";
     mediaLocation = "/storage/services/immich/";
