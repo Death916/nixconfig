@@ -52,6 +52,7 @@
     "d /storage/services/qbittorrent 0755 qbittorrent media_services - -"
     "d /storage/services/qbittorrent/config 0755 qbittorrent media_services - -"
     "d /media/storage/media/books/audio/podcasts/C2C 0777 c2c media_services - -"
+    "d /storage/services/immich 0755 immich media_services - -"
   ];
 
   services.jellyfin.enable = true;
@@ -141,9 +142,6 @@
     isSystemUser = true;
     group = "media_services";
   };
-
-  systemd.tmpfiles.rules = [
-    "d /storage/services/immich 0755 immich media_services - -"
 
   environment.systemPackages = with pkgs; [
     git
