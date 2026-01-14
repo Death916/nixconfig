@@ -135,7 +135,7 @@
 
   users.users.immich = {
     isSystemUser = true;
-    extraGroups = "media_services";
+    extraGroups = [ "media_services" ];
   };
 
   services.immich = {
