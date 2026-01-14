@@ -132,7 +132,7 @@
     enable = true;
     redis.enable = true;
     host = "0.0.0.0";
-    mediaLocation = "/storage/services/immich/"
+    mediaLocation = "/storage/services/immich/";
   };
 
   environment.systemPackages = with pkgs; [
