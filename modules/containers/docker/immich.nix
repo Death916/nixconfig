@@ -22,7 +22,7 @@
         UPLOAD_LOCATION = "/data";
         TZ = "America/Los_Angeles";
       };
-      # Removed user = "immich";
+      user = "983:993"; # immich UID : media_services GID
     };
 
     immich-machine-learning = {
@@ -41,7 +41,7 @@
         DB_DATABASE_NAME = "immich_db";
         TZ = "America/Los_Angeles";
       };
-      # Removed user = "immich";
+      user = "983:993"; # immich UID : media_services GID
     };
 
     immich-redis = {
@@ -49,7 +49,7 @@
       volumes = [
         "/var/lib/immich/redis-data:/data"
       ];
-      # Removed user = "redis";
+      user = "999:999"; # Assumed Redis UID:GID
     };
 
     immich-postgres = {
@@ -63,7 +63,7 @@
         POSTGRES_DB = "immich_db";
         POSTGRES_INITDB_ARGS = "--data-checksums";
       };
-      user = "999"; # Explicitly set UID for postgres user
+      user = "999:999"; # Assumed Postgres UID:GID
     };
   };
 }
