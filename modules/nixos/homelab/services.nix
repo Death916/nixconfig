@@ -131,6 +131,7 @@
   services.immich = {
     enable = true;
     redis.enable = true;
+    host = 0.0 .0 .0;
 
   };
 
