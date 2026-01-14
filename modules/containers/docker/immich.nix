@@ -10,9 +10,9 @@
       ];
       environmentFiles = [ "/etc/nixos/secrets/immich.env" ];
       ports = [ "2283:2283" ];
-      dependsOn = [ "immich-redis" "immich-machine-learning" ];
+      dependsOn = [ "immich-redis" "immich-postgres" "immich-machine-learning" ];
       environment = {
-        DB_HOSTNAME = "localhost";
+        DB_HOSTNAME = "immich-postgres";
         DB_PORT = "5432";
         DB_USERNAME = "immich";
         DB_DATABASE_NAME = "immich_db";
@@ -22,6 +22,7 @@
         UPLOAD_LOCATION = "/data";
         TZ = "America/Los_Angeles";
       };
+      user = "immich";
     };
 
     immich-machine-learning = {
@@ -30,15 +31,17 @@
         "/storage/services/immich/model-cache:/cache"
       ];
       environmentFiles = [ "/etc/nixos/secrets/immich.env" ];
+      dependsOn = [ "immich-redis" "immich-postgres" ];
       environment = {
         REDIS_HOSTNAME = "immich-redis";
         REDIS_PORT = "6379";
-        DB_HOSTNAME = "localhost";
+        DB_HOSTNAME = "immich-postgres";
         DB_PORT = "5432";
         DB_USERNAME = "immich";
         DB_DATABASE_NAME = "immich_db";
         TZ = "America/Los_Angeles";
       };
+      user = "immich";
     };
 
     immich-redis = {
@@ -46,6 +49,21 @@
       volumes = [
         "/var/lib/immich/redis-data:/data"
       ];
+      user = "redis";
+    };
+
+    immich-postgres = {
+      image = "ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0@sha256:bcf63357191b76a916ae5eb93464d65c07511da41e3bf7a8416db519b40b1c23";
+      volumes = [
+        "/var/lib/immich/postgres-data:/var/lib/postgresql/data"
+      ];
+      environmentFiles = [ "/etc/nixos/secrets/immich.env" ];
+      environment = {
+        POSTGRES_USER = "immich";
+        POSTGRES_DB = "immich_db";
+        POSTGRES_INITDB_ARGS = "--data-checksums";
+      };
+      user = "postgres";
     };
   };
 }
