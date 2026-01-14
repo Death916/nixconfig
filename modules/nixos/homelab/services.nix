@@ -133,7 +133,17 @@
     redis.enable = true;
     host = "0.0.0.0";
     mediaLocation = "/storage/services/immich/";
+    user = "immich";
+    group = "media_services";
   };
+
+  users.users.immich = {
+    isSystemUser = true;
+    group = "media_services";
+  };
+
+  systemd.tmpfiles.rules = [
+    "d /storage/services/immich 0755 immich media_services - -"
 
   environment.systemPackages = with pkgs; [
     git
