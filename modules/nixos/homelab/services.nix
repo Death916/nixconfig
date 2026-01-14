@@ -48,18 +48,29 @@
     port = 13378;
   };
 
-  systemd.tmpfiles.rules = [
-    "d /storage/services/qbittorrent 0755 qbittorrent media_services - -"
-    "d /storage/services/qbittorrent/config 0755 qbittorrent media_services - -"
-    "d /media/storage/media/books/audio/podcasts/C2C 0777 c2c media_services - -"
-    "d /storage/services/immich 0775 immich media_services - -"
-    "d /storage/services/immich/upload 0775 immich media_services - -"
-    "d /storage/services/immich/thumbs 0775 immich media_services - -"
-    "d /storage/services/immich/backups 0775 immich media_services - -"
-    "d /storage/services/immich/library 0775 immich media_services - -"
-    "d /storage/services/immich/profile 0775 immich media_services - -"
-    "d /storage/services/immich/encoded-video 0775 immich media_services - -"
-  ];
+    systemd.tmpfiles.rules = [
+
+      "d /storage/services/qbittorrent 0755 qbittorrent media_services - -"
+
+      "d /storage/services/qbittorrent/config 0755 qbittorrent media_services - -"
+
+      "d /media/storage/media/books/audio/podcasts/C2C 0777 c2c media_services - -"
+
+      "d /storage/services/immich 0775 immich media_services - -"
+
+      "d /storage/services/immich/upload 0775 immich media_services - -"
+
+      "d /storage/services/immich/thumbs 0775 immich media_services - -"
+
+      "d /storage/services/immich/backups 0775 immich media_services - -"
+
+      "d /storage/services/immich/library 0775 immich media_services - -"
+
+      "d /storage/services/immich/profile 0775 immich media_services - -"
+
+      "d /storage/services/immich/encoded-video 0775 immich media_services - -"
+
+    ];
 
   services.jellyfin.enable = true;
 
