@@ -3,10 +3,9 @@
 {
   virtualisation.oci-containers.containers = {
     immich-server = {
-      container_name = "immich_server";
       image = "ghcr.io/immich-app/immich-server:release";
       volumes = [
-        "/storage/services/immich/upload:/data" # Heavy data on HDD
+        "/storage/services/immich/upload:/data"
         "/etc/localtime:/etc/localtime:ro"
       ];
       environmentFiles = [ "/etc/nixos/secrets/immich.env" ];
@@ -22,17 +21,16 @@
         REDIS_HOSTNAME = "immich-redis";
         REDIS_PORT = "6379";
         MACHINE_LEARNING_HOSTNAME = "immich-machine-learning";
-        UPLOAD_LOCATION = "/data"; # Internal path in container
+        UPLOAD_LOCATION = "/data";
         TZ = "America/Los_Angeles";
       };
       user = "immich";
     };
 
     immich-machine-learning = {
-      container_name = "immich_machine_learning";
       image = "ghcr.io/immich-app/immich-machine-learning:release";
       volumes = [
-        "/storage/services/immich/model-cache:/cache" # Heavy data on HDD
+        "/storage/services/immich/model-cache:/cache"
       ];
       environmentFiles = [ "/etc/nixos/secrets/immich.env" ];
       restart = "always";
@@ -50,10 +48,9 @@
     };
 
     immich-redis = {
-      container_name = "immich_redis";
       image = "docker.io/valkey/valkey:9@sha256:fb8d272e529ea567b9bf1302245796f21a2672b8368ca3fcb938ac334e613c8f";
       volumes = [
-        "/var/lib/immich/redis-data:/data" # Smaller, performance-critical data on SSD
+        "/var/lib/immich/redis-data:/data"
       ];
       restart = "always";
       healthcheck.test = [ "redis-cli" "ping" "||" "exit" "1" ];
