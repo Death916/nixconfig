@@ -136,7 +136,15 @@
     mediaLocation = "/storage/services/immich/";
     user = "immich";
     group = "media_services";
+    database = {
+      passwordFile = "/etc/nixos/secrets/immich_db_password";
+    };
   };
+
+  # Ensure the password file for Immich's database exists with correct permissions
+  systemd.tmpfiles.rules = [
+    "f /etc/nixos/secrets/immich_db_password 0400 immich media_services -"
+  ];
 
   users.users.immich = {
     isSystemUser = true;
