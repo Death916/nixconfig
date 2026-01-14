@@ -22,7 +22,6 @@
         UPLOAD_LOCATION = "/data";
         TZ = "America/Los_Angeles";
       };
-      user = "immich";
     };
 
     immich-machine-learning = {
@@ -40,7 +39,6 @@
         DB_DATABASE_NAME = "immich_db";
         TZ = "America/Los_Angeles";
       };
-      user = "immich";
     };
 
     immich-redis = {
@@ -48,7 +46,6 @@
       volumes = [
         "/var/lib/immich/redis-data:/data"
       ];
-      user = "redis";
     };
   };
 }
