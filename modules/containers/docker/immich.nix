@@ -22,7 +22,6 @@
         UPLOAD_LOCATION = "/data";
         TZ = "America/Los_Angeles";
       };
-      user = "983:993"; # immich UID : media_services GID
     };
 
     immich-machine-learning = {
@@ -41,7 +40,6 @@
         DB_DATABASE_NAME = "immich_db";
         TZ = "America/Los_Angeles";
       };
-      user = "983:993"; # immich UID : media_services GID
     };
 
     immich-redis = {
@@ -49,11 +47,10 @@
       volumes = [
         "/var/lib/immich/redis-data:/data"
       ];
-      user = "999:999"; # Assumed Redis UID:GID
     };
 
     immich-postgres = {
-      image = "ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0@sha256:bcf63357191b76a916ae5eb93464d65c07511da41e3bf7a8416db3b44a";
+      image = "ghcr.io/immich-app/postgres:release"; # Simplified image tag
       volumes = [
         "/var/lib/immich/postgres-data:/var/lib/postgresql/data"
       ];
@@ -63,7 +60,6 @@
         POSTGRES_DB = "immich_db";
         POSTGRES_INITDB_ARGS = "--data-checksums";
       };
-      user = "999:999"; # Assumed Postgres UID:GID
     };
   };
 }
