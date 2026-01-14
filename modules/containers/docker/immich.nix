@@ -50,7 +50,7 @@
     };
 
     immich-postgres = {
-      image = "ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0@sha256:bcf63357191b76a916ae5eb93464d65c07511da41e3bf7a8416db3b44a"; # Exact image with SHA
+      image = "ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0@sha256:bcf63357191b76a916ae5eb93464d65c07511da41e3bf7a8416db3b44a";
       volumes = [
         "/var/lib/immich/postgres-data:/var/lib/postgresql/data"
       ];
@@ -60,7 +60,6 @@
         POSTGRES_DB = "immich_db";
         POSTGRES_INITDB_ARGS = "--data-checksums";
       };
-      extraFlags = [ "--shm-size=128mb" ]; # Equivalent to shm_size in docker-compose
     };
   };
 }
