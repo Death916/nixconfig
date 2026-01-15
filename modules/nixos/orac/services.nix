@@ -65,6 +65,7 @@
       };
     };
   };
+  services.beszel.enable = true;
   networking.firewall.allowedTCPPorts = [ 19999 ];
   environment.systemPackages = with pkgs; [
     git
