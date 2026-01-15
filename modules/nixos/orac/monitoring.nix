@@ -40,7 +40,7 @@
           "systemd"
           "tcpstat"
           "wifi"
-          "docker"
+          "sysctl"
         ];
         # You can pass extra options to the exporter using `extraFlags`, e.g.
         # to configure collectors or disable those enabled by default.
