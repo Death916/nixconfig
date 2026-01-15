@@ -9,6 +9,7 @@
   imports = [
     ../../adguard.nix
     ./restic.nix
+    ./monitoring.nix
     ../../c2cscrape.nix
     # ../../containers/docker/immich.nix # Import the new Immich Docker container config
   ];

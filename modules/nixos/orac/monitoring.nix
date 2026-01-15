@@ -25,6 +25,14 @@
           }
         ];
       }
+      {
+        job_name = "homelab";
+        static_configs = [
+          {
+            targets = [ "100.65.36.116:9002" ];
+          }
+        ];
+      }
     ];
     exporters = {
       node = {
@@ -41,6 +49,7 @@
           "tcpstat"
           "wifi"
           "sysctl"
+          "processes"
         ];
         # You can pass extra options to the exporter using `extraFlags`, e.g.
         # to configure collectors or disable those enabled by default.
@@ -49,6 +58,7 @@
         extraFlags = [
           "--collector.ntp.protocol-version=4"
           "--no-collector.mdadm"
+          "--collector.systemd.unit-include=.*"
         ];
       };
     };
