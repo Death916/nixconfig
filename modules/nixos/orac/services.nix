@@ -71,6 +71,7 @@
   services.beszel = {
     hub.enable = true;
     hub.host = "0.0.0.0";
+  };
 
   networking.firewall.allowedTCPPorts = [ 19999 ];
   environment.systemPackages = with pkgs; [
