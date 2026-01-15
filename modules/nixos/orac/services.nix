@@ -53,6 +53,7 @@
     enable = true;
     user = "root";
     config.global = {
+      "bind to" = "*";
       "memory mode" = "ram";
       "debug log" = "none";
       "access log" = "none";
