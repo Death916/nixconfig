@@ -49,6 +49,7 @@
       # SMTP_FROM_NAME = "example.com Bitwarden server";
     };
   };
+  services.netdata.enable = true;
 
   environment.systemPackages = with pkgs; [
     git
