@@ -52,12 +52,17 @@
   services.netdata = {
     enable = true;
     user = "root";
-    config.global = {
-      "bind to" = "*";
-      "memory mode" = "ram";
-      "debug log" = "none";
-      "access log" = "none";
-      "error log" = "syslog";
+    config = {
+      global = {
+        "memory mode" = "ram";
+        "debug log" = "none";
+        "access log" = "none";
+        "error log" = "syslog";
+      };
+      web = {
+        "bind to" = "*";
+        "allow connections from" = "*";
+      };
     };
   };
   networking.firewall.allowedTCPPorts = [ 19999 ];
