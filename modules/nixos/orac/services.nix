@@ -51,6 +51,9 @@
   };
   services.netdata = {
     enable = true;
+    package = pkgs.netdata.override {
+      withCloudUi = true;
+    };
     config = {
       global = {
         "memory mode" = "ram";
@@ -65,7 +68,10 @@
     };
   };
   users.users.netdata.extraGroups = [ "docker" ];
-  services.beszel.hub.enable = true;
+  services.beszel = {
+    hub.enable = true;
+    hub.host = "0.0.0.0";
+
   networking.firewall.allowedTCPPorts = [ 19999 ];
   environment.systemPackages = with pkgs; [
     git
