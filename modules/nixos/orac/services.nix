@@ -49,8 +49,16 @@
       # SMTP_FROM_NAME = "example.com Bitwarden server";
     };
   };
-  services.netdata.enable = true;
-
+  services.netdata = {
+    enable = true;
+    config.global = {
+      "memory mode" = "ram";
+      "debug log" = "none";
+      "access log" = "none";
+      "error log" = "syslog";
+    };
+  };
+  networking.firewall.allowedTCPPorts = [ 19999 ];
   environment.systemPackages = with pkgs; [
     git
     vim
