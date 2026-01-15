@@ -51,7 +51,7 @@
   };
   services.netdata = {
     enable = true;
-    user = "root"
+    user = "root";
     config.global = {
       "memory mode" = "ram";
       "debug log" = "none";
