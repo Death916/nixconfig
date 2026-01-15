@@ -51,7 +51,6 @@
   };
   services.netdata = {
     enable = true;
-    user = "root";
     config = {
       global = {
         "memory mode" = "ram";
@@ -65,7 +64,8 @@
       };
     };
   };
-  services.beszel.enable = true;
+  users.users.netdata.extraGroups = [ "docker" ];
+  services.beszel.hub.enable = true;
   networking.firewall.allowedTCPPorts = [ 19999 ];
   environment.systemPackages = with pkgs; [
     git
