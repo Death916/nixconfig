@@ -8,6 +8,7 @@
     ../modules/containers/docker/juicefs.nix
     ../modules/nixos/orac/restic.nix
     ../modules/containers/docker/karakeep/docker-compose.nix
+    ../modules/nixos/orac/monitoring.nix
   ];
 
   networking.firewall = {
