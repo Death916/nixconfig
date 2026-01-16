@@ -124,9 +124,11 @@
     };
     after = [
       "docker-network-karakeep_default.service"
+      "docker-myjfs-mount-service.service"
     ];
     requires = [
       "docker-network-karakeep_default.service"
+      "docker-myjfs-mount-service.service"
     ];
     partOf = [
       "docker-compose-karakeep-root.target"

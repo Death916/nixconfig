@@ -38,6 +38,7 @@
     ];
   };
   systemd.services."docker-myjfs-mount-service" = {
+    path = [ pkgs.util-linux ];
     serviceConfig = {
       EnvironmentFile = "/etc/nixos/secrets/juicefs.env";
       Restart = lib.mkOverride 90 "always";
@@ -53,6 +54,11 @@
       "docker-network-juice_default.service"
       "docker-volume-juice_juicefs_cache.service"
     ];
+    postStart = ''
+      while ! mountpoint -q /mnt/myjfs; do
+        sleep 1
+      done
+    '';
     partOf = [
       "docker-compose-juice-root.target"
     ];
