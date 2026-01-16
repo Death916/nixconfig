@@ -44,7 +44,7 @@ in
   ];
 
   virtualisation.oci-containers.containers.crowdsec = {
-    image = "crowdsecurity/crowdsec:latest";
+    image = "crowdsecurity/crowdsec:latest-debian";
     autoStart = true;
     ports = [ "127.0.0.1:8080:8080" ];
     environment = {
@@ -58,7 +58,6 @@ in
       "/var/log/journal:/var/log/journal:ro"
       "/run/log/journal:/run/log/journal:ro"
       "/etc/machine-id:/etc/machine-id:ro"
-      "/run/current-system/sw/bin/journalctl:/usr/local/bin/journalctl:ro"
       "${acquisYaml}:/etc/crowdsec/acquis.yaml"
     ];
   };
