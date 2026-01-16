@@ -49,8 +49,26 @@
           }
         ];
       }
+      {
+        job_name = "process";
+        static_configs = [
+          {
+            targets = [ "127.0.0.1:9256" ];
+          }
+        ];
+      }
     ];
     exporters = {
+      process = {
+        enable = true;
+        port = 9256;
+        settings.process_names = [
+          {
+            name = "{{.Comm}}";
+            cmdline = [ ".+" ];
+          }
+        ];
+      };
       smartctl = {
         enable = true;
         port = 9633;
