@@ -28,8 +28,17 @@
     };
 
     settings = {
-      general = {
-        api.server.enable = true;
+      common = {
+        log_media = "stdout";
+      };
+      api = {
+        client = {
+          credentials_path = "/var/lib/crowdsec/lapi-credentials.yaml";
+        };
+        server = {
+          enable = true;
+          listen_uri = "127.0.0.1:8080";
+        };
       };
     };
 
@@ -59,4 +68,8 @@
   };
 
   users.users.crowdsec.extraGroups = [ "systemd-journal" ];
+
+  systemd.tmpfiles.rules = [
+    "d /var/lib/crowdsec 0750 crowdsec crowdsec -"
+  ];
 }
