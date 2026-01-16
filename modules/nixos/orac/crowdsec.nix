@@ -14,26 +14,28 @@
       ];
     };
 
-    acquisitions = [
-      {
-        source = "journalctl";
-        journalctl_filter = [ "_SYSTEMD_UNIT=sshd.service" ];
-        labels.type = "syslog";
-      }
-      {
-        source = "journalctl";
-        journalctl_filter = [
-          "SYSLOG_IDENTIFIER=sudo"
-          "SYSLOG_IDENTIFIER=auth"
-        ];
-        labels.type = "syslog";
-      }
-      {
-        source = "journalctl";
-        journalctl_filter = [ "_SYSTEMD_UNIT=docker-traefik.service" ];
-        labels.type = "traefik";
-      }
-    ];
+    localConfig = {
+      acquisitions = [
+        {
+          source = "journalctl";
+          journalctl_filter = [ "_SYSTEMD_UNIT=sshd.service" ];
+          labels.type = "syslog";
+        }
+        {
+          source = "journalctl";
+          journalctl_filter = [
+            "SYSLOG_IDENTIFIER=sudo"
+            "SYSLOG_IDENTIFIER=auth"
+          ];
+          labels.type = "syslog";
+        }
+        {
+          source = "journalctl";
+          journalctl_filter = [ "_SYSTEMD_UNIT=docker-traefik.service" ];
+          labels.type = "traefik";
+        }
+      ];
+    };
   };
 
   services.crowdsec-firewall-bouncer = {
