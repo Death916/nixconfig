@@ -71,4 +71,7 @@ in
   systemd.services.crowdsec-firewall-bouncer.serviceConfig = {
     EnvironmentFile = bouncerEnvFile;
   };
+  environment = {
+    CREDENTIALS_DIRECTORY = "/var/lib/crowdsec";
+  };
 }
