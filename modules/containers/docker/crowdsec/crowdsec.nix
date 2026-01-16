@@ -65,6 +65,7 @@ in
       update_frequency = "10s";
       api_url = "http://127.0.0.1:8080/";
       api_key = "\${BOUNCER_API_KEY}";
+      iptables_chains = [ "INPUT" "DOCKER-USER" ];
     };
   };
 
