@@ -35,7 +35,7 @@
 
       ROCKET_ADDRESS = "100.72.187.12";
       ROCKET_PORT = 8222;
-      ROCKET_LOG = "critical";
+      ROCKET_LOG = "warn";
       environmentFile = "/var/lib/vaultwarden/vault.env";
       # This example assumes a mailserver running on localhost,
       # thus without transport encryption.

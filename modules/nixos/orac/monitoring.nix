@@ -33,8 +33,46 @@
           }
         ];
       }
+      {
+        job_name = "crowdsec";
+        static_configs = [
+          {
+            targets = [ "127.0.0.1:6060" ];
+          }
+        ];
+      }
+      {
+        job_name = "smartctl";
+        static_configs = [
+          {
+            targets = [ "127.0.0.1:9633" ];
+          }
+        ];
+      }
+      {
+        job_name = "process";
+        static_configs = [
+          {
+            targets = [ "127.0.0.1:9256" ];
+          }
+        ];
+      }
     ];
     exporters = {
+      process = {
+        enable = true;
+        port = 9256;
+        settings.process_names = [
+          {
+            name = "{{.Comm}}";
+            cmdline = [ ".+" ];
+          }
+        ];
+      };
+      smartctl = {
+        enable = true;
+        port = 9633;
+      };
       node = {
 
         enable = true;
@@ -50,6 +88,8 @@
           "wifi"
           "sysctl"
           "processes"
+          "cgroups"
+          "btrfs"
         ];
         # You can pass extra options to the exporter using `extraFlags`, e.g.
         # to configure collectors or disable those enabled by default.
