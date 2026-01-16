@@ -60,7 +60,7 @@ in
     enable = true;
 
     settings = {
-      mode = "nftables";
+      mode = "iptables";
       log_level = "info";
       update_frequency = "10s";
       api_url = "http://127.0.0.1:8080/";
