@@ -47,11 +47,10 @@
   services.crowdsec-firewall-bouncer = {
     enable = true;
     
-    # Automatically register the bouncer with the local CrowdSec engine
-    registerBouncer = true;
-
-    # Using the 'settings' attribute for fine-grained configuration
     settings = {
+      # Automatically register the bouncer with the local CrowdSec engine
+      # This generates the API key for you.
+      registerBouncer = true;
       mode = "nftables"; # Modern NixOS uses nftables by default
       log_level = "info";
       update_frequency = "10s";
