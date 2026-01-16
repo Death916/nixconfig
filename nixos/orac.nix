@@ -9,6 +9,7 @@
     ../modules/nixos/orac/restic.nix
     ../modules/containers/docker/karakeep/docker-compose.nix
     ../modules/nixos/orac/monitoring.nix
+    ../modules/nixos/orac/crowdsec.nix
   ];
 
   networking.firewall = {
