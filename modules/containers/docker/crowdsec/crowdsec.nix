@@ -1,12 +1,9 @@
 { config, pkgs, ... }:
 
 let
-  crowdsecImage = "crowdsecurity/crowdsec:latest";
-  bouncerImage = "crowdsecurity/crowdsec-firewall-bouncer:latest";
-
   configDir = "/var/lib/crowdsec/config";
   dataDir = "/var/lib/crowdsec/data";
-  bouncerDir = "/var/lib/crowdsec/bouncer-data";
+  bouncerEnvFile = "/var/lib/crowdsec/bouncer.env";
 
   acquisYaml = pkgs.writeText "acquis.yaml" ''
     ---
@@ -29,7 +26,6 @@ let
     labels:
       type: syslog
   '';
-
 in
 {
   virtualisation.docker.enable = true;
@@ -38,45 +34,41 @@ in
   systemd.tmpfiles.rules = [
     "d ${configDir} 0755 root root -"
     "d ${dataDir} 0755 root root -"
-    "d ${bouncerDir} 0700 root root -"
-    "f ${bouncerDir}/bouncer.env 0600 root root -"
+    "f ${bouncerEnvFile} 0600 root root -"
   ];
 
-  virtualisation.oci-containers.containers = {
-
-    crowdsec = {
-      image = crowdsecImage;
-      autoStart = true;
-      environment = {
-        COLLECTIONS = "crowdsecurity/linux crowdsecurity/sshd crowdsecurity/traefik crowdsecurity/http-cve";
-        GID = "0";
-      };
-      volumes = [
-        "${configDir}:/etc/crowdsec"
-        "${dataDir}:/var/lib/crowdsec/data"
-        "/var/run/docker.sock:/var/run/docker.sock"
-        "/var/log/journal:/var/log/journal:ro"
-        "/run/log/journal:/run/log/journal:ro"
-        "/etc/machine-id:/etc/machine-id:ro"
-        "${acquisYaml}:/etc/crowdsec/acquis.yaml"
-      ];
+  virtualisation.oci-containers.containers.crowdsec = {
+    image = "crowdsecurity/crowdsec:latest";
+    autoStart = true;
+    ports = [ "127.0.0.1:8080:8080" ];
+    environment = {
+      COLLECTIONS = "crowdsecurity/linux crowdsecurity/sshd crowdsecurity/traefik crowdsecurity/http-cve";
+      GID = "0";
     };
+    volumes = [
+      "${configDir}:/etc/crowdsec"
+      "${dataDir}:/var/lib/crowdsec/data"
+      "/var/run/docker.sock:/var/run/docker.sock"
+      "/var/log/journal:/var/log/journal:ro"
+      "/run/log/journal:/run/log/journal:ro"
+      "/etc/machine-id:/etc/machine-id:ro"
+      "${acquisYaml}:/etc/crowdsec/acquis.yaml"
+    ];
+  };
 
-    crowdsec-bouncer = {
-      image = bouncerImage;
-      autoStart = true;
-      extraOptions = [
-        "--network=host"
-        "--privileged"
-      ];
-      environment = {
-        API_URL = "http://127.0.0.1:8080";
-        LOG_LEVEL = "info";
-      };
-      environmentFiles = [
-        "${bouncerDir}/bouncer.env"
-      ];
-      dependsOn = [ "crowdsec" ];
+  services.crowdsec-firewall-bouncer = {
+    enable = true;
+
+    settings = {
+      mode = "nftables";
+      log_level = "info";
+      update_frequency = "10s";
+      api_url = "http://127.0.0.1:8080/";
+      api_key = "\${BOUNCER_API_KEY}";
     };
+  };
+
+  systemd.services.crowdsec-firewall-bouncer.serviceConfig = {
+    EnvironmentFile = bouncerEnvFile;
   };
 }
