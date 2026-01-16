@@ -3,6 +3,7 @@
 {
   services.crowdsec = {
     enable = true;
+    allowLocalAPI = true;
 
     hub = {
       collections = [
@@ -13,32 +14,28 @@
       ];
     };
 
-    localConfig = {
-      # Log Sources
-      acquisitions = [
-        {
-          source = "journalctl";
-          journalctl_filter = [ "_SYSTEMD_UNIT=sshd.service" ];
-          labels.type = "syslog";
-        }
-        {
-          source = "journalctl";
-          journalctl_filter = [
-            "SYSLOG_IDENTIFIER=sudo"
-            "SYSLOG_IDENTIFIER=auth"
-          ];
-          labels.type = "syslog";
-        }
-        {
-          source = "journalctl";
-          journalctl_filter = [ "_SYSTEMD_UNIT=docker-traefik.service" ];
-          labels.type = "traefik";
-        }
-      ];
-
-      api.server.enable = true;
-    };
+    acquisitions = [
+      {
+        source = "journalctl";
+        journalctl_filter = [ "_SYSTEMD_UNIT=sshd.service" ];
+        labels.type = "syslog";
+      }
+      {
+        source = "journalctl";
+        journalctl_filter = [
+          "SYSLOG_IDENTIFIER=sudo"
+          "SYSLOG_IDENTIFIER=auth"
+        ];
+        labels.type = "syslog";
+      }
+      {
+        source = "journalctl";
+        journalctl_filter = [ "_SYSTEMD_UNIT=docker-traefik.service" ];
+        labels.type = "traefik";
+      }
+    ];
   };
+
   services.crowdsec-firewall-bouncer = {
     enable = true;
 
