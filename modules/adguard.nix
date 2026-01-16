@@ -54,6 +54,8 @@
               "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt"
             ];
       };
+      serviceConfig.After = [ "network-online.target" "tailscale.service" ];
+      serviceConfig.Requires = [ "network-online.target" "tailscale.service" ];
     };
   };
 }
