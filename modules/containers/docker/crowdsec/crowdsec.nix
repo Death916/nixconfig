@@ -21,6 +21,12 @@ let
     ---
     source: journalctl
     journalctl_filter:
+      - "_SYSTEMD_UNIT=vaultwarden.service"
+    labels:
+      type: vaultwarden
+    ---
+    source: journalctl
+    journalctl_filter:
       - "SYSLOG_IDENTIFIER=sudo"
       - "SYSLOG_IDENTIFIER=auth"
     labels:
@@ -42,7 +48,7 @@ in
     autoStart = true;
     ports = [ "127.0.0.1:8080:8080" ];
     environment = {
-      COLLECTIONS = "crowdsecurity/linux crowdsecurity/sshd crowdsecurity/traefik crowdsecurity/http-cve";
+      COLLECTIONS = "crowdsecurity/linux crowdsecurity/sshd crowdsecurity/traefik crowdsecurity/http-cve crowdsecurity/vaultwarden";
       GID = "0";
     };
     volumes = [
