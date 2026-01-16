@@ -4,14 +4,12 @@
   services.crowdsec = {
     enable = true;
 
-    hub = {
-      collections = [
-        "crowdsecurity/linux"
-        "crowdsecurity/sshd"
-        "crowdsecurity/traefik"
-        "crowdsecurity/http-cve"
-      ];
-    };
+    hub.collections = [
+      "crowdsecurity/linux"
+      "crowdsecurity/sshd"
+      "crowdsecurity/traefik"
+      "crowdsecurity/http-cve"
+    ];
 
     localConfig = {
       acquisitions = [
@@ -36,21 +34,15 @@
       ];
     };
 
-    settings = {
-      api = {
-        server = {
-          enable = true;
-        };
-      };
+    settings.general = {
+      api.server.enable = true;
     };
   };
 
   services.crowdsec-firewall-bouncer = {
     enable = true;
 
-    registerBouncer = {
-      enable = true;
-    };
+    registerBouncer.enable = true;
 
     settings = {
       mode = "nftables";
