@@ -41,8 +41,20 @@
           }
         ];
       }
+      {
+        job_name = "smartctl";
+        static_configs = [
+          {
+            targets = [ "127.0.0.1:9633" ];
+          }
+        ];
+      }
     ];
     exporters = {
+      smartctl = {
+        enable = true;
+        port = 9633;
+      };
       node = {
 
         enable = true;
@@ -59,6 +71,7 @@
           "sysctl"
           "processes"
           "cgroups"
+          "btrfs"
         ];
         # You can pass extra options to the exporter using `extraFlags`, e.g.
         # to configure collectors or disable those enabled by default.
