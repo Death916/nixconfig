@@ -4,8 +4,6 @@
   services.crowdsec = {
     enable = true;
 
-    api.server.enable = true;
-
     hub.collections = [
       "crowdsecurity/linux"
       "crowdsecurity/sshd"
@@ -33,12 +31,22 @@
         labels.type = "traefik";
       }
     ];
+
+    settings = {
+      api = {
+        server = {
+          enable = true;
+        };
+      };
+    };
   };
 
   services.crowdsec-firewall-bouncer = {
     enable = true;
 
-    registerBouncer.enable = true;
+    registerBouncer = {
+      enable = true;
+    };
 
     settings = {
       mode = "nftables";
