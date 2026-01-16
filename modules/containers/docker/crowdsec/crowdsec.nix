@@ -58,6 +58,7 @@ in
       "/var/log/journal:/var/log/journal:ro"
       "/run/log/journal:/run/log/journal:ro"
       "/etc/machine-id:/etc/machine-id:ro"
+      "/run/current-system/sw/bin/journalctl:/usr/local/bin/journalctl:ro"
       "${acquisYaml}:/etc/crowdsec/acquis.yaml"
     ];
   };
