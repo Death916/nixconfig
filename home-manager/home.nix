@@ -134,7 +134,7 @@ in
 
       conda = {
         truncation_length = 1;
-        format = ''[$symbol$environment]($style) '';
+        format = "[$symbol$environment]($style) ";
         symbol = " ";
         style = "green bold";
         ignore_base = false;
@@ -154,7 +154,7 @@ in
         disabled = false;
       };
 
-      format = ''$nix_shell$directory $git_branch $conda$env_var$time$cmd_duration$status$character'';
+      format = "$nix_shell$directory $git_branch $conda$env_var$time$cmd_duration$status$character";
     };
   };
 
@@ -162,7 +162,7 @@ in
     enable = true;
     package = pkgs.emacs;
   };
-
+  programs.firefox.enable = true;
   programs.alacritty = {
     enable = true;
     settings = {
