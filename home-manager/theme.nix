@@ -52,5 +52,6 @@
     btop.enable = true;
     halloy.enable = true;
     qt.enable = true;
+    firefox.enable = true;
   };
 }
