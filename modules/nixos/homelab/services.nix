@@ -176,6 +176,7 @@
     enable = true;
     options = {
       calibreLibrary = /media/storage/media/books/calibre;
+      enableBookUploading = true;
     };
   };
 
