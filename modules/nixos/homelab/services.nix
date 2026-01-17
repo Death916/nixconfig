@@ -174,7 +174,9 @@
 
   services.calibre-web = {
     enable = true;
-    calibreLibrary = /media/storage/media/books/calibre;
+    options = {
+      calibreLibrary = /media/storage/media/books/calibre;
+    };
   };
 
   environment.systemPackages = with pkgs; [
