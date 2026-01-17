@@ -175,7 +175,7 @@
   services.calibre-web = {
     enable = true;
     options = {
-      calibreLibrary = /media/storage/media/books/calibre;
+      calibreLibrary = "/media/storage/media/books/calibre";
       enableBookUploading = true;
     };
   };
