@@ -99,7 +99,6 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
-  programs.firefox.enable = true;
   programs.nh = {
     enable = true;
     clean.enable = true;
