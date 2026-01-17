@@ -15,7 +15,7 @@ in
 {
   imports = [
     ../modules/home-manager/common.nix
-    ./hyprland.nix # Add this line to import your Hyprland configuration
+    ./hyprland.nix
     ./theme.nix # Import the stylix theme configuration
   ];
 

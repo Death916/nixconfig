@@ -141,7 +141,7 @@
         "SUPER, T, exec, ghostty"
         "SUPER, D, exec, rofi -show drun"
         "SUPER, A, exec, rofi -show window"
-        "SUPER, W, exec, microsoft-edge"
+        "SUPER, W, exec, firefox"
         "SUPER, E, exec, nautilus"
         "SUPER, N, exec, dunstctl history-pop"
 
@@ -183,10 +183,9 @@
 
   xdg.portal = {
     enable = true;
-    extraPortals = with pkgs;
-      [
-        xdg-desktop-portal-gtk
-      ];
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+    ];
   };
 
   programs.waybar = {
@@ -479,30 +478,29 @@
   };
 
   fonts.fontconfig.enable = true;
-  home.packages = with pkgs;
-    [
-      nerd-fonts.jetbrains-mono
-      noto-fonts
-      noto-fonts-cjk-sans
-      noto-fonts-color-emoji
-      font-awesome
-      roboto
-      grim
-      slurp
-      networkmanagerapplet
-      blueman
-      waybar
-      kitty
-      libnotify
-      kdePackages.dolphin
-      catppuccin-gtk
-      materia-theme
-      rose-pine-gtk-theme
-      nightfox-gtk-theme
-      materia-kde-theme
+  home.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+    noto-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-color-emoji
+    font-awesome
+    roboto
+    grim
+    slurp
+    networkmanagerapplet
+    blueman
+    waybar
+    kitty
+    libnotify
+    kdePackages.dolphin
+    catppuccin-gtk
+    materia-theme
+    rose-pine-gtk-theme
+    nightfox-gtk-theme
+    materia-kde-theme
 
-      playerctl
-      wl-clipboard
-      unstablePkgs.wttrbar
-    ];
+    playerctl
+    wl-clipboard
+    unstablePkgs.wttrbar
+  ];
 }
