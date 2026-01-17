@@ -56,7 +56,7 @@
       };
     };
 
-    systemd.services.adguardhome.after = [ "network-online.target" "tailscale.service" ];
-    systemd.services.adguardhome.requires = [ "network-online.target" "tailscale.service" ];
+    systemd.services.adguardhome.after = [ "network-online.target" "tailscaled.service" ];
+    systemd.services.adguardhome.requires = [ "network-online.target" "tailscaled.service" ];
   };
 }
