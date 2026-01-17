@@ -172,6 +172,11 @@
 
   };
 
+  services.calibre-web = {
+    enable = true;
+    calibreLibrary = /media/storage/media/books/calibre/;
+  };
+
   environment.systemPackages = with pkgs; [
     git
     vim
