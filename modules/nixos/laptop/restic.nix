@@ -37,7 +37,7 @@
     timerConfig = {
       OnCalendar = "hourly";
       Persistent = true;
-      RandomDelaySec = "5m";
+      RandomDelaySec = "30m";
     };
   };
 
