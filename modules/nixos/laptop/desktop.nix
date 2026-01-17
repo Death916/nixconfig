@@ -63,6 +63,7 @@
     # unstablePkgs.sdrangel
     restic
     docker-compose # Added for Winboat
+    cifs-utils
   ];
 
   services.snapper.configs.nix = {
