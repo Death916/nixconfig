@@ -3,7 +3,7 @@
 {
   services.samba = {
     enable = true;
-    openFirewall = false; 
+    openFirewall = true; 
     settings = {
       Media = {
         browseable = "yes";
@@ -24,7 +24,7 @@
   # Enable network discovery service for clients.
   services.samba-wsdd = {
     enable = true;
-    openFirewall = false;
+    openFirewall = true;
   };
 }
 
