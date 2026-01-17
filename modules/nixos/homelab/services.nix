@@ -12,6 +12,7 @@
     ./monitoring.nix
     ../../c2cscrape.nix
     # ../../containers/docker/immich.nix # Import the new Immich Docker container config
+    ../../../modules/containers/docker/dispatcharr/docker-compose.nix
   ];
   arrSuite.enable = true;
   services.samba.shares.Media.path = "/media/storage/media";
@@ -190,5 +191,6 @@
     qemu
     virt-manager
     usbutils
+    yazi
   ];
 }
