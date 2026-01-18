@@ -16,4 +16,15 @@
     ];
     openFirewall = true;
   };
+  services.prometheus.exporters.process = {
+    enable = true;
+    port = 9256;
+    openFirewall = true;
+    settings.process_names = [
+      {
+        name = "{{.Comm}}";
+        cmdline = [ ".+" ];
+      }
+    ];
+  };
 }
