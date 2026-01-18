@@ -32,6 +32,15 @@ let
     labels:
       type: syslog
   '';
+
+  whitelistYaml = pkgs.writeText "tailscale-whitelist.yaml" ''
+    name: my/tailscale_whitelist
+    description: "Whitelist Tailscale IPs"
+    whitelist:
+      reason: "Tailscale / Internal"
+      ip:
+        - "100.64.0.0/10"
+  '';
 in
 {
   virtualisation.docker.enable = true;
@@ -59,6 +68,7 @@ in
       "/run/log/journal:/run/log/journal:ro"
       "/etc/machine-id:/etc/machine-id:ro"
       "${acquisYaml}:/etc/crowdsec/acquis.yaml"
+      "${whitelistYaml}:/etc/crowdsec/parsers/s02-enrich/tailscale-whitelist.yaml"
     ];
   };
 
