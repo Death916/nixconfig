@@ -11,7 +11,7 @@
 
 buildPythonPackage rec {
   pname = "c2cscrape";
-  tag = "0.1.3";
+  version = "0.1.3";
 
   src = fetchFromGitHub {
     owner = "death916";
