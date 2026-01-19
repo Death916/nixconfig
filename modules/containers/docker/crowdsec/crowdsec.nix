@@ -38,7 +38,7 @@ let
     description: "Whitelist Tailscale IPs"
     whitelist:
       reason: "Tailscale / Internal"
-      ip:
+      cidr:
         - "100.64.0.0/10"
   '';
 in
