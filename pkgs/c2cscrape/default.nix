@@ -1,21 +1,22 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, requests
-, beautifulsoup4
-, lxml
-, feedgen
-, pytz
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  requests,
+  beautifulsoup4,
+  lxml,
+  feedgen,
+  pytz,
 }:
 
 buildPythonPackage rec {
   pname = "c2cscrape";
-  version = "0.1.2";
+  version = "0.1.3";
 
   src = fetchFromGitHub {
     owner = "death916";
     repo = "c2cscrape";
-    rev = "b61b888b229d646859976f8fb69e59c17c8c27a4";
+    # rev = "b61b888b229d646859976f8fb69e59c17c8c27a4";
     hash = "sha256-oVuLGHds2zT/QzlFUaBzS73hwF28Wm03XwrOQbKrgdo=";
   };
 
