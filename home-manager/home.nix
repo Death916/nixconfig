@@ -96,7 +96,6 @@ in
     kdePackages.kdeconnect-kde
     restic-browser
     fedistar
-    thunderbird
   ];
 
   programs.ghostty = {
@@ -301,4 +300,5 @@ in
   programs.lazygit.enable = true;
   programs.obsidian.enable = true;
   programs.element-desktop.enable = true;
+  programs.thunderbird.enable = true
 }
