@@ -304,7 +304,7 @@ in
     enable = true;
     profiles = {
       death916 = {
-        name = "Death916"
+        name = "Death916";
       };
     };
   };
