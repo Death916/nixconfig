@@ -300,5 +300,12 @@ in
   programs.lazygit.enable = true;
   programs.obsidian.enable = true;
   programs.element-desktop.enable = true;
-  programs.thunderbird.enable = true;
+  programs.thunderbird = {
+    enable = true;
+    profiles = {
+      death916 = {
+        name = "Death916"
+      };
+    };
+  };
 }
