@@ -96,6 +96,7 @@ in
     kdePackages.kdeconnect-kde
     restic-browser
     fedistar
+    thunderbird
   ];
 
   programs.ghostty = {
