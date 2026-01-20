@@ -305,6 +305,7 @@ in
     profiles = {
       death916 = {
         name = "Death916";
+        isDefault = true;
       };
     };
   };
