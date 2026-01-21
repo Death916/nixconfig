@@ -98,6 +98,9 @@ in
     fedistar
     thunderbird
     pavucontrol
+    meli
+    w3m
+    newsboat
   ];
 
   programs.ghostty = {
