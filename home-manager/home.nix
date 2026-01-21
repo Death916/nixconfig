@@ -97,6 +97,7 @@ in
     restic-browser
     fedistar
     thunderbird
+    pavucontrol
   ];
 
   programs.ghostty = {
