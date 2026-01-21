@@ -28,9 +28,9 @@
       "--exclude-caches"
     ];
     timerConfig = {
-      OnCalendar = "hourly";
+      OnCalendar = "*:20";
       Persistent = true;
-      RandomizedDelaySec = "6m";
+      RandomizedDelaySec = "10m";
     };
   };
 
