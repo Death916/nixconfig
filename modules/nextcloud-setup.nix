@@ -16,8 +16,9 @@ let
   internalNextcloudHttpPort = 80;
 
   # --- For Direct Tailscale Access to homelab's Nextcloud ---
-  homelabTailscaleIP = "100.65.36.116"; 
-  homelabMagicDNSName = "homelab"; 
+  homelabTailscaleIP = "100.65.36.116";
+  homelabMagicDNSName = "homelab";
+in
 {
   # --- PostgreSQL & Redis setup ... (as before) ---
   services.postgresql = {
