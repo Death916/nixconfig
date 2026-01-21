@@ -99,10 +99,10 @@
         "SUPER SHIFT, up, movewindow, u"
         "SUPER SHIFT, down, movewindow, d"
 
-        "binde, SUPER CTRL, left, resizeactive, -20 0"
-        "binde, SUPER CTRL, right, resizeactive, 20 0"
-        "binde, SUPER CTRL, up, resizeactive, 0 -20"
-        "binde, SUPER CTRL, down, resizeactive, 0 20"
+        "SUPER CTRL, left, resizeactive, -40 0"
+        "SUPER CTRL, right, resizeactive, 40 0"
+        "SUPER CTRL, up, resizeactive, 0 -40"
+        "SUPER CTRL, down, resizeactive, 0 40"
 
         "SUPER, 1, workspace, 1"
         "SUPER, 2, workspace, 2"
@@ -128,10 +128,6 @@
 
         "SUPER, mouse_down, workspace, e+1"
         "SUPER, mouse_up, workspace, e-1"
-
-        "bindm, SUPER, mouse:272, movewindow"
-        "bindm, SUPER, mouse:273, resizewindow"
-        "bindm, SUPER CTRL, mouse:272, resizewindow"
 
         ", XF86AudioMute, exec, ${pkgs.pamixer}/bin/pamixer --toggle-mute"
         ", XF86AudioRaiseVolume, exec, ${pkgs.pamixer}/bin/pamixer --increase 5"
