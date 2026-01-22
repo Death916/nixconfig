@@ -185,6 +185,7 @@
     enable = true;
     config = {
       LISTEN_ADDR = "0.0.0.0:8086";
+      CREATE_ADMIN = false;
     };
   };
 
