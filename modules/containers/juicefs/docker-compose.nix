@@ -17,7 +17,11 @@
       "juice_juicefs_cache:/var/jfsCache:rw"
     ];
     env_file = "/etc/nixos/secrets/juicefs.env";
-    cmd = [ "sh" "-c" "juicefs mount postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@postgres:5432/juicefs?sslmode=disable /mnt/jfs" ];
+    cmd = [
+      "sh"
+      "-c"
+      "juicefs mount postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@postgres:5432/juicefs?sslmode=disable /mnt/jfs"
+    ];
     dependsOn = [
       "postgres-for-juicefs"
     ];
@@ -59,7 +63,7 @@
       "/home/death916/docker/volumes/postgres:/var/lib/postgresql/data:rw"
     ];
     ports = [
-      "5432:5432/tcp"
+      "5430:5432/tcp"
     ];
     log-driver = "journald";
     extraOptions = [
