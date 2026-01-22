@@ -183,7 +183,9 @@
 
   services.miniflux = {
     enable = true;
-    LISTEN_ADDR = "0.0.0.0:8086";
+    config = {
+      LISTEN_ADDR = "0.0.0.0:8086";
+    };
   };
 
   environment.systemPackages = with pkgs; [
