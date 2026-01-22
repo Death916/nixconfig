@@ -66,6 +66,7 @@
     cifs-utils
     nil
     nixfmt
+    nixd
   ];
 
   services.snapper.configs.nix = {
