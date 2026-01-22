@@ -66,7 +66,7 @@
       "/home/death916/docker/volumes/postgres:/var/lib/postgresql/data:rw"
     ];
     ports = [
-      "5432:5432/tcp"
+      "5430:5432/tcp"
     ];
     log-driver = "journald";
     extraOptions = [
