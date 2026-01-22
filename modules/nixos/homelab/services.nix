@@ -11,8 +11,8 @@
     ./restic.nix
     ./monitoring.nix
     ../../c2cscrape.nix
-    # ../../containers/docker/immich.nix # Import the new Immich Docker container config
     ../../../modules/containers/docker/dispatcharr/docker-compose.nix
+    ../../../modules/containers/haos.nix
   ];
   arrSuite.enable = true;
   services.samba.shares.Media.path = "/media/storage/media";
@@ -52,11 +52,8 @@
   };
 
   systemd.tmpfiles.rules = [
-
     "d /storage/services/qbittorrent 0755 qbittorrent media_services - -"
-
     "d /storage/services/qbittorrent/config 0755 qbittorrent media_services - -"
-
     "d /media/storage/media/books/audio/podcasts/C2C 0777 c2c media_services - -"
     "d /storage/services/immich 0770 immich media_services -"
     "d /storage/services/immich/upload 0770 immich media_services -"
@@ -66,7 +63,6 @@
     "d /storage/services/immich/upload/profile 0770 immich media_services -"
     "d /storage/services/immich/upload/upload 0770 immich media_services -"
     "d /storage/services/immich/upload/backup 0770 immich media_services -"
-
     "f /storage/services/immich/upload/library/.immich 0660 immich media_services -"
     "f /storage/services/immich/upload/thumbs/.immich 0660 immich media_services -"
     "f /storage/services/immich/upload/encoded-video/.immich 0660 immich media_services -"
@@ -99,19 +95,6 @@
           "-A"
         ];
       };
-      # c2c-scraper = {
-      # image = "death916/c2cscrape:latest";
-      # volumes = [
-      # "/media/storage/media/books/audio/podcasts/C2C:/downloads"
-      # "/media/storage/media/docker/volumes/c2cscrape:/app/data"
-      # ];
-      # user = "${toString config.users.users.c2c.uid}:${toString config.users.groups.media_services.gid}";
-      # environment = {
-      # TZ = "America/Los_Angeles";
-      # };
-      # autoStart = true;
-      # extraOptions = [ "--dns=8.8.8.8" ];
-      # };
     };
   };
 
@@ -132,14 +115,6 @@
       runAsRoot = true;
       # ovmf.enable = true;
     };
-  };
-
-  services.homeassistant-vm = {
-    enable = true;
-    imagePath = "/var/lib/libvirt/images/haos.qcow2";
-    memory = 6096;
-    vcpus = 4;
-    bridge = "br0";
   };
 
   programs.nh = {

@@ -22,14 +22,11 @@ in
           name = "bulk-pool";
           driver = "dir";
           config = {
-            # This path points to your larger storage mount.
-            # Ensure this directory exists before rebuilding.
             source = "/storage/incus-data";
           };
         }
       ];
 
-      # Update the default profile to use the new pools.
       profiles = [
         {
           name = "default";
