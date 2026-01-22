@@ -50,13 +50,13 @@
     };
   };
 
-  # services.miniflux = {
-  #   enable = true;
-  #   adminCredentialsFile = "/etc/nixos/secrets/minifluxadmin";
-  #   config = {
-  #     LISTEN_ADDR = "0.0.0.0:8086";
-  #   };
-  # };
+  services.miniflux = {
+    enable = true;
+    adminCredentialsFile = "/etc/nixos/secrets/minifluxadmin";
+    config = {
+      LISTEN_ADDR = "0.0.0.0:8086";
+    };
+  };
 
   environment.systemPackages = with pkgs; [
     git
