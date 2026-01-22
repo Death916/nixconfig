@@ -38,7 +38,7 @@ in
   # --- Nextcloud Service Configuration ---
   services.nextcloud = {
     enable = true;
-    package = pkgs.nextcloud31; # Verify this version
+    package = pkgs.nextcloud32;
 
     hostName = nextcloudExternalDomain;
 
