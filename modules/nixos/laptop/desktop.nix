@@ -64,6 +64,8 @@
     restic
     docker-compose # Added for Winboat
     cifs-utils
+    nil
+    nixfmt
   ];
 
   services.snapper.configs.nix = {
