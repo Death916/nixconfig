@@ -49,12 +49,14 @@
       # SMTP_FROM_NAME = "example.com Bitwarden server";
     };
   };
-  # # services.beszel = {
-  #   hub.enable = true;
-  #   hub.host = "0.0.0.0";
-  #   agent.enable = true;
-  #   agent.environmentFile = /etc/nixos/secrets/beszel.env
-  # };
+
+  services.miniflux = {
+    enable = true;
+    adminCredentialsFile = "/etc/nixos/secrets/minifluxadmin";
+    config = {
+      LISTEN_ADDR = "0.0.0.0:8086";
+    };
+  };
 
   environment.systemPackages = with pkgs; [
     git

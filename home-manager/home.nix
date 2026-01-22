@@ -307,6 +307,10 @@ in
   programs.element-desktop.enable = true;
   programs.newsboat = {
     enable = true;
+    extraConfig = ''
+      urls-source "miniflux"
+      miniflux-url "http://orac:8086"
+    '';
     autoFetchArticles = {
       enable = true;
       onCalendar = "daily";
