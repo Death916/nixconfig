@@ -310,6 +310,8 @@ in
     extraConfig = ''
       urls-source "miniflux"
       miniflux-url "http://orac:8086"
+      miniflux-login "death916"
+      miniflux-passwordfile "/etc/nixos/secrets/minifluxpassword"
     '';
     autoFetchArticles = {
       enable = true;
