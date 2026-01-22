@@ -55,6 +55,7 @@
     adminCredentialsFile = "/etc/nixos/secrets/minifluxadmin";
     config = {
       LISTEN_ADDR = "0.0.0.0:8086";
+      POLLING_FREQUENCY = 15;
     };
   };
 
