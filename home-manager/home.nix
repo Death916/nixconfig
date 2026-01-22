@@ -98,6 +98,9 @@ in
     fedistar
     thunderbird
     pavucontrol
+    meli
+    w3m
+    newsboat
   ];
 
   programs.ghostty = {
@@ -302,13 +305,16 @@ in
   programs.lazygit.enable = true;
   programs.obsidian.enable = true;
   programs.element-desktop.enable = true;
-  # programs.thunderbird = {
-  #   enable = true;
-  #   profiles = {
-  #     death916 = {
-  #       name = "Death916";
-  #       isDefault = true;
-  #     };
-  #   };
-  # };
+  programs.newsboat = {
+    enable = true;
+    autoFetchArticles = {
+      enable = true;
+      onCalendar = "daily";
+    };
+    autoReload = true;
+    autoVacuum = {
+      enable = true;
+      onCalendar = "weekly";
+    };
+  };
 }
