@@ -21,6 +21,7 @@
     enable = true;
     dataDir = "/media/storage/media/books/audio/podcasts/C2C";
     user = "death916";
+    environmentFile = "/etc/nixos/secrets/c2c.env";
   };
   #  virtualisation.incus.enable = true;
   services.qbittorrent = {

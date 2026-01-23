@@ -7,7 +7,6 @@
 
 let
   cfg = config.services.c2cscrape;
-  # Import the package relative to this file
   c2cscrapePkg = pkgs.python3Packages.callPackage ../pkgs/c2cscrape/default.nix {
     qbittorrentApi = pkgs.python3Packages.qbittorrent-api;
     pythonDotenv = pkgs.python3Packages.python-dotenv;
@@ -28,6 +27,11 @@ in
       default = "c2cscrape";
       description = "user to run as";
     };
+
+    environmentFile = lib.mkOption {
+      type = lib.types.path;
+      description = "Path to an .env file ";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -42,6 +46,7 @@ in
         User = cfg.user;
         WorkingDirectory = cfg.dataDir;
         Environment = "PYTHONUNBUFFERED=1";
+        EnvironmentFile = cfg.environmentFile;
 
       };
     };
