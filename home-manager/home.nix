@@ -305,6 +305,9 @@ in
   programs.lazygit.enable = true;
   programs.obsidian.enable = true;
   programs.element-desktop.enable = true;
+  
+  home.file.".w3m/config".text = "display_image 1";
+
   programs.newsboat = {
     enable = true;
     extraConfig = ''
@@ -312,6 +315,15 @@ in
       miniflux-url "http://orac:8086"
       miniflux-login "death916"
       miniflux-passwordfile "/etc/nixos/secrets/minifluxpassword"
+
+      # Default to w3m for "inline" image viewing
+      browser "w3m -o display_image=1 %u"
+
+      # Bind Enter to open w3m directly in article list
+      bind-key ENTER open-in-browser articlelist
+
+      # Macro 'f' to open in Firefox (fallback)
+      macro f set browser "firefox %u"; open-in-browser; set browser "w3m -o display_image=1 %u"
     '';
     autoFetchArticles = {
       enable = true;
