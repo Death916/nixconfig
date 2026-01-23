@@ -99,7 +99,7 @@ in
     thunderbird
     pavucontrol
     meli
-    w3m
+    w3m-full
     newsboat
   ];
 
