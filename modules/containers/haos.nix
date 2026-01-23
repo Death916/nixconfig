@@ -1,4 +1,9 @@
-{ config, pkgs, unstablePkgs, ... }:
+{
+  config,
+  pkgs,
+  unstablePkgs,
+  ...
+}:
 
 {
   users.users.death916.extraGroups = [ "home-assistant" ];
@@ -14,6 +19,8 @@
       "shopping_list"
       "isal"
       "wled"
+      "tp-link"
+
     ];
     extraPackages =
       python3Packages: with python3Packages; [
