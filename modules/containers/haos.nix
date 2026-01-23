@@ -19,7 +19,7 @@
       "shopping_list"
       "isal"
       "wled"
-      "tp-link"
+      "tplink"
 
     ];
     extraPackages =
