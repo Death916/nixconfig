@@ -7,7 +7,8 @@
   lxml,
   feedgen,
   pytz,
-  qbittorrent-api,
+  qbittorrentApi,
+  pythonDotenv,
 }:
 
 buildPythonPackage rec {
@@ -29,7 +30,8 @@ buildPythonPackage rec {
     lxml
     feedgen
     pytz
-    qbittorrent-api
+    qbittorrentApi
+    pythonDotenv
   ];
 
   installPhase = ''

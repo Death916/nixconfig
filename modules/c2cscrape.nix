@@ -8,7 +8,10 @@
 let
   cfg = config.services.c2cscrape;
   # Import the package relative to this file
-  c2cscrapePkg = pkgs.python3Packages.callPackage ../pkgs/c2cscrape/default.nix { };
+  c2cscrapePkg = pkgs.python3Packages.callPackage ../pkgs/c2cscrape/default.nix {
+    qbittorrentApi = pkgs.python3Packages.qbittorrent-api;
+    pythonDotenv = pkgs.python3Packages.python-dotenv;
+  };
 in
 {
   options.services.c2cscrape = {
@@ -38,6 +41,7 @@ in
         ExecStart = "${c2cscrapePkg}/bin/c2cscrape";
         User = cfg.user;
         WorkingDirectory = cfg.dataDir;
+        Environment = "PYTHONUNBUFFERED=1";
 
       };
     };
