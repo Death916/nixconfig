@@ -157,6 +157,12 @@
     };
   };
 
+  services.ersatstv = {
+    enable = true;
+    group = "media_services";
+
+  };
+
   environment.systemPackages = with pkgs; [
     git
     vim
@@ -177,5 +183,8 @@
     virt-manager
     usbutils
     yazi
+    nixfmt
+    nil
+    nixd
   ];
 }
