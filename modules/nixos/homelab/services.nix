@@ -160,7 +160,7 @@
   services.ersatztv = {
     enable = true;
     group = "media_services";
-
+    package = pkgs.ersatztv.override { ffmpeg = pkgs.ffmpeg_7; };
   };
 
   environment.systemPackages = with pkgs; [
