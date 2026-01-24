@@ -157,7 +157,7 @@
     };
   };
 
-  services.ersatstv = {
+  services.ersatztv = {
     enable = true;
     group = "media_services";
 
