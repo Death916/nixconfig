@@ -161,6 +161,7 @@
     enable = true;
     group = "media_services";
     package = pkgs.ersatztv.override { ffmpeg = pkgs.ffmpeg_7; };
+    openFirewall = true;
   };
 
   environment.systemPackages = with pkgs; [
