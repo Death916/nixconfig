@@ -27,7 +27,7 @@ self: super:
       lockFile = src + "/Cargo.lock";
       outputHashes = {
         "cryoglyph-0.1.0" = "sha256-iBpeC4g/C2rkMWxoOahPJ4aECqsE2rnxDeFEmuBPj3k=";
-        "iced-0.15.0-dev" = "";
+        "iced-0.15.0-dev" = "sha256-QEBGpD+L5TFLazz9aY45pyq6J4dDc9LUmX81ueRWshk=";
         "dpi-0.1.1" = "sha256-pQn1lCFSJMkjUfHoggEzMHnm5k+Chnzi5JEDjahnjUA=";
         "cosmic-text-0.15.0" = "sha256-IcaVn8r6qGWhgNnZchRHIgcMSNYE61Bfc3n29X9N7xY=";
       };
