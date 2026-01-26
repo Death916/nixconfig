@@ -1,14 +1,17 @@
 self: super:
-let
-  nightlyRustPlatform = super.makeRustPlatform {
-    cargo = super.rust-bin.nightly."2025-07-28".default;
-    rustc = super.rust-bin.nightly."2025-07-28".default;
-  };
-in
+/*
+  let
+    nightlyRustPlatform = super.makeRustPlatform {
+      cargo = super.rust-bin.nightly."2025-07-28".default;
+      rustc = super.rust-bin.nightly."2025-07-28".default;
+    };
+  in
+*/
 {
-  halloy = nightlyRustPlatform.buildRustPackage rec {
+  # halloy = nightlyRustPlatform.buildRustPackage rec {
+  halloy = super.buildRustPackage rec {
     pname = "halloy";
-    version = "2025.12";
+    version = "2026.1";
 
     src = super.fetchFromGitHub {
       owner = "squidowl";
@@ -17,8 +20,8 @@ in
       sha256 = "sha256-rVeh0nvmRjfOErwUhiWBx3hHla9bA2mSOORNSqSOrfw=";
     };
 
-    RUSTC_BOOTSTRAP = 1;
-    RUSTFLAGS = "-Z allow-features=let_chains";
+    # RUSTC_BOOTSTRAP = 1;
+    # RUSTFLAGS = "-Z allow-features=let_chains";
 
     cargoLock = {
       lockFile = src + "/Cargo.lock";
