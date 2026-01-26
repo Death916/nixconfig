@@ -29,7 +29,7 @@ self: super:
         "cryoglyph-0.1.0" = "sha256-PyPizF+kgC7wUBOd/UEbPpUvW7oj8tEz/QHaIsk5+t0=";
         "iced-0.15.0-dev" = "";
         "dpi-0.1.1" = "sha256-pQn1lCFSJMkjUfHoggEzMHnm5k+Chnzi5JEDjahnjUA=";
-        "cosmic-text-0.15.0" = "";
+        "cosmic-text-0.15.0" = "sha256-IcaVn8r6qGWhgNnZchRHIgcMSNYE61Bfc3n29X9N7xY=";
       };
     };
 
