@@ -101,6 +101,7 @@ in
     meli
     w3m-full
     newsboat
+    hypnotix
   ];
 
   programs.ghostty = {
@@ -305,7 +306,7 @@ in
   programs.lazygit.enable = true;
   programs.obsidian.enable = true;
   programs.element-desktop.enable = true;
-  
+
   home.file.".w3m/config".text = "display_image 1";
 
   programs.newsboat = {
