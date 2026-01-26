@@ -9,7 +9,7 @@ self: super:
 */
 {
   # halloy = nightlyRustPlatform.buildRustPackage rec {
-  halloy = super.buildRustPackage rec {
+  halloy = super.rustPlatform.buildRustPackage rec {
     pname = "halloy";
     version = "2026.1";
 
