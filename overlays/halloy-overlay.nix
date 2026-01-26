@@ -17,7 +17,7 @@ self: super:
       owner = "squidowl";
       repo = pname;
       rev = version;
-      sha256 = "sha256-rVeh0nvmRjfOErwUhiWBx3hHla9bA2mSOORNSqSOrfw=";
+      sha256 = "";
     };
 
     # RUSTC_BOOTSTRAP = 1;
