@@ -208,6 +208,7 @@ in
       urldecode = "python3 -c 'import sys, urllib.parse as ul; print(ul.unquote_plus(sys.stdin.read()))'";
       urlencode = "python3 -c 'import sys, urllib.parse as ul; print(ul.quote_plus(sys.stdin.read()))'";
       nh-push = "/home/death916/Documents/nix-config/scripts/nh-push";
+      l = "eza -alh";
     };
   };
 
@@ -330,4 +331,7 @@ in
       onCalendar = "weekly";
     };
   };
+
+  programs.eza.enable = true;
+
 }
