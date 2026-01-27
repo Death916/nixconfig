@@ -53,5 +53,6 @@
     halloy.enable = true;
     qt.enable = true;
     firefox.enable = true;
+    obsidian.enable = true;
   };
 }
