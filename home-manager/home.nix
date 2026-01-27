@@ -102,6 +102,7 @@ in
     w3m-full
     newsboat
     hypnotix
+    obsidian
   ];
 
   programs.ghostty = {
@@ -305,7 +306,7 @@ in
   programs.cava.enable = true;
   programs.cavalier.enable = true;
   programs.lazygit.enable = true;
-  programs.obsidian.enable = true;
+  # programs.obsidian.enable = true;
   programs.element-desktop.enable = true;
 
   home.file.".w3m/config".text = "display_image 1";
