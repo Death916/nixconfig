@@ -103,6 +103,7 @@ in
     newsboat
     hypnotix
     obsidian
+    pokemon-colorscripts
   ];
 
   programs.ghostty = {
@@ -201,6 +202,7 @@ in
     enableCompletion = true;
     bashrcExtra = ''
       export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/go/bin"
+      pokemon-colorscripts -r
     '';
     shellAliases = {
       k = "kubectl";
