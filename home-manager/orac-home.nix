@@ -20,10 +20,13 @@
     zellij
     systemctl-tui
     gemini-cli
-    
+    eza
   ];
 
   programs.bash.shellAliases = {
     nh-push = "/home/death916/nixconfig/scripts/nh-push";
+    l = "eza -alh --icons";
+
   };
+
 }
