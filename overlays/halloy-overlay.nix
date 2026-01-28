@@ -1,31 +1,35 @@
 self: super:
-let
-  nightlyRustPlatform = super.makeRustPlatform {
-    cargo = super.rust-bin.nightly."2025-07-28".default;
-    rustc = super.rust-bin.nightly."2025-07-28".default;
-  };
-in
+/*
+  let
+    nightlyRustPlatform = super.makeRustPlatform {
+      cargo = super.rust-bin.nightly."2025-07-28".default;
+      rustc = super.rust-bin.nightly."2025-07-28".default;
+    };
+  in
+*/
 {
-  halloy = nightlyRustPlatform.buildRustPackage rec {
+  # halloy = nightlyRustPlatform.buildRustPackage rec {
+  halloy = super.rustPlatform.buildRustPackage rec {
     pname = "halloy";
-    version = "2025.12";
+    version = "2026.1.1";
 
     src = super.fetchFromGitHub {
       owner = "squidowl";
       repo = pname;
       rev = version;
-      sha256 = "sha256-rVeh0nvmRjfOErwUhiWBx3hHla9bA2mSOORNSqSOrfw=";
+      sha256 = "sha256-qQ6hNpOqI3yC26KqYYq42KjJw/bMzaXACpGyIXE2axo=";
     };
 
-    RUSTC_BOOTSTRAP = 1;
-    RUSTFLAGS = "-Z allow-features=let_chains";
+    # RUSTC_BOOTSTRAP = 1;
+    # RUSTFLAGS = "-Z allow-features=let_chains";
 
     cargoLock = {
       lockFile = src + "/Cargo.lock";
       outputHashes = {
-        "cryoglyph-0.1.0" = "sha256-PyPizF+kgC7wUBOd/UEbPpUvW7oj8tEz/QHaIsk5+t0=";
-        "iced-0.14.0-dev" = "sha256-Xvbin3l1+SsAysn2HJ6mKzA+wY2WrRQKPIa3SzfZbn4=";
+        "cryoglyph-0.1.0" = "sha256-iBpeC4g/C2rkMWxoOahPJ4aECqsE2rnxDeFEmuBPj3k=";
+        "iced-0.15.0-dev" = "sha256-QEBGpD+L5TFLazz9aY45pyq6J4dDc9LUmX81ueRWshk=";
         "dpi-0.1.1" = "sha256-pQn1lCFSJMkjUfHoggEzMHnm5k+Chnzi5JEDjahnjUA=";
+        "cosmic-text-0.15.0" = "sha256-IcaVn8r6qGWhgNnZchRHIgcMSNYE61Bfc3n29X9N7xY=";
       };
     };
 

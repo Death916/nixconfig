@@ -101,6 +101,9 @@ in
     meli
     w3m-full
     newsboat
+    hypnotix
+    obsidian
+    pokemon-colorscripts
   ];
 
   programs.ghostty = {
@@ -199,6 +202,7 @@ in
     enableCompletion = true;
     bashrcExtra = ''
       export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/go/bin"
+      pokemon-colorscripts -r
     '';
     shellAliases = {
       k = "kubectl";
@@ -207,6 +211,7 @@ in
       urldecode = "python3 -c 'import sys, urllib.parse as ul; print(ul.unquote_plus(sys.stdin.read()))'";
       urlencode = "python3 -c 'import sys, urllib.parse as ul; print(ul.quote_plus(sys.stdin.read()))'";
       nh-push = "/home/death916/Documents/nix-config/scripts/nh-push";
+      l = "eza -alh --icons";
     };
   };
 
@@ -303,9 +308,9 @@ in
   programs.cava.enable = true;
   programs.cavalier.enable = true;
   programs.lazygit.enable = true;
-  programs.obsidian.enable = true;
+  # programs.obsidian.enable = true;
   programs.element-desktop.enable = true;
-  
+
   home.file.".w3m/config".text = "display_image 1";
 
   programs.newsboat = {
@@ -329,4 +334,7 @@ in
       onCalendar = "weekly";
     };
   };
+
+  programs.eza.enable = true;
+
 }
