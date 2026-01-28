@@ -149,7 +149,7 @@ in
       '';
       serviceConfig = {
         Type = "oneshot";
-        User = "nextcloud";
+        # User = "nextcloud";
       };
     };
 
