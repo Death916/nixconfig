@@ -40,7 +40,7 @@ in
     enable = true;
     package = pkgs.nextcloud32;
     extraApps = {
-      inherit (config.services.nextcloud.package.packages.apps) richdocuments;
+      # inherit (config.services.nextcloud.package.packages.apps) richdocuments;
     };
     hostName = nextcloudExternalDomain;
 
