@@ -24,15 +24,18 @@
     environmentFile = "/etc/nixos/secrets/c2c.env";
   };
   #  virtualisation.incus.enable = true;
-  services.qbittorrent = {
-    enable = true;
-    profileDir = "/storage/services/qbittorrent";
-    user = "qbittorrent";
-    group = "media_services";
-    webuiPort = 8090;
-    openFirewall = true;
-    package = pkgs.qbittorrent-nox;
-  };
+    services.qbittorrent = {
+      enable = true;
+      profileDir = "/storage/services/qbittorrent";
+      user = "qbittorrent";
+      group = "media_services";
+      webuiPort = 8090;
+      openFirewall = true;
+      package = pkgs.qbittorrent-nox;
+    };
+  
+    systemd.services.qbittorrent.unitConfig.RequiresMountsFor = [ "/media" ];
+    systemd.services.qbittorrent.unitConfig.ConditionPathIsMountPoint = "/media";
   users.users.audiobookshelf = {
     isSystemUser = true;
     group = "media_services";
