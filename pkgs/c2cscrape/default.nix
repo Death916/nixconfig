@@ -13,13 +13,13 @@
 
 buildPythonPackage rec {
   pname = "c2cscrape";
-  version = "0.1.3";
+  version = "0.1.4";
 
   src = fetchFromGitHub {
     owner = "death916";
     repo = "c2cscrape";
-    rev = "872686e9d55789986f685503695a3622aafda7e6";
-    hash = "sha256-wBvX4P8j+2nz8+WimSBSPKqCuC5uD6TT52xR+6dQ+ns=";
+    rev = "659312a0bb4bca4ce5f47a639d6430d1053b15a0";
+    hash = "";
   };
 
   format = "other";
