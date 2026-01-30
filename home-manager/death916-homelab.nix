@@ -21,6 +21,7 @@
     zellij
     systemctl-tui
     gemini-cli
+    fzf
   ];
 
   programs.bash.shellAliases = {
