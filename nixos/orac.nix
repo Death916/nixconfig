@@ -71,7 +71,7 @@
     options = "--delete-older-than 14d";
   };
 
-  boot.loader.grub.configurationLimit = 3;
+  boot.loader.grub.configurationLimit = 2;
 
   system.stateVersion = "25.05";
 }

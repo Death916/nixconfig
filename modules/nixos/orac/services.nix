@@ -71,5 +71,6 @@
     unzip
     manix
     pipes-rs
+    fzf
   ];
 }
