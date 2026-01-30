@@ -18,8 +18,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "death916";
     repo = "c2cscrape";
-    rev = "659312a0bb4bca4ce5f47a639d6430d1053b15a0";
-    hash = "sha256-baGAEozqLw/dTZ7vOcP/JcXFNyNYWO0kYJp9jspoWcE=";
+    rev = "85de14caf5403bf2f4c0f3e1a2c87be5e1b24c05";
+    hash = "";
   };
 
   format = "other";
