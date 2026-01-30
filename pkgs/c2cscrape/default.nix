@@ -19,7 +19,7 @@ buildPythonPackage rec {
     owner = "death916";
     repo = "c2cscrape";
     rev = "85de14caf5403bf2f4c0f3e1a2c87be5e1b24c05";
-    hash = "";
+    hash = "sha256-qSuJxNU9fnP5U8eZQybJUV1Zajo56wupJNviny18Ieg=";
   };
 
   format = "other";
