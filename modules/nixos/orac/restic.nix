@@ -14,6 +14,7 @@
       "/var/lib/"
       "/var/log/"
       "/etc/"
+      "/mnt/myjfs/"
 
     ];
     pruneOpts = [
