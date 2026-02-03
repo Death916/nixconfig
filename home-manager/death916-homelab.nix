@@ -22,9 +22,11 @@
     systemctl-tui
     gemini-cli
     fzf
+    eza
   ];
 
   programs.bash.shellAliases = {
     nh-push = "/home/death916/nixconfig/scripts/nh-push";
+    l = "eza -alh --icons";
   };
 }
