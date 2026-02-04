@@ -7,7 +7,7 @@
 
 {
   imports = [
-    ./themes/ferra.nix
+    ./themes/gruv_hard.nix
   ];
 
   stylix.enable = true;
