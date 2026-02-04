@@ -15,7 +15,7 @@
 
     settings = {
       monitor = ",1920x1080,auto,1";
-      "$fileManager" = "dolphin";
+      "$fileManager" = "nautilus";
       env = [
         "QT_QPA_PLATFORM,wayland"
         "GDK_BACKEND,wayland,x11"
