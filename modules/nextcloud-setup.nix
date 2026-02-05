@@ -145,9 +145,10 @@ in
   systemd.services.nextcloud-config-collabora =
     let
       inherit (config.services.nextcloud) occ;
-      wopi_url = "http://127.0.0.1:${toString collaboraPort}";
+      wopi_url = "http://0.0.0.0:${toString collaboraPort}";
       public_wopi_url = "https://${collaboraExternalDomain}";
       wopi_allowlist = lib.concatStringsSep "," [
+        "0.0.0.0"
         "127.0.0.1"
         "::1"
         nginxProxyManagerTailscaleIP
