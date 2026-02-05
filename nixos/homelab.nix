@@ -1,7 +1,7 @@
 # ~/nixconfig/nixos/homelab.nix.new
 {
   imports = [
-    ../modules/nextcloud-setup.nix
+    # ../modules/nextcloud-setup.nix
     ../modules/media/arr-suite.nix
     ../modules/smb.nix
     ../modules/nixos/homelab/networking.nix
@@ -24,14 +24,14 @@
     systemd.services.radarr.requires = [ "network-online.target" ];
     systemd.services.prowlarr.after = [ "network-online.target" ];
     systemd.services.prowlarr.requires = [ "network-online.target" ];
-    systemd.services.nextcloud-setup.after = [
-      "network-online.target"
-      "postgresql.service"
-    ];
-    systemd.services.nextcloud-setup.requires = [
-      "network-online.target"
-      "postgresql.service"
-    ];
+    # systemd.services.nextcloud-setup.after = [
+    # "network-online.target"
+    # "postgresql.service"
+    # ];
+    # systemd.services.nextcloud-setup.requires = [
+    # "network-online.target"
+    # "postgresql.service"
+    # ];
 
     arrSuite.unpackerr.enable = true;
     system.stateVersion = "24.11";
