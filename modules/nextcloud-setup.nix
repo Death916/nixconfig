@@ -128,6 +128,7 @@ in
       net = {
         listen = "any";
         post_allow.host = [
+          "0.0.0.0"
           "::1"
           "127.0.0.1"
           nginxProxyManagerTailscaleIP
