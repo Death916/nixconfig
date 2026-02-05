@@ -101,8 +101,9 @@ in
       autoStart = true;
       environment = {
         domain = collaboraExternalDomain;
-        extra_params = "--o:ssl.enable=false --o:ssl.termination=true";
-        wopi_allowlist = "127.0.0.1,::1,${nginxProxyManagerTailscaleIP}";
+        aliasgroup1 = "https://cloud\\.death916\\.xyz:443";
+        extra_params = "--o:ssl.enable=false --o:ssl.termination=true --o:admin_console.username=admin";
+        wopi_allowlist = "127.0.0.1,0.0.0.0,::1,${nginxProxyManagerTailscaleIP}";
         username = "admin";
         password_file = "/run/secrets/admin_pass";
       };
