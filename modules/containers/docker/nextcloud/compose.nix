@@ -83,7 +83,7 @@ in
         PHP_UPLOAD_LIMIT = "4G";
       };
       volumes = [
-        "${nextcloudDataPath}:/var/www/html/data"
+        "${nextcloudDataPath}/data:/var/www/html/data"
         "${dockerBaseDir}/html:/var/www/html"
         "${dbPassFilePath}:/run/secrets/db_pass:ro"
         "${adminPassFilePath}:/run/secrets/admin_pass:ro"
