@@ -62,19 +62,19 @@
     "d /storage/services/qbittorrent/config 0755 qbittorrent media_services - -"
     "d /media/storage/media/books/audio/podcasts/C2C 0777 c2c media_services - -"
     "d /storage/services/immich 0770 immich media_services -"
-    "d /storage/services/immich/upload 0770 immich media_services -"
+    "d /storage/services/immich/upload 0775 immich media_services -"
     "d /storage/services/immich/upload/library 0770 immich media_services -"
     "d /storage/services/immich/upload/thumbs 0770 immich media_services -"
     "d /storage/services/immich/upload/encoded-video 0770 immich media_services -"
     "d /storage/services/immich/upload/profile 0770 immich media_services -"
     "d /storage/services/immich/upload/upload 0770 immich media_services -"
-    "d /storage/services/immich/upload/backup 0770 immich media_services -"
+    "d /storage/services/immich/upload/backups 0775 immich media_services -"
     "f /storage/services/immich/upload/library/.immich 0660 immich media_services -"
     "f /storage/services/immich/upload/thumbs/.immich 0660 immich media_services -"
     "f /storage/services/immich/upload/encoded-video/.immich 0660 immich media_services -"
     "f /storage/services/immich/upload/upload/.immich 0660 immich media_services -"
     "f /storage/services/immich/upload/profile/.immich 0660 immich media_services -"
-    "f /storage/services/immich/upload/backups/.immich 0660 immich media_services -"
+
   ];
 
   services.jellyfin.enable = true;
@@ -151,6 +151,13 @@
     mediaLocation = "/storage/services/immich/upload";
     environment.IMMICH_IGNORE_MOUNT_CHECK_ERRORS = "true";
 
+    database = {
+      enable = true;
+      host = "localhost";
+      name = "immich";
+      user = "immich";
+      createDb = false;
+    };
   };
 
   services.calibre-web = {
