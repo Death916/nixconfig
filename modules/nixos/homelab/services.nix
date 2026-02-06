@@ -156,7 +156,7 @@
       host = "localhost";
       name = "immich";
       user = "immich";
-      createDb = false;
+      createDB = false;
     };
   };
 
