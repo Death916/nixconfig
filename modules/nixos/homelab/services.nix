@@ -176,6 +176,18 @@
     openFirewall = true;
   };
 
+  services.postgresql = {
+    enable = true;
+    package = pkgs.postgresql_16.withPackages (p: [ p.pgvecto-rs ]);
+    ensureDatabases = [ "immich" ];
+    ensureUsers = [
+      {
+        name = "immich";
+        ensureDBOwnership = true;
+      }
+    ];
+  };
+
   environment.systemPackages = with pkgs; [
     git
     vim
