@@ -153,7 +153,7 @@
 
     database = {
       enable = true;
-      host = "localhost";
+      host = "/run/postgresql";
       name = "immich";
       user = "immich";
       createDB = false;
