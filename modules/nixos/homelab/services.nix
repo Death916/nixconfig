@@ -13,7 +13,7 @@
     ../../c2cscrape.nix
     ../../../modules/containers/docker/dispatcharr/docker-compose.nix
     ../../../modules/containers/haos.nix
-    ../../../modules/containers/docker/nextcloud/compose.nix
+    ../../../modules/containers/docker/nextcloud/aio-compose.nix
 
   ];
   arrSuite.enable = true;
