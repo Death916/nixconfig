@@ -31,6 +31,7 @@ in
       NEXTCLOUD_DATADIR = nextcloudDataPath;
       APACHE_PORT = "11001";
       APACHE_IP_BINDING = "0.0.0.0";
+      SKIP_DOMAIN_VALIDATION = true;
     };
     volumes = [
       "nextcloud_aio_mastercontainer:/mnt/docker-aio-config"
