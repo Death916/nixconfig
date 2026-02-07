@@ -25,8 +25,7 @@ in
     image = "nextcloud/all-in-one:latest";
     autoStart = true;
     ports = [
-      "8080:8080"   # AIO Interface
-      "11001:11001" # Apache Port (for Reverse Proxy)
+      "8080:8080" # AIO Interface
     ];
     environment = {
       NEXTCLOUD_DATADIR = nextcloudDataPath;
@@ -45,6 +44,6 @@ in
 
   networking.firewall.allowedTCPPorts = [
     8080
-    11001
+    11000
   ];
 }
