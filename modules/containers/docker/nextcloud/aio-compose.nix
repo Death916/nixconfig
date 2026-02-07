@@ -46,5 +46,6 @@ in
   networking.firewall.allowedTCPPorts = [
     8080
     11000
+    11001
   ];
 }
