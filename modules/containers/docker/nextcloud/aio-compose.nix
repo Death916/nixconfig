@@ -34,7 +34,7 @@ in
       APACHE_IP_BINDING = "0.0.0.0";
     };
     volumes = [
-      "nextcloud_aio_mastercontainer_data:/mnt/docker-aio-config"
+      "nextcloud_aio_mastercontainer:/mnt/docker-aio-config"
       "/var/run/docker.sock:/var/run/docker.sock:ro"
     ];
     extraOptions = [
