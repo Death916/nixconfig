@@ -30,7 +30,7 @@ in
     ];
     environment = {
       NEXTCLOUD_DATADIR = nextcloudDataPath;
-      APACHE_PORT = "11000";
+      APACHE_PORT = "11001";
       APACHE_IP_BINDING = "0.0.0.0";
     };
     volumes = [
