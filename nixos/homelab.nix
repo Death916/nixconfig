@@ -1,4 +1,5 @@
 # ~/nixconfig/nixos/homelab.nix.new
+{ lib, ... }:
 {
   imports = [
     # ../modules/nextcloud-setup.nix
@@ -12,6 +13,7 @@
   ];
 
   config = {
+    zramSwap.enable = lib.mkForce false;
     boot.kernelParams = [ "processor.max_cstate=1" ];
     hardware.cpu.amd.updateMicrocode = true;
     # Wait for network to be online
