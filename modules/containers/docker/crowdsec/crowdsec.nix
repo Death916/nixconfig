@@ -41,6 +41,17 @@ let
       cidr:
         - "100.64.0.0/10"
   '';
+
+  nextcloudWhitelistYaml = pkgs.writeText "nextcloud-whitelist.yaml" ''
+    name: my/nextcloud_whitelist
+    description: "Whitelist Nextcloud URLs to prevent false positives"
+    whitelist:
+      reason: "Nextcloud Sync / Mobile App"
+      expression:
+        - "evt.Parsed.request contains '/remote.php/dav/'"
+        - "evt.Parsed.request contains '/index.php/svg/'"
+        - "evt.Parsed.request contains '/status.php'"
+  '';
 in
 {
   virtualisation.docker.enable = true;
@@ -69,6 +80,7 @@ in
       "/etc/machine-id:/etc/machine-id:ro"
       "${acquisYaml}:/etc/crowdsec/acquis.yaml"
       "${whitelistYaml}:/etc/crowdsec/parsers/s02-enrich/tailscale-whitelist.yaml"
+      "${nextcloudWhitelistYaml}:/etc/crowdsec/parsers/s02-enrich/nextcloud-whitelist.yaml"
     ];
   };
 
