@@ -14,6 +14,7 @@
 
   config = {
     zramSwap.enable = lib.mkForce false;
+    boot.kernel.sysctl = { "vm.swappiness" = 80; };
     boot.kernelParams = [ "processor.max_cstate=1" ];
     hardware.cpu.amd.updateMicrocode = true;
     # Wait for network to be online
