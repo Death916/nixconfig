@@ -47,7 +47,7 @@
     wget
     unstablePkgs.tailscale
     unstablePkgs.cosmic-session
-    halloy
+    # halloy
     inputs.flox.packages.${pkgs.stdenv.hostPlatform.system}.flox
     wl-clipboard
     clementine

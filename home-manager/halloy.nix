@@ -1,8 +1,14 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  unstablePkgs,
+  ...
+}:
 
 {
   programs.halloy = {
     enable = true;
+    package = unstablePkgs.halloy;
     settings = {
       notifications = {
         direct_message = {
