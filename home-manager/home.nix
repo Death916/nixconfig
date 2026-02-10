@@ -105,6 +105,7 @@ in
     hypnotix
     obsidian
     pokemon-colorscripts
+    awscli2
   ];
 
   programs.ghostty = {
