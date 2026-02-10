@@ -11,7 +11,7 @@ self: super:
   # halloy = nightlyRustPlatform.buildRustPackage rec {
   halloy = super.rustPlatform.buildRustPackage rec {
     pname = "halloy";
-    version = "2026.1.1";
+    version = "2026.2";
 
     src = super.fetchFromGitHub {
       owner = "squidowl";
