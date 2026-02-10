@@ -59,6 +59,15 @@
     };
   };
 
+  services.postgresql = {
+    enable = true;
+    ensureDatabases = [ "forgejo" ];
+    ensureUsers = [{
+      name = "forgejo";
+      ensureDBOwnership = true;
+    }];
+  };
+
   environment.systemPackages = with pkgs; [
     git
     vim
