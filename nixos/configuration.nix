@@ -29,6 +29,10 @@
   # Use CachyOS Kernel
   boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
 
+  # Fix for custom kernel module shrinking errors
+  boot.initrd.systemd.enable = true;
+  boot.initrd.includeDefaultModules = false;
+
   # Network Optimizations (BBR + CAKE)
   boot.kernel.sysctl = {
     # Use CAKE traffic shaper to prevent lag (bufferbloat) on WiFi
