@@ -1,8 +1,11 @@
-# ~/nixconfig/nixos/homelab.nix.new
-{ lib, ... }:
+{
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 {
   imports = [
-    # ../modules/nextcloud-setup.nix
     ../modules/media/arr-suite.nix
     ../modules/smb.nix
     ../modules/nixos/homelab/networking.nix
@@ -13,28 +16,38 @@
   ];
 
   config = {
-    zramSwap.enable = lib.mkForce false;
-    boot.kernel.sysctl = { "vm.swappiness" = 80; };
-    boot.kernelParams = [ "processor.max_cstate=1" ];
-    hardware.cpu.amd.updateMicrocode = true;
-    # Wait for network to be online
-    # systemd.services.NetworkManager-wait-online.enable = true;
+    nixpkgs.overlays = [
+      inputs.nix-cachyos-kernel.overlays.pinned
+    ];
 
-    # Service dependencies
+    boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
+
+    zramSwap.enable = lib.mkForce false;
+
+    boot.kernelParams = [
+      "zswap.enabled=1"
+      "zswap.compressor=zstd"
+      "zswap.max_pool_percent=20"
+      "processor.max_cstate=1"
+    ];
+
+    boot.kernel.sysctl = {
+      "vm.swappiness" = 30;
+      "vm.vfs_cache_pressure" = 100;
+      # Use CAKE traffic shaper to prevent lag (bufferbloat) during heavy downloads
+      "net.core.default_qdisc" = "cake";
+      # Use BBR for better throughput and reduced buffering for media streaming
+      "net.ipv4.tcp_congestion_control" = "bbr";
+    };
+
+    hardware.cpu.amd.updateMicrocode = true;
+
     systemd.services.sonarr.after = [ "network-online.target" ];
     systemd.services.sonarr.requires = [ "network-online.target" ];
     systemd.services.radarr.after = [ "network-online.target" ];
     systemd.services.radarr.requires = [ "network-online.target" ];
     systemd.services.prowlarr.after = [ "network-online.target" ];
     systemd.services.prowlarr.requires = [ "network-online.target" ];
-    # systemd.services.nextcloud-setup.after = [
-    # "network-online.target"
-    # "postgresql.service"
-    # ];
-    # systemd.services.nextcloud-setup.requires = [
-    # "network-online.target"
-    # "postgresql.service"
-    # ];
 
     arrSuite.unpackerr.enable = true;
     system.stateVersion = "24.11";
@@ -42,5 +55,14 @@
     # Auto-reboot the system if it hangs (5 minute timeout)
     boot.kernelModules = [ "sp5100_tco" ];
     systemd.watchdog.rebootTime = "300s";
+
+    specialisation = {
+      stable-kernel.configuration = {
+        system.nixos.tags = [ "stable" ];
+        boot.kernelPackages = lib.mkForce pkgs.linuxPackages;
+        boot.kernelParams = lib.mkForce [ "processor.max_cstate=1" ]; # Keep existing fix, remove zswap
+        zramSwap.enable = lib.mkForce true; # Re-enable ZRAM for stable kernel if desired, or keep false
+      };
+    };
   };
 }

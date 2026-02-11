@@ -3,6 +3,8 @@
   config,
   pkgs,
   overlays,
+  inputs,
+  lib,
   ...
 }:
 
@@ -11,6 +13,7 @@
   nixpkgs.overlays = [
     # overlays.rust
     # overlays.halloy
+    inputs.nix-cachyos-kernel.overlays.pinned
   ];
 
   imports = [
@@ -22,6 +25,28 @@
     ../modules/nixos/laptop/hyprland-deps.nix # New module for Hyprland dependencies
     ../modules/nixos/laptop/restic.nix
   ];
+
+  # Use CachyOS Kernel
+  boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
+
+  # Network Optimizations (BBR + CAKE)
+  boot.kernel.sysctl = {
+    # Use CAKE traffic shaper to prevent lag (bufferbloat) on WiFi
+    "net.core.default_qdisc" = "cake";
+    # Use BBR for better throughput
+    "net.ipv4.tcp_congestion_control" = "bbr";
+  };
+
+  specialisation = {
+    stable-kernel.configuration = {
+      system.nixos.tags = [ "stable" ];
+      boot.kernelPackages = lib.mkForce pkgs.linuxPackages;
+      boot.kernel.sysctl = lib.mkForce {
+        "net.core.default_qdisc" = "fq_codel"; # Revert to default
+        "net.ipv4.tcp_congestion_control" = "cubic"; # Revert to default
+      };
+    };
+  };
 
   # nix.settings.substituters = [
   # "https://hyprland.cachix.org"
