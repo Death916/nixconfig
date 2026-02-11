@@ -61,7 +61,7 @@
         system.nixos.tags = [ "stable" ];
         boot.kernelPackages = lib.mkForce pkgs.linuxPackages;
         boot.kernelParams = lib.mkForce [ "processor.max_cstate=1" ]; # Keep existing fix, remove zswap
-        zramSwap.enable = lib.mkForce true; # Re-enable ZRAM for stable kernel if desired, or keep false
+        zramSwap.enable = lib.mkForce false; # Ensure ZRAM is OFF for stability
       };
     };
   };
