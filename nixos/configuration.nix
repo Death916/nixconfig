@@ -13,7 +13,6 @@
   nixpkgs.overlays = [
     # overlays.rust
     # overlays.halloy
-    inputs.nix-cachyos-kernel.overlays.pinned
   ];
 
   imports = [
@@ -26,14 +25,10 @@
     ../modules/nixos/laptop/restic.nix
   ];
 
-  # Use CachyOS Kernel
-  boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
+  # Use linux_zen kernel for performance improvements
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
 
-  # Fix for custom kernel module shrinking errors
-  boot.initrd.systemd.enable = true;
-  boot.initrd.includeDefaultModules = false;
-
-  # Network Optimizations (BBR + CAKE)
+  # Network Optimizations (BBR + CAKE) for better performance
   boot.kernel.sysctl = {
     # Use CAKE traffic shaper to prevent lag (bufferbloat) on WiFi
     "net.core.default_qdisc" = "cake";

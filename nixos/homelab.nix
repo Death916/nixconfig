@@ -1,7 +1,5 @@
 {
   lib,
-  pkgs,
-  inputs,
   ...
 }:
 {
@@ -16,11 +14,8 @@
   ];
 
   config = {
-    nixpkgs.overlays = [
-      inputs.nix-cachyos-kernel.overlays.pinned
-    ];
-
-    boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
+    # Use linux_zen kernel for performance improvements as recommended in Kernel.md
+    boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
 
     zramSwap.enable = lib.mkForce false;
 
@@ -60,8 +55,8 @@
       stable-kernel.configuration = {
         system.nixos.tags = [ "stable" ];
         boot.kernelPackages = lib.mkForce pkgs.linuxPackages;
-        boot.kernelParams = lib.mkForce [ "processor.max_cstate=1" ]; # Keep existing fix, remove zswap
-        zramSwap.enable = lib.mkForce false; # Ensure ZRAM is OFF for stability
+        boot.kernelParams = lib.mkForce [ "processor.max_cstate=1" ];
+        zramSwap.enable = lib.mkForce false;
       };
     };
   };
