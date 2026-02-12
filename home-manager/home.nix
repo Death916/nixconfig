@@ -213,6 +213,9 @@ in
         description = "Wrapper for nh that runs git pull and git push on success";
       };
     };
+    shellInit = ''
+      pokemon-colorscripts -r
+    '';
   };
 
   programs.bash = {
