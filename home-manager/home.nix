@@ -106,7 +106,7 @@ in
     obsidian
     pokemon-colorscripts
     awscli2
-    qwen-code
+    unstablePkgs.qwen-code
   ];
 
   programs.ghostty = {
