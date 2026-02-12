@@ -111,6 +111,7 @@ in
   programs.ghostty = {
     enable = true;
     enableBashIntegration = true;
+    enableFishIntegration = true;
     settings = {
       window-save-state = "always";
     };
@@ -130,6 +131,7 @@ in
   programs.starship = {
     enable = true;
     enableBashIntegration = true;
+    enableFishIntegration = true;
     settings = {
       add_newline = false;
       aws.disabled = true;
@@ -197,6 +199,10 @@ in
         cargo
       ]
     );
+  };
+
+  programs.fish = {
+    enable = true;
   };
 
   programs.bash = {
