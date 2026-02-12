@@ -205,6 +205,14 @@ in
 
   programs.fish = {
     enable = true;
+    functions = {
+      nh-push = {
+        body = ''
+          exec /home/death916/Documents/nix-config/scripts/nh-push $argv
+        '';
+        description = "Wrapper for nh that runs git pull and git push on success";
+      };
+    };
   };
 
   programs.bash = {
