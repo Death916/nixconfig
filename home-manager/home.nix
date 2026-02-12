@@ -115,6 +115,7 @@ in
     enableFishIntegration = true;
     settings = {
       window-save-state = "always";
+      initial-command = "fish";
     };
 
   };
