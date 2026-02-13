@@ -39,7 +39,7 @@
       };
       nh-push = {
         body = ''
-          exec /home/death916/nixconfig/scripts/nh-push $argv
+          exec /home/death916/Documents/nix-config/scripts/nh-push $argv
         '';
         description = "Wrapper for nh that runs git pull and git push on success";
       };
