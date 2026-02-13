@@ -29,4 +29,20 @@
     nh-push = "/home/death916/nixconfig/scripts/nh-push";
     l = "eza -alh --icons";
   };
+
+  programs.fish = {
+    enable = true;
+    functions = {
+      l = {
+        body = "eza -alh --icons $argv";
+        description = "List files with eza in long format with icons";
+      };
+      nh-push = {
+        body = ''
+          exec /home/death916/nixconfig/scripts/nh-push $argv
+        '';
+        description = "Wrapper for nh that runs git pull and git push on success";
+      };
+    };
+  };
 }

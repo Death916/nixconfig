@@ -206,6 +206,10 @@ in
   programs.fish = {
     enable = true;
     functions = {
+      l = {
+        body = "eza -alh --icons $argv";
+        description = "List files with eza in long format with icons";
+      };
       nh-push = {
         body = ''
           exec /home/death916/Documents/nix-config/scripts/nh-push $argv
