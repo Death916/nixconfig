@@ -14,6 +14,7 @@
     ../../../modules/containers/docker/dispatcharr/docker-compose.nix
     ../../../modules/containers/haos.nix
     ../../../modules/containers/docker/nextcloud/aio-compose.nix
+    ../../../modules/containers/docker/navidrome.nix
 
   ];
   arrSuite.enable = true;
@@ -193,14 +194,6 @@
         ensureDBOwnership = true;
       }
     ];
-  };
-
-  services.navidrome = {
-    group = "media_services";
-    enable = true;
-    settings = {
-      MusicFolder = "/media/storage/media/music";
-    };
   };
 
   environment.systemPackages = with pkgs; [
