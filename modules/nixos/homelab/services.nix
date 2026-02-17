@@ -136,6 +136,12 @@
     extraGroups = [ "media_services" ];
   };
 
+  users.users.navidrome = {
+    isSystemUser = true;
+    group = "media_services";
+    extraGroups = [ "media_services" ];
+  };
+
   systemd.services.immich-server.unitConfig.RequiresMountsFor = [ "/storage" ];
   systemd.services.immich-microservices.unitConfig.RequiresMountsFor = [ "/storage" ];
   systemd.services.immich-machine-learning.unitConfig.RequiresMountsFor = [ "/storage" ];
