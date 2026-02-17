@@ -4,6 +4,7 @@
   pkgs,
   lib,
   inputs,
+  unstablePkgs,
   ...
 }:
 
@@ -23,6 +24,7 @@
     gemini-cli
     fzf
     eza
+    unstablePkgs.qwen-code
   ];
 
   programs.bash.shellAliases = {
