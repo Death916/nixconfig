@@ -2,7 +2,7 @@
 {
   config,
   pkgs,
-  unstablePkgsHA,
+  unstablePkgs,
   ...
 }:
 {
@@ -187,6 +187,15 @@
         ensureDBOwnership = true;
       }
     ];
+  };
+
+  servies.navidrome = {
+    package = unstablePkgs.navidrome;
+    group = media_services;
+    enable = true;
+    settings = {
+      MusicFolder = "/media/storage/media/music";
+    };
   };
 
   environment.systemPackages = with pkgs; [
