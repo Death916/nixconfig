@@ -202,6 +202,9 @@
     settings = {
       MusicFolder = "/media/storage/media/music";
     };
+    systemd.serviceConfig = {
+      MemoryDenyWriteExecute = false;
+    };
   };
 
   environment.systemPackages = with pkgs; [
