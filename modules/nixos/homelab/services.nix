@@ -191,7 +191,7 @@
 
   servies.navidrome = {
     package = unstablePkgs.navidrome;
-    group = media_services;
+    group = "media_services";
     enable = true;
     settings = {
       MusicFolder = "/media/storage/media/music";
