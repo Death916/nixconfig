@@ -189,7 +189,7 @@
     ];
   };
 
-  servies.navidrome = {
+  services.navidrome = {
     package = unstablePkgs.navidrome;
     group = "media_services";
     enable = true;
