@@ -410,7 +410,7 @@
   programs.hyprlock = {
     enable = true;
     settings = {
-      background = [
+      background = lib.mkForce [
         {
           monitor = "";
           path = "/home/death916/Documents/nix-config/home-manager/wallpaper.jpg";
