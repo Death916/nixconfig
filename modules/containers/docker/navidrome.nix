@@ -3,7 +3,7 @@
 {
   virtualisation.oci-containers.containers = {
     navidrome = {
-      image = "deluan/navidrome:latest";
+      image = "deluan/navidrome:0.60.3";
       user = "1000:1000";
       volumes = [
         "/var/lib/navidrome:/data"
