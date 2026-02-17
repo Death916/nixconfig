@@ -202,7 +202,7 @@
     settings = {
       MusicFolder = "/media/storage/media/music";
     };
-    systemd.serviceConfig = {
+    serviceConfig = {
       MemoryDenyWriteExecute = false;
     };
   };
