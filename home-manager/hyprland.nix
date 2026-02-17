@@ -420,6 +420,26 @@
           blur_size = 5;
         }
       ];
+
+      label = [
+        {
+          monitor = "";
+          text = "$TIME";
+          font_size = 72;
+          font_family = "JetBrainsMono Nerd Font";
+          position = "0, -50";
+          halign = "center";
+          valign = "center";
+        }
+        {
+          monitor = "";
+          text = "cmd[update:60000] date '+%A, %B %d, %Y'";
+          font_size = 20;
+          position = "0, 20";
+          halign = "center";
+          valign = "center";
+        }
+      ];
     };
   };
 
