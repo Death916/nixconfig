@@ -409,6 +409,17 @@
 
   programs.hyprlock = {
     enable = true;
+    settings = {
+      background = [
+        {
+          monitor = "";
+          path = "/home/death916/Documents/nix-config/home-manager/wallpaper.jpg";
+          color = "rgba(0, 0, 0, 0.5)";
+          blur_passes = 2;
+          blur_size = 5;
+        }
+      ];
+    };
   };
 
   services.hypridle = {
