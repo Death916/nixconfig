@@ -3,6 +3,7 @@
   pkgs,
   inputs,
   unstablePkgs,
+  lib,
   ...
 }:
 
