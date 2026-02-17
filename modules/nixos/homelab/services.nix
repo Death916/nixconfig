@@ -21,8 +21,8 @@
 
   services.c2cscrape = {
     enable = true;
-    dataDir = "/media/storage/media/books/audio/podcasts/C2C";
-    user = "death916";
+    dataDir = "/media/storage/media/books/c2c";
+    user = "c2c";
     environmentFile = "/etc/nixos/secrets/c2c.env";
   };
   #  virtualisation.incus.enable = true;
@@ -58,9 +58,10 @@
   };
 
   systemd.tmpfiles.rules = [
-    "d /storage/services/qbittorrent 0755 qbittorrent media_services - -"
-    "d /storage/services/qbittorrent/config 0755 qbittorrent media_services - -"
-    "d /media/storage/media/books/audio/podcasts/C2C 0777 c2c media_services - -"
+    "d /storage/services/qbittorrent 2775 qbittorrent media_services - -"
+    "d /storage/services/qbittorrent/config 0775 qbittorrent media_services - -"
+    "d /media/storage/media 2775 death916 media_services - -"
+    "d /media/storage/media/books/c2c 2775 c2c media_services - -"
     "d /storage/services/immich 0770 immich media_services -"
     "d /storage/services/immich/upload 0775 immich media_services -"
     "d /storage/services/immich/upload/library 0770 immich media_services -"
