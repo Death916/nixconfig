@@ -16,6 +16,7 @@ in
   imports = [
     ../modules/home-manager/common.nix
     ./hyprland.nix
+    ./waybar.nix
     ./theme.nix # Import the stylix theme configuration
     ./halloy.nix
   ];
