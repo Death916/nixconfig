@@ -201,7 +201,10 @@
           "hyprland/workspaces"
           "hyprland/window"
         ];
-        modules-center = [ "clock" ];
+        modules-center = [
+          "clock"
+          "mpris"
+        ];
         modules-right = [
           "custom/wttrbar"
           "pulseaudio"
@@ -247,6 +250,33 @@
         "clock" = {
           format = "{:%Y-%m-%d %H:%M:%S}";
           tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
+        };
+
+        "mpris" = {
+          format = "{player_icon} {title} - {artist}";
+          format-paused = "⏸ {title} - {artist}";
+          format-stopped = "";
+          unknown-display = "mpris";
+          max-length = 50;
+          player-icons = {
+            default = "▶";
+            spotify = "";
+            firefox = "";
+            vlc = "󰕼";
+            tauon = "";
+            kdeconnect = "";
+          };
+          status-icons = {
+            paused = "⏸";
+            playing = "▶";
+            stopped = "⏹";
+          };
+          on-click-left = "playerctl play-pause";
+          on-click-right = "playerctl next";
+          on-click-middle = "playerctl previous";
+          on-scroll-up = "playerctl seek 5";
+          on-scroll-down = "playerctl seek -5";
+          tooltip-format = "{title} - {artist}";
         };
 
         "pulseaudio" = {
@@ -354,6 +384,11 @@
     #   }
 
     #   #clock {
+    #     background-color: @crust;
+    #     color: @text;
+    #   }
+
+    #   #mpris {
     #     background-color: @crust;
     #     color: @text;
     #   }
