@@ -107,6 +107,7 @@ in
     pokemon-colorscripts
     awscli2
     unstablePkgs.qwen-code
+    tauon
   ];
 
   programs.ghostty = {
@@ -284,5 +285,4 @@ in
   };
 
   programs.eza.enable = true;
-  programs.tauon.enable = true;
 }
