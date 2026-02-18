@@ -284,5 +284,5 @@ in
   };
 
   programs.eza.enable = true;
-
+  programs.tauon.enable = true;
 }
