@@ -17,6 +17,11 @@
       "/mnt/myjfs/"
 
     ];
+
+    exclude = [
+      "/mnt/*/.accesslog"
+    ]
+    
     pruneOpts = [
       "--keep-hourly 48"
       "--keep-daily 7"
