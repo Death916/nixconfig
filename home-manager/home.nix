@@ -48,7 +48,6 @@ in
     socat
     nmap
     ipcalc
-    cowsay
     file
     which
     tree
