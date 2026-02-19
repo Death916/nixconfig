@@ -246,7 +246,7 @@ in
     settings = {
       theme = "tokyo-night-dark";
       defaultMode = "normal";
-      defaultShell = "fish";
+      defaultShell = "/etc/profiles/per-user/death916/bin/fish";
       defaultLayout = "compact";
       mouseMode = true;
       onForceClose = "detach";
