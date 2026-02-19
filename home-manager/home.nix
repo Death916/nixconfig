@@ -259,6 +259,26 @@ in
       support_kitty_keyboard_protocol = true;
       show_startup_tips = true;
     };
+    extraConfig = ''
+      plugins {
+        about location="zellij:about"
+        compact-bar location="zellij:compact-bar" {
+          tooltip "F1"
+        }
+        configuration location="zellij:configuration"
+        filepicker location="zellij:strider" {
+          cwd "/"
+        }
+        plugin-manager location="zellij:plugin-manager"
+        session-manager location="zellij:session-manager"
+        status-bar location="zellij:status-bar"
+        strider location="zellij:strider"
+        tab-bar location="zellij:tab-bar"
+        welcome-screen location="zellij:session-manager" {
+          welcome_screen true
+        }
+      }
+    '';
   };
   programs.zed-editor = {
     enable = true;
