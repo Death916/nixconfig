@@ -241,7 +241,25 @@ in
     };
   };
 
-  programs.zellij.enable = true;
+  programs.zellij = {
+    enable = true;
+    settings = {
+      theme = "tokyo-night-dark";
+      defaultMode = "normal";
+      defaultShell = "fish";
+      defaultLayout = "compact";
+      mouseMode = true;
+      onForceClose = "detach";
+      scrollbackBufferSize = 10000;
+      copyCommand = "wl-copy";
+      attachToSession = true;
+      sessionSerialization = true;
+      serializePaneViewport = true;
+      scrollbackLinesToSerialize = 10000;
+      supportKittyKeyboardProtocol = true;
+      showStartupTips = true;
+    };
+  };
   programs.zed-editor = {
     enable = true;
     package = pkgs.zed-editor-fhs;
