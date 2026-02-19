@@ -2,6 +2,27 @@
 
 {
 
+  # Dump JuiceFS PostgreSQL metadata before backup
+  systemd.services."juicefs-metadata-dump" = {
+    serviceConfig = {
+      Type = "oneshot";
+      User = "root";
+      EnvironmentFile = "/etc/nixos/secrets/juicefs.env";
+    };
+    script = ''
+      ${pkgs.docker}/bin/docker exec postgres-for-juicefs \
+        pg_dump -U death916 juicefs | ${pkgs.gzip}/bin/gzip > /root/juicefs-metadata.sql.gz
+    '';
+  };
+
+  systemd.timers."juicefs-metadata-dump" = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "*:10";
+      Persistent = true;
+    };
+  };
+
   services.restic.backups.orac = {
     user = "root";
     initialize = true;
@@ -15,7 +36,6 @@
       "/var/log/"
       "/etc/"
       "/mnt/myjfs/"
-
     ];
 
     exclude = [
@@ -36,7 +56,7 @@
     timerConfig = {
       OnCalendar = "*:20";
       Persistent = true;
-      RandomizedDelaySec = "10m";
+      RandomizedDelaySec = "20m";
     };
   };
 
