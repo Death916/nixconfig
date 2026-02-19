@@ -206,11 +206,10 @@ in
 
   programs.fish = {
     enable = true;
+    shellAliases = {
+      l = "eza -alh --icons";
+    };
     functions = {
-      l = {
-        body = "eza -alh --icons $argv";
-        description = "List files with eza in long format with icons";
-      };
       nh-push = {
         body = ''
           /home/death916/Documents/nix-config/scripts/nh-push $argv
