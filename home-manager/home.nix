@@ -258,6 +258,21 @@ in
       scrollbackLinesToSerialize = 10000;
       supportKittyKeyboardProtocol = true;
       showStartupTips = true;
+      plugins = {
+        about.location = "zellij:about";
+        compactBar.location = "zellij:compact-bar";
+        compactBar.tooltip = "F1";
+        configuration.location = "zellij:configuration";
+        filepicker.location = "zellij:strider";
+        filepicker.cwd = "/";
+        pluginManager.location = "zellij:plugin-manager";
+        sessionManager.location = "zellij:session-manager";
+        statusBar.location = "zellij:status-bar";
+        strider.location = "zellij:strider";
+        tabBar.location = "zellij:tab-bar";
+        welcomeScreen.location = "zellij:session-manager";
+        welcomeScreen.welcomeScreen = true;
+      };
     };
   };
   programs.zed-editor = {
