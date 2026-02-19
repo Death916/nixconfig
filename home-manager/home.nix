@@ -245,34 +245,19 @@ in
     enable = true;
     settings = {
       theme = "tokyo-night-dark";
-      defaultMode = "normal";
-      defaultShell = "/etc/profiles/per-user/death916/bin/fish";
-      defaultLayout = "compact";
-      mouseMode = true;
-      onForceClose = "detach";
-      scrollbackBufferSize = 10000;
-      copyCommand = "wl-copy";
-      attachToSession = true;
-      sessionSerialization = true;
-      serializePaneViewport = true;
-      scrollbackLinesToSerialize = 10000;
-      supportKittyKeyboardProtocol = true;
-      showStartupTips = true;
-      plugins = {
-        about.location = "zellij:about";
-        compactBar.location = "zellij:compact-bar";
-        compactBar.tooltip = "F1";
-        configuration.location = "zellij:configuration";
-        filepicker.location = "zellij:strider";
-        filepicker.cwd = "/";
-        pluginManager.location = "zellij:plugin-manager";
-        sessionManager.location = "zellij:session-manager";
-        statusBar.location = "zellij:status-bar";
-        strider.location = "zellij:strider";
-        tabBar.location = "zellij:tab-bar";
-        welcomeScreen.location = "zellij:session-manager";
-        welcomeScreen.welcomeScreen = true;
-      };
+      default_mode = "normal";
+      default_shell = "${pkgs.fish}/bin/fish";
+      default_layout = "compact";
+      mouse_mode = true;
+      on_force_close = "detach";
+      scrollback_buffer_size = 10000;
+      copy_command = "wl-copy";
+      attach_to_session = true;
+      session_serialization = true;
+      serialize_pane_viewport = true;
+      scrollback_lines_to_serialize = 10000;
+      support_kitty_keyboard_protocol = true;
+      show_startup_tips = true;
     };
   };
   programs.zed-editor = {
