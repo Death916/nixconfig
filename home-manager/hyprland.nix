@@ -243,14 +243,14 @@
       };
 
       listener = [
-        # Lock after 5 minutes of inactivity
+        # Lock after 10 minutes of inactivity
         {
-          timeout = 300;
+          timeout = 600;
           on-timeout = "hyprlock";
         }
         # Turn off display after 10 minutes
         {
-          timeout = 600;
+          timeout = 750;
           on-timeout = "hyprctl dispatch dpms off";
           on-resume = "hyprctl dispatch dpms on";
         }
