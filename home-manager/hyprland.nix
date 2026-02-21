@@ -245,7 +245,7 @@
       listener = [
         # Lock after 10 minutes of inactivity
         {
-          timeout = 600;
+          timeout = 1600;
           on-timeout = "hyprlock";
         }
         # Turn off display after 10 minutes
@@ -256,7 +256,7 @@
         }
         # Suspend the laptop after 30 minutes
         {
-          timeout = 1800;
+          timeout = 2800;
           on-timeout = "systemctl suspend";
         }
       ];
