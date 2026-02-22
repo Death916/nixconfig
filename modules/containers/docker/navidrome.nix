@@ -4,7 +4,7 @@
   virtualisation.oci-containers.containers = {
     navidrome = {
       image = "deluan/navidrome:0.60.3";
-      user = "1000:1000";
+      user = "1000:993";
       volumes = [
         "/var/lib/navidrome:/data"
         "/media/storage/media/music:/music:ro"
@@ -17,4 +17,6 @@
       };
     };
   };
+
+  systemd.services.docker-navidrome.unitConfig.RequiresMountsFor = [ "/media" ];
 }
