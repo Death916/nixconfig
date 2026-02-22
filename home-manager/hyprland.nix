@@ -246,7 +246,7 @@
       listener = [
         # Lock after 10 minutes of inactivity
         {
-          timeout = 1600;
+          timeout = 600;
           on-timeout = "hyprlock";
         }
         # Turn off display after 10 minutes
