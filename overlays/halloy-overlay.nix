@@ -42,11 +42,11 @@ self: super:
       libxkbcommon
       openssl
       vulkan-loader
-      xorg.libX11
-      xorg.libXcursor
-      xorg.libXi
-      xorg.libXrandr
-      xorg.libxcb
+      libx11
+      libxcursor
+      libxi
+      libxrandr
+      libxcb
       wayland
       alsa-lib.dev
     ];
@@ -60,7 +60,7 @@ self: super:
             super.vulkan-loader
             super.alsa-lib
             super.openssl
-            super.xorg.libxcb
+            super.libxcb
           ]
         }
 
