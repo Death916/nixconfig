@@ -117,13 +117,11 @@ in
     settings = {
       window-save-state = "always";
       initial-command = "fish";
+      include = "config/css";
     };
-    extraConfig = ''
-      css = ~/.config/ghostty/style.css
-    '';
   };
 
-  home.file.".config/ghostty/style.css".text = ''
+  xdg.configFile."ghostty/css".text = ''
     headerbar {
       min-height: 24px;
       padding: 0;
