@@ -11,13 +11,13 @@ self: super:
   # halloy = nightlyRustPlatform.buildRustPackage rec {
   halloy = super.rustPlatform.buildRustPackage rec {
     pname = "halloy";
-    version = "2026.2";
+    version = "2026.3";
 
     src = super.fetchFromGitHub {
       owner = "squidowl";
       repo = pname;
       rev = version;
-      sha256 = "sha256-qQ6hNpOqI3yC26KqYYq42KjJw/bMzaXACpGyIXE2axo=";
+      sha256 = "";
     };
 
     # RUSTC_BOOTSTRAP = 1;
