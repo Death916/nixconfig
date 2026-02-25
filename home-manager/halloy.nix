@@ -8,7 +8,7 @@
 {
   programs.halloy = {
     enable = true;
-    package = unstablePkgs.halloy;
+    package = pkgs.halloy;
     settings = {
       notifications = {
         direct_message = {
