@@ -23,7 +23,7 @@ self: super:
     # RUSTC_BOOTSTRAP = 1;
     # RUSTFLAGS = "-Z allow-features=let_chains";
 
-    cargoHash = "";
+    cargoHash = "sha256-g9Q2YCjgC5MBX/Tv/dvRuHIxo7qq5J7hjsw3YeTn0jI=";
 
     nativeBuildInputs = with super; [
       pkg-config
