@@ -118,6 +118,7 @@ in
       window-save-state = "always";
       initial-command = "fish";
       include = "config/css";
+      keybind = "global:cmd+backquote=toggle_quick_terminal";
     };
   };
 
