@@ -1,15 +1,12 @@
 self: super:
-/*
-  let
-    nightlyRustPlatform = super.makeRustPlatform {
-      cargo = super.rust-bin.nightly."2025-07-28".default;
-      rustc = super.rust-bin.nightly."2025-07-28".default;
-    };
-  in
-*/
+let
+  nightlyRustPlatform = super.makeRustPlatform {
+    cargo = super.rust-bin.stable.latest.default;
+    rustc = super.rust-bin.stable.latest.default;
+  };
+in
 {
-  # halloy = nightlyRustPlatform.buildRustPackage rec {
-  halloy = super.rustPlatform.buildRustPackage rec {
+  halloy = nightlyRustPlatform.buildRustPackage rec {
     pname = "halloy";
     version = "2026.3";
 
