@@ -5,7 +5,7 @@
     ../modules/soju.nix
     ../modules/containers/docker/pangolin.nix
     # ../modules/forgejo.nix
-    ../modules/adguard.nix
+    # ../modules/adguard.nix
     ../modules/containers/docker/juicefs.nix
     ../modules/nixos/orac/restic.nix
     ../modules/containers/docker/karakeep/docker-compose.nix
