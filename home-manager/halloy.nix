@@ -76,6 +76,9 @@
             smart = 45;
           };
         };
+        url = {
+          prompt_before_open = true;
+        };
         channel.nicklist.width = 100;
         scroll_position_on_open = "newest";
         chathistory.infinite_scroll = true;
