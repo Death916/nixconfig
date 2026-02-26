@@ -40,6 +40,7 @@
       PermitRootLogin = "yes";
       AllowUsers = [ "death916" ];
       AllowTcpForwarding = true;
+      AllowStreamLocalForwarding = true;
     };
   };
   time.timeZone = "America/Los_Angeles";
