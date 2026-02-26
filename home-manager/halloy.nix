@@ -44,6 +44,12 @@
         };
       };
 
+      servers.oftc = {
+        nickname = "death916";
+        server = "irc.oftc.net";
+        port = 6697;
+      };
+
       actions = {
         buffer.click_channel_name = "replace-pane";
         sidebar = {
