@@ -39,6 +39,7 @@
       KbdInteractiveAuthentication = false;
       PermitRootLogin = "yes";
       AllowUsers = [ "death916" ];
+      AllowTcpForwarding = true;
     };
   };
   time.timeZone = "America/Los_Angeles";
@@ -73,7 +74,6 @@
   };
 
   boot.loader.grub.configurationLimit = 2;
-  services.openssh.allowTcpForwarding = true;
 
   system.stateVersion = "25.05";
 }
