@@ -355,4 +355,5 @@ in
   };
 
   programs.eza.enable = true;
+  programs.waveterm.enable = true;
 }
