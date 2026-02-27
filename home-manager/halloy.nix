@@ -51,6 +51,9 @@
         port = 6697;
         use_tls = false;
         password_file = "/home/death916/.config/halloy/libera.pass";
+        chathistory = true;
+        logging = true;
+        buffer = "replace-pane";
       };
 
       actions = {
