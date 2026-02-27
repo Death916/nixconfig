@@ -18,5 +18,12 @@
     };
   };
 
-  systemd.services.docker-navidrome.unitConfig.RequiresMountsFor = [ "/media" ];
+  systemd.services.docker-navidrome = {
+    unitConfig = {
+      RequiresMountsFor = [ "/media" ];
+      After = [ "media.mount" ];
+      Wants = [ "media.mount" ];
+    };
+    wantedBy = [ "multi-user.target" ];
+  };
 }
