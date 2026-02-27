@@ -48,6 +48,7 @@
         nickname = "death916";
         username = "death916/oftc";
         server = "100.72.187.12";
+        dangerously_accept_invalid_certs = true;
         port = 6667;
       };
 
