@@ -46,8 +46,9 @@
 
       servers.oftc = {
         nickname = "death916";
-        server = "irc.oftc.net";
-        port = 6697;
+        username = death916/oftc;
+        server = "100.72.187.12";
+        port = 6667;
       };
 
       actions = {
