@@ -52,13 +52,5 @@
     boot.kernelModules = [ "sp5100_tco" ];
     systemd.watchdog.rebootTime = "300s";
     programs.fish.enable = true;
-    specialisation = {
-      stable-kernel.configuration = {
-        system.nixos.tags = [ "stable" ];
-        boot.kernelPackages = lib.mkForce pkgs.linuxPackages;
-        boot.kernelParams = lib.mkForce [ "processor.max_cstate=1" ];
-        zramSwap.enable = lib.mkForce false;
-      };
-    };
   };
 }

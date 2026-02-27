@@ -36,17 +36,6 @@
     "net.ipv4.tcp_congestion_control" = "bbr";
   };
 
-  specialisation = {
-    stable-kernel.configuration = {
-      system.nixos.tags = [ "stable" ];
-      boot.kernelPackages = lib.mkForce pkgs.linuxPackages;
-      boot.kernel.sysctl = lib.mkForce {
-        "net.core.default_qdisc" = "fq_codel"; # Revert to default
-        "net.ipv4.tcp_congestion_control" = "cubic"; # Revert to default
-      };
-    };
-  };
-
   # nix.settings.substituters = [
   # "https://hyprland.cachix.org"
   # "https://cache.flox.dev"
