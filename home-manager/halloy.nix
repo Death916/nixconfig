@@ -31,17 +31,17 @@
         nickname = "death916";
         username = "death916/libera";
         server = "100.72.187.12";
-        port = 6667;
+        port = 6697;
         chathistory = true;
         use_tls = false;
-        dangerously_accept_invalid_certs = true;
+        # dangerously_accept_invalid_certs = true;
         logging = true;
         buffer = "replace-pane";
         password_file = "/home/death916/.config/halloy/libera.pass";
-        sasl.plain = {
-          username = "death916";
-          password_file = "/home/death916/.config/halloy/libera.pass";
-        };
+        # sasl.plain = {
+        # username = "death916";
+        # password_file = "/home/death916/.config/halloy/libera.pass";
+        # };
       };
 
       servers.oftc = {
