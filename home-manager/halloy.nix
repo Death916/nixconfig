@@ -46,7 +46,7 @@
 
       servers.oftc = {
         nickname = "death916";
-        username = death916/oftc;
+        username = "death916/oftc";
         server = "100.72.187.12";
         port = 6667;
       };
