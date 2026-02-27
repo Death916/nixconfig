@@ -50,6 +50,7 @@
         server = "100.72.187.12";
         port = 6697;
         use_tls = false;
+        password_file = "/home/death916/.config/halloy/libera.pass";
       };
 
       actions = {
