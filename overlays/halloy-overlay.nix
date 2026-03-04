@@ -8,13 +8,13 @@ in
 {
   halloy = rustPlatform.buildRustPackage rec {
     pname = "halloy";
-    version = "2026.3";
+    version = "2026.4";
 
     src = super.fetchFromGitHub {
       owner = "squidowl";
       repo = pname;
       rev = version;
-      sha256 = "sha256-lIPLJSiQmDBpFgKALjT/hSdiY5YfQkIZo8LdrxPHGqs=";
+      sha256 = "";
     };
 
     # RUSTC_BOOTSTRAP = 1;
