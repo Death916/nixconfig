@@ -38,6 +38,9 @@
         logging = true;
         buffer = "replace-pane";
         password_file = "/home/death916/.config/halloy/libera.pass";
+        filters.ignore = [
+          "emmeka"
+        ];
         # sasl.plain = {
         # username = "death916";
         # password_file = "/home/death916/.config/halloy/libera.pass";
@@ -54,6 +57,8 @@
         chathistory = true;
         logging = true;
         buffer = "replace-pane";
+        filters.ignore = [
+        ];
       };
 
       actions = {
