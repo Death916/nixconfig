@@ -137,10 +137,10 @@
               stylix.nixosModules.stylix
               {
                 nixpkgs.overlays = [
-                  overlays.waveterm
-                  overlays.rust
+                  # overlays.waveterm
+                  # overlays.rust
                   overlays.halloy
-                  overlays.karakeep
+                  # overlays.karakeep
                 ];
               }
               ./nixos/death-pc.nix

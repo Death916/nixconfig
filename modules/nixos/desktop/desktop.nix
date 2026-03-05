@@ -18,13 +18,18 @@
   services.xserver.enable = true;
   services.gnome.gnome-keyring.enable = true;
   services.dbus.enable = true; # for nextcloud client
-  # Enable the GNOME Desktop Environment.
-  services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
-  #cosmic instead
-  services.desktopManager.cosmic.enable = true;
-  # services.displayManager.cosmic-greeter.enable = true;
-  services.desktopManager.cosmic.xwayland.enable = true;
+  
+  # Use tuigreet to match laptop and default to Hyprland
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.tuigreet}/bin/tuigreet --cmd Hyprland";
+        user = "death916";
+      };
+    };
+  };
+
   services.system76-scheduler.enable = true;
 
   # This is to fix clementine gui not showing up on wayland
