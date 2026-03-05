@@ -15,7 +15,12 @@
     systemd.variables = [ "--all" ];
 
     settings = {
-      monitor = ",1920x1080,auto,1";
+      monitor = [
+        "HDMI-A-1,1920x1080,-1920x0,1"
+        "DP-2,1920x1080,0x0,1"
+        "DP-1,1920x1080,1920x0,1"
+        ",preferred,auto,1"
+      ];
       "$fileManager" = "nautilus";
       env = [
         "QT_QPA_PLATFORM,wayland"
