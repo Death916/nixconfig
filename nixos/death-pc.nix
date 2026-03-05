@@ -30,6 +30,11 @@
   hardware.enableRedistributableFirmware = true;
   services.btrfs.autoScrub.enable = true;
 
+  # --- BTRFS Dynamic Swapfile (16GB) ---
+  swapDevices = lib.mkForce [ ]; # Disable standard swap from base.nix
+  services.btrfs.swapfile.enable = true;
+  services.btrfs.swapfile.size = "16G";
+
   # --- NVIDIA G-SYNC / Tear-Free ---
   services.xserver.screenSection = ''
     Option "AllowGNULL" "False"
