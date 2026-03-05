@@ -21,17 +21,10 @@
   # Use linux_zen kernel for performance improvements
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
 
-  # --- Bootloader: GRUB Dual-Boot ---
-  # Overriding the systemd-boot from base.nix
-  boot.loader.systemd-boot.enable = lib.mkForce false;
-  boot.loader.grub = {
-    enable = true;
-    device = "nodev";
-    efiSupport = true;
-    useOSProber = true; # Automatically detects Windows on the Small SSD
-    default = 0;
-  };
+  # --- Bootloader: systemd-boot ---
+  boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.configurationLimit = 10;
 
   # --- System Optimizations ---
   hardware.enableRedistributableFirmware = true;
