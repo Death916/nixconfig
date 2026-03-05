@@ -138,7 +138,7 @@
               {
                 nixpkgs.overlays = [
                   # overlays.waveterm
-                  # overlays.rust
+                  overlays.rust
                   overlays.halloy
                   # overlays.karakeep
                 ];
