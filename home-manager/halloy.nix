@@ -57,8 +57,6 @@
         chathistory = true;
         logging = true;
         buffer = "replace-pane";
-        filters.ignore = [
-        ];
       };
 
       actions = {
