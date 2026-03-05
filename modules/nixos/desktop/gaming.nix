@@ -12,11 +12,11 @@
   hardware.nvidia = {
     modesetting.enable = true;
     powerManagement.enable = false;
-    open = false;
+    open = true; # Use the open-source kernel module (recommended for RTX 20+ cards)
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
+    nvidiaPersistenced = true; # Correct way to enable persistence mode
   };
-  services.nvidia.persistence.enable = true; # Prevents stuttering
 
   services.pipewire.enable = true;
   security.rtkit.enable = true;
