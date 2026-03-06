@@ -79,7 +79,10 @@
                 hyprland # Pass hyprland to specialArgs
                 stylix
                 ;
-              unstablePkgs = import nixpkgs-unstable { inherit system; };
+              unstablePkgs = import nixpkgs-unstable { 
+                inherit system; 
+                config.allowUnfree = true;
+              };
             };
             modules = [
               stylix.nixosModules.stylix
@@ -131,7 +134,10 @@
                 hyprland
                 stylix
                 ;
-              unstablePkgs = import nixpkgs-unstable { inherit system; };
+              unstablePkgs = import nixpkgs-unstable { 
+                inherit system; 
+                config.allowUnfree = true;
+              };
             };
             modules = [
               stylix.nixosModules.stylix
@@ -179,7 +185,10 @@
                 overlays
                 primaryUser
                 ;
-              unstablePkgs = import nixpkgs-unstable { inherit system; };
+              unstablePkgs = import nixpkgs-unstable { 
+                inherit system; 
+                config.allowUnfree = true;
+              };
             };
             modules = [
               ./nixos/homelab.nix # Your main homelab config
@@ -242,7 +251,10 @@
                 overlays
                 primaryUser
                 ;
-              unstablePkgs = import nixpkgs-unstable { inherit system; };
+              unstablePkgs = import nixpkgs-unstable { 
+                inherit system; 
+                config.allowUnfree = true;
+              };
 
             };
             modules = [
