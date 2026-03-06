@@ -25,7 +25,7 @@
       env = [
         "QT_QPA_PLATFORM,wayland"
         "GDK_BACKEND,wayland,x11"
-      ] ++ (lib.optionals (config.networking.hostName == "death-pc") [
+      ] ++ (lib.optionals (osConfig.networking.hostName == "death-pc") [
         "LIBVA_DRIVER_NAME,nvidia"
         "XDG_SESSION_TYPE,wayland"
         "GBM_BACKEND,nvidia-drm"
