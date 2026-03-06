@@ -1,5 +1,6 @@
 {
   config,
+  osConfig,
   pkgs,
   inputs,
   unstablePkgs,
@@ -267,7 +268,7 @@
           on-resume = "hyprctl dispatch dpms on";
         }
         # Suspend the laptop after 30 minutes, but NOT the desktop
-        (lib.mkIf (config.networking.hostName != "death-pc") {
+        (lib.mkIf (osConfig.networking.hostName != "death-pc") {
           timeout = 2800;
           on-timeout = "systemctl suspend";
         })
