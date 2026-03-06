@@ -108,6 +108,7 @@ in
     awscli2
     unstablePkgs.qwen-code
     unstablePkgs.tauon
+    discord
   ];
 
   programs.ghostty = {
