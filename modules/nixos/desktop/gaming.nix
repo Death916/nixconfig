@@ -18,7 +18,7 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     nvidiaPersistenced = true; # Correct way to enable persistence mode
   };
-
+  nixpkgs.config.allowUnfree = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
