@@ -25,7 +25,13 @@
       env = [
         "QT_QPA_PLATFORM,wayland"
         "GDK_BACKEND,wayland,x11"
-      ];
+      ] ++ (lib.optionals (config.networking.hostName == "death-pc") [
+        "LIBVA_DRIVER_NAME,nvidia"
+        "XDG_SESSION_TYPE,wayland"
+        "GBM_BACKEND,nvidia-drm"
+        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+        "NIXOS_OZONE_WL,1"
+      ]);
 
       exec-once = [
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
@@ -260,11 +266,11 @@
           on-timeout = "hyprctl dispatch dpms off";
           on-resume = "hyprctl dispatch dpms on";
         }
-        # Suspend the laptop after 30 minutes
-        {
+        # Suspend the laptop after 30 minutes, but NOT the desktop
+        (lib.mkIf (config.networking.hostName != "death-pc") {
           timeout = 2800;
           on-timeout = "systemctl suspend";
-        }
+        })
       ];
     };
   };

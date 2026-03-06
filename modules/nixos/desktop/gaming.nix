@@ -11,7 +11,8 @@
   hardware.graphics.enable32Bit = true;
   hardware.nvidia = {
     modesetting.enable = true;
-    powerManagement.enable = false;
+    powerManagement.enable = true; # Required for HDMI/DP audio on many cards
+    powerManagement.finegrained = false;
     open = true; # Use the open-source kernel module (recommended for RTX 20+ cards)
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;

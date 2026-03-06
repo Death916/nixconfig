@@ -20,6 +20,15 @@
 
   # Use linux_zen kernel for performance improvements
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+  boot.kernelParams = [ 
+    "nvidia-drm.modeset=1" 
+    "nvidia_drm.fbdev=1" 
+  ];
+
+  # Fix for resume lockups on Systemd 256+ (Common in 2025/2026)
+  systemd.services.systemd-suspend.environment.SYSTEMD_SLEEP_FREEZE_USER_SESSIONS = "false";
+  systemd.services.systemd-hibernate.environment.SYSTEMD_SLEEP_FREEZE_USER_SESSIONS = "false";
+  systemd.services.systemd-hybrid-sleep.environment.SYSTEMD_SLEEP_FREEZE_USER_SESSIONS = "false";
 
   # --- Bootloader: systemd-boot ---
   boot.loader.systemd-boot.enable = true;
