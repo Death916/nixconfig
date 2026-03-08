@@ -107,7 +107,7 @@
         "SUPER, F, fullscreen,"
         "SUPER, Space, togglefloating,"
         "SUPER, P, pseudo,"
-        "SUPER, J, togglesplit,"
+        "SUPER, J, layoutmsg, togglesplit"
         "SUPER, L, exec, hyprlock"
 
         "SUPER, left, movefocus, l"
