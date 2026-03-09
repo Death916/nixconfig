@@ -41,6 +41,7 @@
     btrfs-progs
     unstablePkgs.btrfs-assistant
     snapper
+    wowup-cf
     # (proton-ge-custom.override { version = "GE-Proton9-6"; })
   ];
 
