@@ -109,6 +109,7 @@ in
     unstablePkgs.qwen-code
     unstablePkgs.tauon
     discord
+    poweralertd
   ];
 
   programs.ghostty = {
