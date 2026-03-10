@@ -6,17 +6,14 @@
 }:
 
 let
-  # 1. Fetch the PieFed Source Code
   piefedAppSrc = pkgs.fetchFromGitea {
     domain = "codeberg.org";
     owner = "rimu";
     repo = "pyfedi";
     rev = "v1.5.x"; # Replace with target release branch (e.g., v1.5.x or main)
-    hash = lib.fakeHash; # NOTE: Replace this after the first failed build!
+    hash = lib.fakeHash;
   };
 
-  # 2. Define the Python Environment natively
-  # (If PieFed adds new dependencies in the future, add them here)
   pythonEnv = pkgs.python3.withPackages (
     ps: with ps; [
       flask
@@ -34,7 +31,6 @@ let
     ]
   );
 
-  # 3. Build the Layered Docker Image purely in Nix
   piefedImage = pkgs.dockerTools.buildLayeredImage {
     name = "piefed";
     tag = "nix-latest";
@@ -71,10 +67,8 @@ let
 
 in
 {
-  # Enable the Docker OCI backend
   virtualisation.oci-containers.backend = "docker";
 
-  # Ensure the host directories exist for persistent state & secrets
   systemd.tmpfiles.rules = [
     "d /var/lib/piefed 0755 root root -"
     "d /var/lib/piefed/pgdata 0700 root root -"
@@ -84,8 +78,6 @@ in
     "d /var/lib/piefed/tmp 0755 root root -"
   ];
 
-  # Create a custom Docker network so containers can resolve each other by name
-  # (Requires for POSTGRES_HOST=piefed-db to work)
   systemd.services.docker-network-piefed = {
     description = "Create Docker Network for PieFed";
     after = [
@@ -101,10 +93,8 @@ in
     '';
   };
 
-  # 4. Define the Container Architecture
   virtualisation.oci-containers.containers = {
 
-    # The Database Container
     piefed-db = {
       image = "postgres:15-alpine";
       environmentFiles = [ "/var/lib/piefed/.env.docker" ]; # SECRETS LOADED HERE
@@ -112,14 +102,12 @@ in
       extraOptions = [ "--network=piefed-net" ];
     };
 
-    # The Redis Container
     piefed-redis = {
       image = "redis:7-alpine";
       volumes = [ "/var/lib/piefed/redis:/data" ];
       extraOptions = [ "--network=piefed-net" ];
     };
 
-    # The Main Web App (built by Nix)
     piefed-web = {
       image = "piefed:nix-latest";
       imageFile = piefedImage; # Nix auto-loads the tarball into Docker!
@@ -137,7 +125,6 @@ in
       extraOptions = [ "--network=piefed-net" ];
     };
 
-    # The Celery Worker
     piefed-worker = {
       image = "piefed:nix-latest";
       cmd = [
@@ -148,7 +135,7 @@ in
         "-l"
         "info"
       ];
-      environmentFiles = [ "/var/lib/piefed/.env.docker" ]; # SECRETS LOADED HERE
+      environmentFiles = [ "/var/lib/piefed/.env.docker" ];
       volumes = [
         "/var/lib/piefed/media:/app/media"
         "/var/lib/piefed/logs:/app/logs"
@@ -162,13 +149,10 @@ in
     };
   };
 
-  # Make sure containers wait for the network to exist before starting
   systemd.services."docker-piefed-db".requires = [ "docker-network-piefed.service" ];
   systemd.services."docker-piefed-redis".requires = [ "docker-network-piefed.service" ];
   systemd.services."docker-piefed-web".requires = [ "docker-network-piefed.service" ];
   systemd.services."docker-piefed-worker".requires = [ "docker-network-piefed.service" ];
-
-  # 5. Declarative Systemd Timers/Services (Replacing Cron)
 
   systemd.services.piefed-daily = {
     script = "${pkgs.docker}/bin/docker exec piefed-web bash -c 'cd /app && ./daily.sh'";
