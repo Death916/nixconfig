@@ -213,6 +213,7 @@ in
     package = pkgs.emacs;
   };
   programs.firefox.enable = true;
+  stylix.targets.firefox.profileNames = [ "default" ];
   programs.alacritty = {
     enable = true;
     settings = {
