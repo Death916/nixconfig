@@ -25,8 +25,13 @@ fi
 
 # --- NixOS Build ---
 echo "Building NixOS configuration..."
-# Use -H to specify the hostname and provide the flake directory path.
-nh os switch "$REPO_ROOT" -H "$@"
+# If an argument is provided, use it as the hostname with -H.
+# Otherwise, let nh autodetect the hostname.
+if [ -z "$1" ]; then
+    nh os switch "$REPO_ROOT"
+else
+    nh os switch "$REPO_ROOT" -H "$@"
+fi
 
 # --- Git Push on Success ---
 echo "NixOS rebuild successful. Pushing to remote..."
