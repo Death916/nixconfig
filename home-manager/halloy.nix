@@ -101,7 +101,7 @@
           prompt_before_open = true;
         };
         channel.nicklist.width = 100;
-        channel.tpying = {
+        channel.typing = {
           share = true;
           show = true;
         };
