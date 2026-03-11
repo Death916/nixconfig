@@ -119,7 +119,7 @@
     enable = true;
     clean.enable = true;
     clean.extraArgs = "--keep-since 7d --keep 10";
-    flake = "/home/death916/Documents/nix-config/";
+    flake = "/home/death916/Documents/nixconfig/";
   };
   services.fprintd.enable = false;
   programs.direnv.enable = true;
