@@ -1,6 +1,7 @@
 # ~/nixconfig/home-manager/home.nix.new
 {
   config,
+  osConfig,
   pkgs,
   unstablePkgs,
   lib,
