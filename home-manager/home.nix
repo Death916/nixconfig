@@ -213,7 +213,9 @@ in
     package = pkgs.emacs;
   };
   programs.firefox.enable = true;
-  stylix.targets.firefox.profileNames = [ "default" ];
+
+  stylix.targets.firefox.profileNames = lib.mkIf (osConfig.networking.hostName == "death-pc") [ "6mb9fjvv.default" ];
+
   programs.alacritty = {
     enable = true;
     settings = {
