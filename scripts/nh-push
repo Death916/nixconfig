@@ -25,8 +25,8 @@ fi
 
 # --- NixOS Build ---
 echo "Building NixOS configuration..."
-# Use --flake to specify the flake path.
-nh os switch ".#$@"
+# Use -H to specify the hostname and provide the flake directory path.
+nh os switch "$REPO_ROOT" -H "$@"
 
 # --- Git Push on Success ---
 echo "NixOS rebuild successful. Pushing to remote..."
