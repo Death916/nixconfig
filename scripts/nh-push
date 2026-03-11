@@ -26,12 +26,13 @@ fi
 # --- NixOS Build ---
 echo "Building NixOS configuration..."
 # If an argument is provided, use it as the hostname with -H.
-# Otherwise, let nh autodetect the hostname.
+# Otherwise, resolve the current hostname and use it.
 if [ -z "$1" ]; then
-    echo "Running: nh os switch $REPO_ROOT"
-    nh os switch "$REPO_ROOT"
+    CURRENT_HOSTNAME=$(hostname)
+    echo "Running: nh os switch \"$REPO_ROOT\" -H \"$CURRENT_HOSTNAME\""
+    nh os switch "$REPO_ROOT" -H "$CURRENT_HOSTNAME"
 else
-    echo "Running: nh os switch $REPO_ROOT -H $@"
+    echo "Running: nh os switch \"$REPO_ROOT\" -H \"$@\""
     nh os switch "$REPO_ROOT" -H "$@"
 fi
 
