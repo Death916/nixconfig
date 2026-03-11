@@ -111,6 +111,7 @@ in
     unstablePkgs.tauon
     discord
     poweralertd
+    senpai
   ];
 
   programs.ghostty = {
@@ -215,7 +216,9 @@ in
   };
   programs.firefox.enable = true;
 
-  stylix.targets.firefox.profileNames = lib.mkIf (osConfig.networking.hostName == "death-pc") [ "6mb9fjvv.default" ];
+  stylix.targets.firefox.profileNames = lib.mkIf (osConfig.networking.hostName == "death-pc") [
+    "6mb9fjvv.default"
+  ];
 
   programs.alacritty = {
     enable = true;
