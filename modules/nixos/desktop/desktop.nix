@@ -72,6 +72,7 @@
     nil
     nixfmt
     nixd
+    unstablePkgs.heroic
   ];
 
   services.snapper.configs.nix = {
