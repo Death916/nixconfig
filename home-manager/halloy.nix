@@ -75,6 +75,7 @@
       font.size = 16;
 
       buffer = {
+
         server_messages = {
           join = {
             smart = 30;
@@ -100,6 +101,10 @@
           prompt_before_open = true;
         };
         channel.nicklist.width = 100;
+        channel.tpying = {
+          share = true;
+          show = true;
+        };
         scroll_position_on_open = "newest";
         chathistory.infinite_scroll = true;
       };
