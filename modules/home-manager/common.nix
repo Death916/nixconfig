@@ -47,6 +47,24 @@
         language-servers = [ "pylsp" ];
         auto-format = true;
       }
+      {
+        name = "rust";
+        language-servers = [ "rust-analyzer" ];
+        auto-format = true;
+        config = {
+          rust-analyzer = {
+            inlayHints = {
+              bindingModeHints.enable = true;
+              chainingHints.enable = true;
+              closingBraceHints.enable = true;
+              closureReturnTypeHints.enable = true;
+              lifetimeElisionHints.enable = true;
+              parameterHints.enable = true;
+              reborrowHints.enable = true;
+            };
+          };
+        };
+      }
     ];
     themes = {
       autumn_night_transparent = {
