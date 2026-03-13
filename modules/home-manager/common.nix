@@ -44,13 +44,21 @@
         rust-analyzer = {
           config = {
             inlayHints = {
-              bindingModeHints = { enable = true; };
-              chainingHints = { enable = true; };
-              closingBraceHints = { enable = true; };
-              closureReturnTypeHints = { enable = true; };
-              lifetimeElisionHints = { enable = true; };
-              parameterHints = { enable = true; };
-              reborrowHints = { enable = true; };
+              # bindingModeHints = { enable = true; };
+              # chainingHints = { enable = true; };
+              closingBraceHints = {
+                enable = true;
+              };
+              closureReturnTypeHints = {
+                enable = true;
+              };
+              lifetimeElisionHints = {
+                enable = true;
+              };
+              parameterHints = {
+                enable = true;
+              };
+              # reborrowHints = { enable = true; };
             };
           };
         };
