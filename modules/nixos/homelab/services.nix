@@ -106,6 +106,13 @@
     };
   };
 
+  systemd.services.docker-dufs = {
+    unitConfig = {
+      RequiresMountsFor = [ "/media/storage/media" ];
+      ConditionPathIsMountPoint = "/media/storage/media";
+    };
+  };
+
   users.users.adguardhome = {
     isSystemUser = true;
     group = "adguardhome";
