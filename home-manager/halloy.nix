@@ -41,6 +41,8 @@
         filters.ignore = [
           "emmeka"
           "justache"
+          "rosmi"
+          "ampera"
         ];
         # sasl.plain = {
         # username = "death916";
@@ -61,6 +63,8 @@
         filters.ignore = [
           "emmeka"
           "justache"
+          "rosmi"
+          "ampera"
         ];
       };
 
