@@ -72,7 +72,7 @@
     nil
     nixfmt
     nixd
-    unstablePkgs.heroic
+    pkgs.heroic  # Using stable to avoid electron-unwrapped-39 build failure in unstable
   ];
 
   services.snapper.configs.nix = {
