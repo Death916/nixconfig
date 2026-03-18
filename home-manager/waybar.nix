@@ -143,8 +143,16 @@
         };
       };
     };
-    # style = '' # Managed by stylix
-    #   @define-color rosewater #f5e0dc;
+    style = ''
+      #workspaces {
+        font-size: 18px;
+      }
+
+      #workspaces button {
+        padding: 0 8px;
+      }
+    '';
+  };
     #   @define-color flamingo #f2cdcd;
     #   @define-color pink #f5c2e7;
     #   @define-color mauve #cba6f7;
