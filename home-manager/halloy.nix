@@ -43,6 +43,7 @@
           "justache"
           "rosmi"
           "ampera"
+          "ayecee"
         ];
         # sasl.plain = {
         # username = "death916";
@@ -65,6 +66,7 @@
           "justache"
           "rosmi"
           "ampera"
+          "ayecee"
         ];
       };
 
