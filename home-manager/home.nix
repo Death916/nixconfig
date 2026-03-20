@@ -112,6 +112,7 @@ in
     discord
     poweralertd
     senpai
+    duf
   ];
 
   programs.ghostty = {

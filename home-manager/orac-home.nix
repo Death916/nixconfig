@@ -21,6 +21,7 @@
     systemctl-tui
     gemini-cli
     eza
+    duf
   ];
 
   programs.bash.shellAliases = {

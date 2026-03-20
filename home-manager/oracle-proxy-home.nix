@@ -21,6 +21,7 @@
     systemctl-tui
     gemini-cli
     nh
+    duf
   ];
 
   programs.bash.shellAliases = {
