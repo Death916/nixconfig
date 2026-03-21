@@ -34,20 +34,53 @@
         soft-wrap = {
           enable = true;
         };
+        lsp = {
+          display-inlay-hints = true;
+        };
       };
     };
-    languages.language = [
-      {
-        name = "nix";
-        auto-format = true;
-        formatter.command = lib.getExe pkgs.nixfmt-rfc-style;
-      }
-      {
-        name = "python";
-        language-servers = [ "pylsp" ];
-        auto-format = true;
-      }
-    ];
+    languages = {
+      language-server = {
+        rust-analyzer = {
+          config = {
+            inlayHints = {
+              # bindingModeHints = { enable = true; };
+              # chainingHints = { enable = true; };
+              closingBraceHints = {
+                enable = true;
+              };
+              closureReturnTypeHints = {
+                enable = true;
+              };
+              lifetimeElisionHints = {
+                enable = true;
+              };
+              parameterHints = {
+                enable = true;
+              };
+              # reborrowHints = { enable = true; };
+            };
+          };
+        };
+      };
+      language = [
+        {
+          name = "nix";
+          auto-format = true;
+          formatter.command = lib.getExe pkgs.nixfmt-rfc-style;
+        }
+        {
+          name = "python";
+          language-servers = [ "pylsp" ];
+          auto-format = true;
+        }
+        {
+          name = "rust";
+          language-servers = [ "rust-analyzer" ];
+          auto-format = true;
+        }
+      ];
+    };
     themes = {
       autumn_night_transparent = {
         "inherits" = "autumn_night";

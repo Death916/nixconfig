@@ -1,6 +1,7 @@
 # ~/nixconfig/home-manager/home.nix.new
 {
   config,
+  osConfig,
   pkgs,
   unstablePkgs,
   lib,
@@ -109,6 +110,8 @@ in
     unstablePkgs.qwen-code
     unstablePkgs.tauon
     discord
+    poweralertd
+    senpai
   ];
 
   programs.ghostty = {
@@ -212,6 +215,11 @@ in
     package = pkgs.emacs;
   };
   programs.firefox.enable = true;
+
+  stylix.targets.firefox.profileNames = lib.mkIf (osConfig.networking.hostName == "death-pc") [
+    "6mb9fjvv.default"
+  ];
+
   programs.alacritty = {
     enable = true;
     settings = {
@@ -246,7 +254,7 @@ in
     functions = {
       nh-push = {
         body = ''
-          /home/death916/Documents/nix-config/scripts/nh-push $argv
+          bash ~/Documents/nix*config/scripts/nh-push $argv
         '';
         description = "Wrapper for nh that runs git pull and git push on success";
       };
@@ -269,7 +277,7 @@ in
       homelab = "tailscale ssh homelab";
       urldecode = "python3 -c 'import sys, urllib.parse as ul; print(ul.unquote_plus(sys.stdin.read()))'";
       urlencode = "python3 -c 'import sys, urllib.parse as ul; print(ul.quote_plus(sys.stdin.read()))'";
-      nh-push = "/home/death916/Documents/nix-config/scripts/nh-push";
+      nh-push = "bash ~/Documents/nix*config/scripts/nh-push";
       l = "eza -alh --icons";
     };
   };

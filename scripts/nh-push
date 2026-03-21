@@ -8,7 +8,7 @@ set -e
 # Determine the absolute path of the directory containing this script.
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 # The repository root is one level above the scripts directory.
-REPO_ROOT="$SCRIPT_DIR/.."
+REPO_ROOT=$(realpath "$SCRIPT_DIR/..")
 
 # --- Git Operations ---
 echo "Pulling latest changes from git..."
@@ -25,8 +25,16 @@ fi
 
 # --- NixOS Build ---
 echo "Building NixOS configuration..."
-# Use --flake to specify the flake path.
-nh os switch ".#$@"
+# If an argument is provided, use it as the hostname with -H.
+# Otherwise, resolve the current hostname and use it.
+if [ -z "$1" ]; then
+    CURRENT_HOSTNAME=$(hostname)
+    echo "Running: nh os switch \"$REPO_ROOT\" -H \"$CURRENT_HOSTNAME\""
+    nh os switch "$REPO_ROOT" -H "$CURRENT_HOSTNAME"
+else
+    echo "Running: nh os switch \"$REPO_ROOT\" -H \"$@\""
+    nh os switch "$REPO_ROOT" -H "$@"
+fi
 
 # --- Git Push on Success ---
 echo "NixOS rebuild successful. Pushing to remote..."

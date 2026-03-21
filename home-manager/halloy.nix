@@ -41,6 +41,10 @@
         filters.ignore = [
           "emmeka"
           "justache"
+          "rosmi"
+          "ampera"
+          "ayecee"
+          "mrfb"
         ];
         # sasl.plain = {
         # username = "death916";
@@ -61,6 +65,10 @@
         filters.ignore = [
           "emmeka"
           "justache"
+          "rosmi"
+          "ampera"
+          "ayecee"
+          "mrfb"
         ];
       };
 
@@ -75,6 +83,7 @@
       font.size = 16;
 
       buffer = {
+
         server_messages = {
           join = {
             smart = 30;
@@ -100,6 +109,10 @@
           prompt_before_open = true;
         };
         channel.nicklist.width = 100;
+        channel.typing = {
+          share = true;
+          show = true;
+        };
         scroll_position_on_open = "newest";
         chathistory.infinite_scroll = true;
       };

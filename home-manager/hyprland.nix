@@ -47,6 +47,7 @@
         "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "swww init &"
         "waybar &"
+        "poweralertd &"
         # Stylix will manage the wallpaper
         # "swww img /home/death916/Pictures/wallpapers/jameswebb1.jpg &"
         "dunst &"
