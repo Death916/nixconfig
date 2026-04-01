@@ -24,6 +24,7 @@
     fzf
     eza
     unstablePkgs.qwen-code
+    duf
   ];
 
   programs.bash.shellAliases = {
