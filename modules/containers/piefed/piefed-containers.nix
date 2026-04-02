@@ -56,7 +56,7 @@ in
           "${localDir}/tmp:/app/app/static/tmp"
         ];
         ports = [ "8030:5000" ];
-        extraOptions = [ "--network=piefed_net" ];
+        extraOptions = [ "--network=piefed_net" "--platform=linux/arm64" ];
       };
 
       piefed-celery = {
@@ -69,7 +69,7 @@ in
           "${localDir}/logs:/app/logs"
           "${localDir}/tmp:/app/app/static/tmp"
         ];
-        extraOptions = [ "--network=piefed_net" ];
+        extraOptions = [ "--network=piefed_net" "--platform=linux/arm64" ];
       };
 
       piefed-notifs = {
@@ -78,7 +78,7 @@ in
         environmentFiles = [ "${localDir}/.env.docker" ];
         entrypoint = "./entrypoint_async.sh";
         ports = [ "8040:8000" ];
-        extraOptions = [ "--network=piefed_net" ];
+        extraOptions = [ "--network=piefed_net" "--platform=linux/arm64" ];
       };
     };
   };
