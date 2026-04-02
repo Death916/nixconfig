@@ -11,7 +11,6 @@
     ../modules/containers/docker/karakeep/docker-compose.nix
     ../modules/nixos/orac/monitoring.nix
     ../modules/containers/docker/crowdsec/crowdsec.nix
-    ../modules/containers/piefed/piefed-containers.nix
   ];
 
   networking.firewall = {
