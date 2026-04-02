@@ -261,14 +261,17 @@
               ./nixos/orac.nix # Your main homelab config
               ./nixos/orac-hardware.nix
               home-manager.nixosModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.extraSpecialArgs = { inherit hmLib; };
-                home-manager.users.death916 = {
-                  imports = [ ./home-manager/orac-home.nix ];
-                };
-              }
+              (
+                { unstablePkgs, ... }:
+                {
+                  home-manager.useGlobalPkgs = true;
+                  home-manager.useUserPackages = true;
+                  home-manager.extraSpecialArgs = { inherit hmLib unstablePkgs inputs; };
+                  home-manager.users.death916 = {
+                    imports = [ ./home-manager/orac-home.nix ];
+                  };
+                }
+              )
             ];
           };
       };

@@ -3,6 +3,7 @@
   pkgs,
   lib,
   inputs,
+  unstablePkgs,
   ...
 }:
 
@@ -19,7 +20,7 @@
     wget
     zellij
     systemctl-tui
-    gemini-cli
+    unstablePkgs.gemini-cli
     eza
     duf
   ];
