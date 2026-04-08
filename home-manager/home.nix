@@ -19,7 +19,7 @@ in
     ./hyprland.nix
     ./waybar.nix
     ./theme.nix # Import the stylix theme configuration
-    ./halloy.nix
+    # ./halloy.nix
   ];
 
   home.username = "death916";
@@ -70,7 +70,7 @@ in
     ethtool
     pciutils
     usbutils
-    waveterm
+    # waveterm
     tmux
     nextcloud-client
     obsidian
@@ -365,5 +365,5 @@ in
   };
 
   programs.eza.enable = true;
-  programs.waveterm.enable = true;
+  # programs.waveterm.enable = true;
 }
