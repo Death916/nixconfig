@@ -53,6 +53,7 @@
         "dunst &"
         "nm-applet --indicator &"
         "blueman-applet &"
+        "nextcloud --background &"
       ];
 
       general = {
