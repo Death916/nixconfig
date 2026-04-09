@@ -127,6 +127,96 @@
     ];
   };
 
+  virtualisation.oci-containers.containers."traefik-agent" = {
+    image = "hhftechnology/traefik-log-dashboard-agent:latest";
+    volumes = [
+      "/var/lib/pangolin/config/logs-agent:/data:rw"
+      "/var/lib/pangolin/config/logs:/logs:ro"
+    ];
+    ports = [
+      "5000:5000"
+    ];
+    environment = {
+      TRAEFIK_LOG_DASHBOARD_ACCESS_PATH = "/logs/access.log";
+      TRAEFIK_LOG_DASHBOARD_ERROR_PATH = "/logs/traefik.log";
+      TRAEFIK_LOG_DASHBOARD_AUTH_TOKEN = "PANGOLIN_LOGS_TOKEN";
+      TRAEFIK_LOG_DASHBOARD_SYSTEM_MONITORING = "true";
+      TRAEFIK_LOG_DASHBOARD_GEOIP_ENABLED = "false";
+      TRAEFIK_LOG_DASHBOARD_LOG_FORMAT = "json";
+      PORT = "5000";
+    };
+    log-driver = "journald";
+    extraOptions = [
+      "--health-cmd=[\"wget\", \"--no-verbose\", \"--tries=1\", \"--spider\", \"http://localhost:5000/api/logs/status\"]"
+      "--health-interval=30s"
+      "--health-retries=3"
+      "--health-start-period=10s"
+      "--health-timeout=10s"
+      "--network-alias=traefik-agent"
+      "--network=pangolin"
+    ];
+  };
+  systemd.services."docker-traefik-agent" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "always";
+      RestartMaxDelaySec = lib.mkOverride 90 "1m";
+      RestartSec = lib.mkOverride 90 "100ms";
+      RestartSteps = lib.mkOverride 90 9;
+    };
+    after = [
+      "docker-network-pangolin.service"
+    ];
+    requires = [
+      "docker-network-pangolin.service"
+    ];
+    partOf = [
+      "docker-compose-pangolin-root.target"
+    ];
+    wantedBy = [
+      "docker-compose-pangolin-root.target"
+    ];
+  };
+  virtualisation.oci-containers.containers."traefik-dashboard" = {
+    image = "hhftechnology/traefik-log-dashboard:latest";
+    ports = [
+      "3000:3000"
+    ];
+    environment = {
+      AGENT_API_URL = "http://traefik-agent:5000";
+      AGENT_API_TOKEN = "PANGOLIN_LOGS_TOKEN";
+      NODE_ENV = "production";
+      PORT = "3000";
+    };
+    dependsOn = [
+      "traefik-agent"
+    ];
+    log-driver = "journald";
+    extraOptions = [
+      "--network-alias=traefik-dashboard"
+      "--network=pangolin"
+    ];
+  };
+  systemd.services."docker-traefik-dashboard" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "always";
+      RestartMaxDelaySec = lib.mkOverride 90 "1m";
+      RestartSec = lib.mkOverride 90 "100ms";
+      RestartSteps = lib.mkOverride 90 9;
+    };
+    after = [
+      "docker-network-pangolin.service"
+    ];
+    requires = [
+      "docker-network-pangolin.service"
+    ];
+    partOf = [
+      "docker-compose-pangolin-root.target"
+    ];
+    wantedBy = [
+      "docker-compose-pangolin-root.target"
+    ];
+  };
+
   # Networks
   systemd.services."docker-network-pangolin" = {
     path = [ pkgs.docker ];
