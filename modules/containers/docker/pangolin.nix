@@ -94,17 +94,14 @@
   virtualisation.oci-containers.containers."traefik" = {
     image = "traefik:v3.4.0";
     volumes = [
-      volumes = [
-        "/var/lib/pangolin/config/letsencrypt:/letsencrypt:rw"
-        "/var/lib/pangolin/config/traefik:/etc/traefik:ro"
-        "/var/lib/pangolin/config/logs:/var/log/traefik:rw"
-      ];
-      cmd = [
-        "--configFile=/etc/traefik/traefik_config.yml"
-        "--accesslog=true"
-        "--accesslog.filepath=/var/log/traefik/access.log"
-      ];
+      "/var/lib/pangolin/config/letsencrypt:/letsencrypt:rw"
+      "/var/lib/pangolin/config/traefik:/etc/traefik:ro"
+      "/var/lib/pangolin/config/logs:/var/log/traefik:rw"
+    ];
+    cmd = [
+      "--configFile=/etc/traefik/traefik_config.yml"
       "--accesslog=true"
+      "--accesslog.filepath=/var/log/traefik/access.log"
     ];
     dependsOn = [
       "gerbil"
