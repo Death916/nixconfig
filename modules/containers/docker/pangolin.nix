@@ -179,13 +179,13 @@
   virtualisation.oci-containers.containers."traefik-dashboard" = {
     image = "hhftechnology/traefik-log-dashboard:latest";
     ports = [
-      "3000:3000"
+      "3055:3055"
     ];
     environment = {
       AGENT_API_URL = "http://traefik-agent:5000";
       AGENT_API_TOKEN = "PANGOLIN_LOGS_TOKEN";
       NODE_ENV = "production";
-      PORT = "3000";
+      PORT = "3055";
     };
     dependsOn = [
       "traefik-agent"
