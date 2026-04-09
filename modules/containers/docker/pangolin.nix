@@ -97,7 +97,10 @@
       "/var/lib/pangolin/config/letsencrypt:/letsencrypt:rw"
       "/var/lib/pangolin/config/traefik:/etc/traefik:ro"
     ];
-    cmd = [ "--configFile=/etc/traefik/traefik_config.yml" ];
+    cmd = [
+      "--configFile=/etc/traefik/traefik_config.yml"
+      "--accesslog=true"
+    ];
     dependsOn = [
       "gerbil"
       "pangolin"
