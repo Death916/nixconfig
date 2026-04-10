@@ -48,7 +48,7 @@ in
         STORAGE_TYPE = "minio";
         MINIO_ENDPOINT = "d8j2.or.idrivee2-38.com";
         MINIO_BUCKET = "forgejo-storage";
-        MINIO_LOCATION = "d8j2";
+        # MINIO_LOCATION = "d8j2";
         MINIO_USE_SSL = true;
       };
     };
