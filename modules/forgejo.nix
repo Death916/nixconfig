@@ -11,6 +11,7 @@ in
 {
   services.forgejo = {
     enable = true;
+    stateDir = "/mnt/myjfs/forge/data";
     database = {
       type = "postgres";
       user = "forgejo";
@@ -61,4 +62,6 @@ in
   };
 
   networking.firewall.allowedTCPPorts = [ 3051 ];
+
+  systemd.services.forgejo.unitConfig.RequiresMountsFor = [ "/mnt/myjfs" ];
 }

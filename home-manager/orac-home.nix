@@ -25,6 +25,10 @@
     duf
   ];
 
+  home.sessionVariables = {
+    TERM = "xterm-256color";
+  };
+
   programs.bash.shellAliases = {
     nh-push = "/home/death916/nixconfig/scripts/nh-push";
     l = "eza -alh --icons";
