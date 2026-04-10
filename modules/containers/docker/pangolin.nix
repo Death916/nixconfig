@@ -102,6 +102,8 @@
       "--configFile=/etc/traefik/traefik_config.yml"
       "--accesslog=true"
       "--accesslog.filepath=/var/log/traefik/access.log"
+      "--experimental.plugins.traefik-bouncer.moduleName=github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin"
+      "--experimental.plugins.traefik-bouncer.version=v1.3.5"
     ];
     dependsOn = [
       "gerbil"
