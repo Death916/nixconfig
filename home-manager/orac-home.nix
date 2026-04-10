@@ -14,6 +14,9 @@
   home.stateVersion = "25.05";
 
   programs.bash.enable = true;
+  programs.bash.initExtra = ''
+    export TERM=xterm-256color
+  '';
 
   home.packages = with pkgs; [
     fastfetch
