@@ -28,7 +28,7 @@ in
         HTTP_PORT = 3051;
         PROTOCOL = "http";
       };
-      service.DISABLE_REGISTRATION = false;
+      service.DISABLE_REGISTRATION = true;
 
       actions = {
         ENABLED = true;
