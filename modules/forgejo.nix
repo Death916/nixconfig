@@ -13,7 +13,7 @@
     settings = {
       server = {
         DOMAIN = "git.death916.xyz";
-        HTTP_PORT = 3050;
+        HTTP_PORT = 3051;
         ROOT_URL = "https://git.death916.xyz/";
         PROTOCOL = "http";
       };
@@ -23,5 +23,5 @@
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ 3050 ];
+  networking.firewall.allowedTCPPorts = [ 3051 ];
 }
