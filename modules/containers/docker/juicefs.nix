@@ -21,7 +21,7 @@
       "sh"
       "-c"
       ''
-        . /run/secrets/juicefs.env &&         PGPASSWORD="$POSTGRES_PASSWORD" juicefs mount postgres://death916@postgres:5432/juicefs?sslmode=disable /mnt/jfs
+        . /run/secrets/juicefs.env &&         PGPASSWORD="$POSTGRES_PASSWORD" juicefs mount --attr-cache 10 --entry-cache 10 --dir-cache 10 --prefetch 1 --open-cache 60 --buffer-size 300 --cache-dir /var/jfsCache postgres://death916@postgres:5432/juicefs?sslmode=disable /mnt/jfs
       ''
     ];
     dependsOn = [
