@@ -7,9 +7,9 @@ let
 
   acquisYaml = pkgs.writeText "acquis.yaml" ''
     ---
-    source: docker
-    container_name:
-      - traefik
+    source: file
+    filenames:
+      - /var/log/traefik/access.log
     labels:
       type: traefik
     ---
@@ -79,6 +79,7 @@ in
       "/var/log/journal:/var/log/journal:ro"
       "/run/log/journal:/run/log/journal:ro"
       "/etc/machine-id:/etc/machine-id:ro"
+      "/var/lib/pangolin/config/logs:/var/log/traefik:ro"
       "${acquisYaml}:/etc/crowdsec/acquis.yaml"
       "${whitelistYaml}:/etc/crowdsec/parsers/s02-enrich/tailscale-whitelist.yaml"
       "${nextcloudWhitelistYaml}:/etc/crowdsec/parsers/s02-enrich/nextcloud-whitelist.yaml"
