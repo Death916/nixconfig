@@ -66,7 +66,7 @@ in
   virtualisation.oci-containers.containers.crowdsec = {
     image = "crowdsecurity/crowdsec:latest-debian";
     autoStart = true;
-    ports = [ "127.0.0.1:8080:8080" "127.0.0.1:6060:6060" ];
+    ports = [ "8080:8080" "127.0.0.1:6060:6060" ];
     environment = {
       COLLECTIONS = "crowdsecurity/linux crowdsecurity/sshd crowdsecurity/traefik crowdsecurity/http-cve Dominic-Wagner/vaultwarden";
       PARSERS = "crowdsecurity/geoip-enrich crowdsecurity/dateparse-enrich";
