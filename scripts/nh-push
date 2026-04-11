@@ -29,11 +29,11 @@ echo "Building NixOS configuration..."
 # Otherwise, resolve the current hostname and use it.
 if [ -z "$1" ]; then
     CURRENT_HOSTNAME=$(hostname)
-    echo "Running: nh os switch \"$REPO_ROOT\" -H \"$CURRENT_HOSTNAME\""
-    nh os switch "$REPO_ROOT" -H "$CURRENT_HOSTNAME"
+    echo "Running: nh os switch \"$REPO_ROOT\" -H \"$CURRENT_HOSTNAME\" --diff always"
+    nh os switch "$REPO_ROOT" -H "$CURRENT_HOSTNAME" --diff always
 else
-    echo "Running: nh os switch \"$REPO_ROOT\" -H \"$@\""
-    nh os switch "$REPO_ROOT" -H "$@"
+    echo "Running: nh os switch \"$REPO_ROOT\" -H \"$@\" --diff always"
+    nh os switch "$REPO_ROOT" -H "$@" --diff always
 fi
 
 # --- Git Push on Success ---
