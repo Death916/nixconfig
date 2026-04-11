@@ -114,8 +114,8 @@ in
       "/var/lib/pangolin/config/letsencrypt:/letsencrypt:rw"
       "/var/lib/pangolin/config/traefik:/etc/traefik:ro"
       "/var/lib/pangolin/config/logs:/var/log/traefik:rw"
-      "/var/lib/pangolin/config/traefik/dynamic_config.yml:/etc/traefik/conf.d/dynamic_config.yml:ro"
-      "${crowdsecTraefikConfig}:/etc/traefik/conf.d/crowdsec.yml:ro"
+      "/var/lib/pangolin/config/traefik/dynamic_config.yml:/conf.d/dynamic_config.yml:ro"
+      "${crowdsecTraefikConfig}:/conf.d/crowdsec.yml:ro"
     ];
     cmd = [
       "--configFile=/etc/traefik/traefik_config.yml"
@@ -123,7 +123,7 @@ in
       "--accesslog.filepath=/var/log/traefik/access.log"
       "--experimental.plugins.traefik-bouncer.moduleName=github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin"
       "--experimental.plugins.traefik-bouncer.version=v1.3.5"
-      "--providers.file.directory=/etc/traefik/conf.d"
+      "--providers.file.directory=/conf.d"
     ];
     dependsOn = [
       "gerbil"
