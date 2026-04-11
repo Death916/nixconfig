@@ -263,4 +263,20 @@ in
     };
     wantedBy = [ "multi-user.target" ];
   };
+
+  services.logrotate = {
+    enable = true;
+    settings = {
+      pangolin-traefik = {
+        files = "/var/lib/pangolin/config/logs/*.log";
+        frequency = "daily";
+        rotate = 7;
+        compress = true;
+        delaycompress = true;
+        missingok = true;
+        notifempty = true;
+        postrotate = "docker kill --signal=USR1 traefik";
+      };
+    };
+  };
 }
