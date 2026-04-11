@@ -19,6 +19,7 @@
     };
     volumes = [
       "/var/lib/tunarr:/config/tunarr:rw"
+      "/media/storage/media/Filler:/media:rw"
     ];
     ports = [
       "5444:8000/tcp"
@@ -30,6 +31,11 @@
     ];
   };
   systemd.services."docker-tunarr" = {
+    unitConfig = {
+      RequiresMountsFor = [ "/media" ];
+      After = [ "media.mount" ];
+      Wants = [ "media.mount" ];
+    };
     serviceConfig = {
       Restart = lib.mkOverride 90 "no";
     };
