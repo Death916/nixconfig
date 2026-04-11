@@ -20,7 +20,7 @@
     fastfetch
     wget
     systemctl-tui
-    gemini-cli
+    unstablePkgs.gemini-cli
     fzf
     eza
     unstablePkgs.qwen-code
