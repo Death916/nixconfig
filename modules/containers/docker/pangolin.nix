@@ -1,6 +1,20 @@
 # Auto-generated using compose2nix v0.3.1.
 { pkgs, lib, ... }:
 
+let
+  crowdsecTraefikConfig = pkgs.writeText "crowdsec-traefik.yml" ''
+    http:
+      middlewares:
+        traefik-bouncer:
+          plugin:
+            traefik-bouncer:
+              enabled: true
+              crowdsecMode: stream
+              crowdsecLapiScheme: http
+              crowdsecLapiHost: "172.17.0.1:8080"
+              crowdsecLapiKey: '{{ env "BOUNCER_API_KEY" }}'
+  '';
+in
 {
    # Runtime
   virtualisation.docker = {
@@ -93,10 +107,15 @@
   };
   virtualisation.oci-containers.containers."traefik" = {
     image = "traefik:v3.4.0";
+    environmentFiles = [
+      "/var/lib/pangolin/config/traefik/bouncer.env"
+    ];
     volumes = [
       "/var/lib/pangolin/config/letsencrypt:/letsencrypt:rw"
       "/var/lib/pangolin/config/traefik:/etc/traefik:ro"
       "/var/lib/pangolin/config/logs:/var/log/traefik:rw"
+      "/var/lib/pangolin/config/traefik/dynamic_config.yml:/etc/traefik/conf.d/dynamic_config.yml:ro"
+      "${crowdsecTraefikConfig}:/etc/traefik/conf.d/crowdsec.yml:ro"
     ];
     cmd = [
       "--configFile=/etc/traefik/traefik_config.yml"
@@ -104,6 +123,7 @@
       "--accesslog.filepath=/var/log/traefik/access.log"
       "--experimental.plugins.traefik-bouncer.moduleName=github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin"
       "--experimental.plugins.traefik-bouncer.version=v1.3.5"
+      "--providers.file.directory=/etc/traefik/conf.d"
     ];
     dependsOn = [
       "gerbil"
