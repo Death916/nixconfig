@@ -109,8 +109,10 @@
 
   systemd.services.docker-dufs = {
     unitConfig = {
-      RequiresMountsFor = [ "/media/storage/media" ];
-      ConditionPathIsMountPoint = "/media/storage/media";
+      RequiresMountsFor = [ "/media" ];
+      ConditionPathIsMountPoint = "/media";
+      After = [ "media.mount" ];
+      Wants = [ "media.mount" ];
     };
   };
 
