@@ -14,6 +14,9 @@
   home.stateVersion = "25.05";
 
   programs.bash.enable = true;
+  programs.bash.initExtra = ''
+    export TERM=xterm-256color
+  '';
 
   home.packages = with pkgs; [
     fastfetch
@@ -24,6 +27,10 @@
     eza
     duf
   ];
+
+  home.sessionVariables = {
+    TERM = "xterm-256color";
+  };
 
   programs.bash.shellAliases = {
     nh-push = "/home/death916/nixconfig/scripts/nh-push";

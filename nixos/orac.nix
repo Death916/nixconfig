@@ -4,7 +4,7 @@
     ../modules/nixos/common/tailscale.nix
     ../modules/soju.nix
     ../modules/containers/docker/pangolin.nix
-    # ../modules/forgejo.nix
+    ../modules/forgejo.nix
     # ../modules/adguard.nix
     ../modules/containers/docker/juicefs.nix
     ../modules/nixos/orac/restic.nix
@@ -58,6 +58,10 @@
   zramSwap.enable = true;
   networking.hostName = "orac";
   networking.domain = "";
+
+  environment.variables = {
+    TERM = "xterm-256color";
+  };
 
   users.users.death916.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA02MxjL3+2gY3TenuezzmqObP7/AZ3rh/0PH7lqfxQY death916@nixos"

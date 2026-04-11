@@ -41,7 +41,7 @@
 
       overlays = {
         rust = rust-overlay.overlays.default;
-        halloy = import ./overlays/halloy-overlay.nix;
+        # halloy = import ./overlays/halloy-overlay.nix;
         waveterm = import ./overlays/waveterm-overlay.nix;
         karakeep = import ./overlays/karakeep-overlay.nix;
       };
@@ -90,7 +90,7 @@
                 nixpkgs.overlays = [
                   overlays.waveterm
                   overlays.rust
-                  overlays.halloy
+                  # overlays.halloy
                   overlays.karakeep
                 ];
               }
@@ -145,7 +145,7 @@
                 nixpkgs.overlays = [
                   # overlays.waveterm
                   overlays.rust
-                  overlays.halloy
+                  # overlays.halloy
                   # overlays.karakeep
                 ];
               }
