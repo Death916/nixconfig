@@ -15,6 +15,7 @@
     ../../../modules/containers/haos.nix
     ../../../modules/containers/docker/nextcloud/aio-compose.nix
     ../../../modules/containers/docker/navidrome.nix
+    ../../../modules/containers/docker/tunarr/docker-compose.nix
 
   ];
   arrSuite.enable = true;
