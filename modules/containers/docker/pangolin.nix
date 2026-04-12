@@ -275,7 +275,7 @@ in
         delaycompress = true;
         missingok = true;
         notifempty = true;
-        postrotate = "docker kill --signal=USR1 traefik";
+        postrotate = "${pkgs.docker}/bin/docker kill --signal=USR1 traefik";
       };
     };
   };
