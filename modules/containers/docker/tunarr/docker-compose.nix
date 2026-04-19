@@ -19,7 +19,7 @@
     };
     volumes = [
       "/var/lib/tunarr:/config/tunarr:rw"
-      "/media/storage/media/Filler:/media:rw"
+      "/media/storage/media/:/media:rw"
     ];
     ports = [
       "5444:8000/tcp"
