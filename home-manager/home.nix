@@ -113,6 +113,7 @@ in
     poweralertd
     senpai
     duf
+    unstablePkgs.firefoxpwa
   ];
 
   programs.ghostty = {
@@ -215,7 +216,12 @@ in
     enable = true;
     package = pkgs.emacs;
   };
-  programs.firefox.enable = true;
+
+  programs.firefox = {
+    enable = true;
+    package = pkgs.firefox;
+    nativeMessagingHosts.packages = [ unstablePkgs.firefoxpwa ];
+  };
 
   stylix.targets.firefox.profileNames = lib.mkIf (osConfig.networking.hostName == "death-pc") [
     "6mb9fjvv.default"
