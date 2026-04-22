@@ -220,7 +220,7 @@ in
   programs.firefox = {
     enable = true;
     package = pkgs.firefox;
-    nativeMessagingHosts.packages = [ unstablePkgs.firefoxpwa ];
+    nativeMessagingHosts = [ unstablePkgs.firefoxpwa ];
   };
 
   stylix.targets.firefox.profileNames = lib.mkIf (osConfig.networking.hostName == "death-pc") [
