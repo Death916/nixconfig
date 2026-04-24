@@ -8,6 +8,17 @@
 
   virtualisation.docker.enable = true;
 
+  virtualisation.oci-containers = {
+    backend = "docker";
+    containers = {
+      immich-machine-learning = {
+        image = "ghcr.io/immich-app/immich-machine-learning:latest";
+        ports = [ "3003:3003" ];
+        volumes = [ "immich-ml-cache:/cache" ];
+      };
+    };
+  };
+
   programs.nh = {
     enable = true;
     # clean.enable = true;

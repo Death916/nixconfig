@@ -168,6 +168,7 @@
     port = 2283;
     mediaLocation = "/storage/services/immich/upload";
     environment.IMMICH_IGNORE_MOUNT_CHECK_ERRORS = "true";
+    machine-learning.enable = false;
 
     database = {
       enable = true;
