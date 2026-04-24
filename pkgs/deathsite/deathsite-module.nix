@@ -22,35 +22,45 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
 
-      environment = {
-        API_URL = "https://${cfg.domain}";
-        REFLEX_USE_SYSTEM_BUN = "True";
-        PYTHONPATH = "/var/lib/deathsite";
-        KEYS_PATH = "/var/lib/deathsite/keys.json";
-      };
-
       serviceConfig = {
         Type = "simple";
         User = "deathsite";
         Group = "deathsite";
         WorkingDirectory = "/var/lib/deathsite";
-        
-        ExecStartPre = pkgs.writeShellScript "deathsite-setup" ''
-          if [ ! -d "/var/lib/deathsite/.git" ]; then
-            ${pkgs.git}/bin/git clone https://github.com/death916/deathsite.git /var/lib/deathsite
-            chown -R deathsite:deathsite /var/lib/deathsite
-          fi
-          
-          cd /var/lib/deathsite
-          ${pkgs.git}/bin/git pull origin main
-          ${pkgs.python311Packages.uv}/bin/uv sync --frozen
-        '';
-
-        ExecStart = "${pkgs.python311Packages.uv}/bin/uv run reflex run --env prod --single-port --frontend-port ${toString cfg.port}";
-        
+        StateDirectory = "deathsite";
         Restart = "always";
         RestartSec = "10";
-        StateDirectory = "deathsite";
+
+        # Use + to run as root to fix git/permissions
+        ExecStartPre = [
+          "+${pkgs.writeShellScript "deathsite-setup-root" ''
+            if [ ! -d "/var/lib/deathsite/.git" ]; then
+              cd /var/lib/deathsite
+              ${pkgs.git}/bin/git init
+              ${pkgs.git}/bin/git remote add origin https://github.com/death916/deathsite.git
+              ${pkgs.git}/bin/git fetch origin
+              ${pkgs.git}/bin/git reset --hard origin/main
+            fi
+            
+            cd /var/lib/deathsite
+            ${pkgs.git}/bin/git pull origin main
+            chown -R deathsite:deathsite /var/lib/deathsite
+          ''}"
+          "${pkgs.writeShellScript "deathsite-setup-user" ''
+            cd /var/lib/deathsite
+            ${pkgs.python311Packages.uv}/bin/uv sync --frozen
+          ''}"
+        ];
+
+        ExecStart = "${pkgs.python311Packages.uv}/bin/uv run reflex run --env prod --single-port --frontend-port ${toString cfg.port}";
+      };
+
+      environment = {
+        HOME = "/var/lib/deathsite";
+        API_URL = "https://${cfg.domain}";
+        REFLEX_USE_SYSTEM_BUN = "True";
+        PYTHONPATH = "/var/lib/deathsite";
+        KEYS_PATH = "/var/lib/deathsite/keys.json";
       };
     };
 
