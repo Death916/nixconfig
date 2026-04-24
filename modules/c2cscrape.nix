@@ -54,9 +54,9 @@ in
     systemd.timers.c2cscrape = {
       wantedBy = [ "timers.target" ];
       timerConfig = {
-        OnCalendar = "daily";
+        OnCalendar = "*-*-* 03:00:00";
         Persistent = true;
-        RandomizedDelaySec = "5m";
+        RandomizedDelaySec = "30m";
       };
     };
   };

@@ -27,9 +27,9 @@
       "--exclude-caches"
     ];
     timerConfig = {
-      OnCalendar = "*:00";
+      OnCalendar = "*:30";
       Persistent = true;
-      RandomizedDelaySec = "15m";
+      RandomizedDelaySec = "10m";
     };
   };
 

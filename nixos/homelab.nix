@@ -23,7 +23,7 @@
     boot.kernelParams = [
       "zswap.enabled=1"
       "zswap.compressor=zstd"
-      "zswap.max_pool_percent=20"
+      "zswap.zpool=z3fold"
       "processor.max_cstate=1"
     ];
 

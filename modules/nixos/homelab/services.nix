@@ -187,13 +187,6 @@
   #   };
   # };
 
-  services.ersatztv = {
-    enable = true;
-    group = "media_services";
-    package = pkgs.ersatztv.override { ffmpeg = pkgs.ffmpeg_7; };
-    openFirewall = true;
-  };
-
   services.postgresql = {
     enable = true;
     package = pkgs.postgresql_16.withPackages (p: [ p.pgvecto-rs ]);
