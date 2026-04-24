@@ -24,43 +24,21 @@ in
 
       serviceConfig = {
         Type = "simple";
-        User = "deathsite";
-        Group = "deathsite";
-        WorkingDirectory = "/var/lib/deathsite";
-        StateDirectory = "deathsite";
+        User = "death916";
+        Group = "users";
+        WorkingDirectory = "/home/death916/prod/deathsite";
         Restart = "always";
         RestartSec = "10";
-
-        # Use + to run as root to fix git/permissions
-        ExecStartPre = [
-          "+${pkgs.writeShellScript "deathsite-setup-root" ''
-            if [ ! -d "/var/lib/deathsite/.git" ]; then
-              cd /var/lib/deathsite
-              ${pkgs.git}/bin/git init
-              ${pkgs.git}/bin/git remote add origin https://github.com/death916/deathsite.git
-              ${pkgs.git}/bin/git fetch origin
-              ${pkgs.git}/bin/git reset --hard origin/main
-            fi
-            
-            cd /var/lib/deathsite
-            ${pkgs.git}/bin/git pull origin main
-            chown -R deathsite:deathsite /var/lib/deathsite
-          ''}"
-          "${pkgs.writeShellScript "deathsite-setup-user" ''
-            cd /var/lib/deathsite
-            ${pkgs.python311Packages.uv}/bin/uv sync --frozen
-          ''}"
-        ];
 
         ExecStart = "${pkgs.python311Packages.uv}/bin/uv run reflex run --env prod --single-port --frontend-port ${toString cfg.port}";
       };
 
       environment = {
-        HOME = "/var/lib/deathsite";
+        HOME = "/home/death916";
         API_URL = "https://${cfg.domain}";
         REFLEX_USE_SYSTEM_BUN = "True";
-        PYTHONPATH = "/var/lib/deathsite";
-        KEYS_PATH = "/var/lib/deathsite/keys.json";
+        PYTHONPATH = "/home/death916/prod/deathsite";
+        KEYS_PATH = "/home/death916/prod/deathsite/deathsite/keys.json";
       };
     };
 
