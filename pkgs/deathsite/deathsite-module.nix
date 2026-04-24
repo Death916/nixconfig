@@ -22,6 +22,13 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
 
+      path = with pkgs; [
+        bun
+        python311
+        python311Packages.uv
+        git
+      ];
+
       serviceConfig = {
         Type = "simple";
         User = "death916";
