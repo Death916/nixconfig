@@ -11,6 +11,7 @@
     ../modules/containers/docker/karakeep/docker-compose.nix
     ../modules/nixos/orac/monitoring.nix
     ../modules/containers/docker/crowdsec/crowdsec.nix
+    ../pkgs/deathsite/deathsite-module.nix
   ];
 
   networking.firewall = {
@@ -60,6 +61,8 @@
   zramSwap.enable = true;
   networking.hostName = "orac";
   networking.domain = "";
+
+  services.deathsite.enable = true;
 
   environment.variables = {
     TERM = "xterm-256color";
