@@ -13,7 +13,7 @@
     containers = {
       immich-machine-learning = {
         image = "ghcr.io/immich-app/immich-machine-learning:release";
-        ports = [ "3003:3003" ];
+        ports = [ "3004:3003" ];
         volumes = [ "immich-ml-cache:/cache" ];
       };
     };
