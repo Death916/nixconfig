@@ -330,7 +330,7 @@ in
   };
   programs.zed-editor = {
     enable = true;
-    package = pkgs.zed-editor-fhs;
+    package = unstablePkgs.zed-editor-fhs;
   };
 
   programs.btop.enable = true;
