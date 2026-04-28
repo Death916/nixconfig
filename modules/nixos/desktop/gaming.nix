@@ -33,7 +33,7 @@
   programs.gamemode.enable = true;
   environment.systemPackages = with pkgs; [
     steam
-    unstablePkgs.lutris
+    lutris
     gamemode
     prismlauncher
     vlc
