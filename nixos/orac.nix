@@ -12,6 +12,7 @@
     ../modules/nixos/orac/monitoring.nix
     ../modules/containers/docker/crowdsec/crowdsec.nix
     ../pkgs/deathsite/deathsite-module.nix
+    ../modules/umami.nix
   ];
 
   networking.firewall = {

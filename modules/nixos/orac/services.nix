@@ -72,10 +72,14 @@
 
   services.postgresql = {
     enable = true;
-    ensureDatabases = [ "forgejo" ];
+    ensureDatabases = [ "forgejo" "umami" ];
     ensureUsers = [
       {
         name = "forgejo";
+        ensureDBOwnership = true;
+      }
+      {
+        name = "umami";
         ensureDBOwnership = true;
       }
     ];
