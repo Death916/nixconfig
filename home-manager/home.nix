@@ -114,6 +114,7 @@ in
     senpai
     duf
     unstablePkgs.firefoxpwa
+    unstablePkgs.weathr
   ];
 
   programs.ghostty = {
