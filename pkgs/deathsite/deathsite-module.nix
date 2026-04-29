@@ -41,6 +41,7 @@ in
         WorkingDirectory = "/home/death916/prod/deathsite";
         Restart = "always";
         RestartSec = "10";
+        EnvironmentFile = cfg.secretsPath;
 
         ExecStart = "${pkgs.python311Packages.uv}/bin/uv run reflex run --env prod --single-port --frontend-port ${toString cfg.port}";
       };
