@@ -14,6 +14,11 @@ in
       type = lib.types.port;
       default = 3001;
     };
+    secretsPath = lib.mkOption {
+      type = lib.types.path;
+      default = "/etc/nixos/secrets/deathsite.env";
+      description = "Path to the .env file containing UMAMI_WEBSITE_ID and UMAMI_SCRIPT_URL";
+    };
   };
 
   config = lib.mkIf cfg.enable {
