@@ -23,6 +23,7 @@
     ../modules/nixos/common/tailscale.nix
     ../modules/nixos/laptop/hyprland-deps.nix # New module for Hyprland dependencies
     ../modules/nixos/laptop/restic.nix
+    ../modules/nixos/laptop/obsidian-rclone.nix
   ];
 
   # Use linux_zen kernel for performance improvements
