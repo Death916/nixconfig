@@ -66,6 +66,7 @@
     nil
     nixfmt
     nixd
+    google-chrome
     unstablePkgs.antigravity-fhs
   ];
 
