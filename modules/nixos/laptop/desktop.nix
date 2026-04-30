@@ -1,4 +1,3 @@
-# ~/nixconfig/modules.new/nixos/laptop/desktop.nix
 {
   config,
   pkgs,
@@ -67,6 +66,7 @@
     nil
     nixfmt
     nixd
+    unstablePkgs.antigravity
   ];
 
   services.snapper.configs.nix = {
