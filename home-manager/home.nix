@@ -115,6 +115,7 @@ in
     duf
     unstablePkgs.firefoxpwa
     unstablePkgs.weathr
+    rclone
   ];
 
   programs.ghostty = {
