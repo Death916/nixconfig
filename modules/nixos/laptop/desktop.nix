@@ -66,7 +66,7 @@
     nil
     nixfmt
     nixd
-    unstablePkgs.antigravity
+    unstablePkgs.antigravity-fhs
   ];
 
   services.snapper.configs.nix = {
