@@ -56,7 +56,7 @@ final: prev: {
       '';
     };
   in
-  prev.buildFHSUserEnv {
+  prev.buildFHSEnv {
     name = "zeditor";
     targetPkgs = pkgs: with pkgs; [
       zed-v1-binary
