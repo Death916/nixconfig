@@ -30,11 +30,11 @@ final: prev: {
       buildInputs = with prev; [
         stdenv.cc.cc.lib
         libGL
-        libX11
-        libXcursor
-        libXi
-        libXrandr
-        libalsa
+        xorg.libX11
+        xorg.libXcursor
+        xorg.libXi
+        xorg.libXrandr
+        alsa-lib
         libxcb
         libxkbcommon
         wayland
