@@ -10,11 +10,11 @@ final: prev: {
         sources = {
           "x86_64-linux" = {
             url = "https://github.com/zed-industries/zed/releases/download/v${version}/zed-linux-x86_64.tar.gz";
-            hash = "sha256-2aad4b35481bdb0ed055fd6b402edbf216ffcb8af6b244069eec4b06a311d72f";
+            hash = "sha256-Kq1LNUgb2w7QVf1rQC7b8hb/y4r2skQGnuXLBqMR1y8=";
           };
           "aarch64-linux" = {
             url = "https://github.com/zed-industries/zed/releases/download/v${version}/zed-linux-aarch64.tar.gz";
-            hash = "sha256-6b76782d51cb8533578d10024187948c2ce1b4173346e9cdd4cd89b12b3c11b0";
+            hash = "sha256-a3Z4LVHLhTNXjRACOXeUTizhuRd0bugd1M1JsSvBmwA=";
           };
         };
         source = sources.${prev.system} or (throw "Unsupported system: ${prev.system}");
