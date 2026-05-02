@@ -164,6 +164,7 @@
         "SUPER, W, exec, firefox"
         "SUPER, E, exec, nautilus"
         "SUPER, N, exec, dunstctl history-pop"
+        "SUPER SHIFT, N, exec, dunstctl close-all"
 
         "SUPER SHIFT, S, exec, bash -c \"grim -g '$(slurp)' - | tee ~/Pictures/screenshots/$(date +%s).png\""
         "SUPER SHIFT, Print, exec, bash -c \"grim - | tee ~/Pictures/screenshots/$(date +%s).png\""
