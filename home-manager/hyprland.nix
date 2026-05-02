@@ -104,7 +104,6 @@
 
       bind = [
         "SUPER, Q, killactive,"
-        "SUPER, M, exit,"
         "SUPER, F, fullscreen,"
         "SUPER, Space, togglefloating,"
         "SUPER, P, pseudo,"
