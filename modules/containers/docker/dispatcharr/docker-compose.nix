@@ -13,6 +13,7 @@
   # Containers
   virtualisation.oci-containers.containers."dispatcharr" = {
     image = "ghcr.io/dispatcharr/dispatcharr:latest";
+    pull = "always";
     environment = {
       "CELERY_BROKER_URL" = "redis://localhost:6379/0";
       "DISPATCHARR_ENV" = "aio";

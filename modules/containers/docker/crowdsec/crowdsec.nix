@@ -65,6 +65,7 @@ in
 
   virtualisation.oci-containers.containers.crowdsec = {
     image = "crowdsecurity/crowdsec:latest-debian";
+    pull = "always";
     autoStart = true;
     ports = [ "8080:8080" "127.0.0.1:6060:6060" ];
     environment = {

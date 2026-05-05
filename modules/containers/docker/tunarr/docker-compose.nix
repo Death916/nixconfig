@@ -13,6 +13,7 @@
   # Containers
   virtualisation.oci-containers.containers."tunarr" = {
     image = "chrisbenincasa/tunarr:latest";
+    pull = "always";
     environment = {
       "LOG_LEVEL" = "INFO";
       "TZ" = "America/Los_Angeles";

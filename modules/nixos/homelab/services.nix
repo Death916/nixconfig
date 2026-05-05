@@ -97,6 +97,7 @@
       dufs = {
         user = "1000:1000";
         image = "sigoden/dufs:latest";
+        pull = "always";
         ports = [ "5000:5000" ];
         volumes = [ "/media/storage/media/:/data" ];
         cmd = [

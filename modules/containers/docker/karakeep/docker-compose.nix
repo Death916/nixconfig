@@ -90,6 +90,7 @@
   };
   virtualisation.oci-containers.containers."karakeep-web" = {
     image = "ghcr.io/karakeep-app/karakeep:release";
+    pull = "always";
     environment = {
       "BROWSER_WEB_URL" = "http://chrome:9222";
       "DATA_DIR" = "/data";
