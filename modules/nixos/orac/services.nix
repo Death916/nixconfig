@@ -70,6 +70,18 @@
     };
   };
 
+  services.ntfy-sh = {
+    enable = true;
+    settings = {
+      base-url = "http://100.72.187.12:2586";
+      listen-http = "100.72.187.12:2586";
+      behind-proxy = false;
+      auth-default-access = "deny-all";
+      enable-login = true;
+    };
+    # environmentFile = "/etc/nixos/secrets/ntfy.env";
+  };
+
   services.postgresql = {
     enable = true;
     ensureDatabases = [ "forgejo" "umami" ];
