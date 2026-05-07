@@ -44,7 +44,6 @@
         # halloy = import ./overlays/halloy-overlay.nix;
         waveterm = import ./overlays/waveterm-overlay.nix;
         karakeep = import ./overlays/karakeep-overlay.nix;
-        zed = import ./overlays/zed-overlay.nix;
       };
 
     in
@@ -83,7 +82,7 @@
               unstablePkgs = import nixpkgs-unstable { 
                 inherit system; 
                 config.allowUnfree = true;
-                overlays = [ overlays.zed ];
+                overlays = [ ];
               };
             };
             modules = [
@@ -94,7 +93,6 @@
                   overlays.rust
                   # overlays.halloy
                   overlays.karakeep
-                  overlays.zed
                 ];
               }
               ./nixos/configuration.nix
@@ -140,7 +138,7 @@
               unstablePkgs = import nixpkgs-unstable { 
                 inherit system; 
                 config.allowUnfree = true;
-                overlays = [ overlays.zed ];
+                overlays = [ ];
               };
             };
             modules = [
@@ -150,9 +148,8 @@
                   # overlays.waveterm
                   overlays.rust
                   # overlays.halloy
-                  # overlays.karakeep
-                  overlays.zed
-                ];
+                  overlays.karakeep
+                  ];
               }
               ./nixos/death-pc.nix
               home-manager.nixosModules.home-manager
@@ -193,7 +190,7 @@
               unstablePkgs = import nixpkgs-unstable { 
                 inherit system; 
                 config.allowUnfree = true;
-                overlays = [ overlays.zed ];
+                overlays = [ ];
               };
             };
             modules = [
@@ -260,7 +257,7 @@
               unstablePkgs = import nixpkgs-unstable { 
                 inherit system; 
                 config.allowUnfree = true;
-                overlays = [ overlays.zed ];
+                overlays = [ ];
               };
 
             };
