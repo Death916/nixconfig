@@ -7,7 +7,7 @@
 
 {
   imports = [
-    ./themes/gruv_hard.nix
+    ./themes/aether.nix
   ];
 
   stylix.enable = true;
