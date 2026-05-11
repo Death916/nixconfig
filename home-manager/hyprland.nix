@@ -16,25 +16,34 @@
     systemd.variables = [ "--all" ];
 
     settings = {
-      monitor = if (osConfig.networking.hostName == "death-pc") then [
-        "desc:Acer Technologies R240HY T4BAA0012400,1920x1080,-1920x0,1"
-        "desc:BNQ BenQ EL2870U 26M05467SL0,2560x1440,0x0,1"
-        "desc:WAM U24C 0000000000001,1920x1080,2560x0,1"
-      ] else [
-        ",preferred,auto,1"
-      ];
+      monitor =
+        if (osConfig.networking.hostName == "death-pc") then
+          [
+            "desc:Acer Technologies R240HY T4BAA0012400,1920x1080,-1920x0,1"
+            "desc:BNQ BenQ EL2870U 26M05467SL0,2560x1440,0x0,1"
+            "desc:WAM U24C 0000000000001,1920x1080,2560x0,1"
+          ]
+        else
+          [
+            ",preferred,auto,1"
+          ];
 
-      workspace = if (osConfig.networking.hostName == "death-pc") then [
-        "1, monitor:desc:BNQ BenQ EL2870U 26M05467SL0"
-        "2, monitor:desc:Acer Technologies R240HY T4BAA0012400"
-        "3, monitor:desc:WAM U24C 0000000000001"
-      ] else [];
+      workspace =
+        if (osConfig.networking.hostName == "death-pc") then
+          [
+            "1, monitor:desc:BNQ BenQ EL2870U 26M05467SL0"
+            "2, monitor:desc:Acer Technologies R240HY T4BAA0012400"
+            "3, monitor:desc:WAM U24C 0000000000001"
+          ]
+        else
+          [ ];
 
       "$fileManager" = "nautilus";
       env = [
         "QT_QPA_PLATFORM,wayland"
         "GDK_BACKEND,wayland,x11"
-      ] ++ (lib.optionals (osConfig.networking.hostName == "death-pc") [
+      ]
+      ++ (lib.optionals (osConfig.networking.hostName == "death-pc") [
         "LIBVA_DRIVER_NAME,nvidia"
         "XDG_SESSION_TYPE,wayland"
         "GBM_BACKEND,nvidia-drm"
@@ -222,6 +231,7 @@
 
   programs.hyprlock = {
     enable = true;
+    package = unstablePkgs.hyprlock;
     settings = {
       background = lib.mkForce [
         {
