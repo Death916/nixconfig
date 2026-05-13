@@ -167,6 +167,10 @@
         ", XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl set 5%-"
 
         "SUPER, grave, togglespecialworkspace, wave"
+        "SUPER SHIFT, grave, togglespecialworkspace"
+        "SUPER, M, movetoworkspacesilent, special"
+        "SUPER SHIFT, M, togglespecialworkspace"
+        "SUPER, S, togglespecialworkspace"
 
         "SUPER, Return, exec, waveterm"
         "SUPER, T, exec, ghostty"
