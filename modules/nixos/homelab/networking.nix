@@ -83,8 +83,12 @@
     enable = true;
     ports = [ 22 ];
     openFirewall = true;
-    settings.PasswordAuthentication = false;
-    settings.PermitRootLogin = "no";
+    settings = {
+      PasswordAuthentication = false;
+      PermitRootLogin = "no";
+      AllowTcpForwarding = true;
+      StreamLocalForwarding = "yes";
+    };
   };
 
   boot.kernel.sysctl = {

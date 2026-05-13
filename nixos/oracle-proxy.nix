@@ -31,6 +31,8 @@
       KbdInteractiveAuthentication = false;
       PermitRootLogin = "yes";
       AllowUsers = [ "death916" ];
+      AllowTcpForwarding = true;
+      StreamLocalForwarding = "yes";
     };
   };
 
