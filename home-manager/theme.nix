@@ -58,8 +58,7 @@
 
   programs.waveterm = {
     settings = {
-      "term:background" = "#${config.lib.stylix.colors.base00}";
-      "term:foreground" = "#${config.lib.stylix.colors.base05}";
+      "term:theme" = "stylix";
       "term:fontfamily" = config.stylix.fonts.monospace.name;
       "term:fontsize" = 14;
       "window:opacity" = 0.9;
@@ -71,4 +70,34 @@
       "term:scrollback" = 10000;
     };
   };
+
+  xdg.configFile."waveterm/termthemes.json".text = builtins.toJSON {
+    stylix = {
+      "background" = "#${config.lib.stylix.colors.base00}";
+      "foreground" = "#${config.lib.stylix.colors.base05}";
+      "black" = "#${config.lib.stylix.colors.base00}";
+      "red" = "#${config.lib.stylix.colors.base08}";
+      "green" = "#${config.lib.stylix.colors.base0B}";
+      "yellow" = "#${config.lib.stylix.colors.base0A}";
+      "blue" = "#${config.lib.stylix.colors.base0D}";
+      "magenta" = "#${config.lib.stylix.colors.base0E}";
+      "cyan" = "#${config.lib.stylix.colors.base0C}";
+      "white" = "#${config.lib.stylix.colors.base05}";
+      "brightBlack" = "#${config.lib.stylix.colors.base03}";
+      "brightRed" = "#${config.lib.stylix.colors.base08}";
+      "brightGreen" = "#${config.lib.stylix.colors.base0B}";
+      "brightYellow" = "#${config.lib.stylix.colors.base0A}";
+      "brightBlue" = "#${config.lib.stylix.colors.base0D}";
+      "brightMagenta" = "#${config.lib.stylix.colors.base0E}";
+      "brightCyan" = "#${config.lib.stylix.colors.base0C}";
+      "brightWhite" = "#${config.lib.stylix.colors.base07}";
+    };
+  };
+
+  xdg.configFile."waveterm/keybindings.json".text = builtins.toJSON [
+    {
+      "command" = "app:openWorkspaceSwitcher";
+      "keys" = [ "Alt:Tab" ];
+    }
+  ];
 }
