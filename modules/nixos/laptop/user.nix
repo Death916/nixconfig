@@ -17,5 +17,7 @@
       "video"
                 "plugdev"
                 "docker"
-              ];  };
+              ];
+    shell = pkgs.fish;
+  };
 }
