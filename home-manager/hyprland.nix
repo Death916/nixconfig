@@ -166,11 +166,10 @@
         ", XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl set +5%"
         ", XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl set 5%-"
 
-        "SUPER, grave, togglespecialworkspace, wave"
-        "SUPER SHIFT, grave, togglespecialworkspace"
-        "SUPER, M, movetoworkspacesilent, special"
-        "SUPER SHIFT, M, togglespecialworkspace"
-        "SUPER, S, togglespecialworkspace"
+        "SUPER, grave, togglespecialworkspace, quake"
+        "SUPER, M, movetoworkspacesilent, special:minimized"
+        "SUPER SHIFT, M, togglespecialworkspace, minimized"
+        "SUPER, S, togglespecialworkspace, minimized"
 
         "SUPER, Return, exec, waveterm"
         "SUPER, T, exec, ghostty"
@@ -186,10 +185,11 @@
       ];
 
       windowrule = [
-        "workspace special:wave, match:class ^(Wave)$"
-        "float 1, match:class ^(Wave)$"
-        "size 80% 80%, match:class ^(Wave)$"
-        "center 1, match:class ^(Wave)$"
+        "workspace special:quake, match:class ^(Wave|waveterm)$"
+        "float 1, match:class ^(Wave|waveterm)$"
+        "size 80% 80%, match:class ^(Wave|waveterm)$"
+        "center 1, match:class ^(Wave|waveterm)$"
+        "focus 1, match:class ^(Wave|waveterm)$"
 
         "opacity 0.5, match:float yes"
         "opacity 0.8, match:float false"
