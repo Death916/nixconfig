@@ -87,8 +87,10 @@
       PasswordAuthentication = false;
       PermitRootLogin = "no";
       AllowTcpForwarding = true;
-      StreamLocalForwarding = "yes";
     };
+    extraConfig = ''
+      StreamLocalForwarding yes
+    '';
   };
 
   boot.kernel.sysctl = {

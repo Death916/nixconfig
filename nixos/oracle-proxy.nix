@@ -32,8 +32,10 @@
       PermitRootLogin = "yes";
       AllowUsers = [ "death916" ];
       AllowTcpForwarding = true;
-      StreamLocalForwarding = "yes";
     };
+    extraConfig = ''
+      StreamLocalForwarding yes
+    '';
   };
 
   boot.tmp.cleanOnBoot = true;
