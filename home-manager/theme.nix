@@ -55,4 +55,15 @@
     firefox.enable = true;
     obsidian.enable = true;
   };
+
+  programs.waveterm = {
+    settings = {
+      "term:background" = "#${config.lib.stylix.colors.base00}";
+      "term:foreground" = "#${config.lib.stylix.colors.base05}";
+      "term:fontfamily" = config.stylix.fonts.monospace.name;
+      "term:fontsize" = 14;
+      "window:opacity" = 0.9;
+      "window:blur" = true;
+    };
+  };
 }
