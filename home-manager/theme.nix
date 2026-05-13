@@ -97,7 +97,7 @@
   xdg.configFile."waveterm/keybindings.json".text = builtins.toJSON [
     {
       "command" = "app:openWorkspaceSwitcher";
-      "keys" = [ "Alt:Tab" ];
+      "keys" = [ "Alt:Space" ];
     }
   ];
 }

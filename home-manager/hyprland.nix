@@ -181,12 +181,14 @@
         "SUPER SHIFT, Print, exec, bash -c \"grim - | tee ~/Pictures/screenshots/$(date +%s).png\""
       ];
 
-      windowrule = [
-        "workspace special:wave, title:^Wave$"
-        "float, title:^Wave$"
-        "size 80% 80%, title:^Wave$"
-        "center, title:^Wave$"
+      windowrulev2 = [
+        "float, class:(Wave)"
+        "size 80% 80%, class:(Wave)"
+        "center, class:(Wave)"
+        "workspace special:wave, class:(Wave)"
+      ];
 
+      windowrule = [
         "opacity 0.5, match:float yes"
         "opacity 0.8, match:float false"
         "opacity 1.0, match:fullscreen true"
