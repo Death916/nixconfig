@@ -79,8 +79,8 @@
                 hyprland # Pass hyprland to specialArgs
                 stylix
                 ;
-              unstablePkgs = import nixpkgs-unstable { 
-                inherit system; 
+              unstablePkgs = import nixpkgs-unstable {
+                inherit system;
                 config.allowUnfree = true;
                 overlays = [ ];
               };
@@ -135,8 +135,8 @@
                 hyprland
                 stylix
                 ;
-              unstablePkgs = import nixpkgs-unstable { 
-                inherit system; 
+              unstablePkgs = import nixpkgs-unstable {
+                inherit system;
                 config.allowUnfree = true;
                 overlays = [ ];
               };
@@ -145,11 +145,11 @@
               stylix.nixosModules.stylix
               {
                 nixpkgs.overlays = [
-                  # overlays.waveterm
+                  overlays.waveterm
                   overlays.rust
                   # overlays.halloy
                   overlays.karakeep
-                  ];
+                ];
               }
               ./nixos/death-pc.nix
               home-manager.nixosModules.home-manager
@@ -187,8 +187,8 @@
                 overlays
                 primaryUser
                 ;
-              unstablePkgs = import nixpkgs-unstable { 
-                inherit system; 
+              unstablePkgs = import nixpkgs-unstable {
+                inherit system;
                 config.allowUnfree = true;
                 overlays = [ ];
               };
@@ -254,15 +254,15 @@
                 overlays
                 primaryUser
                 ;
-              unstablePkgs = import nixpkgs-unstable { 
-                inherit system; 
+              unstablePkgs = import nixpkgs-unstable {
+                inherit system;
                 config.allowUnfree = true;
                 overlays = [ ];
               };
 
             };
             modules = [
-              ./nixos/orac.nix # Your main homelab config
+              ./nixos/orac.nix
               ./nixos/orac-hardware.nix
               home-manager.nixosModules.home-manager
               (

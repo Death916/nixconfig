@@ -84,7 +84,6 @@ in
     golly # alife/gameoflife sim
     asciiquarium # fishies in my term
     vlc
-    # jellyfin-media-player
     syncterm
     tradingview
     mdcat
