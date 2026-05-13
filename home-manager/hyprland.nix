@@ -395,11 +395,3 @@
     wl-clipboard
   ];
 }
-ria-theme
-    rose-pine-gtk-theme
-    nightfox-gtk-theme
-    materia-kde-theme
-
-    wl-clipboard
-  ];
-}
