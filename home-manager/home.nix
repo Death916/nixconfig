@@ -70,7 +70,7 @@ in
     ethtool
     pciutils
     usbutils
-    # waveterm
+    waveterm
     tmux
     nextcloud-client
     obsidian
