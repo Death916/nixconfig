@@ -68,6 +68,7 @@
       "conn:askbeforewshinstall" = false;
       "app:globalhotkey" = "F4";
       "term:bellindicator" = true;
+      "term:scrollback" = 10000;
     };
   };
 }
