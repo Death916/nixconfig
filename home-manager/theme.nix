@@ -64,6 +64,10 @@
       "term:fontsize" = 14;
       "window:opacity" = 0.9;
       "window:blur" = true;
+      "autoupdate:channel" = "latest";
+      "conn:askbeforewshinstall" = false;
+      "app:globalhotkey" = "F4";
+      "term:bellindicator" = true;
     };
   };
 }
