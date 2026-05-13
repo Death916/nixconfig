@@ -166,6 +166,8 @@
         ", XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl set +5%"
         ", XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl set 5%-"
 
+        "SUPER, grave, togglespecialworkspace, wave"
+
         "SUPER, Return, exec, waveterm"
         "SUPER, T, exec, ghostty"
         "SUPER, D, exec, rofi -show drun"
@@ -180,6 +182,11 @@
       ];
 
       windowrule = [
+        "workspace special:wave, title:^Wave$"
+        "float, title:^Wave$"
+        "size 80% 80%, title:^Wave$"
+        "center, title:^Wave$"
+
         "opacity 0.5, match:float yes"
         "opacity 0.8, match:float false"
         "opacity 1.0, match:fullscreen true"
