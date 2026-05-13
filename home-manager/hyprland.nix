@@ -189,7 +189,6 @@
         "float 1, match:class ^(Wave|waveterm)$"
         "size 80% 80%, match:class ^(Wave|waveterm)$"
         "center 1, match:class ^(Wave|waveterm)$"
-        "focus 1, match:class ^(Wave|waveterm)$"
 
         "opacity 0.5, match:float yes"
         "opacity 0.8, match:float false"
@@ -389,6 +388,14 @@
     kdePackages.dolphin
     catppuccin-gtk
     materia-theme
+    rose-pine-gtk-theme
+    nightfox-gtk-theme
+    materia-kde-theme
+
+    wl-clipboard
+  ];
+}
+ria-theme
     rose-pine-gtk-theme
     nightfox-gtk-theme
     materia-kde-theme
