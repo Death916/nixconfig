@@ -18,6 +18,5 @@
                 "plugdev"
                 "docker"
               ];
-    shell = pkgs.fish;
   };
 }

@@ -8,6 +8,11 @@
 }:
 
 {
+  imports = [
+    ./fish.nix
+    ./ssh-keys.nix
+  ];
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   powerManagement.cpuFreqGovernor = "ondemand"; # hopefully fix low cpu freq

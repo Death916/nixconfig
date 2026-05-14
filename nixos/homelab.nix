@@ -51,6 +51,5 @@
     # Auto-reboot the system if it hangs (5 minute timeout)
     boot.kernelModules = [ "sp5100_tco" ];
     systemd.watchdog.rebootTime = "300s";
-    programs.fish.enable = true;
   };
 }

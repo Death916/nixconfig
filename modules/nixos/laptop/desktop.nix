@@ -119,5 +119,4 @@
   services.fprintd.enable = false;
   programs.direnv.enable = true;
   programs.nix-ld.enable = true;
-  programs.fish.enable = true;
 }
