@@ -58,9 +58,10 @@
 
   programs.waveterm = {
     settings = {
+      "term:term" = "xterm-256color";
       "term:theme" = "stylix";
       "term:fontfamily" = config.stylix.fonts.monospace.name;
-      "term:fontsize" = 14;
+      "term:fontsize" = 15;
       "window:opacity" = 0.9;
       "window:blur" = true;
       "autoupdate:channel" = "latest";
