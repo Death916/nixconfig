@@ -20,5 +20,8 @@
       "incus-admin"
       "libvirtd"
     ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJDXyTcemkngWQA90CXc5P97QsF7Lcl+SBLCdggkgCt9 death916@death-pc"
+    ];
   };
 }
