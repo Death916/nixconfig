@@ -115,6 +115,7 @@ in
     unstablePkgs.firefoxpwa
     unstablePkgs.weathr
     rclone
+    smartgit
   ];
 
   programs.ghostty = {
