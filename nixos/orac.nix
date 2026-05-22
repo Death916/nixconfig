@@ -4,6 +4,8 @@
     ../modules/nixos/common/ssh-keys.nix
     ../modules/nixos/orac/services.nix
     ../modules/nixos/common/tailscale.nix
+    ../modules/nixos/common/nebula.nix
+    ../modules/nixos/orac/wireguard.nix
     ../modules/soju.nix
     ../modules/containers/docker/pangolin.nix
     ../modules/forgejo.nix
@@ -69,6 +71,14 @@
   zramSwap.enable = true;
   networking.hostName = "orac";
   networking.domain = "";
+
+  services.nebula.networks.deathmesh = {
+    isLighthouse = true;
+    settings.relay.am_relay = true;
+    ca = "/etc/nixos/secrets/ca.crt";
+    cert = "/etc/nixos/secrets/orac.crt";
+    key = "/etc/nixos/secrets/orac.key";
+  };
 
   services.deathsite.enable = true;
 

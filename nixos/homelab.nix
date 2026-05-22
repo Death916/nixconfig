@@ -12,9 +12,21 @@
     ../modules/nixos/common/base.nix
     ../modules/nixos/homelab/user.nix
     ../modules/nixos/common/tailscale.nix
+    ../modules/nixos/common/nebula.nix
   ];
 
   config = {
+    services.nebula.networks.deathmesh = {
+      isLighthouse = false;
+      lighthouses = [ "10.0.100.1" ];
+      staticHostMap = {
+        "10.0.100.1" = [ "lighthouse.death916.xyz:4242" ];
+      };
+      ca = "/etc/nixos/secrets/ca.crt";
+      cert = "/etc/nixos/secrets/homelab.crt";
+      key = "/etc/nixos/secrets/homelab.key";
+    };
+
     # Use linux_zen kernel for performance improvements as recommended in Kernel.md
     boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
 

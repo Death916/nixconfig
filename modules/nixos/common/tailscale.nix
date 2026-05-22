@@ -9,7 +9,7 @@
 {
   services.tailscale = {
     enable = true;
-    useRoutingFeatures = "both";
+    useRoutingFeatures = "server";
     package = unstablePkgs.tailscale;
   };
 

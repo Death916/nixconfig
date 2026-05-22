@@ -43,6 +43,10 @@
 
   nix.settings.trusted-users = [ "root" "death916" ];
 
+  environment.systemPackages = with pkgs; [
+    wireguard-tools
+  ];
+
   zramSwap.enable = true;
   swapDevices = [
     {
