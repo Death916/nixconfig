@@ -35,10 +35,14 @@
             "8.8.4.4"
           ];
           rewrites = [
-            { domain = "orac.death"; answer = "10.0.100.1"; }
-            { domain = "homelab.death"; answer = "10.0.100.2"; }
-            { domain = "desktop.death"; answer = "10.0.100.3"; }
-            { domain = "laptop.death"; answer = "10.0.100.4"; }
+            { domain = "orac.death"; answer = "10.0.100.1"; enabled = true; }
+            { domain = "homelab.death"; answer = "10.0.100.2"; enabled = true; }
+            { domain = "desktop.death"; answer = "10.0.100.3"; enabled = true; }
+            { domain = "laptop.death"; answer = "10.0.100.4"; enabled = true; }
+            { domain = "orac"; answer = "10.0.100.1"; enabled = true; }
+            { domain = "homelab"; answer = "10.0.100.2"; enabled = true; }
+            { domain = "desktop"; answer = "10.0.100.3"; enabled = true; }
+            { domain = "laptop"; answer = "10.0.100.4"; enabled = true; }
           ];
         };
         filtering = {
@@ -48,6 +52,16 @@
           safe_search = {
             enabled = false;
           };
+          rewrites = [
+            { domain = "orac.death"; answer = "10.0.100.1"; enabled = true; }
+            { domain = "homelab.death"; answer = "10.0.100.2"; enabled = true; }
+            { domain = "desktop.death"; answer = "10.0.100.3"; enabled = true; }
+            { domain = "laptop.death"; answer = "10.0.100.4"; enabled = true; }
+            { domain = "orac"; answer = "10.0.100.1"; enabled = true; }
+            { domain = "homelab"; answer = "10.0.100.2"; enabled = true; }
+            { domain = "desktop"; answer = "10.0.100.3"; enabled = true; }
+            { domain = "laptop"; answer = "10.0.100.4"; enabled = true; }
+          ];
         };
         filters =
           lib.map
