@@ -13,6 +13,7 @@
         id = "laptop-work";
         type = "wireguard";
         interface-name = "laptop-work";
+        autoconnect = "false";
         mtu = 1280;
       };
       wireguard = {
