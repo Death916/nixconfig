@@ -30,6 +30,7 @@
   networking.firewall.extraCommands = ''
     iptables -A FORWARD -i wg0 -j ACCEPT
     iptables -t nat -A POSTROUTING -s 10.200.0.0/24 -j MASQUERADE
+    iptables -t nat -A POSTROUTING -s 10.67.3.187/32 -j MASQUERADE
     iptables -t mangle -A POSTROUTING -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --set-mss 1200
   '';
 }
