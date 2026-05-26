@@ -94,12 +94,12 @@
     environment = {
       "BROWSER_WEB_URL" = "http://chrome:9222";
       "DATA_DIR" = "/data";
-      "INFERENCE_IMAGE_MODEL" = "gemma-3-27b-it";
-      "INFERENCE_TEXT_MODEL" = "gemma-3-27b-it";
+      "INFERENCE_IMAGE_MODEL" = "gemma-4-26b-a4b-it";
+      "INFERENCE_TEXT_MODEL" = "gemma-4-26b-a4b-it";
       "KARAKEEP_VERSION" = "release";
       "MEILI_ADDR" = "http://meilisearch:7700";
       "NEXTAUTH_URL" = "http://localhost";
-      "OPENAI_BASE_URL" = "https://generativelanguage.googleapis.com/v1beta";
+      "OPENAI_BASE_URL" = "https://generativelanguage.googleapis.com/v1beta/openai/";
     };
     environmentFiles = [
       /etc/nixos/secrets/karakeep.env
