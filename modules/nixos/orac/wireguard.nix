@@ -18,7 +18,7 @@
         allowedIPs = [ "10.200.0.2/32" ];
       }
       {
-        publicKey = "WWxYXCGiGVfEFF/JZaBHc65Mry/JTxh/8ROh1R+iZBA=";
+        publicKey = "zqsfGglzJPY657WMRxf/S4omG7+ZkSDIpDq+ggbc9yo=";
         allowedIPs = [ "10.200.0.3/32" ];
       }
     ];
