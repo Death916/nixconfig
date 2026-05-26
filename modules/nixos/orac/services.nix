@@ -132,7 +132,7 @@
           }
           {
             name = "Android-Phone";
-            ids = [ "10.200.0.3" ];
+            ids = [ "10.200.0.3" "10.67.3.187" ];
             use_global_settings = true;
             filtering_enabled = true;
             parental_enabled = false;
