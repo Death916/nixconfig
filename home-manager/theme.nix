@@ -7,7 +7,7 @@
 
 {
   imports = [
-    ./themes/rosepine.nix
+    ./themes/amber.nix
   ];
 
   stylix.enable = true;
