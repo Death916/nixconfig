@@ -7,7 +7,7 @@
 
 {
   imports = [
-    ./themes/matrix.nix
+    ./themes/everforest.nix
   ];
 
   stylix.enable = true;
