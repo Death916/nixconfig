@@ -116,6 +116,7 @@ in
     unstablePkgs.weathr
     rclone
     smartgit
+    devenv
   ];
 
   programs.ghostty = {
