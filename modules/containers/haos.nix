@@ -20,7 +20,7 @@
       "isal"
       "wled"
       "tplink"
-
+      "onvif"
     ];
     extraPackages =
       python3Packages: with python3Packages; [
