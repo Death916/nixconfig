@@ -9,6 +9,7 @@
   services.frigate = {
     enable = true;
     package = unstablePkgs.frigate;
+    hostname = null;
     
     settings = {
       mqtt = {
