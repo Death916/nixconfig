@@ -219,6 +219,10 @@
         "no_initial_focus 1, match:class ^(nm-applet)$"
         "no_initial_focus 1, match:class ^(blueman-applet)$"
       ];
+
+      misc = {
+        allow_session_lock_restore = true;
+      };
     };
   };
 
@@ -243,6 +247,12 @@
     enable = true;
     package = unstablePkgs.hyprlock;
     settings = {
+      general = {
+        no_fade_in = true;
+        no_fade_out = true;
+        ignore_empty_input = true;
+      };
+
       background = lib.mkForce [
         {
           monitor = "";
