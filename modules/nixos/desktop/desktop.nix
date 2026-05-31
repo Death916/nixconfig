@@ -107,6 +107,7 @@
 
   virtualisation.docker.enable = true;
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  boot.binfmt.registrations.aarch64-linux.fixBinary = true;
   nix.settings.extra-platforms = [ "aarch64-linux" ];
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
