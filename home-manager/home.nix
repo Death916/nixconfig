@@ -75,7 +75,6 @@ in
     nextcloud-client
     obsidian
     manix
-    aichat
     wl-clipboard
     unstablePkgs.gemini-cli
     zellij
