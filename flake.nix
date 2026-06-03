@@ -21,6 +21,7 @@
       url = "github:nix-community/stylix/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
   outputs =
@@ -33,6 +34,7 @@
       flox,
       hyprland,
       stylix,
+      nixos-hardware,
       ...
     }:
     let
@@ -276,6 +278,27 @@
                   };
                 }
               )
+            ];
+          };
+
+        deathpi =
+          let
+            system = "aarch64-linux";
+          in
+          nixpkgs.lib.nixosSystem {
+            inherit system;
+            specialArgs = {
+              inherit
+                inputs
+                system
+                overlays
+                primaryUser
+                ;
+            };
+            modules = [
+              ./nixos/deathpi.nix
+              ./nixos/hardware-deathpi.nix
+              nixos-hardware.nixosModules.raspberry-pi-4
             ];
           };
       };

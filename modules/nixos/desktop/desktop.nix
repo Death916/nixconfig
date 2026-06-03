@@ -18,7 +18,7 @@
   services.xserver.enable = true;
   services.gnome.gnome-keyring.enable = true;
   services.dbus.enable = true; # for nextcloud client
-  
+
   # Use tuigreet to match laptop and default to Hyprland
   services.greetd = {
     enable = true;
@@ -72,7 +72,7 @@
     nil
     nixfmt
     nixd
-    pkgs.heroic  # Using stable to avoid electron-unwrapped-39 build failure in unstable
+    pkgs.heroic # Using stable to avoid electron-unwrapped-39 build failure in unstable
   ];
 
   services.snapper.configs.nix = {
@@ -105,7 +105,10 @@
     TIMELINE_LIMIT_YEARLY = 0;
   };
 
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    extraPackages = with pkgs; [ nvidia-container-nvidia-container-toolkit ];
+  };
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   boot.binfmt.registrations.aarch64-linux.fixBinary = true;
   nix.settings.extra-platforms = [ "aarch64-linux" ];
