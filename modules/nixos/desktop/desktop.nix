@@ -107,7 +107,7 @@
 
   virtualisation.docker = {
     enable = true;
-    extraPackages = with pkgs; [ nvidia-container-nvidia-container-toolkit ];
+    extraPackages = with pkgs; [ nvidia-container-toolkit ];
   };
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   boot.binfmt.registrations.aarch64-linux.fixBinary = true;
