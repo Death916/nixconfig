@@ -116,6 +116,7 @@ in
     rclone
     smartgit
     unstablePkgs.devenv
+    unstablePkgs.antigravity-cli
   ];
 
   programs.ghostty = {
