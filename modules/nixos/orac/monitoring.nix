@@ -4,6 +4,9 @@
   services.grafana = {
     enable = true;
     settings = {
+      security = {
+        secret_key = "$__file{/etc/nixos/secrets/grafana_secret_key}";
+      };
       server = {
         http_addr = "0.0.0.0";
         http_port = 3050;

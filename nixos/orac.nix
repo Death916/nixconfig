@@ -95,6 +95,13 @@
   };
 
   boot.loader.grub.configurationLimit = 2;
+  boot.initrd.compressor = "zstd";
+  boot.loader.grub.font = null;
+  # Disable translations to save space on small /boot
+  boot.loader.grub.extraConfig = ''
+    set locale_dir=$prefix/locale
+    set lang=en_US
+  '';
 
   system.stateVersion = "25.05";
 }

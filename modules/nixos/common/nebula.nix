@@ -6,6 +6,7 @@
 
     firewall.inbound = [
       { port = "any"; proto = "icmp"; host = "any"; }
+      { port = "18732"; proto = "any"; host = "any"; }
       { port = "any"; proto = "any"; host = "any"; }
     ];
     firewall.outbound = [
@@ -14,7 +15,8 @@
   };
 
   networking.firewall.trustedInterfaces = [ "dmesh0" ];
-  networking.firewall.allowedUDPPorts = [ 4242 ];
+  networking.firewall.allowedTCPPorts = [ 18732 ];
+  networking.firewall.allowedUDPPorts = [ 4242 18732 ];
   networking.firewall.checkReversePath = "loose";
 
   networking.localCommands = ''
