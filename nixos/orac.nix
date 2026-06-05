@@ -94,9 +94,15 @@
     options = "--delete-older-than 14d";
   };
 
-  boot.loader.grub.configurationLimit = 1;
+  boot.loader.grub.configurationLimit = 2;
   boot.initrd.compressor = "zstd";
-  boot.loader.grub.font = null; # Use default GRUB font to save space if needed
+  boot.loader.grub.font = null;
+  boot.loader.grub.enableConfigCheck = true;
+  # Disable translations to save space on small /boot
+  boot.loader.grub.extraConfig = ''
+    set locale_dir=$prefix/locale
+    set lang=en_US
+  '';
 
   system.stateVersion = "25.05";
 }
