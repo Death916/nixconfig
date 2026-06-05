@@ -94,7 +94,9 @@
     options = "--delete-older-than 14d";
   };
 
-  boot.loader.grub.configurationLimit = 2;
+  boot.loader.grub.configurationLimit = 1;
+  boot.initrd.compressor = "zstd";
+  boot.loader.grub.font = null; # Use default GRUB font to save space if needed
 
   system.stateVersion = "25.05";
 }
