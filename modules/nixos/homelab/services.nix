@@ -191,7 +191,7 @@
 
   services.postgresql = {
     enable = true;
-    package = pkgs.postgresql_16.withPackages (p: [ p.pgvecto-rs ]);
+    package = pkgs.postgresql_16.withPackages (p: [ p.vectorchord ]);
     ensureDatabases = [ "immich" ];
     ensureUsers = [
       {
