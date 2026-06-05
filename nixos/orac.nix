@@ -97,7 +97,6 @@
   boot.loader.grub.configurationLimit = 2;
   boot.initrd.compressor = "zstd";
   boot.loader.grub.font = null;
-  boot.loader.grub.enableConfigCheck = true;
   # Disable translations to save space on small /boot
   boot.loader.grub.extraConfig = ''
     set locale_dir=$prefix/locale
