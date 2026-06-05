@@ -9,7 +9,7 @@
   services.frigate = {
     enable = true;
     package = unstablePkgs.frigate;
-    hostname = homelab;
+    hostname = "homelab";
 
     settings = {
       mqtt = {
