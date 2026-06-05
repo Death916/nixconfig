@@ -110,7 +110,7 @@ in
     poweralertd
     senpai
     duf
-    unstablePkgs.firefoxpwa
+    # unstablePkgs.firefoxpwa
     unstablePkgs.weathr
     rclone
     smartgit
