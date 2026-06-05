@@ -9,8 +9,8 @@
   services.frigate = {
     enable = true;
     package = unstablePkgs.frigate;
-    hostname = null;
-    
+    hostname = homelab;
+
     settings = {
       mqtt = {
         enabled = true;
@@ -24,13 +24,16 @@
       };
 
       cameras = {
-        # Template camera configuration. 
+        # Template camera configuration.
         # Update 'path' with your RTSP stream and set 'enabled: true' to start detection.
         example_camera = {
           ffmpeg.inputs = [
             {
               path = "rtsp://admin:password@192.168.1.10:554/live";
-              roles = [ "detect" "record" ];
+              roles = [
+                "detect"
+                "record"
+              ];
             }
           ];
           detect = {
@@ -47,7 +50,7 @@
           mode = "all";
         };
       };
-      
+
       snapshots = {
         enabled = false;
       };
@@ -58,7 +61,10 @@
   networking.firewall.allowedTCPPorts = [ 5000 ];
 
   # Frigate needs access to hardware for potential acceleration and storage
-  users.users.frigate.extraGroups = [ "video" "render" ];
+  users.users.frigate.extraGroups = [
+    "video"
+    "render"
+  ];
 
   # Ensure the storage directory exists with correct permissions
   systemd.tmpfiles.rules = [
