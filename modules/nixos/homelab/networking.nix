@@ -2,6 +2,7 @@
 {
   config,
   pkgs,
+  unstablePkgs,
   ...
 }:
 
@@ -18,6 +19,7 @@
   ];
 
   services.lvm.enable = true;
+  services.lvm.package = unstablePkgs.lvm2;
   services.lvm.boot.thin.enable = true;
 
   fileSystems."/media" = {

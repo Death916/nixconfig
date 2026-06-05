@@ -198,16 +198,6 @@
             modules = [
               ./nixos/homelab.nix # Your main homelab config
               ./nixos/hardware-homelab.nix
-              (
-                { unstablePkgs, ... }:
-                {
-                  nixpkgs.overlays = [
-                    (final: prev: {
-                      lvm2 = unstablePkgs.lvm2;
-                    })
-                  ];
-                }
-              )
               home-manager.nixosModules.home-manager
               (
                 { unstablePkgs, ... }:
