@@ -73,7 +73,7 @@ in
     waveterm
     tmux
     nextcloud-client
-    obsidian
+    unstablePkgs.obsidian
     manix
     wl-clipboard
     unstablePkgs.gemini-cli
@@ -102,7 +102,6 @@ in
     w3m-full
     newsboat
     hypnotix
-    obsidian
     pokemon-colorscripts
     awscli2
     unstablePkgs.qwen-code
