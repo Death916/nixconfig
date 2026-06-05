@@ -57,6 +57,17 @@
     Option "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On, AllowGSYNC=On}"
   '';
 
+  # --- SSH Configuration ---
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      PermitRootLogin = "no";
+      AllowUsers = [ "death916" ];
+    };
+  };
+
   # State version for this specific machine
   system.stateVersion = "25.11";
 
