@@ -65,10 +65,12 @@
   networking.networkmanager.dns = "systemd-resolved";
   services.resolved = {
     enable = true;
-    extraConfig = ''
-      DNS=192.168.0.1 9.9.9.9
-      DNSStubListener=no
-    '';
+    settings = {
+      Resolve = {
+        DNS = "192.168.0.1 9.9.9.9";
+        DNSStubListener = "no";
+      };
+    };
   };
 
   networking.interfaces.enp41s0.useDHCP = false;
