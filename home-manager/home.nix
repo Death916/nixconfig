@@ -73,9 +73,8 @@ in
     waveterm
     tmux
     nextcloud-client
-    obsidian
+    unstablePkgs.obsidian
     manix
-    aichat
     wl-clipboard
     unstablePkgs.gemini-cli
     zellij
@@ -103,7 +102,6 @@ in
     w3m-full
     newsboat
     hypnotix
-    obsidian
     pokemon-colorscripts
     awscli2
     unstablePkgs.qwen-code
@@ -112,11 +110,12 @@ in
     poweralertd
     senpai
     duf
-    unstablePkgs.firefoxpwa
+    # unstablePkgs.firefoxpwa
     unstablePkgs.weathr
     rclone
     smartgit
     unstablePkgs.devenv
+    unstablePkgs.antigravity-cli
   ];
 
   programs.ghostty = {
@@ -223,7 +222,7 @@ in
   programs.firefox = {
     enable = true;
     package = pkgs.firefox;
-    nativeMessagingHosts = [ unstablePkgs.firefoxpwa ];
+    # nativeMessagingHosts = [ unstablePkgs.firefoxpwa ];
   };
 
   stylix.targets.firefox.profileNames = lib.mkIf (osConfig.networking.hostName == "death-pc") [
