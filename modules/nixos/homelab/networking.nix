@@ -81,6 +81,7 @@
     "tailscale0"
     "docker0"
     "br0"
+    "dmesh0"
   ];
 
   services.openssh = {
