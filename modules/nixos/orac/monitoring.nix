@@ -33,6 +33,9 @@
         static_configs = [
           {
             targets = [ "10.0.100.2:9002" "10.0.100.2:9256" ];
+            labels = {
+              instance = "homelab";
+            };
           }
         ];
       }
