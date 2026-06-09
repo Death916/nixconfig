@@ -9,6 +9,7 @@
 {
   services.frigate = {
     enable = true;
+    checkConfig = false; # Disable build-time check as it fails to resolve runtime env vars
     package = unstablePkgs.frigate;
     hostname = "homelab";
 
