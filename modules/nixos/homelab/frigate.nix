@@ -14,6 +14,7 @@
     hostname = "homelab";
 
     settings = {
+      database.path = "/storage/services/frigate/frigate.db";
       mqtt = {
         enabled = true;
         host = "127.0.0.1";
@@ -70,6 +71,16 @@
   # Load camera credentials from a secrets file
   systemd.services.frigate.serviceConfig.EnvironmentFile = "/etc/nixos/secrets/frigate.env";
 
+  # Ensure Frigate waits for the storage mount
+  systemd.services.frigate.unitConfig.RequiresMountsFor = [ "/storage" "/var/lib/frigate" ];
+
+  # Use a bind mount instead of a symlink to move storage to the HDD.
+  # This makes it appear as a real directory on the other drive for 'df' and 'du'.
+  fileSystems."/var/lib/frigate" = {
+    device = "/storage/services/frigate";
+    options = [ "bind" ];
+  };
+
   # Force Nginx to listen on all interfaces for the Frigate Web UI
   # The NixOS module defaults to 127.0.0.1:5000 for internal use,
   # but we want it accessible externally.
@@ -99,6 +110,6 @@
 
   # Ensure the storage directory exists with correct permissions
   systemd.tmpfiles.rules = [
-    "d /var/lib/frigate 0750 frigate frigate -"
+    "d /storage/services/frigate 0750 frigate frigate -"
   ];
 }
