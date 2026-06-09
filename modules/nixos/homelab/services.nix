@@ -60,24 +60,23 @@
   };
 
   systemd.tmpfiles.rules = [
-    "d /storage/services/qbittorrent 2775 qbittorrent media_services - -"
-    "d /storage/services/qbittorrent/config 0775 qbittorrent media_services - -"
-    "d /media/storage/media 2775 death916 media_services - -"
-    "d /media/storage/media/books/c2c 2775 c2c media_services - -"
-    "d /storage/services/immich 0770 immich media_services -"
-    "d /storage/services/immich/upload 0775 immich media_services -"
-    "d /storage/services/immich/upload/library 0770 immich media_services -"
-    "d /storage/services/immich/upload/thumbs 0770 immich media_services -"
-    "d /storage/services/immich/upload/encoded-video 0770 immich media_services -"
-    "d /storage/services/immich/upload/profile 0770 immich media_services -"
-    "d /storage/services/immich/upload/upload 0770 immich media_services -"
-    "d /storage/services/immich/upload/backups 0775 immich media_services -"
+    "Z /storage/services/qbittorrent 2775 qbittorrent media_services - -"
+    "Z /storage/services/qbittorrent/config 0775 qbittorrent media_services - -"
+    "Z /media/storage/media 2775 death916 media_services - -"
+    "Z /media/storage/media/books/c2c 2775 c2c media_services - -"
+    "Z /storage/services/immich 2775 immich media_services -"
+    "Z /storage/services/immich/upload 2775 immich media_services -"
+    "Z /storage/services/immich/upload/library 2775 immich media_services -"
+    "Z /storage/services/immich/upload/thumbs 2775 immich media_services -"
+    "Z /storage/services/immich/upload/encoded-video 2775 immich media_services -"
+    "Z /storage/services/immich/upload/profile 2775 immich media_services -"
+    "Z /storage/services/immich/upload/upload 2775 immich media_services -"
+    "Z /storage/services/immich/upload/backups 2775 immich media_services -"
     "f /storage/services/immich/upload/library/.immich 0660 immich media_services -"
     "f /storage/services/immich/upload/thumbs/.immich 0660 immich media_services -"
     "f /storage/services/immich/upload/encoded-video/.immich 0660 immich media_services -"
     "f /storage/services/immich/upload/upload/.immich 0660 immich media_services -"
     "f /storage/services/immich/upload/profile/.immich 0660 immich media_services -"
-
   ];
 
   services.jellyfin.enable = true;
