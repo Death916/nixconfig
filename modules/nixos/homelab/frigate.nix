@@ -57,6 +57,16 @@
     };
   };
 
+  # Force Nginx to listen on all interfaces for the Frigate Web UI
+  # The NixOS module defaults to 127.0.0.1:5000 for internal use,
+  # but we want it accessible externally.
+  services.nginx.virtualHosts."homelab" = {
+    listen = lib.mkForce [
+      { addr = "0.0.0.0"; port = 5000; }
+      { addr = "0.0.0.0"; port = 8971; }
+    ];
+  };
+
   # Open the default Frigate Web UI and streaming ports
   networking.firewall.allowedTCPPorts = [
     5000 # Web UI (Unauthenticated/Legacy)
