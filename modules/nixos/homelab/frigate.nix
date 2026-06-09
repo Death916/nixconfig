@@ -25,38 +25,49 @@
       };
 
       cameras = {
-        # Template camera configuration.
-        # Update 'path' with your RTSP stream and set 'enabled: true' to start detection.
-        example_camera = {
+        kitchen_cam = {
           ffmpeg.inputs = [
             {
-              path = "rtsp://admin:password@192.168.1.10:554/live";
-              roles = [
-                "detect"
-                "record"
-              ];
+              path = "rtsp://{FRIGATE_CAMERA_USER}:{FRIGATE_CAMERA_PASSWORD}@192.168.0.188:554/stream1";
+              roles = [ "record" ];
+            }
+            {
+              path = "rtsp://{FRIGATE_CAMERA_USER}:{FRIGATE_CAMERA_PASSWORD}@192.168.0.188:554/stream2";
+              roles = [ "detect" ];
             }
           ];
-          detect = {
-            enabled = false;
-          };
+        };
+        living_room_cam = {
+          ffmpeg.inputs = [
+            {
+              path = "rtsp://{FRIGATE_CAMERA_USER}:{FRIGATE_CAMERA_PASSWORD}@192.168.0.157:554/stream1";
+              roles = [ "record" ];
+            }
+            {
+              path = "rtsp://{FRIGATE_CAMERA_USER}:{FRIGATE_CAMERA_PASSWORD}@192.168.0.157:554/stream2";
+              roles = [ "detect" ];
+            }
+          ];
         };
       };
 
       # Recording and snapshot storage (default locations)
       record = {
-        enabled = false;
+        enabled = true;
         retain = {
-          days = 0;
+          days = 3;
           mode = "all";
         };
       };
 
       snapshots = {
-        enabled = false;
+        enabled = true;
       };
     };
   };
+
+  # Load camera credentials from a secrets file
+  systemd.services.frigate.serviceConfig.EnvironmentFile = "/etc/nixos/secrets/frigate.env";
 
   # Force Nginx to listen on all interfaces for the Frigate Web UI
   # The NixOS module defaults to 127.0.0.1:5000 for internal use,
