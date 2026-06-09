@@ -78,6 +78,7 @@
   # This makes it appear as a real directory on the other drive for 'df' and 'du'.
   fileSystems."/var/lib/frigate" = {
     device = "/storage/services/frigate";
+    fsType = "none";
     options = [ "bind" ];
   };
 
