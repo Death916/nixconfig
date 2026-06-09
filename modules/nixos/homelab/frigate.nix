@@ -12,7 +12,6 @@
     hostname = "homelab";
 
     settings = {
-      server.host = "0.0.0.0"; # Listen on all interfaces
       mqtt = {
         enabled = true;
         host = "127.0.0.1";
