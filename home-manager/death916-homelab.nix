@@ -57,7 +57,6 @@
       mouse_mode = true;
       on_force_close = "detach";
       scrollback_buffer_size = 10000;
-      copy_command = "wl-copy";
       attach_to_session = true;
       session_serialization = true;
       serialize_pane_viewport = true;
