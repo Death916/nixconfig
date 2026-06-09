@@ -21,10 +21,15 @@
         port = 1883;
       };
 
-      # Basic CPU detector for AMD Ryzen
-      detectors.cpu1 = {
-        type = "cpu";
+      # Use OpenVINO for high-performance detection on the CPU.
+      # This is much faster than the default 'cpu' detector on Ryzen.
+      detectors.ov = {
+        type = "openvino";
+        device = "CPU";
       };
+
+      # Enable Face Recognition (runs on CPU via OpenVINO)
+      faces.enabled = true;
 
       cameras = {
         kitchen_cam = {
@@ -38,6 +43,7 @@
               roles = [ "detect" ];
             }
           ];
+          objects.track = [ "person" ]; # Focus on people to avoid car spam
         };
         living_room_cam = {
           ffmpeg.inputs = [
@@ -50,6 +56,7 @@
               roles = [ "detect" ];
             }
           ];
+          objects.track = [ "person" ];
         };
       };
 
