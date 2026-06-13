@@ -116,6 +116,7 @@ in
     smartgit
     unstablePkgs.devenv
     unstablePkgs.antigravity-cli
+    unstablePkgs.distrobox
   ];
 
   programs.ghostty = {
