@@ -28,8 +28,8 @@
         device = "CPU";
       };
 
-      # Enable Face Recognition (runs on CPU via OpenVINO)
-      faces.enabled = true;
+      # Face recognition is disabled for now to save RAM
+      faces.enabled = false;
 
       cameras = {
         kitchen_cam = {
