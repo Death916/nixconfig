@@ -118,6 +118,7 @@ in
     unstablePkgs.antigravity-cli
     unstablePkgs.distrobox
     rpi-imager
+    libxcb-cursor
   ];
 
   programs.ghostty = {
