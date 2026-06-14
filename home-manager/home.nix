@@ -117,6 +117,7 @@ in
     unstablePkgs.devenv
     unstablePkgs.antigravity-cli
     unstablePkgs.distrobox
+    rpi-imager
   ];
 
   programs.ghostty = {
