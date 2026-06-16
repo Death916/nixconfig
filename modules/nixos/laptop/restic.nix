@@ -28,10 +28,15 @@
       "--exclude-caches"
     ];
     timerConfig = {
-      OnCalendar = "*:40";
+      OnCalendar = "03:00,09:00,15:00,21:00";
       Persistent = true;
       RandomizedDelaySec = "15m";
     };
+  };
+
+  systemd.services."restic-backups-laptop".serviceConfig = {
+    Nice = 19;
+    IOSchedulingClass = "idle";
   };
 
 }

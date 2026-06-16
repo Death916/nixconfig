@@ -15,6 +15,7 @@
     ../modules/nixos/common/nebula.nix
     ../modules/nixos/laptop/hyprland-deps.nix
     ../modules/nixos/desktop/gaming.nix
+    ../modules/nixos/desktop/restic.nix
     ../modules/containers/docker/pearl-miner.nix
   ];
 

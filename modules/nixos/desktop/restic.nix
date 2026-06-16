@@ -2,7 +2,7 @@
 
 {
 
-  services.restic.backups.homelab = {
+  services.restic.backups.death-pc = {
     user = "root";
     initialize = true;
     passwordFile = "/etc/nixos/secrets/restic-auth";
@@ -12,14 +12,12 @@
       "/home/"
       "/root"
       "/var/lib/"
-      "/var/log/"
       "/etc/"
-      "/storage/"
-
     ];
-
     exclude = [
-      "*/.cache/"
+      "/home/death916/.local/share/*"
+      "/home/death916/Downloads"
+      "*/.cache/*"
     ];
 
     extraBackupArgs = [
@@ -27,13 +25,13 @@
       "--exclude-caches"
     ];
     timerConfig = {
-      OnCalendar = "01:30,07:30,13:30,19:30";
+      OnCalendar = "04:30,10:30,16:30,22:30";
       Persistent = true;
-      RandomizedDelaySec = "10m";
+      RandomizedDelaySec = "15m";
     };
   };
 
-  systemd.services."restic-backups-homelab".serviceConfig = {
+  systemd.services."restic-backups-death-pc".serviceConfig = {
     Nice = 19;
     IOSchedulingClass = "idle";
   };
