@@ -40,7 +40,7 @@
 
       "$fileManager" = "nautilus";
       env = [
-        "QT_QPA_PLATFORM,wayland"
+        "QT_QPA_PLATFORM,wayland;xcb"
         "GDK_BACKEND,wayland,x11"
       ]
       ++ (lib.optionals (osConfig.networking.hostName == "death-pc") [

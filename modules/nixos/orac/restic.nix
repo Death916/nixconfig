@@ -18,7 +18,7 @@
   systemd.timers."juicefs-metadata-dump" = {
     wantedBy = [ "timers.target" ];
     timerConfig = {
-      OnCalendar = "*:10";
+      OnCalendar = "00:10,06:10,12:10,18:10";
       Persistent = true;
     };
   };
@@ -54,10 +54,16 @@
       "--exclude-caches"
     ];
     timerConfig = {
-      OnCalendar = "*:20";
+      OnCalendar = "00:00,06:00,12:00,18:00";
       Persistent = true;
       RandomizedDelaySec = "20m";
     };
+  };
+
+  systemd.services."restic-backups-orac".serviceConfig = {
+    Nice = 19;
+    IOSchedulingClass = "best-effort";
+    IOSchedulingPriority = 7;
   };
 
 }

@@ -27,7 +27,7 @@
   services.system76-scheduler.enable = true;
 
   # This is to fix clementine gui not showing up on wayland
-  environment.variables.QT_QPA_PLATFORM = "wayland";
+  environment.variables.QT_QPA_PLATFORM = "wayland;xcb";
   services.udisks2.enable = true;
   # environment.sessionVariables.NIXOS_OZONE_WL = "1"; # Required for some Electron apps
 
