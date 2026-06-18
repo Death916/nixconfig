@@ -119,6 +119,7 @@ in
     unstablePkgs.distrobox
     rpi-imager
     libxcb-cursor
+    lufus
   ];
 
   programs.ghostty = {
