@@ -15,11 +15,17 @@ echo "Pulling latest changes from git..."
 # Use -C to specify the repository path for git operations.
 git -C "$REPO_ROOT" pull
 
-# --- Snapshot Creation (Laptop only) ---
-if [ "$(hostname)" = "nixos" ]; then
-    echo "Creating Btrfs snapshots for /nix and /home..."
-    sudo btrfs subvolume snapshot -r /nix "/snapshots/nix_$(date +%Y-%m-%d_%H%M)"
-    sudo btrfs subvolume snapshot -r /home "/snapshots/home_$(date +%Y-%m-%d_%H%M)"
+# --- Snapshot Creation ---
+if [ -d "/snapshots" ]; then
+    SNAPSHOT_DIR="/snapshots"
+elif [ -d "/.snapshots" ]; then
+    SNAPSHOT_DIR="/.snapshots"
+fi
+
+if [ -n "$SNAPSHOT_DIR" ]; then
+    echo "Creating Btrfs snapshots for /nix and /home in $SNAPSHOT_DIR..."
+    sudo btrfs subvolume snapshot -r /nix "$SNAPSHOT_DIR/nix_$(date +%Y-%m-%d_%H%M)"
+    sudo btrfs subvolume snapshot -r /home "$SNAPSHOT_DIR/home_$(date +%Y-%m-%d_%H%M)"
     echo "Snapshots created."
 fi
 
