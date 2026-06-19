@@ -26,6 +26,7 @@
     ../modules/nixos/laptop/restic.nix
     ../modules/nixos/laptop/obsidian-rclone.nix
     ../modules/nixos/laptop/wireguard.nix
+    ./acpi-override.nix
   ];
 
   # Use linux_zen kernel for performance improvements
