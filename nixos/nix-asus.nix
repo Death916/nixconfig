@@ -25,7 +25,7 @@
     ../modules/nixos/laptop/hyprland-deps.nix
     ../modules/nixos/laptop/restic.nix
     ../modules/nixos/laptop/obsidian-rclone.nix
-    ../modules/nixos/laptop/wireguard.nix
+#    ../modules/nixos/laptop/wireguard.nix
   ];
 
   # Use linux_zen kernel for performance improvements
