@@ -122,6 +122,62 @@
             ];
           };
 
+        nix-asus =
+          let
+            system = "x86_64-linux";
+          in
+          nixpkgs.lib.nixosSystem {
+            inherit system;
+            specialArgs = {
+              inherit
+                inputs
+                system
+                overlays
+                primaryUser
+                hyprland
+                stylix
+                ;
+              unstablePkgs = import nixpkgs-unstable {
+                inherit system;
+                config.allowUnfree = true;
+                overlays = [ ];
+              };
+            };
+            modules = [
+              stylix.nixosModules.stylix
+              {
+                nixpkgs.overlays = [
+                  overlays.waveterm
+                  overlays.rust
+                  # overlays.halloy
+                  # overlays.karakeep # server-side only
+                ];
+              }
+              ./nixos/nix-asus.nix
+              ./nixos/hardware-nix-asus.nix
+              { stylix.image = "/home/death916/Documents/nix-config/home-manager/wallpaper.jpg"; }
+              home-manager.nixosModules.home-manager
+              (
+                {
+                  unstablePkgs,
+                  ...
+                }:
+                {
+                  home-manager.useGlobalPkgs = true;
+                  home-manager.useUserPackages = true;
+                  home-manager.backupFileExtension = "backup";
+                  home-manager.extraSpecialArgs = { inherit hmLib unstablePkgs inputs; };
+                  home-manager.users.death916 = {
+                    imports = [
+                      ./home-manager/home.nix
+                      stylix.homeModules.stylix
+                    ];
+                  };
+                }
+              )
+            ];
+          };
+
         death-pc =
           let
             system = "x86_64-linux";
