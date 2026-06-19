@@ -66,7 +66,7 @@ in
       "--models-preset" "/models/models.ini"
       "--models-max" "1"          # Cap VRAM usage to 1 active model at a time
       "--ctx-size" "65536"        # Global context size (propagates to children, satisfies Hermes 64k)
-      "--n-gpu-layers" "28"       # Global GPU layers (safe for Qwen and Gemma)
+      "--n-gpu-layers" "33"       # Global GPU layers (conservative step-up; Gemma 33/48, Qwen 33/64)
       "--parallel" "1"            # Only 1 slot needed for single-user local agent (saves 75% memory)
       "--cache-type-k" "q8_0"     # 8-bit Key cache quantization (lossless quality, reduces VRAM/RAM footprint)
       "--cache-type-v" "q8_0"     # 8-bit Value cache quantization
