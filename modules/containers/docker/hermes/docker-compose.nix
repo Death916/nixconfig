@@ -74,7 +74,7 @@
 
   # ── Hermes agent ─────────────────────────────────────────────────────────
   virtualisation.oci-containers.containers."hermes" = {
-    image = "ghcr.io/nousresearch/hermes-agent:latest";
+    image = "docker.io/nousresearch/hermes-agent:latest";
     pull = "always";
 
     environment = {
