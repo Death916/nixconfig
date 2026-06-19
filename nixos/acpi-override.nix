@@ -6,8 +6,11 @@ let
     src = ./.;
     nativeBuildInputs = [ pkgs.acpica-tools pkgs.cpio ];
     buildCommand = ''
+      # Copy the input file to the current build directory (which is writable)
+      cp $src/ssdt_patch.dsl .
+
       # Compile the patched DSL back to AML
-      iasl -sa $src/ssdt_patch.dsl
+      iasl -sa ssdt_patch.dsl
       
       # Prepare the directory structure the kernel expects
       mkdir -p kernel/firmware/acpi
