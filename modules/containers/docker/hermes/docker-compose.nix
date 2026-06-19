@@ -35,7 +35,7 @@
     environment = {
       # Override GFX version if your iGPU isn't auto-detected by ROCm.
       # For Asus Ryzen AI (e.g. 780M/890M), uncomment and set appropriately:
-      # "HSA_OVERRIDE_GFX_VERSION" = "11.0.0";
+      "HSA_OVERRIDE_GFX_VERSION" = "11.0.0";
       "AMD_VISIBLE_DEVICES" = "all";
     };
 
@@ -47,11 +47,11 @@
     ];
 
     # llama-server args — adjust --model path and --ctx-size as needed
-    # Launch without a model initially; load one after pulling it into /models
+    # Launch with the downloaded Gemma-4-12B model
     cmd = [
       "--host" "0.0.0.0"
       "--port" "8080"
-      "--models-path" "/models"
+      "-m" "/models/gemma-4-12b-it-qat-q4_0.gguf"
       "--ctx-size" "8192"
       "--n-gpu-layers" "99"   # offload all layers to GPU
       "--flash-attn"           # flash attention for efficiency

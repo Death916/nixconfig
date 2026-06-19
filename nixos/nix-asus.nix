@@ -26,7 +26,7 @@
     ../modules/nixos/laptop/restic.nix
     ../modules/nixos/laptop/obsidian-rclone.nix
     ./acpi-override.nix
-    # ../modules/containers/docker/hermes/docker-compose.nix  # uncomment when ready to run Hermes + llama.cpp
+    ../modules/containers/docker/hermes/docker-compose.nix
   ];
 
   # Use linux_zen kernel for performance improvements
