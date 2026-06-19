@@ -21,7 +21,7 @@
     ../modules/nixos/common/base.nix
     ../modules/nixos/laptop/user.nix
     ../modules/nixos/common/tailscale.nix
-    # ../modules/nixos/common/nebula.nix # TODO: generate nebula keys first
+    ../modules/nixos/common/nebula.nix
     ../modules/nixos/laptop/hyprland-deps.nix
     ../modules/nixos/laptop/restic.nix
     ../modules/nixos/laptop/obsidian-rclone.nix
@@ -42,24 +42,23 @@
     "net.ipv4.tcp_congestion_control" = "bbr";
   };
 
-  # TODO: generate nebula keys and certs for nix-asus before enabling
-  # services.nebula.networks.deathmesh = {
-  #   isLighthouse = false;
-  #   lighthouses = [ "10.0.100.1" ];
-  #   staticHostMap = {
-  #     "10.0.100.1" = [ "10.200.0.1:4242" "lighthouse.death916.xyz:4242" ];
-  #   };
-  #   settings.tun.mtu = 1100;
-  #   settings.lighthouse.local_allow_list.interfaces = {
-  #     "laptop-work" = false;
-  #     "wg.*" = false;
-  #   };
-  #   settings.relay.use_relays = true;
-  #   settings.relay.relays = [ "10.0.100.1" ];
-  #   ca = "/etc/nixos/secrets/ca.crt";
-  #   cert = "/etc/nixos/secrets/laptop.crt";
-  #   key = "/etc/nixos/secrets/laptop.key";
-  # };
+  services.nebula.networks.deathmesh = {
+    isLighthouse = false;
+    lighthouses = [ "10.0.100.1" ];
+    staticHostMap = {
+      "10.0.100.1" = [ "10.200.0.1:4242" "lighthouse.death916.xyz:4242" ];
+    };
+    settings.tun.mtu = 1100;
+    settings.lighthouse.local_allow_list.interfaces = {
+      "laptop-work" = false;
+      "wg.*" = false;
+    };
+    settings.relay.use_relays = true;
+    settings.relay.relays = [ "10.0.100.1" ];
+    ca = "/etc/nixos/secrets/ca.crt";
+    cert = "/etc/nixos/secrets/nix-asus.crt";
+    key = "/etc/nixos/secrets/nix-asus.key";
+  };
 
   services.greetd = {
     enable = true;
