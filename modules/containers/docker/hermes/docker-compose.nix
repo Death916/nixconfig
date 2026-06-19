@@ -18,9 +18,11 @@ let
   modelsIni = pkgs.writeText "models.ini" ''
     [gemma-4-12b-it-qat-q4_0]
     model = /models/gemma-4-12b-it-qat-q4_0.gguf
+    n-gpu-layers = 48
 
     [qwen3.6-27b-instruct-Q4_K_M]
     model = /models/qwen3.6-27b-instruct-Q4_K_M.gguf
+    n-gpu-layers = 40
   '';
 in
 {
