@@ -72,6 +72,12 @@
 
   services.upower.enable = true;
 
+  # Enable proprietary firmware/microcode (essential for AMD sound chips)
+  hardware.enableRedistributableFirmware = true;
+
+  # Enable RealtimeKit for PipeWire audio scheduling
+  security.rtkit.enable = true;
+
   system.stateVersion = "24.11";
 
   stylix.image = "/home/death916/Downloads/wp14437838-4k-oled-space-wallpapers.jpg";
