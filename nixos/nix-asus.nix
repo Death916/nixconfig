@@ -26,6 +26,7 @@
     ../modules/nixos/laptop/restic.nix
     ../modules/nixos/laptop/obsidian-rclone.nix
     ./acpi-override.nix
+    # ../modules/containers/docker/hermes/docker-compose.nix  # uncomment when ready to run Hermes + llama.cpp
   ];
 
   # Use linux_zen kernel for performance improvements
@@ -170,4 +171,14 @@
       };
     };
   };
+
+  # Disable Wi-Fi toggle behavior for the Asus WLAN/Wi-Fi key by remapping its scancodes to F21.
+  # This stops it from triggering rfkill/disabling the Wi-Fi card, and lets you use it as a custom hotkey.
+  services.udev.extraHwdb = ''
+    evdev:name:Asus WMI hotkeys:*
+     KEYBOARD_KEY_5d=f21
+     KEYBOARD_KEY_5e=f21
+     KEYBOARD_KEY_5f=f21
+     KEYBOARD_KEY_7d=f21
+  '';
 }

@@ -187,6 +187,16 @@
 
         "SUPER SHIFT, S, exec, bash -c \"grim -g '$(slurp)' - | tee ~/Pictures/screenshots/$(date +%s).png\""
         "SUPER SHIFT, Print, exec, bash -c \"grim - | tee ~/Pictures/screenshots/$(date +%s).png\""
+
+        # Custom Laptop Key Mappings
+        # Copilot Key: registers physically as Left Super + Left Shift + F23.
+        # To map it, uncomment the line below and change the command if desired:
+        # "SUPER SHIFT, F23, exec, rofi -show drun"
+
+        # Asus Key: typically triggers KEY_WLAN (wifi toggle).
+        # We remap it via hardware database (hwdb) to F21 in nixos/nix-asus.nix to prevent it from toggling off your wifi.
+        # To map it, uncomment the line below:
+        # ", F21, exec, ghostty"
       ];
 
       windowrule = [
