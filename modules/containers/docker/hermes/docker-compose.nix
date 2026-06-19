@@ -27,7 +27,7 @@ let
     [qwen3.6-27b-instruct-Q4_K_M]
     model = /models/qwen3.6-27b-instruct-Q4_K_M.gguf
     ctx-size = 32768
-    ngl = 99
+    ngl = 28
     flash-attn = true
     cache-type-k = q8_0
     cache-type-v = q8_0
