@@ -52,7 +52,7 @@
       "--host" "0.0.0.0"
       "--port" "8080"
       "--model" "/models/qwen3.6-27b-instruct-Q4_K_M.gguf"
-      "--ctx-size" "32768"
+      "--ctx-size" "65536"
       "--n-gpu-layers" "28"
       "--parallel" "1"        # Only 1 slot needed for single-user local agent (saves 75% memory)
       "--cache-type-k" "q8_0" # 8-bit Key cache quantization (lossless quality, reduces VRAM/RAM footprint)
