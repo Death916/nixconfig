@@ -74,6 +74,7 @@ in
       "--models-preset" "/models/models.ini"
       "--models-max" "1"      # Cap VRAM usage to 1 active model at a time
       "--parallel" "1"        # Only 1 slot needed for single-user local agent (saves 75% memory)
+      "--ctx-size" "32768"    # Global context limit so the UI reads 32k instead of GGUF metadata
       "--cache-type-k" "q8_0" # 8-bit Key cache quantization (lossless quality, reduces VRAM/RAM footprint)
       "--cache-type-v" "q8_0" # 8-bit Value cache quantization
       "--flash-attn" "on"     # flash attention for efficiency
