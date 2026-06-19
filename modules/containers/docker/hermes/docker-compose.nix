@@ -54,7 +54,7 @@
       "-m" "/models/gemma-4-12b-it-qat-q4_0.gguf"
       "--ctx-size" "8192"
       "--n-gpu-layers" "99"   # offload all layers to GPU
-      "--flash-attn"           # flash attention for efficiency
+      "--flash-attn" "on"     # flash attention for efficiency
     ];
 
     ports = [
