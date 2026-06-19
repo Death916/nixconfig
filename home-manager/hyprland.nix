@@ -25,7 +25,7 @@
           ]
         else if (osConfig.networking.hostName == "nix-asus") then
           [
-            "eDP-1, 2880x1800@120, 0x0, 1.5"
+            "eDP-1, 2880x1800@120, 0x0, 1.25"
           ]
         else
           [
