@@ -53,7 +53,7 @@
       "--port" "8080"
       "--models-dir" "/models"
       "--models-max" "1"      # Cap VRAM usage to 1 active model at a time
-      "--ctx-size" "65536"    # 64K context window (minimum required by Hermes Agent)
+      "--ctx-size" "32768"    # 32K context window (capped to fit Qwen in laptop RAM)
       "--parallel" "1"        # Only 1 slot needed for single-user local agent (saves 75% memory)
       "--cache-type-k" "q8_0" # 8-bit Key cache quantization (lossless quality, reduces VRAM/RAM footprint)
       "--cache-type-v" "q8_0" # 8-bit Value cache quantization
