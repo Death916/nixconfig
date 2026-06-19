@@ -76,7 +76,6 @@ in
       "--parallel" "1"        # Only 1 slot needed for single-user local agent (saves 75% memory)
       "--cache-type-k" "q8_0" # 8-bit Key cache quantization (lossless quality, reduces VRAM/RAM footprint)
       "--cache-type-v" "q8_0" # 8-bit Value cache quantization
-      "--n-gpu-layers" "99"   # offload all layers to GPU
       "--flash-attn" "on"     # flash attention for efficiency
     ];
 
