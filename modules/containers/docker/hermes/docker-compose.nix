@@ -1,0 +1,148 @@
+# modules/containers/docker/hermes/docker-compose.nix
+# Two-container setup for Hermes AI agent on nix-asus:
+#   - llama-server: llama.cpp server with ROCm AMD GPU access (inference backend)
+#   - hermes:       Hermes agent (orchestration layer, points at llama-server)
+#
+# Models are stored in /storage/services/hermes/models (bind-mounted).
+# Hermes config/state is in /storage/services/hermes/data.
+# Secrets (API keys etc.) go in /storage/services/hermes/hermes.env — NOT in the Nix store.
+#
+# First-time setup:
+#   sudo mkdir -p /storage/services/hermes/{models,data}
+#   sudo touch /storage/services/hermes/hermes.env
+#   # then populate hermes.env with any API keys Hermes needs
+
+{ pkgs, lib, ... }:
+
+{
+  virtualisation.oci-containers.backend = "docker";
+
+  # ── llama.cpp inference server ──────────────────────────────────────────
+  virtualisation.oci-containers.containers."llama-server" = {
+    image = "ghcr.io/ggml-org/llama.cpp:server-rocm";
+    pull = "always";
+
+    # Pass the AMD GPU devices into the container
+    extraOptions = [
+      "--device=/dev/kfd"
+      "--device=/dev/dri"
+      "--group-add=video"
+      "--ipc=host"
+      "--network=hermes_net"
+      "--network-alias=llama-server"
+    ];
+
+    environment = {
+      # Override GFX version if your iGPU isn't auto-detected by ROCm.
+      # For Asus Ryzen AI (e.g. 780M/890M), uncomment and set appropriately:
+      # "HSA_OVERRIDE_GFX_VERSION" = "11.0.0";
+      "AMD_VISIBLE_DEVICES" = "all";
+    };
+
+    volumes = [
+      # Store GGUF models here — add models manually with e.g.:
+      #   docker exec llama-server sh -c "wget -O /models/model.gguf <url>"
+      # Or copy them in: docker cp model.gguf llama-server:/models/
+      "/var/lib/hermes/models:/models:rw"
+    ];
+
+    # llama-server args — adjust --model path and --ctx-size as needed
+    # Launch without a model initially; load one after pulling it into /models
+    cmd = [
+      "--host" "0.0.0.0"
+      "--port" "8080"
+      "--models-path" "/models"
+      "--ctx-size" "8192"
+      "--n-gpu-layers" "99"   # offload all layers to GPU
+      "--flash-attn"           # flash attention for efficiency
+    ];
+
+    ports = [
+      "127.0.0.1:8080:8080/tcp"  # only reachable locally; Hermes connects internally
+    ];
+
+    log-driver = "journald";
+  };
+
+  systemd.services."docker-llama-server" = {
+    serviceConfig.Restart = lib.mkOverride 90 "on-failure";
+    after    = [ "docker-network-hermes_net.service" ];
+    requires = [ "docker-network-hermes_net.service" ];
+    partOf   = [ "docker-compose-hermes-root.target" ];
+    wantedBy = [ "docker-compose-hermes-root.target" ];
+  };
+
+  # ── Hermes agent ─────────────────────────────────────────────────────────
+  virtualisation.oci-containers.containers."hermes" = {
+    image = "ghcr.io/nousresearch/hermes-agent:latest";
+    pull = "always";
+
+    environment = {
+      # Tell Hermes to use llama-server as the OpenAI-compatible backend
+      "OPENAI_BASE_URL" = "http://llama-server:8080/v1";
+      "OPENAI_API_KEY"  = "local";  # llama-server doesn't need a real key
+    };
+
+    volumes = [
+      "/var/lib/hermes/data:/home/node/.hermes:rw"
+    ];
+
+    # Load secrets from a file on disk — never committed to the Nix store.
+    # Create /storage/services/hermes/hermes.env and put any extra keys there.
+    environmentFiles = [ "/var/lib/hermes/hermes.env" ];
+
+    ports = [
+      "127.0.0.1:8642:8642/tcp"  # Hermes web UI / API
+    ];
+
+    extraOptions = [
+      "--network=hermes_net"
+      "--network-alias=hermes"
+    ];
+
+    log-driver = "journald";
+  };
+
+  systemd.services."docker-hermes" = {
+    serviceConfig.Restart = lib.mkOverride 90 "on-failure";
+    after    = [
+      "docker-network-hermes_net.service"
+      "docker-llama-server.service"
+    ];
+    requires = [
+      "docker-network-hermes_net.service"
+      "docker-llama-server.service"
+    ];
+    partOf   = [ "docker-compose-hermes-root.target" ];
+    wantedBy = [ "docker-compose-hermes-root.target" ];
+  };
+
+  # ── Isolated Docker network ───────────────────────────────────────────────
+  systemd.services."docker-network-hermes_net" = {
+    path = [ pkgs.docker ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStop = "docker network rm -f hermes_net";
+    };
+    script = ''
+      docker network inspect hermes_net || docker network create hermes_net
+    '';
+    partOf   = [ "docker-compose-hermes-root.target" ];
+    wantedBy = [ "docker-compose-hermes-root.target" ];
+  };
+
+  # ── Root target ───────────────────────────────────────────────────────────
+  systemd.targets."docker-compose-hermes-root" = {
+    unitConfig.Description = "Hermes agent + llama.cpp inference stack";
+    wantedBy = [ "multi-user.target" ];
+  };
+
+  # ── Persistent storage dirs ───────────────────────────────────────────────
+  systemd.tmpfiles.rules = [
+    "d /var/lib/hermes          0755 root root -"
+    "d /var/lib/hermes/models   0755 root root -"
+    "d /var/lib/hermes/data     0755 root root -"
+    "f /var/lib/hermes/hermes.env 0600 root root -"
+  ];
+}
