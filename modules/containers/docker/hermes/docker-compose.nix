@@ -54,8 +54,8 @@
       "-m" "/models/gemma-4-12b-it-qat-q4_0.gguf"
       "--ctx-size" "65536"    # 64K context window (minimum required by Hermes Agent)
       "--parallel" "1"        # Only 1 slot needed for single-user local agent (saves 75% memory)
-      "--cache-type-k" "q4_0" # 4-bit Key cache quantization (drastically reduces VRAM/RAM footprint)
-      "--cache-type-v" "q4_0" # 4-bit Value cache quantization
+      "--cache-type-k" "q8_0" # 8-bit Key cache quantization (lossless quality, reduces VRAM/RAM footprint)
+      "--cache-type-v" "q8_0" # 8-bit Value cache quantization
       "--n-gpu-layers" "99"   # offload all layers to GPU
       "--flash-attn" "on"     # flash attention for efficiency
     ];
