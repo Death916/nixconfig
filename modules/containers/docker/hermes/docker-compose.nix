@@ -14,7 +14,6 @@
 
 { pkgs, lib, ... }:
 
-let
 {
   virtualisation.oci-containers.backend = "docker";
 
