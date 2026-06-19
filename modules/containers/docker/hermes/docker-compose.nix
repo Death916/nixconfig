@@ -77,10 +77,14 @@
     image = "docker.io/nousresearch/hermes-agent:latest";
     pull = "always";
 
+    cmd = [ "gateway" "run" ];
+
     environment = {
       # Tell Hermes to use llama-server as the OpenAI-compatible backend
       "OPENAI_BASE_URL" = "http://llama-server:8080/v1";
       "OPENAI_API_KEY"  = "local";  # llama-server doesn't need a real key
+      "HERMES_DASHBOARD" = "1";
+      "HERMES_DASHBOARD_INSECURE" = "1"; # only bound to localhost via ports below, so insecure mode is safe
     };
 
     volumes = [
@@ -92,7 +96,8 @@
     environmentFiles = [ "/var/lib/hermes/hermes.env" ];
 
     ports = [
-      "127.0.0.1:8642:8642/tcp"  # Hermes web UI / API
+      "8642:8642/tcp"  # Hermes API
+      "9119:9119/tcp"  # Hermes dashboard / Web UI
     ];
 
     extraOptions = [
