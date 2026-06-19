@@ -15,24 +15,6 @@
 { pkgs, lib, ... }:
 
 let
-  modelsIni = pkgs.writeText "models.ini" ''
-    [gemma-4-12b-it-qat-q4_0]
-    model = /models/gemma-4-12b-it-qat-q4_0.gguf
-    ctx-size = 32768
-    ngl = 99
-    flash-attn = true
-    cache-type-k = q8_0
-    cache-type-v = q8_0
-
-    [qwen3.6-27b-instruct-Q4_K_M]
-    model = /models/qwen3.6-27b-instruct-Q4_K_M.gguf
-    ctx-size = 32768
-    ngl = 28
-    flash-attn = true
-    cache-type-k = q8_0
-    cache-type-v = q8_0
-  '';
-in
 {
   virtualisation.oci-containers.backend = "docker";
 
@@ -63,18 +45,17 @@ in
       #   docker exec llama-server sh -c "wget -O /models/model.gguf <url>"
       # Or copy them in: docker cp model.gguf llama-server:/models/
       "/var/lib/hermes/models:/models:rw"
-      "${modelsIni}:/models/models.ini:ro"
     ];
 
     # llama-server args — adjust --model path and --ctx-size as needed
-    # Launch in Router Mode to allow dynamic model switching
+    # Launch in Standard Mode (Single Model)
     cmd = [
       "--host" "0.0.0.0"
       "--port" "8080"
-      "--models-preset" "/models/models.ini"
-      "--models-max" "1"      # Cap VRAM usage to 1 active model at a time
+      "--model" "/models/qwen3.6-27b-instruct-Q4_K_M.gguf"
+      "--ctx-size" "32768"
+      "--n-gpu-layers" "28"
       "--parallel" "1"        # Only 1 slot needed for single-user local agent (saves 75% memory)
-      "--ctx-size" "32768"    # Global context limit so the UI reads 32k instead of GGUF metadata
       "--cache-type-k" "q8_0" # 8-bit Key cache quantization (lossless quality, reduces VRAM/RAM footprint)
       "--cache-type-v" "q8_0" # 8-bit Value cache quantization
       "--flash-attn" "on"     # flash attention for efficiency
