@@ -16,7 +16,7 @@
 
 let
   modelsIni = pkgs.writeText "models.ini" ''
-    [gemma-4-12b-it-qat-q4_0.gguf]
+    [gemma-4-12b-it-qat-q4_0]
     model = /models/gemma-4-12b-it-qat-q4_0.gguf
     ctx-size = 32768
     ngl = 99
@@ -24,7 +24,7 @@ let
     cache-type-k = q8_0
     cache-type-v = q8_0
 
-    [qwen3.6-27b-instruct-Q4_K_M.gguf]
+    [qwen3.6-27b-instruct-Q4_K_M]
     model = /models/qwen3.6-27b-instruct-Q4_K_M.gguf
     ctx-size = 32768
     ngl = 99
