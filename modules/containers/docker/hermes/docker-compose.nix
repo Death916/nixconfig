@@ -47,11 +47,12 @@
     ];
 
     # llama-server args — adjust --model path and --ctx-size as needed
-    # Launch with the downloaded Gemma-4-12B model
+    # Launch in Router Mode to allow dynamic model switching
     cmd = [
       "--host" "0.0.0.0"
       "--port" "8080"
-      "-m" "/models/gemma-4-12b-it-qat-q4_0.gguf"
+      "--models-dir" "/models"
+      "--models-max" "1"      # Cap VRAM usage to 1 active model at a time
       "--ctx-size" "65536"    # 64K context window (minimum required by Hermes Agent)
       "--parallel" "1"        # Only 1 slot needed for single-user local agent (saves 75% memory)
       "--cache-type-k" "q8_0" # 8-bit Key cache quantization (lossless quality, reduces VRAM/RAM footprint)
