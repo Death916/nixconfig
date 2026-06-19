@@ -52,7 +52,7 @@
       "--host" "0.0.0.0"
       "--port" "8080"
       "-m" "/models/gemma-4-12b-it-qat-q4_0.gguf"
-      "--ctx-size" "8192"
+      "--ctx-size" "131072"   # Set to 128K context window (Gemma 4 natively supports up to 256K)
       "--n-gpu-layers" "99"   # offload all layers to GPU
       "--flash-attn" "on"     # flash attention for efficiency
     ];
@@ -83,12 +83,14 @@
       # Tell Hermes to use llama-server as the OpenAI-compatible backend
       "OPENAI_BASE_URL" = "http://llama-server:8080/v1";
       "OPENAI_API_KEY"  = "local";  # llama-server doesn't need a real key
+      "API_SERVER_ENABLED" = "true";
+      "API_SERVER_KEY" = "local-agent-key"; # Static key for dashboard auth
       "HERMES_DASHBOARD" = "1";
       "HERMES_DASHBOARD_INSECURE" = "1"; # only bound to localhost via ports below, so insecure mode is safe
     };
 
     volumes = [
-      "/var/lib/hermes/data:/home/node/.hermes:rw"
+      "/var/lib/hermes/data:/opt/data:rw"
     ];
 
     # Load secrets from a file on disk — never committed to the Nix store.
