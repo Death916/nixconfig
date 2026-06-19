@@ -14,6 +14,15 @@
 
 { pkgs, lib, ... }:
 
+let
+  modelsIni = pkgs.writeText "models.ini" ''
+    [gemma-4-12b-it-qat-q4_0]
+    model = /models/gemma-4-12b-it-qat-q4_0.gguf
+
+    [qwen3.6-27b-instruct-Q4_K_M]
+    model = /models/qwen3.6-27b-instruct-Q4_K_M.gguf
+  '';
+in
 {
   virtualisation.oci-containers.backend = "docker";
 
@@ -44,20 +53,23 @@
       #   docker exec llama-server sh -c "wget -O /models/model.gguf <url>"
       # Or copy them in: docker cp model.gguf llama-server:/models/
       "/var/lib/hermes/models:/models:rw"
+      "${modelsIni}:/models/models.ini:ro"
     ];
 
     # llama-server args — adjust --model path and --ctx-size as needed
-    # Launch in Standard Mode (Single Model)
+    # Launch in Router Mode to allow dynamic model switching
     cmd = [
       "--host" "0.0.0.0"
       "--port" "8080"
-      "--model" "/models/qwen3.6-27b-instruct-Q4_K_M.gguf"
-      "--ctx-size" "65536"
-      "--n-gpu-layers" "28"
-      "--parallel" "1"        # Only 1 slot needed for single-user local agent (saves 75% memory)
-      "--cache-type-k" "q8_0" # 8-bit Key cache quantization (lossless quality, reduces VRAM/RAM footprint)
-      "--cache-type-v" "q8_0" # 8-bit Value cache quantization
-      "--flash-attn" "on"     # flash attention for efficiency
+      "--models-preset" "/models/models.ini"
+      "--models-max" "1"          # Cap VRAM usage to 1 active model at a time
+      "--ctx-size" "65536"        # Global context size (propagates to children, satisfies Hermes 64k)
+      "--n-gpu-layers" "28"       # Global GPU layers (safe for Qwen and Gemma)
+      "--parallel" "1"            # Only 1 slot needed for single-user local agent (saves 75% memory)
+      "--cache-type-k" "q8_0"     # 8-bit Key cache quantization (lossless quality, reduces VRAM/RAM footprint)
+      "--cache-type-v" "q8_0"     # 8-bit Value cache quantization
+      "--flash-attn" "on"         # flash attention for efficiency
+      "--sleep-idle-seconds" "300" # Unload model from RAM/VRAM after 5 minutes of inactivity
     ];
 
     ports = [
@@ -152,7 +164,7 @@
   systemd.tmpfiles.rules = [
     "d /var/lib/hermes          0755 root root -"
     "d /var/lib/hermes/models   0755 root root -"
-    "d /var/lib/hermes/data     0755 root root -"
+    "d /var/lib/hermes/data     2770 10000 users -"
     "f /var/lib/hermes/hermes.env 0600 root root -"
   ];
 }

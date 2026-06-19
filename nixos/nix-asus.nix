@@ -156,7 +156,7 @@
         id = "laptop-mullvad";
         type = "wireguard";
         interface-name = "wg-mullvad";
-        autoconnect = "true";
+        autoconnect = "false";
       };
       wireguard = {
         private-key = "$MULLVAD_PRIVATE_KEY";
