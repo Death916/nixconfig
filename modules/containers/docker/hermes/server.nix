@@ -24,6 +24,7 @@
       "API_SERVER_KEY" = "local-agent-key"; # Static key for dashboard auth (override in hermes.env)
       "HERMES_DASHBOARD" = "1";
       "HERMES_DASHBOARD_INSECURE" = "1";
+      "OPENAI_API_KEY" = "local";
     };
 
     volumes = [
