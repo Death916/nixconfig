@@ -17,6 +17,7 @@
     ../modules/containers/docker/crowdsec/crowdsec.nix
     ../pkgs/deathsite/deathsite-module.nix
     ../modules/umami.nix
+    ../modules/containers/docker/hermes/server.nix
   ];
 
   networking.firewall = {

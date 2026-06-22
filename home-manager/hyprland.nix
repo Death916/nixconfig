@@ -23,10 +23,18 @@
             "desc:BNQ BenQ EL2870U 26M05467SL0,2560x1440,0x0,1"
             "desc:WAM U24C 0000000000001,1920x1080,2560x0,1"
           ]
+        else if (osConfig.networking.hostName == "nix-asus") then
+          [
+            "eDP-1, 2880x1800@120, 0x0, 1.25"
+          ]
         else
           [
             ",preferred,auto,1"
           ];
+
+      xwayland = {
+        force_zero_scaling = true;
+      };
 
       workspace =
         if (osConfig.networking.hostName == "death-pc") then
@@ -42,6 +50,8 @@
       env = [
         "QT_QPA_PLATFORM,wayland;xcb"
         "GDK_BACKEND,wayland,x11"
+        "XCURSOR_SIZE,24"
+        "HYPRCURSOR_SIZE,24"
       ]
       ++ (lib.optionals (osConfig.networking.hostName == "death-pc") [
         "LIBVA_DRIVER_NAME,nvidia"
@@ -54,11 +64,9 @@
       exec-once = [
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        "swww init &"
+        "awww-daemon &"
         "waybar &"
         "poweralertd &"
-        # Stylix will manage the wallpaper
-        # "swww img /home/death916/Pictures/wallpapers/jameswebb1.jpg &"
         "dunst &"
         "nm-applet --indicator &"
         "blueman-applet &"
@@ -69,9 +77,6 @@
         gaps_in = 5;
         gaps_out = 10;
         border_size = 2;
-        # Stylix will manage these
-        # "col.active_border" = "rgba(cba6f7ee) rgba(1e66f5ee) 45deg";
-        # "col.inactive_border" = "rgba(313244aa)";
         layout = "dwindle";
       };
 
@@ -182,6 +187,16 @@
 
         "SUPER SHIFT, S, exec, bash -c \"grim -g '$(slurp)' - | tee ~/Pictures/screenshots/$(date +%s).png\""
         "SUPER SHIFT, Print, exec, bash -c \"grim - | tee ~/Pictures/screenshots/$(date +%s).png\""
+
+        # Custom Laptop Key Mappings
+        # Copilot Key: registers physically as Left Super + Left Shift + F23.
+        # To map it, uncomment the line below and change the command if desired:
+        # "SUPER SHIFT, F23, exec, rofi -show drun"
+
+        # Asus Key: typically triggers KEY_WLAN (wifi toggle).
+        # We remap it via hardware database (hwdb) to F21 in nixos/nix-asus.nix to prevent it from toggling off your wifi.
+        # To map it, uncomment the line below:
+        # ", F21, exec, ghostty"
       ];
 
       windowrule = [
@@ -195,9 +210,6 @@
         "opacity 1.0, match:fullscreen true"
         "idle_inhibit fullscreen, match:fullscreen true"
 
-        # "opacity 1.0 1.0,fullscreen:0"
-        # "opacity 0.9 0.9,floating:0"
-        # "opacity 0.6 0.6,floating:1"
         "opacity 1.0 override 1.0 override, match:class ^(vlc)$"
         "opacity 1.0 override 1.0 override, match:class ^(jellyfinmediaplayer)$"
         "float 1, match:title ^(Picture-in-Picture)$"
@@ -235,11 +247,9 @@
 
   programs.rofi = {
     enable = true;
-    # theme = "arthur"; # Managed by stylix
     extraConfig = {
       modi = "drun,run,ssh,window";
       show-icons = true;
-      # icon-theme = "Papirus-Dark"; # Managed by stylix
     };
   };
 
@@ -295,18 +305,15 @@
       };
 
       listener = [
-        # Lock after 10 minutes of inactivity
         {
           timeout = 600;
           on-timeout = "hyprlock";
         }
-        # Turn off display after 10 minutes
         {
           timeout = 750;
           on-timeout = "hyprctl dispatch dpms off";
           on-resume = "hyprctl dispatch dpms on";
         }
-        # Suspend the laptop after 30 minutes, but NOT the desktop
         (lib.mkIf (osConfig.networking.hostName != "death-pc") {
           timeout = 2800;
           on-timeout = "systemctl suspend";
@@ -325,15 +332,12 @@
         height = 150;
         offset = "10x50";
         origin = "top-right";
-        # font = "JetBrainsMono Nerd Font 10"; # Managed by stylix
         line_height = 0;
         notification_height = 0;
         separator_height = 2;
         padding = 8;
         horizontal_padding = 8;
         frame_width = 2;
-        # frame_color = "#cba6f7"; # Managed by stylix
-        # separator_color = "frame"; # Managed by stylix
         word_wrap = true;
         ellipsize = "middle";
         ignore_dbus_close = false;
