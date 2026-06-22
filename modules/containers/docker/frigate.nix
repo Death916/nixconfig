@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   virtualisation.oci-containers.containers.frigate = {
@@ -34,10 +39,4 @@
     8555 # WebRTC
   ];
 
-  # Ensure the storage directory exists with correct permissions
-  systemd.tmpfiles.rules = [
-    "d /var/lib/frigate 0755 root root -"
-    "d /var/lib/frigate/config 0755 root root -"
-    "d /var/lib/frigate/storage 0755 root root -"
-  ];
 }

@@ -21,15 +21,12 @@
         port = 1883;
       };
 
-      # Use OpenVINO for high-performance detection on the CPU.
-      # This is much faster than the default 'cpu' detector on Ryzen.
       detectors.ov = {
         type = "openvino";
         device = "CPU";
       };
 
       # Face recognition is disabled for now to save RAM
-      faces.enabled = false;
 
       cameras = {
         kitchen_cam = {
@@ -79,7 +76,10 @@
   systemd.services.frigate.serviceConfig.EnvironmentFile = "/etc/nixos/secrets/frigate.env";
 
   # Ensure Frigate waits for the storage mount
-  systemd.services.frigate.unitConfig.RequiresMountsFor = [ "/storage" "/var/lib/frigate" ];
+  systemd.services.frigate.unitConfig.RequiresMountsFor = [
+    "/storage"
+    "/var/lib/frigate"
+  ];
 
   # Use a bind mount instead of a symlink to move storage to the HDD.
   # This makes it appear as a real directory on the other drive for 'df' and 'du'.
@@ -94,8 +94,14 @@
   # but we want it accessible externally.
   services.nginx.virtualHosts."homelab" = {
     listen = lib.mkForce [
-      { addr = "0.0.0.0"; port = 5000; }
-      { addr = "0.0.0.0"; port = 8971; }
+      {
+        addr = "0.0.0.0";
+        port = 5000;
+      }
+      {
+        addr = "0.0.0.0";
+        port = 8971;
+      }
     ];
   };
 
