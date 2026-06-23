@@ -155,11 +155,17 @@
       }
     '' + lib.optionalString (osConfig.networking.hostName == "nix-asus") ''
       window#waybar {
+        background-color: transparent;
+        background: transparent;
+      }
+
+      window#waybar > box {
+        background-color: #${config.lib.stylix.colors.base00};
         opacity: 0.3;
         transition: opacity 0.25s ease-in-out;
       }
 
-      window#waybar:hover {
+      window#waybar:hover > box {
         opacity: 1.0;
       }
     '';
