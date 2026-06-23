@@ -155,8 +155,8 @@
       }
     '' + lib.optionalString (osConfig.networking.hostName == "nix-asus") ''
       window#waybar {
-        background-color: transparent !important;
-        background: transparent !important;
+        background-color: transparent;
+        background: transparent;
       }
 
       window#waybar > box {
