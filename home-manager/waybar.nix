@@ -2,6 +2,8 @@
   config,
   pkgs,
   unstablePkgs,
+  lib,
+  osConfig,
   ...
 }:
 
@@ -150,6 +152,15 @@
 
       #workspaces button {
         padding: 0 8px;
+      }
+    '' + lib.optionalString (osConfig.networking.hostName == "nix-asus") ''
+      window#waybar {
+        opacity: 0;
+        transition: opacity 0.25s ease-in-out;
+      }
+
+      window#waybar:hover {
+        opacity: 1.0;
       }
     '';
   };
