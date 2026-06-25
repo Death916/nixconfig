@@ -71,7 +71,9 @@
         "nm-applet --indicator &"
         "blueman-applet &"
         "nextcloud --background &"
-      ];
+      ] ++ (lib.optionals (osConfig.networking.hostName == "nix-asus") [
+        "systemctl --user start screenpipe"
+      ]);
 
       general = {
         gaps_in = 5;

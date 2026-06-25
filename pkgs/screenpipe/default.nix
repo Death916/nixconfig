@@ -9,7 +9,7 @@
 , openssl
 , dbus
 , libpulseaudio
-, mesa
+, libgbm
 , openblas
 , wayland
 , xorg
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     openssl
     dbus
     libpulseaudio
-    mesa
+    libgbm
     openblas
     wayland
     xorg.libxcb
