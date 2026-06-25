@@ -68,6 +68,7 @@
     nixd
     google-chrome
     unstablePkgs.antigravity-fhs
+    mullvad-vpn
   ];
 
   services.snapper.configs.nix = {
