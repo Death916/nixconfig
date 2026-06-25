@@ -186,4 +186,21 @@
      KEYBOARD_KEY_5f=f21
      KEYBOARD_KEY_7d=f21
   '';
+
+  networking.nftables.enable = true;
+  networking.nftables.tables.mullvad-nebula-bypass = {
+    family = "inet";
+    content = ''
+      chain allowOutgoing {
+        type route hook output priority -100;
+        policy accept;
+        ip daddr 10.0.100.0/24 ct mark set 0x00000f41 meta mark set 0x6d6f6c65
+      }
+      chain allowIncoming {
+        type filter hook input priority -100;
+        policy accept;
+        ip saddr 10.0.100.0/24 ct mark set 0x00000f41 meta mark set 0x6d6f6c65
+      }
+    '';
+  };
 }
