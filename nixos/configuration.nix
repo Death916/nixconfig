@@ -71,11 +71,24 @@
   services.greetd = {
     enable = true;
     settings = {
+      initial_session = {
+        command = "start-hyprland";
+        user = "death916";
+      };
       default_session = {
         command = "${pkgs.tuigreet}/bin/tuigreet --cmd start-hyprland";
         user = "death916";
       };
     };
+  };
+
+  security.pam.services.hyprlock = {
+    text = ''
+      auth     sufficient     pam_permit.so
+      account  include        login
+      password include        login
+      session  include        login
+    '';
   };
 
   services.upower.enable = true;
