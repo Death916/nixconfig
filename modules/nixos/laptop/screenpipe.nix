@@ -1,9 +1,12 @@
 # modules/nixos/laptop/screenpipe.nix
 { config, pkgs, ... }:
 
+let
+  screenpipe-pkg = pkgs.callPackage ../../../pkgs/screenpipe { };
+in
 {
-  # 1. Add the native screen-pipe package from NixOS 26.05
-  environment.systemPackages = [ pkgs.screen-pipe ];
+  # 1. Add the custom screenpipe package
+  environment.systemPackages = [ screenpipe-pkg ];
 
   # 2. Declarative systemd user service (starts automatically inside the graphical session)
   systemd.user.services.screenpipe = {
@@ -14,7 +17,7 @@
     serviceConfig = {
       # Runs natively, storing data in the default SSD path (~/.local/share/screenpipe/)
       # Disables audio for lightweight background OCR
-      ExecStart = "${pkgs.screen-pipe}/bin/screenpipe --use-local-ocr --disable-audio --fps 1";
+      ExecStart = "${screenpipe-pkg}/bin/screenpipe --use-local-ocr --disable-audio --fps 1";
       Restart = "always";
       RestartSec = 5;
     };
