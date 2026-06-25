@@ -7,6 +7,13 @@
 , glibc
 , alsa-lib
 , openssl
+, dbus
+, libpulseaudio
+, mesa
+, openblas
+, wayland
+, xorg
+, xz
 }:
 
 stdenv.mkDerivation rec {
@@ -29,6 +36,14 @@ stdenv.mkDerivation rec {
     glibc
     alsa-lib
     openssl
+    dbus
+    libpulseaudio
+    mesa
+    openblas
+    wayland
+    xorg.libxcb
+    xz
+    stdenv.cc.cc.lib
   ];
 
   installPhase = ''
