@@ -13,6 +13,11 @@ in
     description = "Screenpipe local context recording daemon";
     wantedBy = [ "graphical-session.target" ];
     partOf = [ "graphical-session.target" ];
+    path = [ pkgs.tesseract pkgs.ffmpeg ];
+
+    environment = {
+      SCREENPIPE_API_KEY = "local-recall-key";
+    };
 
     serviceConfig = {
       # Runs natively, storing data in the default SSD path (~/.local/share/screenpipe/)
