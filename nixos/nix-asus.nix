@@ -27,6 +27,7 @@
     ../modules/nixos/laptop/obsidian-rclone.nix
     ./acpi-override.nix
     ../modules/containers/docker/hermes/docker-compose.nix
+    ../modules/nixos/laptop/screenpipe.nix
   ];
 
   # Use linux_zen kernel for performance improvements
@@ -212,7 +213,8 @@
     settings = {
       Resolve = {
         DNS = "10.0.100.1 10.0.100.2";
-        Domains = "~death death";
+        FallbackDNS = "9.9.9.9";
+        Domains = "~. ~death death";
       };
     };
   };
