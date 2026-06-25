@@ -20,7 +20,7 @@
   networking.firewall.checkReversePath = "loose";
 
   networking.localCommands = ''
-    ip rule add to 10.0.100.0/24 priority 2500 lookup main
-    ip rule add from 10.0.100.0/24 priority 2500 lookup main
+    ip rule add to 10.0.100.0/24 priority 2500 lookup main || true
+    ip rule add from 10.0.100.0/24 priority 2500 lookup main || true
   '';
 }
