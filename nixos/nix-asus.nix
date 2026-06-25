@@ -207,5 +207,13 @@
   services.mullvad-vpn.enable = true;
   services.mullvad-vpn.package = pkgs.mullvad-vpn;
 
-  services.resolved.enable = true;
+  services.resolved = {
+    enable = true;
+    settings = {
+      Resolve = {
+        DNS = "10.0.100.1 10.0.100.2";
+        Domains = "~death death";
+      };
+    };
+  };
 }
