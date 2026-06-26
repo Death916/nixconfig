@@ -15,7 +15,7 @@
       ExecStart = pkgs.writers.writeBash "screenpipe-sync-run" ''
         set -euo pipefail
 
-        DB_DIR="/home/death916/.local/share/screenpipe"
+        DB_DIR="/home/death916/.screenpipe"
         DB_PATH="$DB_DIR/db.sqlite"
         BACKUP_PATH="/tmp/screenpipe_backup.sqlite"
 
