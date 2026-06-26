@@ -10,6 +10,7 @@
   systemd.user.services.screenpipe-sync = {
     description = "Safe hot-backup and sync of Screenpipe SQLite database to VPS";
     after = [ "network.target" ];
+    path = [ pkgs.openssh pkgs.rsync pkgs.sqlite ];
     serviceConfig = {
       Type = "oneshot";
       ExecStart = pkgs.writers.writeBash "screenpipe-sync-run" ''
