@@ -31,6 +31,7 @@
     ./acpi-override.nix
     ../modules/containers/docker/hermes/docker-compose.nix
     ../modules/nixos/laptop/screenpipe.nix
+    ../modules/nixos/laptop/screenpipe-sync.nix
   ];
 
   # Use linux_zen kernel for performance improvements
