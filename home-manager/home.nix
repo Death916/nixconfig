@@ -119,7 +119,7 @@ in
     unstablePkgs.distrobox
     rpi-imager
     libxcb-cursor
-    variety
+    lmstudio
   ];
 
   programs.ghostty = {
