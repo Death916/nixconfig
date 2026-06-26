@@ -22,7 +22,7 @@ in
     serviceConfig = {
       # Runs natively, storing data in the default SSD path (~/.local/share/screenpipe/)
       # Disables audio for lightweight background OCR
-      ExecStart = "${screenpipe-pkg}/bin/screenpipe record --disable-audio --fps 0.5 --listen-on-lan";
+      ExecStart = "${screenpipe-pkg}/bin/screenpipe record --disable-audio --listen-on-lan";
       Restart = "always";
       RestartSec = 5;
     };
