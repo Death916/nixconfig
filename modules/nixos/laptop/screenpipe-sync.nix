@@ -33,7 +33,7 @@
         # 3. Synchronize backup to VPS (rsync over Nebula network)
         # Adjust target IP and destination path to match your VPS configuration
         echo "Syncing backup to VPS via rsync..."
-        ${pkgs.rsync}/bin/rsync -az --inplace "$BACKUP_PATH" death916@10.0.100.1:/var/lib/hermes/data/recall/db.sqlite
+        ${pkgs.rsync}/bin/rsync -az --inplace "$BACKUP_PATH" death916@10.0.100.1:/var/lib/hermes/recall/db.sqlite
 
         # 4. Clean up local temporary file
         rm -f "$BACKUP_PATH"

@@ -108,6 +108,7 @@ in
 
     volumes = [
       "/var/lib/hermes/data:/opt/data:rw"
+      "/var/lib/hermes/recall:/opt/data/recall:rw"
     ];
 
     # Load secrets from a file on disk — never committed to the Nix store.
@@ -167,6 +168,7 @@ in
     "d /var/lib/hermes          0755 root root -"
     "d /var/lib/hermes/models   0755 root root -"
     "d /var/lib/hermes/data     2770 10000 users -"
+    "d /var/lib/hermes/recall   2770 10000 users -"
     "f /var/lib/hermes/hermes.env 0600 root root -"
   ];
 }

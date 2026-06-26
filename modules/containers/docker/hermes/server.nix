@@ -32,6 +32,7 @@
       # Group permissions (2770) and user ownership (10000:users) must match 
       # host configurations to allow container write operations.
       "/var/lib/hermes/data:/opt/data:rw"
+      "/var/lib/hermes/recall:/opt/data/recall:rw"
     ];
 
     # Load secrets and backend API URLs from a file on the VPS disk.
@@ -63,6 +64,7 @@
   systemd.tmpfiles.rules = [
     "d /var/lib/hermes          0755 root root -"
     "d /var/lib/hermes/data     2770 10000 users -"
+    "d /var/lib/hermes/recall   2770 10000 users -"
     "f /var/lib/hermes/hermes.env 0600 root root -"
   ];
 
