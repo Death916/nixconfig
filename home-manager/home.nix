@@ -120,6 +120,7 @@ in
     rpi-imager
     libxcb-cursor
     lmstudio
+    resources
   ];
 
   programs.ghostty = {
