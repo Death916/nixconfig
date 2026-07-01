@@ -18,6 +18,7 @@
     ../pkgs/deathsite/deathsite-module.nix
     ../modules/umami.nix
     ../modules/containers/docker/hermes/server.nix
+    ../modules/containers/docker/hermes/hindsight.nix
   ];
 
   networking.firewall = {
