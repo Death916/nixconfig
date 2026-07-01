@@ -121,6 +121,10 @@
     # All secrets and LLM/DB config come from this file on the host.
     environmentFiles = [ "/var/lib/hermes/hindsight.env" ];
 
+    ports = [
+      "10.0.100.1:8888:8888/tcp"
+    ];
+
     extraOptions = [
       "--network=hermes_net"
       "--network-alias=hindsight"

@@ -185,7 +185,7 @@
                       stylix.homeModules.stylix
                     ];
                     home.packages = [
-                      inputs.hermes-agent.packages.${pkgs.system}.default
+                      inputs.hermes-agent.packages.${system}.default
                     ];
                   };
                 }
