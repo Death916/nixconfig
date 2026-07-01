@@ -29,6 +29,7 @@
       url = "github:noamsto/nix-amd-ai";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hermes-agent.url = "github:NousResearch/hermes-agent";
   };
 
   outputs =
@@ -182,6 +183,9 @@
                     imports = [
                       ./home-manager/home.nix
                       stylix.homeModules.stylix
+                    ];
+                    home.packages = [
+                      inputs.hermes-agent.packages.${pkgs.system}.default
                     ];
                   };
                 }

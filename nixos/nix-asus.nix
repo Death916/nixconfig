@@ -29,7 +29,7 @@
     ../modules/nixos/laptop/restic.nix
     ../modules/nixos/laptop/obsidian-rclone.nix
     ./acpi-override.nix
-    ../modules/containers/docker/hermes/docker-compose.nix
+    # ../modules/containers/docker/hermes/docker-compose.nix
     ../modules/nixos/laptop/screenpipe.nix
     ../modules/nixos/laptop/screenpipe-sync.nix
   ];
