@@ -22,12 +22,8 @@ in
     lfs.enable = true;
 
     settings = {
-      repository = {
-        DEFAULT_PRIVATE = "private";
-      };
-      "repository.protected_branch" = {
-        DEFAULT_ENABLE_PUSH_PROTECTION = true;
-      };
+      repository.DEFAULT_PRIVATE = "private";
+      "repository.protected_branch".DEFAULT_ENABLE_PUSH_PROTECTION = true;
 
       server = {
         HTTP_ADDR = "0.0.0.0";
@@ -45,7 +41,7 @@ in
 
       mailer = {
         ENABLED = true;
-        SMTP_ADDR = "://smtp2go.com";
+        SMTP_ADDR = "mail.smtp2go.com";
         FROM = "noreply@${srv.DOMAIN}";
         USER = "noreply@${srv.DOMAIN}";
         SMTP_PORT = 465;
@@ -54,7 +50,7 @@ in
 
       storage = {
         STORAGE_TYPE = "minio";
-        MINIO_ENDPOINT = "://idrivee2-38.com";
+        MINIO_ENDPOINT = "d8j2.or.idrivee2-38.com";
         MINIO_BUCKET = "forgejo-storage";
         MINIO_USE_SSL = true;
       };
