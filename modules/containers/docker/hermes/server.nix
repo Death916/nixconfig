@@ -21,6 +21,7 @@
     environment = {
       "HERMES_HOME" = "/opt/data";
       "API_SERVER_ENABLED" = "true";
+      "API_SERVER_HOST" = "0.0.0.0";
       "API_SERVER_KEY" = "local-agent-key"; # Static key for dashboard auth (override in hermes.env)
       "HERMES_DASHBOARD" = "1";
       "HERMES_DASHBOARD_INSECURE" = "1";
