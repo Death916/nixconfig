@@ -22,7 +22,7 @@ in
     serviceConfig = {
       # Runs natively, storing data in the default SSD path (~/.local/share/screenpipe/)
       # Disables audio for lightweight background OCR
-      ExecStart = "${screenpipe-pkg}/bin/screenpipe record --disable-audio --listen-on-lan";
+      ExecStart = "${screenpipe-pkg}/bin/screenpipe record --disable-audio --listen-on-lan --ignored-windows \"cosmic-launcher\" --ignored-windows \"cosmic-app-library\" --ignored-windows \"cosmic-app-list\" --ignored-windows \"cosmic-applet\" --ignored-windows \"cosmic-panel\" --ignored-windows \"cosmic-notifications\" --ignored-windows \"cosmic-osd\" --ignored-windows \"cosmic-workspaces\"";
       Restart = "always";
       RestartSec = 5;
     };
