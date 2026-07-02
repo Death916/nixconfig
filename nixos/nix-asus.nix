@@ -41,6 +41,7 @@
   # Packages specific to nix-asus (do not add to shared modules)
   environment.systemPackages = with pkgs; [
     python3Packages.huggingface-hub  # huggingface-cli for downloading GGUF models
+    cosmic-ext-applet-weather
   ];
   # AMD GPU display/color debug mask — required on this laptop
   boot.kernelParams = [ "amdgpu.dcdebugmask=0x600" ];
