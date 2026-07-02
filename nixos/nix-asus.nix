@@ -42,6 +42,7 @@
   environment.systemPackages = with pkgs; [
     python3Packages.huggingface-hub  # huggingface-cli for downloading GGUF models
     cosmic-ext-applet-weather
+    cosmic-ext-applet-minimon
   ];
   # AMD GPU display/color debug mask — required on this laptop
   boot.kernelParams = [ "amdgpu.dcdebugmask=0x600" ];
