@@ -29,7 +29,10 @@
   # This is to fix clementine gui not showing up on wayland
   environment.variables.QT_QPA_PLATFORM = "wayland;xcb";
   services.udisks2.enable = true;
-  # environment.sessionVariables.NIXOS_OZONE_WL = "1"; # Required for some Electron apps
+  environment.sessionVariables = {
+    COSMIC_DISABLE_DIRECT_SCANOUT = "1";
+    # NIXOS_OZONE_WL = "1"; # Required for some Electron apps
+  };
 
   programs.hyprland = {
     enable = true;
