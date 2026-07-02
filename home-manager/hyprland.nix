@@ -241,7 +241,7 @@
   };
 
   xdg.portal = {
-    enable = false;
+    enable = lib.mkForce false;
   };
 
   programs.rofi = {
