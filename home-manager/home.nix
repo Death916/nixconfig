@@ -121,6 +121,7 @@ in
     libxcb-cursor
     lmstudio
     resources
+    lolcat
   ];
 
   programs.ghostty = {
