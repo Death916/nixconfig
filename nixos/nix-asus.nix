@@ -45,7 +45,10 @@
     cosmic-ext-applet-minimon
   ];
   # AMD GPU display/color debug mask — required on this laptop
-  boot.kernelParams = [ "amdgpu.dcdebugmask=0x600" ];
+  boot.kernelParams = [ 
+    "amdgpu.dcdebugmask=0x610" 
+    "amdgpu.gpu_recovery=1"
+  ];
 
   # Network Optimizations (BBR + CAKE) for better performance
   boot.kernel.sysctl = {
