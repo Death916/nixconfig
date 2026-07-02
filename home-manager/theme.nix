@@ -54,6 +54,7 @@
     qt.enable = true;
     firefox.enable = true;
     obsidian.enable = true;
+    cosmic.enable = true;
   };
 
   programs.waveterm = {
