@@ -81,6 +81,8 @@
     };
   };
 
+  security.pam.services.greetd.enableGnomeKeyring = true;
+
   services.upower.enable = true;
 
   # Enable proprietary firmware/microcode (essential for AMD sound chips)
