@@ -27,6 +27,42 @@ if [ -n "$SNAPSHOT_DIR" ]; then
     sudo btrfs subvolume snapshot -r /nix "$SNAPSHOT_DIR/nix_$(date +%Y-%m-%d_%H%M)"
     sudo btrfs subvolume snapshot -r /home "$SNAPSHOT_DIR/home_$(date +%Y-%m-%d_%H%M)"
     echo "Snapshots created."
+
+    # --- Snapshot Pruning ---
+    RETAIN=20
+    echo "Pruning older snapshots (retaining last $RETAIN of each)..."
+
+    # Prune /nix snapshots
+    mapfile -t OLD_NIX_SNAPSHOTS < <(find "$SNAPSHOT_DIR" -maxdepth 1 -name "nix_*" -printf "%T@ %p\n" | sort -n | cut -d' ' -f2- | head -n -"$RETAIN")
+    NIX_DELETE_COUNT=0
+    for snap in "${OLD_NIX_SNAPSHOTS[@]}"; do
+        if [ -n "$snap" ]; then
+            echo "Deleting old nix snapshot: $(basename "$snap")"
+            sudo btrfs subvolume delete "$snap"
+            ((NIX_DELETE_COUNT++))
+        fi
+    done
+    if [ "$NIX_DELETE_COUNT" -gt 0 ]; then
+        echo "Deleted $NIX_DELETE_COUNT old nix snapshot(s)."
+    else
+        echo "No nix snapshots needed pruning."
+    fi
+
+    # Prune /home snapshots
+    mapfile -t OLD_HOME_SNAPSHOTS < <(find "$SNAPSHOT_DIR" -maxdepth 1 -name "home_*" -printf "%T@ %p\n" | sort -n | cut -d' ' -f2- | head -n -"$RETAIN")
+    HOME_DELETE_COUNT=0
+    for snap in "${OLD_HOME_SNAPSHOTS[@]}"; do
+        if [ -n "$snap" ]; then
+            echo "Deleting old home snapshot: $(basename "$snap")"
+            sudo btrfs subvolume delete "$snap"
+            ((HOME_DELETE_COUNT++))
+        fi
+    done
+    if [ "$HOME_DELETE_COUNT" -gt 0 ]; then
+        echo "Deleted $HOME_DELETE_COUNT old home snapshot(s)."
+    else
+        echo "No home snapshots needed pruning."
+    fi
 fi
 
 # --- NixOS Build ---
