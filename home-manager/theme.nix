@@ -14,12 +14,6 @@
   stylix.enable = true;
   stylix.polarity = "dark";
 
-  stylix.cursor = {
-    package = pkgs.catppuccin-cursors;
-    name = "Catppuccin-Mocha-Dark-Cursors";
-    size = 24;
-  };
-
   stylix.fonts = {
     monospace = {
       package = pkgs.nerd-fonts.jetbrains-mono;
