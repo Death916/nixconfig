@@ -48,6 +48,7 @@
   boot.kernelParams = [ 
     "amdgpu.dcdebugmask=0x610" 
     "amdgpu.gpu_recovery=1"
+    "amdgpu.gfxoff=0"
   ];
 
   # Network Optimizations (BBR + CAKE) for better performance

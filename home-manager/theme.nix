@@ -2,6 +2,7 @@
   config,
   pkgs,
   inputs,
+  osConfig ? {},
   ...
 }:
 
@@ -43,7 +44,7 @@
     waybar.enable = true;
     rofi.enable = true;
     dunst.enable = true;
-    gtk.enable = true;
+    gtk.enable = if (osConfig.networking.hostName or "") == "nix-asus" then false else true;
     kde.enable = true;
     zed.enable = true;
     zed.colors.enable = true;
