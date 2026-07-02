@@ -18,8 +18,8 @@
   services.gnome.gnome-keyring.enable = true;
   services.dbus.enable = true; # for nextcloud client
   # Enable the GNOME Desktop Environment.
-  services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
+  # services.displayManager.gdm.enable = true;
+  # services.desktopManager.gnome.enable = true;
   #cosmic instead
   services.desktopManager.cosmic.enable = true;
   # services.displayManager.cosmic-greeter.enable = true;
