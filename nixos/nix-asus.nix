@@ -8,6 +8,7 @@
   overlays,
   inputs,
   lib,
+  unstablePkgs,
   ...
 }:
 
@@ -50,6 +51,9 @@
     "amdgpu.gpu_recovery=1"
     "amdgpu.gfxoff=0"
   ];
+
+  # Override linux-firmware package with the latest from unstable
+  hardware.firmware = [ unstablePkgs.linux-firmware ];
 
   # Network Optimizations (BBR + CAKE) for better performance
   boot.kernel.sysctl = {
