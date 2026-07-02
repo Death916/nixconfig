@@ -72,17 +72,20 @@
     key = "/etc/nixos/secrets/nix-asus.key";
   };
 
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --cmd start-hyprland";
-        user = "death916";
-      };
-    };
-  };
+  # services.greetd = {
+  #   enable = true;
+  #   settings = {
+  #     default_session = {
+  #       command = "${pkgs.tuigreet}/bin/tuigreet --cmd start-hyprland";
+  #       user = "death916";
+  #     };
+  #   };
+  # };
 
-  security.pam.services.greetd.enableGnomeKeyring = true;
+  # security.pam.services.greetd.enableGnomeKeyring = true;
+
+  # Enable the COSMIC display manager (greeter)
+  services.displayManager.cosmic-greeter.enable = true;
 
   services.upower.enable = true;
 
