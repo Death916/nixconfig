@@ -33,13 +33,13 @@ if [ -n "$SNAPSHOT_DIR" ]; then
     echo "Pruning older snapshots (retaining last $RETAIN of each)..."
 
     # Prune /nix snapshots
-    mapfile -t OLD_NIX_SNAPSHOTS < <(find "$SNAPSHOT_DIR" -maxdepth 1 -name "nix_*" -printf "%T@ %p\n" | sort -n | cut -d' ' -f2- | head -n -"$RETAIN")
+    mapfile -t OLD_NIX_SNAPSHOTS < <(sudo find "$SNAPSHOT_DIR" -maxdepth 1 -name "nix_*" -printf "%T@ %p\n" | sort -n | cut -d' ' -f2- | head -n -"$RETAIN")
     NIX_DELETE_COUNT=0
     for snap in "${OLD_NIX_SNAPSHOTS[@]}"; do
         if [ -n "$snap" ]; then
             echo "Deleting old nix snapshot: $(basename "$snap")"
             sudo btrfs subvolume delete "$snap"
-            ((NIX_DELETE_COUNT++))
+            NIX_DELETE_COUNT=$((NIX_DELETE_COUNT + 1))
         fi
     done
     if [ "$NIX_DELETE_COUNT" -gt 0 ]; then
@@ -49,13 +49,13 @@ if [ -n "$SNAPSHOT_DIR" ]; then
     fi
 
     # Prune /home snapshots
-    mapfile -t OLD_HOME_SNAPSHOTS < <(find "$SNAPSHOT_DIR" -maxdepth 1 -name "home_*" -printf "%T@ %p\n" | sort -n | cut -d' ' -f2- | head -n -"$RETAIN")
+    mapfile -t OLD_HOME_SNAPSHOTS < <(sudo find "$SNAPSHOT_DIR" -maxdepth 1 -name "home_*" -printf "%T@ %p\n" | sort -n | cut -d' ' -f2- | head -n -"$RETAIN")
     HOME_DELETE_COUNT=0
     for snap in "${OLD_HOME_SNAPSHOTS[@]}"; do
         if [ -n "$snap" ]; then
             echo "Deleting old home snapshot: $(basename "$snap")"
             sudo btrfs subvolume delete "$snap"
-            ((HOME_DELETE_COUNT++))
+            HOME_DELETE_COUNT=$((HOME_DELETE_COUNT + 1))
         fi
     done
     if [ "$HOME_DELETE_COUNT" -gt 0 ]; then
