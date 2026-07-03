@@ -49,7 +49,7 @@
   boot.kernelParams = [ 
     "amdgpu.dcdebugmask=0x610" 
     "amdgpu.gpu_recovery=1"
-    "amdgpu.gfxoff=0"
+    "amdgpu.no_vpe_idle_pg=1"
   ];
 
   # Override linux-firmware package with the latest from unstable
