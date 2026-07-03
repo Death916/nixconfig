@@ -1,7 +1,6 @@
 # pkgs/screenpipe/default.nix
 { lib
 , stdenv
-, fetchurl
 , autoPatchelfHook
 , makeWrapper
 , glibc
@@ -18,14 +17,12 @@
 
 stdenv.mkDerivation rec {
   pname = "screenpipe";
-  version = "0.4.19";
+  version = "local-npu-ocr";
 
-  src = fetchurl {
-    url = "https://registry.npmjs.org/@screenpipe/cli-linux-x64/-/cli-linux-x64-${version}.tgz";
-    hash = "sha256-ci+NEQnpfxo1MAnFaQfwl/oJZAEDwjIMnG8aPGcBnYA=";
-  };
+  # Point directly to the locally compiled NPU-patched release binary
+  src = /home/death916/Documents/code/vibed/screenpipe/target/release/screenpipe;
 
-  sourceRoot = ".";
+  dontUnpack = true;
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -49,14 +46,13 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
     mkdir -p $out/bin
-    # The npm package contains the binary in package/bin/screenpipe
-    cp package/bin/screenpipe $out/bin/screenpipe
+    cp $src $out/bin/screenpipe
     chmod +x $out/bin/screenpipe
     runHook postInstall
   '';
 
   meta = with lib; {
-    description = "24/7 local screen and audio capture for AI context";
+    description = "24/7 local screen and audio capture for AI context (Local NPU OCR Patched)";
     homepage = "https://screenpi.pe";
     license = licenses.mit;
     platforms = platforms.linux;
