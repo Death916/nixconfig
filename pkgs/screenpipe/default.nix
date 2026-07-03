@@ -1,58 +1,24 @@
 # pkgs/screenpipe/default.nix
 { lib
 , stdenv
-, autoPatchelfHook
 , makeWrapper
-, glibc
-, alsa-lib
-, openssl
-, dbus
-, libpulseaudio
-, libgbm
-, openblas
-, wayland
-, xorg
-, xz
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "screenpipe";
-  version = "local-npu-ocr";
-
-  # Point directly to the locally compiled NPU-patched release binary
-  src = /home/death916/Documents/code/vibed/screenpipe/target/release/screenpipe;
+  version = "local-npu-ocr-wrapper";
 
   dontUnpack = true;
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    makeWrapper
-  ];
-
-  buildInputs = [
-    glibc
-    alsa-lib
-    openssl
-    dbus
-    libpulseaudio
-    libgbm
-    openblas
-    wayland
-    xorg.libxcb
-    xz
-    stdenv.cc.cc.lib
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
-    runHook preInstall
     mkdir -p $out/bin
-    cp $src $out/bin/screenpipe
-    chmod +x $out/bin/screenpipe
-    runHook postInstall
+    makeWrapper /home/death916/Documents/code/vibed/screenpipe/target/release/screenpipe $out/bin/screenpipe
   '';
 
   meta = with lib; {
-    description = "24/7 local screen and audio capture for AI context (Local NPU OCR Patched)";
+    description = "24/7 local screen and audio capture (Wrapper pointing to local compiled NPU binary)";
     homepage = "https://screenpi.pe";
     license = licenses.mit;
     platforms = platforms.linux;
