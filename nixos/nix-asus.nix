@@ -35,8 +35,8 @@
     ../modules/nixos/laptop/screenpipe-sync.nix
   ];
 
-  # Use linux_zen kernel for performance improvements
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+  # Use the latest stable mainline kernel
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   networking.hostName = "nix-asus";
 
   # Packages specific to nix-asus (do not add to shared modules)
