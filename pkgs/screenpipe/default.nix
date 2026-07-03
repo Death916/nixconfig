@@ -1,7 +1,6 @@
 # pkgs/screenpipe/default.nix
 { lib
 , stdenv
-, makeWrapper
 }:
 
 stdenv.mkDerivation {
@@ -10,11 +9,15 @@ stdenv.mkDerivation {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
-
   installPhase = ''
+    runHook preInstall
     mkdir -p $out/bin
-    makeWrapper /home/death916/Documents/code/vibed/screenpipe/target/release/screenpipe $out/bin/screenpipe
+    cat <<'EOF' > $out/bin/screenpipe
+#!/bin/sh
+exec /home/death916/Documents/code/vibed/screenpipe/target/release/screenpipe "$@"
+EOF
+    chmod +x $out/bin/screenpipe
+    runHook postInstall
   '';
 
   meta = with lib; {
