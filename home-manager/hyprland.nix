@@ -207,8 +207,8 @@
         "size 80% 80%, match:class ^(Wave|waveterm)$"
         "center 1, match:class ^(Wave|waveterm)$"
 
-        "opacity 0.5, match:float yes"
-        "opacity 0.8, match:float false"
+        "opacity 0.6, match:float yes"
+        "opacity 0.85, match:float false"
         "opacity 1.0, match:fullscreen true"
         "idle_inhibit fullscreen, match:fullscreen true"
 

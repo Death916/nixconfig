@@ -18,11 +18,11 @@ local window_rules = {
     },
     {
         match = { floating = true },
-        opacity = "0.5"
+        opacity = "0.6"
     },
     {
         match = { floating = false },
-        opacity = "0.8"
+        opacity = "0.85"
     },
     {
         match = { fullscreen = true },

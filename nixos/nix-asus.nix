@@ -46,14 +46,7 @@
     cosmic-ext-applet-minimon
   ];
   # AMD GPU display/color debug mask — required on this laptop
-  boot.kernelParams = [ 
-    "amdgpu.dcdebugmask=0x610" 
-    "amdgpu.gpu_recovery=1"
-    "amdgpu.no_vpe_idle_pg=1"
-  ];
-
-  # Override linux-firmware package with the latest from unstable
-  hardware.firmware = [ unstablePkgs.linux-firmware ];
+  boot.kernelParams = [ "amdgpu.dcdebugmask=0x600" ];
 
   # Network Optimizations (BBR + CAKE) for better performance
   boot.kernel.sysctl = {
@@ -81,20 +74,20 @@
     key = "/etc/nixos/secrets/nix-asus.key";
   };
 
-  # services.greetd = {
-  #   enable = true;
-  #   settings = {
-  #     default_session = {
-  #       command = "${pkgs.tuigreet}/bin/tuigreet --cmd start-hyprland";
-  #       user = "death916";
-  #     };
-  #   };
-  # };
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.tuigreet}/bin/tuigreet --cmd start-hyprland";
+        user = "death916";
+      };
+    };
+  };
 
-  # security.pam.services.greetd.enableGnomeKeyring = true;
+  security.pam.services.greetd.enableGnomeKeyring = true;
 
   # Enable the COSMIC display manager (greeter)
-  services.displayManager.cosmic-greeter.enable = true;
+  # services.displayManager.cosmic-greeter.enable = true;
 
   services.upower.enable = true;
 
