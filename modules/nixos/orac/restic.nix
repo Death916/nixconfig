@@ -52,6 +52,7 @@
     extraBackupArgs = [
       "--verbose"
       "--exclude-caches"
+      "--cleanup-cache"
     ];
     timerConfig = {
       OnCalendar = "00:00,06:00,12:00,18:00";

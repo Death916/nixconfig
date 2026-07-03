@@ -95,6 +95,7 @@
     dates = "weekly";
     options = "--delete-older-than 14d";
   };
+  nix.settings.auto-optimise-store = true;
 
   boot.loader.grub.configurationLimit = 2;
   boot.initrd.compressor = "zstd";
@@ -103,6 +104,10 @@
   boot.loader.grub.extraConfig = ''
     set locale_dir=$prefix/locale
     set lang=en_US
+  '';
+
+  services.journald.extraConfig = ''
+    SystemMaxUse=500M
   '';
 
   system.stateVersion = "25.05";
