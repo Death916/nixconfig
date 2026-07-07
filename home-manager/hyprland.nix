@@ -258,7 +258,7 @@
       general = {
         no_fade_in = true;
         no_fade_out = true;
-        ignore_empty_input = true;
+        ignore_empty_input = false;
       };
 
       background = lib.mkForce [
