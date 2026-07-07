@@ -239,4 +239,24 @@
     enableLemonade = true;
     lemonade.user = "death916";
   };
+
+  # Enable Howdy for facial authentication
+  services.howdy = {
+    enable = true;
+    settings = {
+      core = {
+        device_path = "/dev/video2";
+        detection_notice = true;
+      };
+    };
+  };
+
+  # Enable PAM integration for Howdy
+  security.pam.howdy = {
+    enable = true;
+    control = "sufficient";
+  };
+
+  # Enable IR camera emitter support
+  services.linux-enable-ir-emitter.enable = true;
 }
