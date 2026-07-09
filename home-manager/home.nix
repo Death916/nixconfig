@@ -122,7 +122,6 @@ in
     lmstudio
     resources
     lolcat
-    unstablePkgs.bitwarden-desktop
   ];
 
   programs.ghostty = {

@@ -33,6 +33,7 @@
       # host configurations to allow container write operations.
       "/var/lib/hermes/data:/opt/data:rw"
       "/var/lib/hermes/recall:/opt/data/recall:rw"
+      "/mnt/myjfs/gallery:/mnt/myjfs/gallery:rw"
     ];
 
     # Load secrets and backend API URLs from a file on the VPS disk.
