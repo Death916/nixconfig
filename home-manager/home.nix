@@ -341,7 +341,6 @@ in
     package = unstablePkgs.zed-editor-fhs;
   };
 
-  programs.devenv.enable = true;
   programs.btop.enable = true;
   programs.yazi = {
     enable = true;
