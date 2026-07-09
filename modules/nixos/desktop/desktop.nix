@@ -19,23 +19,29 @@
   services.gnome.gnome-keyring.enable = true;
   services.dbus.enable = true; # for nextcloud client
 
-  # Use tuigreet to match laptop and default to Hyprland
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --cmd start-hyprland";
-        user = "death916";
-      };
-    };
-  };
+  services.desktopManager.cosmic.enable = true;
+  services.desktopManager.cosmic.xwayland.enable = true;
+  services.displayManager.cosmic-greeter.enable = true;
+
+  # services.greetd = {
+  #   enable = true;
+  #   settings = {
+  #     default_session = {
+  #       command = "${pkgs.tuigreet}/bin/tuigreet --cmd cosmic-session";
+  #       user = "death916";
+  #     };
+  #   };
+  # };
 
   services.system76-scheduler.enable = true;
 
   # This is to fix clementine gui not showing up on wayland
   environment.variables.QT_QPA_PLATFORM = "wayland";
   services.udisks2.enable = true;
-  # environment.sessionVariables.NIXOS_OZONE_WL = "1"; # Required for some Electron apps
+  environment.sessionVariables = {
+    # COSMIC_DISABLE_DIRECT_SCANOUT = "1";
+    # NIXOS_OZONE_WL = "1"; # Required for some Electron apps
+  };
 
   programs.hyprland = {
     enable = true;

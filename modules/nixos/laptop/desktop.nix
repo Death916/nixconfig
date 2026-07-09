@@ -30,7 +30,7 @@
   environment.variables.QT_QPA_PLATFORM = "wayland;xcb";
   services.udisks2.enable = true;
   environment.sessionVariables = {
-    COSMIC_DISABLE_DIRECT_SCANOUT = "1";
+    # COSMIC_DISABLE_DIRECT_SCANOUT = "1";
     # NIXOS_OZONE_WL = "1"; # Required for some Electron apps
   };
 
