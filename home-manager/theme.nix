@@ -2,13 +2,13 @@
   config,
   pkgs,
   inputs,
-  osConfig ? {},
+  osConfig ? { },
   ...
 }:
 
 {
   imports = [
-    ./themes/everforest.nix
+    ./themes/poimandres.nix
   ];
 
   stylix.enable = true;
