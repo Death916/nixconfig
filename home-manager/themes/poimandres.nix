@@ -10,10 +10,10 @@
     base07 = "#ffffff";
     base08 = "#d0679d";
     base09 = "#fffac2";
-    base0A = "#add7ff";
+    base0A = "#7697d6";
     base0B = "#5de4c7";
     base0C = "#89ddff";
-    base0D = "#add7ff";
+    base0D = "#7697d6";
     base0E = "#fcc5e9";
     base0F = "#373b41";
   };
