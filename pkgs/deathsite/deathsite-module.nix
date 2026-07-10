@@ -29,8 +29,8 @@ in
 
       path = with pkgs; [
         bun
-        python311
-        python311Packages.uv
+        python314
+        uv
         git
       ];
 
@@ -43,7 +43,7 @@ in
         RestartSec = "10";
         EnvironmentFile = cfg.secretsPath;
 
-        ExecStart = "${pkgs.python311Packages.uv}/bin/uv run reflex run --env prod --single-port --frontend-port ${toString cfg.port}";
+        ExecStart = "${pkgs.uv}/bin/uv run reflex run --env prod --single-port --frontend-port ${toString cfg.port}";
       };
 
       environment = {
