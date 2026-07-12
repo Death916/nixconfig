@@ -72,6 +72,7 @@
     google-chrome
     unstablePkgs.antigravity-fhs
     mullvad-vpn
+    realvnc-vnc-viewer
   ];
 
   services.snapper.configs.nix = {

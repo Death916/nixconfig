@@ -122,6 +122,7 @@ in
     lmstudio
     resources
     lolcat
+    unstablePkgs.opencode
   ];
 
   programs.ghostty = {

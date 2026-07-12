@@ -55,6 +55,7 @@
         # halloy = import ./overlays/halloy-overlay.nix;
         waveterm = import ./overlays/waveterm-overlay.nix;
         karakeep = import ./overlays/karakeep-overlay.nix;
+        realvnc = import ./overlays/realvnc-overlay.nix;
       };
 
     in
@@ -106,6 +107,7 @@
                   overlays.rust
                   # overlays.halloy
                   overlays.karakeep
+                  overlays.realvnc
                 ];
               }
               ./nixos/configuration.nix
@@ -163,6 +165,7 @@
                   overlays.rust
                   # overlays.halloy
                   # overlays.karakeep # server-side only
+                  overlays.realvnc
                 ];
               }
               ./nixos/nix-asus.nix
@@ -222,6 +225,7 @@
                   overlays.rust
                   # overlays.halloy
                   overlays.karakeep
+                  overlays.realvnc
                 ];
               }
               ./nixos/death-pc.nix

@@ -79,6 +79,7 @@
     nixfmt
     nixd
     pkgs.heroic # Using stable to avoid electron-unwrapped-39 build failure in unstable
+    realvnc-vnc-viewer
   ];
 
   services.snapper.configs.nix = {
