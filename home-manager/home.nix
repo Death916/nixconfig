@@ -123,6 +123,7 @@ in
     resources
     lolcat
     unstablePkgs.opencode
+    unstablePkgs.cosmic-monitor
   ];
 
   programs.ghostty = {
