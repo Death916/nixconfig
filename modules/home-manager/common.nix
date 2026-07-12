@@ -99,7 +99,6 @@
 
   home.sessionVariables = {
     EDITOR = "hx";
-    OPENCODE_GO_KEY = builtins.readFile /etc/nixos/secrets/opencode-go-key;
   };
 
   programs.home-manager.enable = true;

@@ -278,6 +278,7 @@ in
     };
     shellInit = ''
       pokemon-colorscripts -r
+      [ -f /etc/nixos/secrets/opencode-go-key ] && set -gx OPENCODE_GO_KEY (cat /etc/nixos/secrets/opencode-go-key)
     '';
   };
 
@@ -287,6 +288,7 @@ in
     bashrcExtra = ''
       export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/go/bin"
       pokemon-colorscripts -r
+      [ -f /etc/nixos/secrets/opencode-go-key ] && export OPENCODE_GO_KEY="$(cat /etc/nixos/secrets/opencode-go-key)"
     '';
     shellAliases = {
       k = "kubectl";
