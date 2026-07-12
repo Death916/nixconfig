@@ -58,6 +58,7 @@
     wget
     unstablePkgs.tailscale
     unstablePkgs.cosmic-session
+    cosmic-ext-applet-minimon
     halloy
     inputs.flox.packages.${pkgs.stdenv.hostPlatform.system}.flox
     wl-clipboard
