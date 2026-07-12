@@ -16,7 +16,7 @@
     ../../../modules/containers/docker/nextcloud/aio-compose.nix
     ../../../modules/containers/docker/navidrome.nix
     ../../../modules/containers/docker/tunarr/docker-compose.nix
-    ./frigate.nix
+    # ./frigate.nix
   ];
   arrSuite.enable = true;
   services.samba.shares.Media.path = "/media/storage/media";
