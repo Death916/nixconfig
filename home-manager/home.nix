@@ -124,6 +124,7 @@ in
     lolcat
     unstablePkgs.opencode
     unstablePkgs.cosmic-monitor
+    unstablePkgs.orca-slicer
   ];
 
   programs.ghostty = {
