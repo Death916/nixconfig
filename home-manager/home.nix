@@ -125,6 +125,7 @@ in
     unstablePkgs.opencode
     unstablePkgs.cosmic-monitor
     unstablePkgs.orca-slicer
+    unstablePkgs.cura-appimage
   ];
 
   programs.ghostty = {
