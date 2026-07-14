@@ -51,6 +51,8 @@
       Environment = [
         "HERMES_HOME=/home/death916/.hermes"
         "PATH=${pkgs.nodejs}/bin:/home/death916/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+        "HERMES_DASHBOARD=1"
+        "HERMES_DASHBOARD_INSECURE=1"
       ];
       EnvironmentFile = "${config.home.homeDirectory}/.hermes/hermes.env";
       Restart = "always";
