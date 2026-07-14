@@ -75,7 +75,7 @@
       };
     };
 
-    systemd.services.adguardhome.after = [ "network-online.target" "tailscaled.service" "nebula@deathmesh.service" ];
-    systemd.services.adguardhome.requires = [ "network-online.target" "tailscaled.service" "nebula@deathmesh.service" ];
+    systemd.services.adguardhome.after = [ "network-online.target" "nebula@deathmesh.service" ];
+    systemd.services.adguardhome.requires = [ "network-online.target" "nebula@deathmesh.service" ];
   };
 }

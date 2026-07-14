@@ -56,7 +56,6 @@
     git
     vim
     wget
-    unstablePkgs.tailscale
     unstablePkgs.cosmic-session
     cosmic-ext-applet-minimon
     halloy

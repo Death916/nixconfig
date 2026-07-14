@@ -11,7 +11,7 @@
     ../modules/nixos/homelab/services.nix
     ../modules/nixos/common/base.nix
     ../modules/nixos/homelab/user.nix
-    ../modules/nixos/common/tailscale.nix
+    # ../modules/nixos/common/tailscale.nix
     ../modules/nixos/common/nebula.nix
   ];
 

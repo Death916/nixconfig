@@ -1,3 +1,4 @@
+{ inputs, pkgs, ... }:
 {
   imports = [
     ../modules/nixos/common/fish.nix

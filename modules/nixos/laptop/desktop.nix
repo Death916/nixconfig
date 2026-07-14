@@ -47,7 +47,6 @@
     git
     vim
     wget
-    unstablePkgs.tailscale
     unstablePkgs.cosmic-session
     halloy
     inputs.flox.packages.${pkgs.stdenv.hostPlatform.system}.flox
