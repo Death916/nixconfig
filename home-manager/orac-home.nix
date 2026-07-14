@@ -46,6 +46,7 @@
     };
     Service = {
       Type = "simple";
+      ExecStartPre = "${pkgs.bash}/bin/bash -c 'if [ -f /home/death916/.hermes/hermes.env ]; then sed -i \"/^HERMES_WEB_DIST=/d\" /home/death916/.hermes/hermes.env; fi'";
       ExecStart = "${inputs.hermes-agent.packages.${pkgs.system}.default}/bin/hermes gateway run";
       WorkingDirectory = "/home/death916/.hermes";
       Environment = [
