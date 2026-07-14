@@ -11,6 +11,7 @@
     ../modules/forgejo.nix
     # ../modules/adguard.nix
     ../modules/containers/docker/juicefs.nix
+    # ../modules/containers/docker/ghost.nix  # TODO: uncomment after `docker compose down` on ghost-docker
     ../modules/nixos/orac/restic.nix
     ../modules/containers/docker/karakeep/docker-compose.nix
     ../modules/nixos/orac/monitoring.nix

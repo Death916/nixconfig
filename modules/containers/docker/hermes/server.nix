@@ -16,7 +16,10 @@
     image = "docker.io/nousresearch/hermes-agent:latest";
     pull = "always";
 
-    cmd = [ "gateway" "run" ];
+    cmd = [
+      "gateway"
+      "run"
+    ];
 
     environment = {
       "HERMES_HOME" = "/opt/data";
@@ -29,19 +32,20 @@
 
     volumes = [
       # Mount the persistent host directory to the container.
-      # Group permissions (2770) and user ownership (10000:users) must match 
+      # Group permissions (2770) and user ownership (10000:users) must match
       # host configurations to allow container write operations.
       "/var/lib/hermes/data:/opt/data:rw"
       "/var/lib/hermes/recall:/opt/data/recall:rw"
       "/mnt/myjfs/gallery:/mnt/myjfs/gallery:rw"
+      "/home/death916/prod/deathsite/.web:/deathsite/.web:rw"
     ];
 
     # Load secrets and backend API URLs from a file on the VPS disk.
     environmentFiles = [ "/var/lib/hermes/hermes.env" ];
 
     ports = [
-      "8642:8642/tcp"  # Hermes API
-      "9119:9119/tcp"  # Hermes dashboard / Web UI
+      "8642:8642/tcp" # Hermes API
+      "9119:9119/tcp" # Hermes dashboard / Web UI
     ];
 
     log-driver = "journald";
@@ -49,7 +53,7 @@
 
   systemd.services."docker-hermes" = {
     serviceConfig.Restart = lib.mkOverride 90 "on-failure";
-    partOf   = [ "docker-compose-hermes-server-root.target" ];
+    partOf = [ "docker-compose-hermes-server-root.target" ];
     wantedBy = [ "docker-compose-hermes-server-root.target" ];
   };
 
