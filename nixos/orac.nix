@@ -86,6 +86,16 @@
     key = "/etc/nixos/secrets/orac.key";
   };
 
+  services.hermes-agent = {
+    enable = true;
+    user = "death916";
+    group = "users";
+    createUser = false;
+    stateDir = "/home/death916";
+    environmentFiles = [ "/home/death916/.hermes/hermes.env" ];
+    addToSystemPackages = true;
+  };
+
   services.deathsite.enable = true;
 
   environment.variables = {

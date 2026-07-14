@@ -26,7 +26,6 @@
     unstablePkgs.gemini-cli
     eza
     duf
-    inputs.hermes-agent.packages.${pkgs.system}.default
   ];
 
   home.sessionVariables = {
@@ -36,32 +35,5 @@
   programs.bash.shellAliases = {
     nh-push = "/home/death916/nixconfig/scripts/nh-push";
     l = "eza -alh --icons";
-  };
-
-  systemd.user.services.hermes-gateway = {
-    Unit = {
-      Description = "Hermes Agent Gateway - Messaging Platform Integration";
-      After = [ "network-online.target" ];
-      Wants = [ "network-online.target" ];
-    };
-    Service = {
-      Type = "simple";
-      ExecStartPre = "${pkgs.bash}/bin/bash -c 'if [ -f /home/death916/.hermes/hermes.env ]; then sed -i \"/^HERMES_WEB_DIST=/d\" /home/death916/.hermes/hermes.env; fi'";
-      ExecStart = "${inputs.hermes-agent.packages.${pkgs.system}.default}/bin/hermes gateway run";
-      WorkingDirectory = "/home/death916/.hermes";
-      Environment = [
-        "HERMES_HOME=/home/death916/.hermes"
-        "PATH=${pkgs.nodejs}/bin:/home/death916/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-        "HERMES_DASHBOARD=1"
-        "HERMES_DASHBOARD_INSECURE=1"
-        "HERMES_WEB_DIST=${inputs.hermes-agent.packages.${pkgs.system}.web}"
-      ];
-      EnvironmentFile = "${config.home.homeDirectory}/.hermes/hermes.env";
-      Restart = "always";
-      RestartSec = 5;
-    };
-    Install = {
-      WantedBy = [ "default.target" ];
-    };
   };
 }

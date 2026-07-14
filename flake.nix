@@ -339,6 +339,7 @@
 
             };
             modules = [
+              inputs.hermes-agent.nixosModules.default
               ./nixos/orac.nix
               ./nixos/orac-hardware.nix
               home-manager.nixosModules.home-manager
