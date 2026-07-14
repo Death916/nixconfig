@@ -160,21 +160,22 @@
   # The NixOS module system concatenates listOf options across modules, so this
   # appends to hermes's extraOptions and the systemd after/requires lists
   # defined in server.nix without touching that file.
-  virtualisation.oci-containers.containers."hermes".extraOptions = [
-    "--network=hermes_net"
-    "--network-alias=hermes"
-  ];
+  # (Commented out as Hermes is now running natively as a systemd user service)
+  # virtualisation.oci-containers.containers."hermes".extraOptions = [
+  #   "--network=hermes_net"
+  #   "--network-alias=hermes"
+  # ];
 
-  systemd.services."docker-hermes" = {
-    after    = [
-      "docker-network-hermes_net.service"
-      "docker-hindsight.service"
-    ];
-    requires = [
-      "docker-network-hermes_net.service"
-      "docker-hindsight.service"
-    ];
-  };
+  # systemd.services."docker-hermes" = {
+  #   after    = [
+  #     "docker-network-hermes_net.service"
+  #     "docker-hindsight.service"
+  #   ];
+  #   requires = [
+  #     "docker-network-hermes_net.service"
+  #     "docker-hindsight.service"
+  #   ];
+  # };
 
   # ── Shared Docker network ─────────────────────────────────────────────────
   systemd.services."docker-network-hermes_net" = {

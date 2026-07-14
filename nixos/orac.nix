@@ -18,7 +18,7 @@
     ../modules/containers/docker/crowdsec/crowdsec.nix
     ../pkgs/deathsite/deathsite-module.nix
     ../modules/umami.nix
-    ../modules/containers/docker/hermes/server.nix
+    # ../modules/containers/docker/hermes/server.nix
     ../modules/containers/docker/hermes/hindsight.nix
   ];
 
@@ -71,6 +71,7 @@
       "networkmanager"
       "docker"
     ];
+    linger = true;
   };
   boot.tmp.cleanOnBoot = true;
   zramSwap.enable = true;
