@@ -94,6 +94,11 @@
     stateDir = "/home/death916";
     environmentFiles = [ "/home/death916/.hermes/hermes.env" ];
     addToSystemPackages = true;
+    environment = {
+      HERMES_DASHBOARD = "1";
+      HERMES_DASHBOARD_INSECURE = "1";
+      HERMES_DASHBOARD_HOST = "0.0.0.0";
+    };
   };
 
   services.deathsite.enable = true;
