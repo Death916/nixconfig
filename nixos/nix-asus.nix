@@ -27,7 +27,7 @@
     # ../modules/nixos/common/tailscale.nix
     ../modules/nixos/common/nebula.nix
     ../modules/nixos/laptop/hyprland-deps.nix
-    ../modules/nixos/laptop/restic-nix-asus.nix
+    # ../modules/nixos/laptop/restic-nix-asus.nix
     ../modules/nixos/laptop/obsidian-rclone.nix
     ./acpi-override.nix
     # ../modules/containers/docker/hermes/docker-compose.nix
