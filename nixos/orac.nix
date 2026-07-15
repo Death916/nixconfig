@@ -33,6 +33,7 @@
       3004
       3010
       2586
+      9119
     ];
     allowedUDPPorts = [
       80
@@ -42,6 +43,7 @@
       3004
       3010
       2586
+      9119
     ];
   };
 
@@ -87,7 +89,7 @@
     key = "/etc/nixos/secrets/orac.key";
   };
 
-  services.hermes-agent = {
+services.hermes-agent = {
     enable = true;
     user = "death916";
     group = "users";
@@ -95,10 +97,18 @@
     stateDir = "/home/death916";
     environmentFiles = [ "/home/death916/.hermes/hermes.env" ];
     addToSystemPackages = true;
-    environment = {
-      HERMES_DASHBOARD = "1";
-      HERMES_DASHBOARD_INSECURE = "1";
-      HERMES_DASHBOARD_HOST = "0.0.0.0";
+  };
+
+  systemd.services.hermes-dashboard = {
+    wantedBy = [ "multi-user.target" ];
+    after = [ "hermes-agent.service" ];
+    serviceConfig = {
+      User = "death916";
+      Group = "users";
+      Restart = "always";
+      RestartSec = 5;
+      Environment = "HERMES_HOME=/home/death916/.hermes";
+      ExecStart = "/run/current-system/sw/bin/hermes dashboard --host 0.0.0.0 --port 9119 --no-open";
     };
   };
 
