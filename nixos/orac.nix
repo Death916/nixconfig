@@ -118,6 +118,10 @@ services.hermes-agent = {
     TERM = "xterm-256color";
   };
 
+  environment.systemPackages = with pkgs; [
+    chromium
+  ];
+
   nix.gc = {
     automatic = true;
     dates = "weekly";
