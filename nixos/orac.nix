@@ -1,7 +1,6 @@
 { inputs, pkgs, ... }:
 {
   imports = [
-    ../modules/nixos/common/fish.nix
     ../modules/nixos/common/ssh-keys.nix
     ../modules/nixos/orac/services.nix
     ../modules/nixos/common/tailscale.nix
