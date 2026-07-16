@@ -11,7 +11,7 @@
     pull = "always";
 
     environment = {
-      "BASE_URL"        = "http://0.0.0.0:8100";
+      "BASE_URL"        = "http://10.0.100.1:8100";
       "MINUSPOD_PORT"   = "8000";
       "MAX_AUDIO_DOWNLOAD_MB" = "500";
       "SESSION_COOKIE_SECURE" = "false";
