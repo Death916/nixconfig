@@ -18,7 +18,7 @@ in
     environment = {
       SCREENPIPE_API_KEY = "local-recall-key";
       SCREENPIPE_USE_NPU_OCR = "1";
-      LEMONADE_VISION_MODEL = "qwen2.5vl-it-3b-FLM";
+      LEMONADE_VISION_MODEL = "qwen3vl-it:4b";
       LEMONADE_API_URL = "http://127.0.0.1:13305/v1/chat/completions";
       LEMONADE_TIMEOUT_SECS = "90";
       LEMONADE_CTX_SIZE = "4096";
