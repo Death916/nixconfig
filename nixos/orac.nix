@@ -97,6 +97,7 @@ services.hermes-agent = {
     stateDir = "/home/death916";
     environmentFiles = [ "/home/death916/.hermes/hermes.env" ];
     addToSystemPackages = true;
+    extraPackages = [ pkgs.agent-browser ];
   };
 
   systemd.services.hermes-dashboard = {
@@ -120,7 +121,6 @@ services.hermes-agent = {
 
   environment.systemPackages = with pkgs; [
     chromium
-    agent-browser
   ];
 
   nix.gc = {
