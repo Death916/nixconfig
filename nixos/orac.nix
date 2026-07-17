@@ -128,6 +128,7 @@ services.hermes-agent = {
 
   environment.systemPackages = with pkgs; [
     chromium
+    agent-browser
   ];
 
   nix.gc = {
