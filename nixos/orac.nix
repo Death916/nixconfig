@@ -103,6 +103,10 @@ services.hermes-agent = {
     extraPackages = [ pkgs.agent-browser ];
   };
 
+  systemd.services.hermes-agent.environment = {
+    AGENT_BROWSER_EXECUTABLE_PATH = "/run/current-system/sw/bin/chromium";
+  };
+
   systemd.services.hermes-dashboard = {
     wantedBy = [ "multi-user.target" ];
     after = [ "hermes-agent.service" ];
