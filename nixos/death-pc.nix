@@ -44,6 +44,9 @@
   systemd.services.systemd-hibernate.environment.SYSTEMD_SLEEP_FREEZE_USER_SESSIONS = "false";
   systemd.services.systemd-hybrid-sleep.environment.SYSTEMD_SLEEP_FREEZE_USER_SESSIONS = "false";
 
+  # Fix for NVIDIA power management sleep/resume crash on desktop
+  hardware.nvidia.powerManagement.kernelSuspendNotifier = true;
+
   # --- Bootloader: systemd-boot ---
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
