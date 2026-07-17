@@ -18,7 +18,7 @@
     };
 
     volumes = [
-      "/var/lib/minuspod/data:/app/data:rw"
+      "/mnt/myjfs/minuspod:/app/data:rw"
     ];
 
     environmentFiles = [ "/etc/nixos/secrets/minuspod.env" ];
@@ -50,7 +50,6 @@
   };
 
   systemd.tmpfiles.rules = [
-    "d /var/lib/minuspod      0755 root root -"
-    "d /var/lib/minuspod/data 0755 root root -"
+    "d /mnt/myjfs/minuspod 0755 root root -"
   ];
 }

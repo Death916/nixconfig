@@ -15,7 +15,6 @@
     ../../../modules/containers/haos.nix
     ../../../modules/containers/docker/nextcloud/aio-compose.nix
     ../../../modules/containers/docker/navidrome.nix
-    ../../../modules/containers/docker/minuspod-homelab.nix
     ../../../modules/containers/docker/tunarr/docker-compose.nix
     # ./frigate.nix
   ];
