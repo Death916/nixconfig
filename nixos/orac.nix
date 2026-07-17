@@ -96,6 +96,9 @@ services.hermes-agent = {
     createUser = false;
     stateDir = "/home/death916";
     environmentFiles = [ "/home/death916/.hermes/hermes.env" ];
+    environment = {
+      AGENT_BROWSER_EXECUTABLE_PATH = "/run/current-system/sw/bin/chromium";
+    };
     addToSystemPackages = true;
     extraPackages = [ pkgs.agent-browser ];
   };
