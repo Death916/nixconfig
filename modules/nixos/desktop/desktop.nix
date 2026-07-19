@@ -57,6 +57,7 @@
     vim
     wget
     unstablePkgs.cosmic-session
+    unstablePkgs.orca-slicer
     cosmic-ext-applet-minimon
     halloy
     inputs.flox.packages.${pkgs.stdenv.hostPlatform.system}.flox
