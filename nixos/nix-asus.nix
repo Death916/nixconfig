@@ -101,6 +101,7 @@
 
   stylix.image = "/home/death916/Downloads/wp14437838-4k-oled-space-wallpapers.jpg";
 
+  /*
   # Custom Wireguard NetworkManager profiles for this laptop only
   networking.networkmanager.ensureProfiles.environmentFiles = [
     "/etc/nixos/secrets/wg-laptop.env"
@@ -189,6 +190,7 @@
       };
     };
   };
+  */
 
   # Disable Wi-Fi toggle behavior for the Asus WLAN/Wi-Fi key by remapping its scancodes to F21.
   # This stops it from triggering rfkill/disabling the Wi-Fi card, and lets you use it as a custom hotkey.
