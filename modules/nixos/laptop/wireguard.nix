@@ -43,7 +43,7 @@
         id = "laptop-home";
         type = "wireguard";
         interface-name = "laptop-home";
-        autoconnect = "true";
+        autoconnect = "false";
         mtu = 1280;
       };
       wireguard = {
