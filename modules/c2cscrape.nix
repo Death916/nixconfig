@@ -44,10 +44,11 @@ in
         Type = "oneshot";
         ExecStart = "${c2cscrapePkg}/bin/c2cscrape";
         User = cfg.user;
+        Group = "media_services";
+        UMask = "0002";
         WorkingDirectory = cfg.dataDir;
         Environment = "PYTHONUNBUFFERED=1";
         EnvironmentFile = cfg.environmentFile;
-
       };
     };
 
