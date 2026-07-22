@@ -102,15 +102,15 @@
     "net.ipv6.conf.all.forwarding" = 1;
   };
 
-  # systemd.services.lvm-activate = {
-  #   description = "Activate LVM volume groups";
-  #   wantedBy = [ "local-fs.target" ];
-  #   before = [ "local-fs.target" ];
-  #   path = [ pkgs.lvm2 ];
-  #   serviceConfig = {
-  #     Type = "oneshot";
-  #     RemainAfterExit = true;
-  #     ExecStart = "${pkgs.lvm2}/bin/vgchange -ay";
-  #   };
-  # };
+  systemd.services.lvm-activate = {
+    description = "Activate LVM volume groups";
+    wantedBy = [ "local-fs.target" ];
+    before = [ "local-fs.target" ];
+    path = [ pkgs.lvm2 ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = "-${pkgs.lvm2}/bin/vgchange -ay";
+    };
+  };
 }
