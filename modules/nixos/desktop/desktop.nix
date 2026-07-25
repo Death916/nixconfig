@@ -19,19 +19,19 @@
   services.gnome.gnome-keyring.enable = true;
   services.dbus.enable = true; # for nextcloud client
 
-  services.desktopManager.cosmic.enable = true;
-  services.desktopManager.cosmic.xwayland.enable = true;
-  services.displayManager.cosmic-greeter.enable = true;
+  # services.desktopManager.cosmic.enable = true;
+  # services.desktopManager.cosmic.xwayland.enable = true;
+  # services.displayManager.cosmic-greeter.enable = true;
 
-  # services.greetd = {
-  #   enable = true;
-  #   settings = {
-  #     default_session = {
-  #       command = "${pkgs.tuigreet}/bin/tuigreet --cmd cosmic-session";
-  #       user = "death916";
-  #     };
-  #   };
-  # };
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.tuigreet}/bin/tuigreet --cmd start-hyprland";
+        user = "death916";
+      };
+    };
+  };
 
   services.system76-scheduler.enable = true;
 
