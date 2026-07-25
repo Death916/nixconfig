@@ -10,6 +10,7 @@
 
 let
   ml = lib.generators.mkLuaInline;
+  # force rebuild
 in
 {
   wayland.windowManager.hyprland = {
