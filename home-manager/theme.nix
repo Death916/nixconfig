@@ -34,7 +34,7 @@
   };
 
   stylix.targets = {
-    # hyprland.enable = true; # disabled - stylix injects hyprlang-format settings that break configType = "lua"
+    hyprland.enable = false; # stylix injects hyprlang-format settings that break configType = "lua"
     waybar.enable = true;
     rofi.enable = true;
     dunst.enable = true;
