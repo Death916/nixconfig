@@ -25,8 +25,8 @@ in
       monitor =
         if (osConfig.networking.hostName == "death-pc") then
           [
-            { output = "desc:Acer Technologies R240HY T4BAA0012400"; mode = "1920x1080"; position = "-1920x0"; scale = 1; }
             { output = "desc:BNQ BenQ EL2870U 26M05467SL0"; mode = "2560x1440"; position = "0x0"; scale = 1; }
+            { output = "desc:Acer Technologies R240HY T4BAA0012400"; mode = "1920x1080"; position = "-1920x0"; scale = 1; }
             { output = "desc:WAM U24C 0000000000001"; mode = "1920x1080"; position = "2560x0"; scale = 1; }
           ]
         else if (osConfig.networking.hostName == "nix-asus") then
