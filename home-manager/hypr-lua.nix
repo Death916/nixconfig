@@ -81,9 +81,9 @@ in
       workspace_rule =
         if (osConfig.networking.hostName == "death-pc") then
           [
-            { workspace = "1"; monitor = "desc:BNQ BenQ EL2870U 26M05467SL0"; }
-            { workspace = "2"; monitor = "desc:Acer Technologies R240HY T4BAA0012400"; }
-            { workspace = "3"; monitor = "desc:WAM U24C 0000000000001"; }
+            { workspace = "1"; monitor = "desc:BNQ BenQ EL2870U 26M05467SL0"; default = true; }
+            { workspace = "2"; monitor = "desc:Acer Technologies R240HY T4BAA0012400"; default = true; }
+            { workspace = "3"; monitor = "desc:WAM U24C 0000000000001"; default = true; }
           ]
         else
           [ ];
