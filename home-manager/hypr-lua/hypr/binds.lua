@@ -2,80 +2,66 @@
 
 local fileManager = "nautilus"
 
-local binds = {
-    -- mod, key, dispatcher, arg
-    { "SUPER", "Q", "killactive", "" },
-    { "SUPER", "F", "fullscreen", "" },
-    { "SUPER", "Space", "togglefloating", "" },
-    { "SUPER", "P", "pseudo", "" },
-    { "SUPER", "J", "layoutmsg", "togglesplit" },
-    { "SUPER", "L", "exec", "hyprlock" },
+-- Core Window Management
+hl.bind("SUPER + Q", hl.dsp.window.close())
+hl.bind("SUPER + F", hl.dsp.window.fullscreen())
+hl.bind("SUPER + Space", hl.dsp.window.float({ action = "toggle" }))
+hl.bind("SUPER + P", hl.dsp.window.pseudo())
+hl.bind("SUPER + J", hl.dsp.layout("togglesplit"))
+hl.bind("SUPER + L", hl.dsp.exec_cmd("hyprlock"))
 
-    { "SUPER", "left", "movefocus", "l" },
-    { "SUPER", "right", "movefocus", "r" },
-    { "SUPER", "up", "movefocus", "u" },
-    { "SUPER", "down", "movefocus", "d" },
+-- Focus Movement
+hl.bind("SUPER + left",  hl.dsp.focus({ direction = "left" }))
+hl.bind("SUPER + right", hl.dsp.focus({ direction = "right" }))
+hl.bind("SUPER + up",    hl.dsp.focus({ direction = "up" }))
+hl.bind("SUPER + down",  hl.dsp.focus({ direction = "down" }))
 
-    { "SUPER SHIFT", "left", "movewindow", "l" },
-    { "SUPER SHIFT", "right", "movewindow", "r" },
-    { "SUPER SHIFT", "up", "movewindow", "u" },
-    { "SUPER SHIFT", "down", "movewindow", "d" },
+-- Move Window
+hl.bind("SUPER + SHIFT + left",  hl.dsp.window.move({ direction = "left" }))
+hl.bind("SUPER + SHIFT + right", hl.dsp.window.move({ direction = "right" }))
+hl.bind("SUPER + SHIFT + up",    hl.dsp.window.move({ direction = "up" }))
+hl.bind("SUPER + SHIFT + down",  hl.dsp.window.move({ direction = "down" }))
 
-    { "SUPER CTRL", "left", "resizeactive", "-40 0" },
-    { "SUPER CTRL", "right", "resizeactive", "40 0" },
-    { "SUPER CTRL", "up", "resizeactive", "0 -40" },
-    { "SUPER CTRL", "down", "resizeactive", "0 40" },
+-- Resize Window
+hl.bind("SUPER + CTRL + left",  hl.dsp.exec_cmd("hyprctl dispatch resizeactive -40 0"))
+hl.bind("SUPER + CTRL + right", hl.dsp.exec_cmd("hyprctl dispatch resizeactive 40 0"))
+hl.bind("SUPER + CTRL + up",    hl.dsp.exec_cmd("hyprctl dispatch resizeactive 0 -40"))
+hl.bind("SUPER + CTRL + down",  hl.dsp.exec_cmd("hyprctl dispatch resizeactive 0 40"))
 
-    { "SUPER", "1", "workspace", "1" },
-    { "SUPER", "2", "workspace", "2" },
-    { "SUPER", "3", "workspace", "3" },
-    { "SUPER", "4", "workspace", "4" },
-    { "SUPER", "5", "workspace", "5" },
-    { "SUPER", "6", "workspace", "6" },
-    { "SUPER", "7", "workspace", "7" },
-    { "SUPER", "8", "workspace", "8" },
-    { "SUPER", "9", "workspace", "9" },
-    { "SUPER", "0", "workspace", "10" },
-
-    { "SUPER SHIFT", "1", "movetoworkspace", "1" },
-    { "SUPER SHIFT", "2", "movetoworkspace", "2" },
-    { "SUPER SHIFT", "3", "movetoworkspace", "3" },
-    { "SUPER SHIFT", "4", "movetoworkspace", "4" },
-    { "SUPER SHIFT", "5", "movetoworkspace", "5" },
-    { "SUPER SHIFT", "6", "movetoworkspace", "6" },
-    { "SUPER SHIFT", "7", "movetoworkspace", "7" },
-    { "SUPER SHIFT", "8", "movetoworkspace", "8" },
-    { "SUPER SHIFT", "9", "movetoworkspace", "9" },
-    { "SUPER SHIFT", "0", "movetoworkspace", "10" },
-
-    { "SUPER", "mouse_down", "workspace", "e+1" },
-    { "SUPER", "mouse_up", "workspace", "e-1" },
-
-    { "", "XF86AudioMute", "exec", "pamixer --toggle-mute" },
-    { "", "XF86AudioRaiseVolume", "exec", "pamixer --increase 5" },
-    { "", "XF86AudioLowerVolume", "exec", "pamixer --decrease 5" },
-    { "", "XF86AudioPlay", "exec", "playerctl play-pause" },
-    { "", "XF86MonBrightnessUp", "exec", "brightnessctl set +5%" },
-    { "", "XF86MonBrightnessDown", "exec", "brightnessctl set 5%-" },
-
-    { "SUPER", "grave", "togglespecialworkspace", "quake" },
-    { "SUPER", "M", "movetoworkspacesilent", "special:minimized" },
-    { "SUPER SHIFT", "M", "togglespecialworkspace", "minimized" },
-    { "SUPER", "S", "togglespecialworkspace", "minimized" },
-
-    { "SUPER", "Return", "exec", "waveterm" },
-    { "SUPER", "T", "exec", "ghostty" },
-    { "SUPER", "D", "exec", "rofi -show drun" },
-    { "SUPER", "A", "exec", "rofi -show window" },
-    { "SUPER", "W", "exec", "firefox" },
-    { "SUPER", "E", "exec", fileManager },
-    { "SUPER", "N", "exec", "dunstctl history-pop" },
-    { "SUPER SHIFT", "N", "exec", "dunstctl close-all" },
-
-    { "SUPER SHIFT", "S", "exec", "bash -c \"grim -g '$(slurp)' - | tee ~/Pictures/screenshots/$(date +%s).png\"" },
-    { "SUPER SHIFT", "Print", "exec", "bash -c \"grim - | tee ~/Pictures/screenshots/$(date +%s).png\"" },
-}
-
-for _, b in ipairs(binds) do
-    hl.bind(b[1], b[2], b[3], b[4])
+-- Workspaces 1-10
+for i = 1, 10 do
+    local key = i % 10
+    hl.bind("SUPER + " .. key,         hl.dsp.focus({ workspace = i }))
+    hl.bind("SUPER + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
 end
+
+hl.bind("SUPER + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
+hl.bind("SUPER + mouse_up",   hl.dsp.focus({ workspace = "e-1" }))
+
+-- Special Workspaces
+hl.bind("SUPER + grave",         hl.dsp.workspace.toggle_special("quake"))
+hl.bind("SUPER + M",             hl.dsp.window.move({ workspace = "special:minimized", silent = true }))
+hl.bind("SUPER + SHIFT + M",     hl.dsp.workspace.toggle_special("minimized"))
+hl.bind("SUPER + S",             hl.dsp.workspace.toggle_special("minimized"))
+
+-- Application Launchers
+hl.bind("SUPER + Return",  hl.dsp.exec_cmd("waveterm"))
+hl.bind("SUPER + T",       hl.dsp.exec_cmd("ghostty"))
+hl.bind("SUPER + D",       hl.dsp.exec_cmd("rofi -show drun"))
+hl.bind("SUPER + A",       hl.dsp.exec_cmd("rofi -show window"))
+hl.bind("SUPER + W",       hl.dsp.exec_cmd("firefox"))
+hl.bind("SUPER + E",       hl.dsp.exec_cmd(fileManager))
+hl.bind("SUPER + N",       hl.dsp.exec_cmd("dunstctl history-pop"))
+hl.bind("SUPER + SHIFT + N", hl.dsp.exec_cmd("dunstctl close-all"))
+
+-- Screenshots
+hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd([[bash -c "grim -g '$(slurp)' - | tee ~/Pictures/screenshots/$(date +%s).png"]]))
+hl.bind("SUPER + SHIFT + Print", hl.dsp.exec_cmd([[bash -c "grim - | tee ~/Pictures/screenshots/$(date +%s).png"]]))
+
+-- Hardware / Media Keys
+hl.bind("XF86AudioMute",        hl.dsp.exec_cmd("pamixer --toggle-mute"), { locked = true, repeating = true })
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("pamixer --increase 5"),  { locked = true, repeating = true })
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("pamixer --decrease 5"),  { locked = true, repeating = true })
+hl.bind("XF86AudioPlay",        hl.dsp.exec_cmd("playerctl play-pause"),  { locked = true })
+hl.bind("XF86MonBrightnessUp",  hl.dsp.exec_cmd("brightnessctl set +5%"), { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessDown",hl.dsp.exec_cmd("brightnessctl set 5%-"), { locked = true, repeating = true })

@@ -1,6 +1,9 @@
--- Settings: General, Decoration, Animations, Input, Dwindle
+-- Settings: General, Decoration, Animations, Input, Dwindle, XWayland, Misc
 
 hl.config({
+    xwayland = {
+        force_zero_scaling = true,
+    },
     general = {
         gaps_in = 5,
         gaps_out = 10,
@@ -26,6 +29,9 @@ hl.config({
     },
     dwindle = {
         force_split = 2,
+    },
+    misc = {
+        allow_session_lock_restore = true,
     },
     animations = {
         enabled = true,

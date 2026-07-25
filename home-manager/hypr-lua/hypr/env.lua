@@ -1,7 +1,9 @@
 -- Environment Variables
 
-hl.env("QT_QPA_PLATFORM", "wayland")
+hl.env("QT_QPA_PLATFORM", "wayland;xcb")
 hl.env("GDK_BACKEND", "wayland,x11")
+hl.env("XCURSOR_SIZE", "24")
+hl.env("HYPRCURSOR_SIZE", "24")
 
 if _G.HOSTNAME == "death-pc" then
     hl.env("LIBVA_DRIVER_NAME", "nvidia")

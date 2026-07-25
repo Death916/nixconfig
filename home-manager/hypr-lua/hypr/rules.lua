@@ -17,16 +17,16 @@ local window_rules = {
         center = true
     },
     {
-        match = { floating = true },
-        opacity = "0.6"
+        match = { float = true },
+        opacity = 0.6
     },
     {
-        match = { floating = false },
-        opacity = "0.85"
+        match = { float = false },
+        opacity = 0.85
     },
     {
         match = { fullscreen = true },
-        opacity = "1.0",
+        opacity = 1.0,
         idle_inhibit = "fullscreen"
     },
     {
