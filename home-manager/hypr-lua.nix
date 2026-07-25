@@ -8,6 +8,9 @@
   ...
 }:
 
+let
+  ml = lib.generators.mkLuaInline;
+in
 {
   wayland.windowManager.hyprland = {
     enable = true;
@@ -20,201 +23,219 @@
       monitor =
         if (osConfig.networking.hostName == "death-pc") then
           [
-            "desc:Acer Technologies R240HY T4BAA0012400,1920x1080,-1920x0,1"
-            "desc:BNQ BenQ EL2870U 26M05467SL0,2560x1440,0x0,1"
-            "desc:WAM U24C 0000000000001,1920x1080,2560x0,1"
+            { output = "desc:Acer Technologies R240HY T4BAA0012400"; mode = "1920x1080"; position = "-1920x0"; scale = 1; }
+            { output = "desc:BNQ BenQ EL2870U 26M05467SL0"; mode = "2560x1440"; position = "0x0"; scale = 1; }
+            { output = "desc:WAM U24C 0000000000001"; mode = "1920x1080"; position = "2560x0"; scale = 1; }
           ]
         else if (osConfig.networking.hostName == "nix-asus") then
           [
-            "eDP-1, 2880x1800@120, 0x0, 1.25"
+            { output = "eDP-1"; mode = "2880x1800@120"; position = "0x0"; scale = 1.25; }
           ]
         else
           [
-            ",preferred,auto,1"
+            { output = ""; mode = "preferred"; position = "auto"; scale = 1; }
           ];
 
-      xwayland = {
-        force_zero_scaling = true;
+      config = {
+        xwayland = {
+          force_zero_scaling = true;
+        };
+
+        general = {
+          gaps_in = 5;
+          gaps_out = 10;
+          border_size = 2;
+          layout = "dwindle";
+        };
+
+        decoration = {
+          rounding = 10;
+          fullscreen_opacity = 1.0;
+          blur = {
+            enabled = true;
+            size = 3;
+            passes = 3;
+          };
+        };
+
+        input = {
+          kb_layout = "us";
+          follow_mouse = 1;
+          touchpad = {
+            natural_scroll = true;
+          };
+          sensitivity = 1.0;
+        };
+
+        dwindle = {
+          force_split = 2;
+        };
+
+        misc = {
+          allow_session_lock_restore = true;
+        };
       };
 
-      workspace =
+      workspace_rule =
         if (osConfig.networking.hostName == "death-pc") then
           [
-            "1, monitor:desc:BNQ BenQ EL2870U 26M05467SL0"
-            "2, monitor:desc:Acer Technologies R240HY T4BAA0012400"
-            "3, monitor:desc:WAM U24C 0000000000001"
+            { workspace = "1"; monitor = "desc:BNQ BenQ EL2870U 26M05467SL0"; }
+            { workspace = "2"; monitor = "desc:Acer Technologies R240HY T4BAA0012400"; }
+            { workspace = "3"; monitor = "desc:WAM U24C 0000000000001"; }
           ]
         else
           [ ];
 
-      fileManager = "nautilus";
       env = [
-        "QT_QPA_PLATFORM,wayland;xcb"
-        "GDK_BACKEND,wayland,x11"
-        "XCURSOR_SIZE,24"
-        "HYPRCURSOR_SIZE,24"
+        { _args = [ "QT_QPA_PLATFORM" "wayland;xcb" ]; }
+        { _args = [ "GDK_BACKEND" "wayland,x11" ]; }
+        { _args = [ "XCURSOR_SIZE" "24" ]; }
+        { _args = [ "HYPRCURSOR_SIZE" "24" ]; }
       ]
       ++ (lib.optionals (osConfig.networking.hostName == "death-pc") [
-        "LIBVA_DRIVER_NAME,nvidia"
-        "XDG_SESSION_TYPE,wayland"
-        "GBM_BACKEND,nvidia-drm"
-        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
-        "NIXOS_OZONE_WL,1"
+        { _args = [ "LIBVA_DRIVER_NAME" "nvidia" ]; }
+        { _args = [ "XDG_SESSION_TYPE" "wayland" ]; }
+        { _args = [ "GBM_BACKEND" "nvidia-drm" ]; }
+        { _args = [ "__GLX_VENDOR_LIBRARY_NAME" "nvidia" ]; }
+        { _args = [ "NIXOS_OZONE_WL" "1" ]; }
       ]);
 
-      general = {
-        gaps_in = 5;
-        gaps_out = 10;
-        border_size = 2;
-        layout = "dwindle";
-      };
-
-      decoration = {
-        rounding = 10;
-        fullscreen_opacity = 1.0;
-        blur = {
-          enabled = true;
-          size = 3;
-          passes = 3;
-        };
-      };
-
-      animations = {
-        enabled = true;
-        bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
-        animation = [
-          "windows, 1, 7, myBezier"
-          "windowsOut, 1, 7, default, popin 80%"
-          "border, 1, 10, default"
-          "borderangle, 1, 8, default"
-          "fade, 1, 7, default"
-          "workspaces, 1, 6, default"
+      curve = {
+        _args = [
+          "myBezier"
+          { type = "bezier"; points = [ [ 0.05 0.9 ] [ 0.1 1.05 ] ]; }
         ];
       };
 
-      input = {
-        kb_layout = "us";
-        follow_mouse = 1;
-        touchpad = {
-          natural_scroll = true;
-        };
-        sensitivity = 1.0;
-      };
-
-      dwindle = {
-        force_split = 2;
-      };
+      animation = [
+        { leaf = "windows"; enabled = true; speed = 7; bezier = "myBezier"; }
+        { leaf = "windowsOut"; enabled = true; speed = 7; style = "popin 80%"; }
+        { leaf = "border"; enabled = true; speed = 10; }
+        { leaf = "borderangle"; enabled = true; speed = 8; }
+        { leaf = "fade"; enabled = true; speed = 7; }
+        { leaf = "workspaces"; enabled = true; speed = 6; }
+      ];
 
       bind = [
-        "SUPER, Q, killactive,"
-        "SUPER, F, fullscreen,"
-        "SUPER, Space, togglefloating,"
-        "SUPER, P, pseudo,"
-        "SUPER, J, layoutmsg, togglesplit"
-        "SUPER, L, exec, hyprlock"
+        { _args = [ "SUPER+Q" (ml "hl.dsp.window.close()") ]; }
+        { _args = [ "SUPER+F" (ml "hl.dsp.window.fullscreen()") ]; }
+        { _args = [ "SUPER+Space" (ml "hl.dsp.window.float()") ]; }
+        { _args = [ "SUPER+P" (ml "hl.dsp.window.pseudo()") ]; }
+        { _args = [ "SUPER+J" (ml ''hl.dsp.layout("togglesplit")'') ]; }
+        { _args = [ "SUPER+L" (ml ''hl.dsp.exec_cmd("hyprlock")'') ]; }
 
-        "SUPER, left, movefocus, l"
-        "SUPER, right, movefocus, r"
-        "SUPER, up, movefocus, u"
-        "SUPER, down, movefocus, d"
+        { _args = [ "SUPER+left" (ml ''hl.dsp.focus({ direction = "left" })'') ]; }
+        { _args = [ "SUPER+right" (ml ''hl.dsp.focus({ direction = "right" })'') ]; }
+        { _args = [ "SUPER+up" (ml ''hl.dsp.focus({ direction = "up" })'') ]; }
+        { _args = [ "SUPER+down" (ml ''hl.dsp.focus({ direction = "down" })'') ]; }
 
-        "SUPER SHIFT, left, movewindow, l"
-        "SUPER SHIFT, right, movewindow, r"
-        "SUPER SHIFT, up, movewindow, u"
-        "SUPER SHIFT, down, movewindow, d"
+        { _args = [ "SUPER+SHIFT+left" (ml ''hl.dsp.window.move({ direction = "left" })'') ]; }
+        { _args = [ "SUPER+SHIFT+right" (ml ''hl.dsp.window.move({ direction = "right" })'') ]; }
+        { _args = [ "SUPER+SHIFT+up" (ml ''hl.dsp.window.move({ direction = "up" })'') ]; }
+        { _args = [ "SUPER+SHIFT+down" (ml ''hl.dsp.window.move({ direction = "down" })'') ]; }
 
-        "SUPER CTRL, left, resizeactive, -40 0"
-        "SUPER CTRL, right, resizeactive, 40 0"
-        "SUPER CTRL, up, resizeactive, 0 -40"
-        "SUPER CTRL, down, resizeactive, 0 40"
+        { _args = [ "SUPER+CTRL+left" (ml ''hl.dsp.window.resize({ x = -40, y = 0, relative = true })'') ]; }
+        { _args = [ "SUPER+CTRL+right" (ml ''hl.dsp.window.resize({ x = 40, y = 0, relative = true })'') ]; }
+        { _args = [ "SUPER+CTRL+up" (ml ''hl.dsp.window.resize({ x = 0, y = -40, relative = true })'') ]; }
+        { _args = [ "SUPER+CTRL+down" (ml ''hl.dsp.window.resize({ x = 0, y = 40, relative = true })'') ]; }
 
-        "SUPER, 1, workspace, 1"
-        "SUPER, 2, workspace, 2"
-        "SUPER, 3, workspace, 3"
-        "SUPER, 4, workspace, 4"
-        "SUPER, 5, workspace, 5"
-        "SUPER, 6, workspace, 6"
-        "SUPER, 7, workspace, 7"
-        "SUPER, 8, workspace, 8"
-        "SUPER, 9, workspace, 9"
-        "SUPER, 0, workspace, 10"
+        { _args = [ "SUPER+1" (ml ''hl.dsp.focus({ workspace = "1" })'') ]; }
+        { _args = [ "SUPER+2" (ml ''hl.dsp.focus({ workspace = "2" })'') ]; }
+        { _args = [ "SUPER+3" (ml ''hl.dsp.focus({ workspace = "3" })'') ]; }
+        { _args = [ "SUPER+4" (ml ''hl.dsp.focus({ workspace = "4" })'') ]; }
+        { _args = [ "SUPER+5" (ml ''hl.dsp.focus({ workspace = "5" })'') ]; }
+        { _args = [ "SUPER+6" (ml ''hl.dsp.focus({ workspace = "6" })'') ]; }
+        { _args = [ "SUPER+7" (ml ''hl.dsp.focus({ workspace = "7" })'') ]; }
+        { _args = [ "SUPER+8" (ml ''hl.dsp.focus({ workspace = "8" })'') ]; }
+        { _args = [ "SUPER+9" (ml ''hl.dsp.focus({ workspace = "9" })'') ]; }
+        { _args = [ "SUPER+0" (ml ''hl.dsp.focus({ workspace = "10" })'') ]; }
 
-        "SUPER SHIFT, 1, movetoworkspace, 1"
-        "SUPER SHIFT, 2, movetoworkspace, 2"
-        "SUPER SHIFT, 3, movetoworkspace, 3"
-        "SUPER SHIFT, 4, movetoworkspace, 4"
-        "SUPER SHIFT, 5, movetoworkspace, 5"
-        "SUPER SHIFT, 6, movetoworkspace, 6"
-        "SUPER SHIFT, 7, movetoworkspace, 7"
-        "SUPER SHIFT, 8, movetoworkspace, 8"
-        "SUPER SHIFT, 9, movetoworkspace, 9"
-        "SUPER SHIFT, 0, movetoworkspace, 10"
+        { _args = [ "SUPER+SHIFT+1" (ml ''hl.dsp.window.move({ workspace = "1" })'') ]; }
+        { _args = [ "SUPER+SHIFT+2" (ml ''hl.dsp.window.move({ workspace = "2" })'') ]; }
+        { _args = [ "SUPER+SHIFT+3" (ml ''hl.dsp.window.move({ workspace = "3" })'') ]; }
+        { _args = [ "SUPER+SHIFT+4" (ml ''hl.dsp.window.move({ workspace = "4" })'') ]; }
+        { _args = [ "SUPER+SHIFT+5" (ml ''hl.dsp.window.move({ workspace = "5" })'') ]; }
+        { _args = [ "SUPER+SHIFT+6" (ml ''hl.dsp.window.move({ workspace = "6" })'') ]; }
+        { _args = [ "SUPER+SHIFT+7" (ml ''hl.dsp.window.move({ workspace = "7" })'') ]; }
+        { _args = [ "SUPER+SHIFT+8" (ml ''hl.dsp.window.move({ workspace = "8" })'') ]; }
+        { _args = [ "SUPER+SHIFT+9" (ml ''hl.dsp.window.move({ workspace = "9" })'') ]; }
+        { _args = [ "SUPER+SHIFT+0" (ml ''hl.dsp.window.move({ workspace = "10" })'') ]; }
 
-        "SUPER, mouse_down, workspace, e+1"
-        "SUPER, mouse_up, workspace, e-1"
+        { _args = [ "SUPER+mouse_down" (ml ''hl.dsp.focus({ workspace = "+1" })'') ]; }
+        { _args = [ "SUPER+mouse_up" (ml ''hl.dsp.focus({ workspace = "-1" })'') ]; }
 
-        ", XF86AudioMute, exec, ${pkgs.pamixer}/bin/pamixer --toggle-mute"
-        ", XF86AudioRaiseVolume, exec, ${pkgs.pamixer}/bin/pamixer --increase 5"
-        ", XF86AudioLowerVolume, exec, ${pkgs.pamixer}/bin/pamixer --decrease 5"
-        ", XF86AudioPlay, exec, ${pkgs.playerctl}/bin/playerctl play-pause"
-        ", XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl set +5%"
-        ", XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl set 5%-"
+        { _args = [ "XF86AudioMute" (ml ''hl.dsp.exec_cmd("${pkgs.pamixer}/bin/pamixer --toggle-mute")'') ]; }
+        { _args = [ "XF86AudioRaiseVolume" (ml ''hl.dsp.exec_cmd("${pkgs.pamixer}/bin/pamixer --increase 5")'') ]; }
+        { _args = [ "XF86AudioLowerVolume" (ml ''hl.dsp.exec_cmd("${pkgs.pamixer}/bin/pamixer --decrease 5")'') ]; }
+        { _args = [ "XF86AudioPlay" (ml ''hl.dsp.exec_cmd("${pkgs.playerctl}/bin/playerctl play-pause")'') ]; }
+        { _args = [ "XF86MonBrightnessUp" (ml ''hl.dsp.exec_cmd("${pkgs.brightnessctl}/bin/brightnessctl set +5%")'') ]; }
+        { _args = [ "XF86MonBrightnessDown" (ml ''hl.dsp.exec_cmd("${pkgs.brightnessctl}/bin/brightnessctl set 5%-")'') ]; }
 
-        "SUPER, grave, togglespecialworkspace, quake"
-        "SUPER, M, movetoworkspacesilent, special:minimized"
-        "SUPER SHIFT, M, togglespecialworkspace, minimized"
-        "SUPER, S, togglespecialworkspace, minimized"
+        { _args = [ "SUPER+grave" (ml ''hl.dsp.workspace.toggle_special("quake")'') ]; }
+        { _args = [ "SUPER+M" (ml ''hl.dsp.window.move({ workspace = "special:minimized" })'') ]; }
+        { _args = [ "SUPER+SHIFT+M" (ml ''hl.dsp.workspace.toggle_special("minimized")'') ]; }
+        { _args = [ "SUPER+S" (ml ''hl.dsp.workspace.toggle_special("minimized")'') ]; }
 
-        "SUPER, Return, exec, waveterm"
-        "SUPER, T, exec, ghostty"
-        "SUPER, D, exec, rofi -show drun"
-        "SUPER, A, exec, rofi -show window"
-        "SUPER, W, exec, firefox"
-        "SUPER, E, exec, nautilus"
-        "SUPER, N, exec, dunstctl history-pop"
-        "SUPER SHIFT, N, exec, dunstctl close-all"
+        { _args = [ "SUPER+Return" (ml ''hl.dsp.exec_cmd("waveterm")'') ]; }
+        { _args = [ "SUPER+T" (ml ''hl.dsp.exec_cmd("ghostty")'') ]; }
+        { _args = [ "SUPER+D" (ml ''hl.dsp.exec_cmd("rofi -show drun")'') ]; }
+        { _args = [ "SUPER+A" (ml ''hl.dsp.exec_cmd("rofi -show window")'') ]; }
+        { _args = [ "SUPER+W" (ml ''hl.dsp.exec_cmd("firefox")'') ]; }
+        { _args = [ "SUPER+E" (ml ''hl.dsp.exec_cmd("nautilus")'') ]; }
+        { _args = [ "SUPER+N" (ml ''hl.dsp.exec_cmd("dunstctl history-pop")'') ]; }
+        { _args = [ "SUPER+SHIFT+N" (ml ''hl.dsp.exec_cmd("dunstctl close-all")'') ]; }
 
-        "SUPER SHIFT, S, exec, bash -c \"grim -g '$(slurp)' - | tee ~/Pictures/screenshots/$(date +%s).png\""
-        "SUPER SHIFT, Print, exec, bash -c \"grim - | tee ~/Pictures/screenshots/$(date +%s).png\""
+        { _args = [ "SUPER+SHIFT+S" (ml ''hl.dsp.exec_cmd("bash -c \"grim -g '$(slurp)' - | tee ~/Pictures/screenshots/$(date +%s).png\"")'') ]; }
+        { _args = [ "SUPER+SHIFT+Print" (ml ''hl.dsp.exec_cmd("bash -c \"grim - | tee ~/Pictures/screenshots/$(date +%s).png\"")'') ]; }
       ];
 
-      windowrule = [
-        "workspace special:quake, match:class ^(Wave|waveterm)$"
-        "float 1, match:class ^(Wave|waveterm)$"
-        "size 80% 80%, match:class ^(Wave|waveterm)$"
-        "center 1, match:class ^(Wave|waveterm)$"
+      window_rule = [
+        { match = { class = "^(Wave|waveterm)$"; }; workspace = "special:quake"; }
+        { match = { class = "^(Wave|waveterm)$"; }; float = true; }
+        { match = { class = "^(Wave|waveterm)$"; }; size = "80% 80%"; }
+        { match = { class = "^(Wave|waveterm)$"; }; center = true; }
 
-        "opacity 0.6, match:float yes"
-        "opacity 0.85, match:float false"
-        "opacity 1.0, match:fullscreen true"
-        "idle_inhibit fullscreen, match:fullscreen true"
+        { match = { float = true; }; opacity = "0.6"; }
+        { match = { float = false; }; opacity = "0.85"; }
+        { match = { fullscreen = true; }; opacity = "1.0"; }
+        { match = { fullscreen = true; }; idle_inhibit = "fullscreen"; }
 
-        "opacity 1.0 override 1.0 override, match:class ^(vlc)$"
-        "opacity 1.0 override 1.0 override, match:class ^(jellyfinmediaplayer)$"
-        "float 1, match:title ^(Picture-in-Picture)$"
-        "float 1, match:class ^(confirm)$"
-        "float 1, match:class ^(dialog)$"
-        "float 1, match:class ^(file_progress)$"
-        "float 1, match:class ^(confirmreset)$"
-        "float 1, match:class ^(makeinput)$"
-        "float 1, match:class ^(download)$"
-        "float 1, match:class ^(notification)$"
-        "float 1, match:class ^(error)$"
-        "float 1, match:class ^(pinentry)$"
-        "float 1, match:class ^(ssh-askpass)$"
-        "float 1, match:class ^(lxpolkit)$"
-        "float 1, match:class ^(thunar)$"
-        "float 1, match:class ^(pavucontrol)$"
-        "float 1, match:class ^(blueman-applet)$"
-        "float 1, match:class ^(nm-applet)$"
-        "no_initial_focus 1, match:class ^(nm-applet)$"
-        "no_initial_focus 1, match:class ^(blueman-applet)$"
+        { match = { class = "^(vlc)$"; }; opacity = "1.0 override 1.0 override"; }
+        { match = { class = "^(jellyfinmediaplayer)$"; }; opacity = "1.0 override 1.0 override"; }
+        { match = { title = "^(Picture-in-Picture)$"; }; float = true; }
+        { match = { class = "^(confirm)$"; }; float = true; }
+        { match = { class = "^(dialog)$"; }; float = true; }
+        { match = { class = "^(file_progress)$"; }; float = true; }
+        { match = { class = "^(confirmreset)$"; }; float = true; }
+        { match = { class = "^(makeinput)$"; }; float = true; }
+        { match = { class = "^(download)$"; }; float = true; }
+        { match = { class = "^(notification)$"; }; float = true; }
+        { match = { class = "^(error)$"; }; float = true; }
+        { match = { class = "^(pinentry)$"; }; float = true; }
+        { match = { class = "^(ssh-askpass)$"; }; float = true; }
+        { match = { class = "^(lxpolkit)$"; }; float = true; }
+        { match = { class = "^(thunar)$"; }; float = true; }
+        { match = { class = "^(pavucontrol)$"; }; float = true; }
+        { match = { class = "^(blueman-applet)$"; }; float = true; }
+        { match = { class = "^(nm-applet)$"; }; float = true; }
+        { match = { class = "^(nm-applet)$"; }; no_initial_focus = true; }
+        { match = { class = "^(blueman-applet)$"; }; no_initial_focus = true; }
       ];
-
-      misc = {
-        allow_session_lock_restore = true;
-      };
     };
+
+    extraConfig = ''
+      hl.on("hyprland.start", function()
+        hl.exec_cmd("waybar")
+        hl.exec_cmd("poweralertd")
+        hl.exec_cmd("dunst")
+        hl.exec_cmd("nm-applet --indicator")
+        hl.exec_cmd("blueman-applet")
+        hl.exec_cmd("nextcloud --background")
+        ${lib.optionalString (osConfig.networking.hostName == "nix-asus") ''
+          hl.exec_cmd("systemctl --user start screenpipe")
+        ''}
+      end)
+    '';
   };
 
   xdg.portal = {
