@@ -29,6 +29,10 @@
       url = "github:noamsto/nix-amd-ai";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     hermes-agent.url = "github:NousResearch/hermes-agent";
   };
 
@@ -67,6 +71,7 @@
           "https://cache.flox.dev"
           "https://nix-community.cachix.org"
           "https://nix-amd-ai.cachix.org"
+          "https://cache.numtide.com"
         ];
         trusted-public-keys = [
           "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -74,6 +79,7 @@
           "flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs="
           "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
           "nix-amd-ai.cachix.org-1:F4OU4vw/lV2oiG6SBHZ+nqjl4EFJuqI4X9A7pvaBmhQ="
+          "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
         ];
       };
 
@@ -188,7 +194,9 @@
                       stylix.homeModules.stylix
                     ];
                     home.packages = [
-                      inputs.hermes-agent.packages.${system}.default
+                      inputs.llm-agents.packages.${system}.hermes-agent
+                      inputs.llm-agents.packages.${system}.hermes-desktop
+                      inputs.llm-agents.packages.${system}.hermes-hud
                     ];
                   };
                 }
