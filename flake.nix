@@ -194,7 +194,7 @@
                       stylix.homeModules.stylix
                     ];
                     home.packages = [
-                      inputs.llm-agents.packages.${system}.hermes-agent
+                      inputs.hermes-agent.packages.${system}.default
                       inputs.llm-agents.packages.${system}.hermes-desktop
                       inputs.llm-agents.packages.${system}.hermes-hud
                     ];
