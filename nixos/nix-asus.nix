@@ -226,6 +226,8 @@
   services.mullvad-vpn.enable = true;
   services.mullvad-vpn.package = pkgs.mullvad-vpn;
 
+  networking.networkmanager.dns = "systemd-resolved";
+
   services.resolved = {
     enable = true;
     settings = {
