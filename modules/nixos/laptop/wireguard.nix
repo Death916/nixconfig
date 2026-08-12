@@ -72,20 +72,54 @@
         id = "laptop-mullvad";
         type = "wireguard";
         interface-name = "wg-mullvad";
-        autoconnect = "true";
+        autoconnect = "false";
       };
       wireguard = {
         private-key = "$MULLVAD_PRIVATE_KEY";
       };
       "wireguard-peer.zqsfGglzJPY657WMRxf/S4omG7+ZkSDIpDq+ggbc9yo=" = {
-        endpoint = "23.234.72.2:51820";
+        endpoint = "23.234.72.2:443";
         allowed-ips = "0.0.0.0/0";
+        persistent-keepalive = 25;
       };
       ipv4 = {
         method = "manual";
         addresses = "$MULLVAD_CLIENT_IP/32";
         dns = "10.64.0.1;";
         dns-priority = 100;
+      };
+      ipv6 = {
+        method = "disabled";
+      };
+    };
+
+    # PROFILE 4: nebmullz (Combined Phone + Work Profile over Port 443)
+    nebmullz = {
+      connection = {
+        id = "nebmullz";
+        type = "wireguard";
+        interface-name = "wg-nebmullz";
+        autoconnect = "false";
+        mtu = 1280;
+      };
+      wireguard = {
+        private-key = "$WG_PRIVATE_KEY";
+      };
+      "wireguard-peer.VbKDcgXQAF5TSAjifWVd9RXJNVfmzpIW5q/wNPxcNDw=" = {
+        endpoint = "lighthouse.death916.xyz:443";
+        allowed-ips = "10.200.0.0/24;10.0.100.0/24;";
+        persistent-keepalive = 15;
+      };
+      "wireguard-peer.zqsfGglzJPY657WMRxf/S4omG7+ZkSDIpDq+ggbc9yo=" = {
+        endpoint = "23.234.72.2:443";
+        allowed-ips = "0.0.0.0/0;";
+        persistent-keepalive = 25;
+      };
+      ipv4 = {
+        method = "manual";
+        addresses = "10.200.0.2/24;$MULLVAD_CLIENT_IP/32;";
+        dns = "10.200.0.1;10.0.100.1;10.64.0.1;";
+        dns-priority = -50;
       };
       ipv6 = {
         method = "disabled";
