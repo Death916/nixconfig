@@ -129,10 +129,9 @@
       ipv4 = {
         method = "manual";
         addresses = "$MULLVAD_CLIENT_IP/32";
-        dns = "10.64.0.1;";
-        dns-priority = 100;
-        routes = "23.234.72.2/32 0.0.0.0 0";
-        routing-rule1 = "priority 2500 to 10.0.100.0/24 table 254";
+        dns = "10.0.100.1;10.0.100.2;10.64.0.1;";
+        dns-search = "~.;death;";
+        dns-priority = -50;
       };
       ipv6 = {
         method = "disabled";
