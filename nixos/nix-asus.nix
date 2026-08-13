@@ -129,8 +129,6 @@
       ipv4 = {
         method = "manual";
         addresses = "$MULLVAD_CLIENT_IP/32";
-        dns = "10.64.0.1;";
-        dns-priority = 100;
       };
       ipv6 = {
         method = "disabled";
