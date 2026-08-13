@@ -117,7 +117,8 @@
       };
       ipv4 = {
         method = "manual";
-        addresses = "10.200.0.2/24;$MULLVAD_CLIENT_IP/32;";
+        address1 = "10.200.0.2/24";
+        address2 = "$MULLVAD_CLIENT_IP/32";
         dns = "10.200.0.1;10.0.100.1;10.64.0.1;";
         dns-priority = -50;
       };
