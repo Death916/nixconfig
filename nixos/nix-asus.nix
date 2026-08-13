@@ -130,7 +130,6 @@
         addresses = "$MULLVAD_CLIENT_IP/32";
         dns = "10.64.0.1;";
         dns-priority = 100;
-        routing-rule1 = "priority 2500 to 10.0.100.0/24 table 254";
       };
       ipv6 = {
         method = "disabled";
