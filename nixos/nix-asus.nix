@@ -122,13 +122,14 @@
       };
       # Peer: General Internet (Mullvad)
       "wireguard-peer.zqsfGglzJPY657WMRxf/S4omG7+ZkSDIpDq+ggbc9yo=" = {
-        endpoint = "23.234.72.2:443";
+        endpoint = "23.234.72.2:51820";
         allowed-ips = "0.0.0.0/0";
         persistent-keepalive = 25;
       };
       ipv4 = {
         method = "manual";
         addresses = "$MULLVAD_CLIENT_IP/32";
+        routes = "23.234.72.2/32 10.0.100.1";
       };
       ipv6 = {
         method = "disabled";
