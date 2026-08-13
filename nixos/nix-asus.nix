@@ -118,18 +118,29 @@
         mtu = 1280;
       };
       wireguard = {
-        private-key = "$MULLVAD_PRIVATE_KEY";
+        # Note: A single WireGuard interface can only use one private key.
+        # Ensure this key is authorized on BOTH Lighthouse and Mullvad.
+        private-key = "$WG_PRIVATE_KEY";
       };
+      # Peer 1: VPS Mesh (Lighthouse)
+      "wireguard-peer.VbKDcgXQAF5TSAjifWVd9RXJNVfmzpIW5q/wNPxcNDw=" = {
+        endpoint = "lighthouse.death916.xyz:443";
+        allowed-ips = "10.200.0.0/24";
+        persistent-keepalive = 15;
+      };
+      # Peer 2: General Internet (Mullvad)
       "wireguard-peer.zqsfGglzJPY657WMRxf/S4omG7+ZkSDIpDq+ggbc9yo=" = {
-        endpoint = "23.234.72.2:443";
+        endpoint = "23.234.72.2:51820";
         allowed-ips = "0.0.0.0/0";
         persistent-keepalive = 25;
       };
       ipv4 = {
         method = "manual";
-        addresses = "$MULLVAD_CLIENT_IP/32";
-        dns = "10.64.0.1;";
-        dns-priority = 100;
+        address1 = "10.200.0.2/24";
+        address2 = "$MULLVAD_CLIENT_IP/32";
+        dns = "10.64.0.1;10.200.0.1;10.0.100.1;9.9.9.9;";
+        dns-search = "~.;";
+        dns-priority = -50;
       };
       ipv6 = {
         method = "disabled";
