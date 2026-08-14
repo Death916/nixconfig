@@ -103,6 +103,20 @@
 
   system.stateVersion = "24.11";
 
+  # Auto-start the SSH tunnel for Mullvad Bridge
+  systemd.services.mullvad-bridge-tunnel = {
+    description = "SSH Tunnel for Mullvad Shadowsocks Bridge";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.openssh}/bin/ssh -NT -L 8443:127.0.0.1:8443 -o StrictHostKeyChecking=accept-new -o ExitOnForwardFailure=yes -i /home/death916/.ssh/id_ed25519 death916@167.234.220.107";
+      Restart = "always";
+      RestartSec = "10s";
+      User = "death916";
+    };
+  };
+
   # Custom Wireguard NetworkManager profile: nebmullz
   networking.networkmanager.ensureProfiles.environmentFiles = [
     "/etc/nixos/secrets/wg-laptop.env"

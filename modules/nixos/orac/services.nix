@@ -8,8 +8,6 @@
 
   virtualisation.docker.enable = true;
 
-  networking.firewall.allowedTCPPorts = [ 443 ];
-
   virtualisation.oci-containers = {
     backend = "docker";
     containers = {
@@ -19,11 +17,11 @@
         volumes = [ "immich-ml-cache:/cache" ];
       };
       
-      # The Mullvad Shadowsocks Bridge
+      # The Mullvad Shadowsocks Bridge (Internal Only - No Public Ports)
       shadowsocks-bridge = {
         image = "ghcr.io/shadowsocks/ssserver-rust:latest";
-        ports = [ "443:443/tcp" ]; # Only binds to TCP so it doesn't conflict with WireGuard UDP
-        cmd = [ "-s" "0.0.0.0:443" "-m" "chacha20-ietf-poly1305" "-k" "MullvadBridge2026!" ];
+        ports = [ "127.0.0.1:8443:8443/tcp" ]; 
+        cmd = [ "-s" "0.0.0.0:8443" "-m" "chacha20-ietf-poly1305" "-k" "MullvadBridge" ];
       };
     };
   };
