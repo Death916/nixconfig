@@ -21,7 +21,7 @@
       shadowsocks-bridge = {
         image = "ghcr.io/shadowsocks/ssserver-rust:latest";
         ports = [ "127.0.0.1:8443:8443/tcp" ]; 
-        cmd = [ "-s" "0.0.0.0:8443" "-m" "chacha20-ietf-poly1305" "-k" "MullvadBridge" ];
+        cmd = [ "ssserver" "--server-addr" "0.0.0.0:8443" "--encrypt-method" "chacha20-ietf-poly1305" "--password" "MullvadBridge" "-U" ];
       };
     };
   };
