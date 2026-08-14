@@ -17,7 +17,7 @@
         volumes = [ "immich-ml-cache:/cache" ];
       };
       
-      # The Mullvad Shadowsocks Bridge (Internal Only - No Public Ports)
+      # The Mullvad Shadowsocks Bridge (Internal Only)
       shadowsocks-bridge = {
         image = "ghcr.io/shadowsocks/ssserver-rust:latest";
         ports = [ "127.0.0.1:8443:8443/tcp" ]; 
