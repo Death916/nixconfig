@@ -101,6 +101,10 @@
   # Enable RealtimeKit for PipeWire audio scheduling
   security.rtkit.enable = true;
 
+  # Re-enable the Mullvad GUI and Daemon
+  services.mullvad-vpn.enable = true;
+  services.mullvad-vpn.package = pkgs.mullvad-vpn;
+
   system.stateVersion = "24.11";
 
   # Auto-start the SSH tunnel for Mullvad Bridge
