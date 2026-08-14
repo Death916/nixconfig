@@ -41,6 +41,15 @@
           "interval" = 3600;
         };
 
+        "custom/vpn" = {
+          "format" = "{}";
+          "exec" = "systemctl is-active --quiet tun2socks-vpn && echo ' VPN ON' || echo ' VPN OFF'";
+          "interval" = 2;
+          "on-click" = "pkexec systemctl restart tun2socks-vpn";
+          "on-click-right" = "pkexec systemctl stop tun2socks-vpn";
+          "tooltip" = false;
+        };
+
         "tray" = {
           "spacing" = 10;
         };

@@ -21,7 +21,6 @@
 
   imports = [
     ./hardware-nix-asus.nix
-    ../modules/nixos/asus/tun2socks.nix
     ../modules/nixos/laptop/desktop.nix
     ../modules/nixos/common/base.nix
     ../modules/nixos/laptop/user.nix
