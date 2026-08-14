@@ -128,7 +128,7 @@
     requires = [ "mullvad-ssh-tunnel.service" ];
     after = [ "mullvad-ssh-tunnel.service" ];
     serviceConfig = {
-      ExecStart = "${pkgs.shadowsocks-rust}/bin/sslocal -s 127.0.0.1:8443 -m chacha20-ietf-poly1305 -k MullvadBridge --protocol tunnel -b 127.0.0.1:51820 --forward-addr 23.234.72.2:51820 --mode udp_only";
+      ExecStart = "${pkgs.shadowsocks-rust}/bin/sslocal -s 127.0.0.1:8443 -m chacha20-ietf-poly1305 -k MullvadBridge --protocol tunnel -b 127.0.0.1:51820 -f 23.234.72.2:51820 -u";
       Restart = "always";
       RestartSec = "5s";
     };
