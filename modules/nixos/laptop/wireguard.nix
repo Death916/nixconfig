@@ -93,7 +93,9 @@
       };
     };
 
-    # PROFILE 4: nebmullz (Combined Phone + Work Profile over Port 443)
+    # PROFILE 4: nebmullz (laptop -> orac -> Mullvad chain)
+    # Single peer = lighthouse; orac forwards everything out via its own
+    # wg-mullvad tunnel. No direct Mullvad leg on the laptop anymore.
     nebmullz = {
       connection = {
         id = "nebmullz";
@@ -107,19 +109,16 @@
       };
       "wireguard-peer.VbKDcgXQAF5TSAjifWVd9RXJNVfmzpIW5q/wNPxcNDw=" = {
         endpoint = "lighthouse.death916.xyz:443";
-        allowed-ips = "10.200.0.0/24,10.0.100.0/24";
-        persistent-keepalive = 15;
-      };
-      "wireguard-peer.zqsfGglzJPY657WMRxf/S4omG7+ZkSDIpDq+ggbc9yo=" = {
-        endpoint = "23.234.72.2:443";
         allowed-ips = "0.0.0.0/0";
         persistent-keepalive = 25;
       };
       ipv4 = {
         method = "manual";
         addresses = "10.200.0.2/24";
-        dns = "10.200.0.1;10.0.100.1;10.64.0.1;";
+        dns = "10.200.0.1;10.0.100.1;10.0.100.2;9.9.9.9;";
         dns-priority = -50;
+        routes = "$VPS_PUBLIC_IP/32 0.0.0.0 0";
+        routing-rule1 = "priority 2500 to 10.0.100.0/24 table 254";
       };
       ipv6 = {
         method = "disabled";

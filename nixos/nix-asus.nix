@@ -107,33 +107,6 @@
 
   system.stateVersion = "24.11";
 
-  # The automated SSH Tunnel to the VPS
-  systemd.services.mullvad-ssh-tunnel = {
-    description = "SSH Tunnel to VPS for Shadowsocks";
-    wantedBy = [ "multi-user.target" ];
-    after = [ "network-online.target" ];
-    wants = [ "network-online.target" ];
-    serviceConfig = {
-      ExecStart = "${pkgs.openssh}/bin/ssh -NT -L 8443:127.0.0.1:8443 -o StrictHostKeyChecking=accept-new -o ExitOnForwardFailure=yes death916@167.234.220.107";
-      Restart = "always";
-      RestartSec = "10s";
-      User = "death916";
-    };
-  };
-
-  # The local Shadowsocks client that converts WireGuard UDP to TCP
-  systemd.services.mullvad-sslocal = {
-    description = "Shadowsocks UDP-to-TCP converter for Mullvad";
-    wantedBy = [ "multi-user.target" ];
-    requires = [ "mullvad-ssh-tunnel.service" ];
-    after = [ "mullvad-ssh-tunnel.service" ];
-    serviceConfig = {
-      ExecStart = "${pkgs.shadowsocks-rust}/bin/sslocal -s 127.0.0.1:8443 -m chacha20-ietf-poly1305 -k MullvadBridge --protocol tunnel -b 127.0.0.1:51820 -f 23.234.72.2:51820 -u";
-      Restart = "always";
-      RestartSec = "5s";
-    };
-  };
-
   # Custom Wireguard NetworkManager profile: nebmullz
   networking.networkmanager.ensureProfiles.environmentFiles = [
     "/etc/nixos/secrets/wg-laptop.env"
@@ -153,7 +126,7 @@
       };
       # Peer: General Internet (Mullvad)
       "wireguard-peer.zqsfGglzJPY657WMRxf/S4omG7+ZkSDIpDq+ggbc9yo=" = {
-        endpoint = "127.0.0.1:51820";
+        endpoint = "23.234.72.2:51820";
         allowed-ips = "0.0.0.0/0";
         persistent-keepalive = 25;
       };
