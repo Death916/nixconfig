@@ -18,10 +18,10 @@
         allowedIPs = [ "10.200.0.2/32" ];
       }
       {
-        publicKey = "YXo02jorch0ihTErqCJeaiKldfWzftqteQJxdQJRJB4=";
-        allowedIPs = [ "10.200.0.3/32" "10.67.3.187/32" ];
+        publicKey = "dVUwTyxFoHxuut/hhHbLSc+GqaIGie457+kuynrvD3s=";
+        allowedIPs = [ "10.200.3/32" "10.72.140.32/32" ];
       }
-    ];
+    
   };
 
   networking.firewall.allowedUDPPorts = [ 443 ];
