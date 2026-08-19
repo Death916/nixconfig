@@ -19,11 +19,14 @@
       }
       {
         publicKey = "dVUwTyxFoHxuut/hhHbLSc+GqaIGie457+kuynrvD3s=";
-        allowedIPs = [ "10.200.3/32" "10.72.140.32/32" ];
+        allowedIPs = [
+          "10.200.0.3/32"
+          "10.72.140.32/32"
+        ];
       }
-      ];
+    ];
 
-
+  };
 
   networking.firewall.allowedUDPPorts = [ 443 ];
   networking.firewall.trustedInterfaces = [ "wg0" ];
@@ -35,4 +38,4 @@
     iptables -t nat -A POSTROUTING -s 10.67.3.187/32 -j MASQUERADE
     iptables -t mangle -A POSTROUTING -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --set-mss 1200
   '';
-};
+}
