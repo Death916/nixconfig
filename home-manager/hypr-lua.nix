@@ -48,8 +48,16 @@ in
           gaps_out = 10;
           border_size = 2;
           layout = "dwindle";
-          "col.active_border" = "rgba(${config.lib.stylix.colors.base0D}ee) rgba(${config.lib.stylix.colors.base0E}ee) 45deg";
-          "col.inactive_border" = "rgba(${config.lib.stylix.colors.base01}aa)";
+          col = {
+            active_border = {
+              colors = [
+                "rgba(${config.lib.stylix.colors.base0D}ee)"
+                "rgba(${config.lib.stylix.colors.base0E}ee)"
+              ];
+              angle = 45;
+            };
+            inactive_border = "rgba(${config.lib.stylix.colors.base01}aa)";
+          };
         };
 
         decoration = {
@@ -77,7 +85,6 @@ in
 
         misc = {
           allow_session_lock_restore = true;
-          vfr = true;
           mouse_move_enables_dpms = true;
           key_press_enables_dpms = true;
         };
@@ -172,7 +179,7 @@ in
         { _args = [ "SUPER+mouse_up" (ml ''hl.dsp.focus({ workspace = "-1" })'') ]; }
 
         # Mouse window controls (move and resize)
-        { _args = [ "SUPER+mouse:272" (ml "hl.dsp.window.move()") { mouse = true; } ]; }
+        { _args = [ "SUPER+mouse:272" (ml "hl.dsp.window.drag()") { mouse = true; } ]; }
         { _args = [ "SUPER+mouse:273" (ml "hl.dsp.window.resize()") { mouse = true; } ]; }
 
         # Window grouping / tabs
