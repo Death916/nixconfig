@@ -281,6 +281,13 @@ in
         '';
         description = "Wrapper for nh that runs git pull and git push on success";
       };
+      fastfetch = {
+        body = ''
+          set -l preset (random choice 7 20 31 25)
+          command fastfetch -c examples/$preset.jsonc $argv
+        '';
+        description = "Run fastfetch with a random example preset (7, 20, 31, 25)";
+      };
     };
     shellInit = ''
       pokemon-colorscripts -r
