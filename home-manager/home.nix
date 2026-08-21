@@ -106,7 +106,7 @@ in
     awscli2
     unstablePkgs.qwen-code
     unstablePkgs.tauon
-    discord
+    unstablePkgs.discord
     poweralertd
     senpai
     duf
