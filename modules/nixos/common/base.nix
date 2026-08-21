@@ -26,6 +26,7 @@
     "nix-command"
     "flakes"
   ];
+  nix.settings.auto-optimise-store = true;
 
   nix.settings.substituters = lib.mkForce [
     "https://cache.nixos.org/"
