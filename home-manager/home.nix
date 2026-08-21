@@ -283,10 +283,10 @@ in
       };
       fastfetch = {
         body = ''
-          set -l preset (random choice 7 20 31 25)
+          set -l preset (random choice 1 7 20 31 25)
           command fastfetch -c examples/$preset.jsonc $argv
         '';
-        description = "Run fastfetch with a random example preset (7, 20, 31, 25)";
+        description = "Run fastfetch with a random example preset (1, 7, 20, 31, 25)";
       };
     };
     shellInit = ''
