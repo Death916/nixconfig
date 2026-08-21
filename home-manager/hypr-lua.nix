@@ -48,6 +48,8 @@ in
           gaps_out = 10;
           border_size = 2;
           layout = "dwindle";
+          "col.active_border" = "rgba(${config.lib.stylix.colors.base0D}ee) rgba(${config.lib.stylix.colors.base0E}ee) 45deg";
+          "col.inactive_border" = "rgba(${config.lib.stylix.colors.base01}aa)";
         };
 
         decoration = {
@@ -75,6 +77,9 @@ in
 
         misc = {
           allow_session_lock_restore = true;
+          vfr = true;
+          mouse_move_enables_dpms = true;
+          key_press_enables_dpms = true;
         };
       };
 
@@ -166,6 +171,14 @@ in
         { _args = [ "SUPER+mouse_down" (ml ''hl.dsp.focus({ workspace = "+1" })'') ]; }
         { _args = [ "SUPER+mouse_up" (ml ''hl.dsp.focus({ workspace = "-1" })'') ]; }
 
+        # Mouse window controls (move and resize)
+        { _args = [ "SUPER+mouse:272" (ml "hl.dsp.window.move()") { mouse = true; } ]; }
+        { _args = [ "SUPER+mouse:273" (ml "hl.dsp.window.resize()") { mouse = true; } ]; }
+
+        # Window grouping / tabs
+        { _args = [ "SUPER+G" (ml "hl.dsp.group.toggle()") ]; }
+        { _args = [ "SUPER+Tab" (ml "hl.dsp.group.next()") ]; }
+
         { _args = [ "XF86AudioMute" (ml ''hl.dsp.exec_cmd("${pkgs.pamixer}/bin/pamixer --toggle-mute")'') ]; }
         { _args = [ "XF86AudioRaiseVolume" (ml ''hl.dsp.exec_cmd("${pkgs.pamixer}/bin/pamixer --increase 5")'') ]; }
         { _args = [ "XF86AudioLowerVolume" (ml ''hl.dsp.exec_cmd("${pkgs.pamixer}/bin/pamixer --decrease 5")'') ]; }
@@ -182,13 +195,15 @@ in
         { _args = [ "SUPER+T" (ml ''hl.dsp.exec_cmd("ghostty")'') ]; }
         { _args = [ "SUPER+D" (ml ''hl.dsp.exec_cmd("rofi -show drun")'') ]; }
         { _args = [ "SUPER+A" (ml ''hl.dsp.exec_cmd("rofi -show window")'') ]; }
+        { _args = [ "SUPER+V" (ml ''hl.dsp.exec_cmd("cliphist list | rofi -dmenu -p 'Clipboard' | cliphist decode | wl-copy")'') ]; }
+        { _args = [ "SUPER+Escape" (ml ''hl.dsp.exec_cmd("bash -c \"choice=\\$(echo -e 'Lock\\nSuspend\\nLogout\\nReboot\\nPoweroff' | rofi -dmenu -p 'Power') && case \\$choice in Lock) hyprlock;; Suspend) systemctl suspend;; Logout) hyprctl dispatch exit;; Reboot) systemctl reboot;; Poweroff) systemctl poweroff;; esac\"")'') ]; }
         { _args = [ "SUPER+W" (ml ''hl.dsp.exec_cmd("firefox")'') ]; }
         { _args = [ "SUPER+E" (ml ''hl.dsp.exec_cmd("nautilus")'') ]; }
         { _args = [ "SUPER+N" (ml ''hl.dsp.exec_cmd("dunstctl history-pop")'') ]; }
         { _args = [ "SUPER+SHIFT+N" (ml ''hl.dsp.exec_cmd("dunstctl close-all")'') ]; }
 
-        { _args = [ "SUPER+SHIFT+S" (ml ''hl.dsp.exec_cmd("bash -c \"grim -g '$(slurp)' - | tee ~/Pictures/screenshots/$(date +%s).png\"")'') ]; }
-        { _args = [ "SUPER+SHIFT+Print" (ml ''hl.dsp.exec_cmd("bash -c \"grim - | tee ~/Pictures/screenshots/$(date +%s).png\"")'') ]; }
+        { _args = [ "SUPER+SHIFT+S" (ml ''hl.dsp.exec_cmd("bash -c \"mkdir -p ~/Pictures/screenshots && grim -g '$(slurp)' - | tee ~/Pictures/screenshots/$(date +%s).png | wl-copy\"")'') ]; }
+        { _args = [ "SUPER+SHIFT+Print" (ml ''hl.dsp.exec_cmd("bash -c \"mkdir -p ~/Pictures/screenshots && grim - | tee ~/Pictures/screenshots/$(date +%s).png | wl-copy\"")'') ]; }
       ];
 
       window_rule = [
@@ -233,6 +248,8 @@ in
         hl.exec_cmd("nm-applet --indicator")
         hl.exec_cmd("blueman-applet")
         hl.exec_cmd("nextcloud --background")
+        hl.exec_cmd("wl-paste --type text --watch cliphist store")
+        hl.exec_cmd("wl-paste --type image --watch cliphist store")
         ${lib.optionalString (osConfig.networking.hostName == "nix-asus") ''
           hl.exec_cmd("systemctl --user start screenpipe")
         ''}
@@ -393,5 +410,6 @@ in
     materia-kde-theme
 
     wl-clipboard
+    cliphist
   ];
 }
