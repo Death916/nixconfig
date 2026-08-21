@@ -171,6 +171,11 @@ in
     }
   '';
 
+  xdg.configFile."discord/settings.json".text = builtins.toJSON {
+    SKIP_HOST_UPDATE = true;
+  };
+
+
   services.udiskie = {
     enable = true;
     settings = {
