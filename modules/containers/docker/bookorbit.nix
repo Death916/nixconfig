@@ -46,7 +46,7 @@
       environmentFiles = [ "/etc/nixos/secrets/bookorbit.env" ];
       volumes = [
         "/storage/services/bookorbit/app:/data:rw"
-        "/media/storage/media/books/bookorbit:/books:rw"
+        "/media/storage/media/books:/books:rw"
       ];
       ports = [
         "3006:3000/tcp"
@@ -93,7 +93,7 @@
     "d /storage/services/bookorbit 0755 root root -"
     "d /storage/services/bookorbit/app 0755 1000 1000 -"
     "d /storage/services/bookorbit/postgres 0700 999 999 -"
-    "d /media/storage/media/books/bookorbit 0755 1000 1000 -"
+    "d /media/storage/media/books 0755 1000 1000 -"
   ];
 
   networking.firewall.allowedTCPPorts = [ 3006 ];
