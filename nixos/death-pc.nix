@@ -34,6 +34,7 @@
 
   # Use linux_zen kernel for performance improvements
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+  boot.kernelModules = [ "btusb" ];
   boot.kernelParams = [ 
     "nvidia-drm.modeset=1" 
     "nvidia_drm.fbdev=1" 
