@@ -139,6 +139,20 @@ in
     };
   };
 
+  # Ghostwave Manual Setup Reference (for Rofi / Desktop Launcher):
+  # To make the standalone ghostwave binary work and show in Rofi (drun mode) on other systems:
+  # 1. Place the compiled binary at ~/.local/bin/ghostwave
+  # 2. Create the launcher wrapper at ~/.local/bin/ghostwave-launcher (chmod +x):
+  #    - Scans /nix/store to dynamically assemble LD_LIBRARY_PATH for:
+  #      libglvnd (libEGL), wayland (libwayland-client), libxkbcommon, and X11 libs (libX11, libXcursor, etc.)
+  #      to prevent miniquad/libghostty runtime dlopen failures when launched from GUI.
+  #    - Executes: exec ~/.local/bin/ghostwave "$@"
+  # 3. Create ~/.local/share/applications/ghostwave.desktop:
+  #    - Exec=~/.local/bin/ghostwave-launcher
+  #    - Icon=ghostwave
+  #    - Type=Application, Categories=TerminalEmulator;
+  # 4. (Optional) Place icon SVG at ~/.local/share/icons/hicolor/scalable/apps/ghostwave.svg
+
   xdg.configFile."ghostty/css".text = ''
     headerbar {
       min-height: 24px;
