@@ -60,11 +60,12 @@ PanelWindow {
 
             Item { Layout.fillWidth: true }
 
-            // Right: System Tray, Audio, Battery
+            // Right: Weather, System Tray, Audio, Battery
             RowLayout {
                 Layout.alignment: Qt.AlignRight
                 spacing: 6
 
+                WeatherWidget {}
                 SysTray {}
                 VolumeWidget {}
                 BatteryWidget {}
