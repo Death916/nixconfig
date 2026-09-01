@@ -34,6 +34,10 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     hermes-agent.url = "github:NousResearch/hermes-agent";
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
