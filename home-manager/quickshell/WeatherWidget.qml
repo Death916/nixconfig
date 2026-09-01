@@ -163,7 +163,7 @@ Rectangle {
                                 text: modelData
                                 textFormat: Text.StyledText
                                 font.family: "JetBrainsMono Nerd Font"
-                                font.pixelSize: 10.5
+                                font.pixelSize: 11
                                 color: Theme.fg
                                 lineHeight: 1.25
                             }
