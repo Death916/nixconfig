@@ -16,6 +16,21 @@ Rectangle {
     property string weatherText: ""
     property string weatherTooltip: ""
 
+    readonly property var weatherData: {
+        if (!root.weatherTooltip || root.weatherTooltip.length === 0) {
+            return { header: "Fetching forecast...", days: [] };
+        }
+        let sections = root.weatherTooltip.trim().split("\n\n");
+        let header = sections[0] || "";
+        let days = [];
+        for (let i = 1; i < sections.length; ++i) {
+            if (sections[i].trim().length > 0) {
+                days.push(sections[i].trim());
+            }
+        }
+        return { header: header, days: days };
+    }
+
     Process {
         id: wttrProc
         command: ["wttrbar", "--location", "Sacramento", "--fahrenheit"]
@@ -86,31 +101,75 @@ Rectangle {
         }
         margins {
             top: Theme.barHeight + 6
-            right: 8
+            right: 12
         }
-        implicitWidth: popupCard.width
-        implicitHeight: popupCard.height
+        implicitWidth: popupCard.implicitWidth
+        implicitHeight: popupCard.implicitHeight
         color: "transparent"
         visible: root.popupOpen
 
         Rectangle {
             id: popupCard
-            width: forecastText.implicitWidth + 32
-            height: forecastText.implicitHeight + 28
-            radius: Theme.radius + 4
+            implicitWidth: mainLayout.implicitWidth + 28
+            implicitHeight: mainLayout.implicitHeight + 28
+            radius: Theme.radius + 6
             color: Theme.barBg
             border.color: Theme.bgAlt
             border.width: 1
 
-            Text {
-                id: forecastText
+            ColumnLayout {
+                id: mainLayout
                 anchors.centerIn: parent
-                text: root.weatherTooltip.length > 0 ? root.weatherTooltip : "Fetching forecast..."
-                textFormat: Text.StyledText
-                font.family: "JetBrainsMono Nerd Font"
-                font.pixelSize: 11
-                color: Theme.fg
-                lineHeight: 1.25
+                spacing: 10
+
+                // Header Card: Current conditions & location
+                Rectangle {
+                    Layout.fillWidth: true
+                    implicitHeight: headerText.implicitHeight + 16
+                    radius: Theme.radius
+                    color: Theme.widgetBg
+
+                    Text {
+                        id: headerText
+                        anchors.centerIn: parent
+                        text: root.weatherData.header
+                        textFormat: Text.StyledText
+                        font.family: "JetBrainsMono Nerd Font"
+                        font.pixelSize: Theme.fontSizeSmall
+                        color: Theme.fg
+                        lineHeight: 1.25
+                    }
+                }
+
+                // 3-Day Forecast Columns side by side
+                RowLayout {
+                    spacing: 10
+
+                    Repeater {
+                        model: root.weatherData.days
+
+                        Rectangle {
+                            required property string modelData
+                            required property int index
+
+                            implicitWidth: dayText.implicitWidth + 20
+                            implicitHeight: dayText.implicitHeight + 20
+                            radius: Theme.radius
+                            color: Theme.widgetBg
+
+                            Text {
+                                id: dayText
+                                anchors.centerIn: parent
+                                text: modelData
+                                textFormat: Text.StyledText
+                                font.family: "JetBrainsMono Nerd Font"
+                                font.pixelSize: 10.5
+                                color: Theme.fg
+                                lineHeight: 1.25
+                            }
+                        }
+                    }
+                }
             }
 
             MouseArea {
