@@ -5,10 +5,13 @@ import Quickshell.Io
 
 Rectangle {
     id: root
+    property var screen: null
+    property bool popupOpen: false
+
     implicitHeight: 24
     implicitWidth: contentRow.implicitWidth + 16
     radius: Theme.radius
-    color: wttrMouse.containsMouse || weatherPopup.visible ? Theme.hoverBg : Theme.widgetBg
+    color: wttrMouse.containsMouse || root.popupOpen ? Theme.hoverBg : Theme.widgetBg
 
     property string weatherText: ""
     property string weatherTooltip: ""
@@ -65,7 +68,7 @@ Rectangle {
         acceptedButtons: Qt.LeftButton | Qt.RightButton
         onClicked: (mouse) => {
             if (mouse.button === Qt.LeftButton) {
-                weatherPopup.visible = !weatherPopup.visible;
+                root.popupOpen = !root.popupOpen;
             } else if (mouse.button === Qt.RightButton) {
                 if (!wttrProc.running) {
                     wttrProc.running = true;
@@ -74,25 +77,34 @@ Rectangle {
         }
     }
 
-    PopupWindow {
+    PanelWindow {
         id: weatherPopup
-        anchor.item: root
-        visible: false
+        screen: root.screen
+        anchors {
+            top: true
+            right: true
+        }
+        margins {
+            top: Theme.barHeight + 6
+            right: 8
+        }
+        implicitWidth: popupCard.implicitWidth
+        implicitHeight: popupCard.implicitHeight
         color: "transparent"
-        grabFocus: true
+        visible: root.popupOpen
 
         Rectangle {
             id: popupCard
-            anchors.fill: parent
+            implicitWidth: forecastText.implicitWidth + 32
+            implicitHeight: forecastText.implicitHeight + 24
             radius: Theme.radius + 4
             color: Theme.barBg
             border.color: Theme.bgAlt
             border.width: 1
 
             Text {
-                id: forecastContent
-                anchors.fill: parent
-                anchors.margins: 14
+                id: forecastText
+                anchors.centerIn: parent
                 text: root.weatherTooltip.length > 0 ? root.weatherTooltip : "Fetching forecast..."
                 textFormat: Text.RichText
                 font.family: Theme.fontFamily
@@ -100,9 +112,14 @@ Rectangle {
                 color: Theme.fg
                 lineHeight: 1.2
             }
-        }
 
-        implicitWidth: forecastContent.implicitWidth + 28
-        implicitHeight: forecastContent.implicitHeight + 28
+            MouseArea {
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                onClicked: {
+                    root.popupOpen = false;
+                }
+            }
+        }
     }
 }
