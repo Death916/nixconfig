@@ -95,35 +95,27 @@ Rectangle {
 
         Rectangle {
             id: popupCard
-            width: Math.min(Math.max(forecastText.implicitWidth + 32, 420), 560)
-            height: Math.min(forecastText.implicitHeight + 32, 480)
+            width: forecastText.implicitWidth + 32
+            height: forecastText.implicitHeight + 28
             radius: Theme.radius + 4
             color: Theme.barBg
             border.color: Theme.bgAlt
             border.width: 1
 
-            Flickable {
-                id: flick
-                anchors.fill: parent
-                anchors.margins: 16
-                contentWidth: forecastText.implicitWidth
-                contentHeight: forecastText.implicitHeight
-                clip: true
-
-                Text {
-                    id: forecastText
-                    text: root.weatherTooltip.length > 0 ? root.weatherTooltip : "Fetching forecast..."
-                    textFormat: Text.StyledText
-                    font.family: "JetBrainsMono Nerd Font"
-                    font.pixelSize: 12
-                    color: Theme.fg
-                    lineHeight: 1.2
-                }
+            Text {
+                id: forecastText
+                anchors.centerIn: parent
+                text: root.weatherTooltip.length > 0 ? root.weatherTooltip : "Fetching forecast..."
+                textFormat: Text.StyledText
+                font.family: "JetBrainsMono Nerd Font"
+                font.pixelSize: 11
+                color: Theme.fg
+                lineHeight: 1.25
             }
 
             MouseArea {
                 anchors.fill: parent
-                acceptedButtons: Qt.RightButton
+                cursorShape: Qt.PointingHandCursor
                 onClicked: {
                     root.popupOpen = false;
                 }
