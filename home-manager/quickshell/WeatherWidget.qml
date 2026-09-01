@@ -88,34 +88,42 @@ Rectangle {
             top: Theme.barHeight + 6
             right: 8
         }
-        implicitWidth: popupCard.implicitWidth
-        implicitHeight: popupCard.implicitHeight
+        implicitWidth: popupCard.width
+        implicitHeight: popupCard.height
         color: "transparent"
         visible: root.popupOpen
 
         Rectangle {
             id: popupCard
-            implicitWidth: forecastText.implicitWidth + 32
-            implicitHeight: forecastText.implicitHeight + 24
+            width: Math.min(Math.max(forecastText.implicitWidth + 32, 420), 560)
+            height: Math.min(forecastText.implicitHeight + 32, 480)
             radius: Theme.radius + 4
             color: Theme.barBg
             border.color: Theme.bgAlt
             border.width: 1
 
-            Text {
-                id: forecastText
-                anchors.centerIn: parent
-                text: root.weatherTooltip.length > 0 ? root.weatherTooltip : "Fetching forecast..."
-                textFormat: Text.RichText
-                font.family: Theme.fontFamily
-                font.pixelSize: Theme.fontSizeSmall
-                color: Theme.fg
-                lineHeight: 1.2
+            Flickable {
+                id: flick
+                anchors.fill: parent
+                anchors.margins: 16
+                contentWidth: forecastText.implicitWidth
+                contentHeight: forecastText.implicitHeight
+                clip: true
+
+                Text {
+                    id: forecastText
+                    text: root.weatherTooltip.length > 0 ? root.weatherTooltip : "Fetching forecast..."
+                    textFormat: Text.StyledText
+                    font.family: "JetBrainsMono Nerd Font"
+                    font.pixelSize: 12
+                    color: Theme.fg
+                    lineHeight: 1.2
+                }
             }
 
             MouseArea {
                 anchors.fill: parent
-                cursorShape: Qt.PointingHandCursor
+                acceptedButtons: Qt.RightButton
                 onClicked: {
                     root.popupOpen = false;
                 }
