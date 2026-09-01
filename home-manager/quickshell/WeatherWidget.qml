@@ -16,19 +16,68 @@ Rectangle {
     property string weatherText: ""
     property string weatherTooltip: ""
 
-    readonly property var weatherData: {
-        if (!root.weatherTooltip || root.weatherTooltip.length === 0) {
-            return { header: "Fetching forecast...", days: [] };
+    readonly property var info: {
+        let raw = root.weatherTooltip;
+        if (!raw || raw.length === 0) {
+            return {
+                city: "Sacramento",
+                current: "Loading...",
+                feelsLike: "",
+                wind: "",
+                humidity: "",
+                days: []
+            };
         }
-        let sections = root.weatherTooltip.trim().split("\n\n");
-        let header = sections[0] || "";
+        let sections = raw.trim().split("\n\n");
+        let headerLines = (sections[0] || "").split("\n");
+        let currentCond = headerLines[0] ? headerLines[0].replace(/<[^>]*>/g, "").trim() : "";
+        let feelsLike = "";
+        let wind = "";
+        let humidity = "";
+        let location = "Sacramento";
+        for (let i = 0; i < headerLines.length; ++i) {
+            let line = headerLines[i].trim();
+            if (line.startsWith("Feels Like:")) feelsLike = line.replace("Feels Like:", "").trim();
+            else if (line.startsWith("Wind:")) wind = line.replace("Wind:", "").trim();
+            else if (line.startsWith("Humidity:")) humidity = line.replace("Humidity:", "").trim();
+            else if (line.startsWith("Location:")) location = line.replace("Location:", "").trim();
+        }
+
         let days = [];
-        for (let i = 1; i < sections.length; ++i) {
-            if (sections[i].trim().length > 0) {
-                days.push(sections[i].trim());
-            }
+        for (let s = 1; s < sections.length; ++s) {
+            let lines = sections[s].trim().split("\n");
+            if (lines.length === 0) continue;
+            let rawTitle = lines[0].replace(/<[^>]*>/g, "").trim();
+            let title = rawTitle.split(",")[0].trim();
+            let stats = lines[1] || "";
+            let highMatch = stats.match(/⬆️\s*(\d+°)/);
+            let lowMatch = stats.match(/⬇️\s*(\d+°)/);
+            let high = highMatch ? highMatch[1] : "";
+            let low = lowMatch ? lowMatch[1] : "";
+
+            let noon = lines.find(l => l.trim().startsWith("12") || l.trim().startsWith("15")) || lines[2] || "";
+            let noonTokens = noon.trim().split(/\s+/);
+            let icon = noonTokens[1] || "🌤️";
+            let descPart = noon.replace(/^\d+\s+/, "").replace(/^[^\s]+\s+/, "");
+            let condition = descPart.split(",")[0].replace(/^\d+°\s*/, "").trim();
+
+            days.push({
+                title: title,
+                icon: icon,
+                condition: condition,
+                high: high,
+                low: low
+            });
         }
-        return { header: header, days: days };
+
+        return {
+            city: location.split(",")[0].trim(),
+            current: currentCond,
+            feelsLike: feelsLike,
+            wind: wind,
+            humidity: humidity,
+            days: days
+        };
     }
 
     Process {
@@ -103,14 +152,14 @@ Rectangle {
             top: Theme.barHeight + 6
             right: 12
         }
-        implicitWidth: popupCard.implicitWidth
+        implicitWidth: 360
         implicitHeight: popupCard.implicitHeight
         color: "transparent"
         visible: root.popupOpen
 
         Rectangle {
             id: popupCard
-            implicitWidth: mainLayout.implicitWidth + 28
+            implicitWidth: 360
             implicitHeight: mainLayout.implicitHeight + 28
             radius: Theme.radius + 6
             color: Theme.barBg
@@ -119,53 +168,148 @@ Rectangle {
 
             ColumnLayout {
                 id: mainLayout
-                anchors.centerIn: parent
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                    top: parent.top
+                    margins: 14
+                }
                 spacing: 10
 
-                // Header Card: Current conditions & location
-                Rectangle {
+                // Header: Location & Current Weather
+                RowLayout {
                     Layout.fillWidth: true
-                    implicitHeight: headerText.implicitHeight + 16
-                    radius: Theme.radius
-                    color: Theme.widgetBg
+                    spacing: 8
 
-                    Text {
-                        id: headerText
-                        anchors.centerIn: parent
-                        text: root.weatherData.header
-                        textFormat: Text.StyledText
-                        font.family: "JetBrainsMono Nerd Font"
-                        font.pixelSize: Theme.fontSizeSmall
-                        color: Theme.fg
-                        lineHeight: 1.25
+                    ColumnLayout {
+                        spacing: 2
+                        Text {
+                            text: root.info.city
+                            font.family: Theme.fontFamily
+                            font.pixelSize: Theme.fontSize
+                            font.bold: true
+                            color: Theme.accent
+                        }
+                        Text {
+                            text: root.info.current
+                            font.family: Theme.fontFamily
+                            font.pixelSize: Theme.fontSizeSmall
+                            color: Theme.fg
+                        }
+                        Text {
+                            visible: root.info.feelsLike.length > 0
+                            text: `Feels like: ${root.info.feelsLike}`
+                            font.family: Theme.fontFamily
+                            font.pixelSize: Theme.fontSizeSmall
+                            color: Theme.fgSubtle
+                        }
+                    }
+
+                    Item { Layout.fillWidth: true }
+
+                    ColumnLayout {
+                        spacing: 4
+                        Layout.alignment: Qt.AlignRight
+
+                        Rectangle {
+                            visible: root.info.wind.length > 0
+                            implicitHeight: 20
+                            implicitWidth: windText.implicitWidth + 12
+                            radius: Theme.radius
+                            color: Theme.widgetBg
+                            Text {
+                                id: windText
+                                anchors.centerIn: parent
+                                text: `󰈐 ${root.info.wind}`
+                                font.family: Theme.fontFamily
+                                font.pixelSize: 10
+                                color: Theme.fgSubtle
+                            }
+                        }
+
+                        Rectangle {
+                            visible: root.info.humidity.length > 0
+                            implicitHeight: 20
+                            implicitWidth: humText.implicitWidth + 12
+                            radius: Theme.radius
+                            color: Theme.widgetBg
+                            Text {
+                                id: humText
+                                anchors.centerIn: parent
+                                text: `󰖎 ${root.info.humidity}`
+                                font.family: Theme.fontFamily
+                                font.pixelSize: 10
+                                color: Theme.fgSubtle
+                            }
+                        }
                     }
                 }
 
-                // 3-Day Forecast Columns side by side
-                RowLayout {
-                    spacing: 10
+                // Subtle divider
+                Rectangle {
+                    Layout.fillWidth: true
+                    implicitHeight: 1
+                    color: Theme.bgAlt
+                }
+
+                // Daily Forecast List
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    spacing: 6
 
                     Repeater {
-                        model: root.weatherData.days
+                        model: root.info.days
 
                         Rectangle {
-                            required property string modelData
-                            required property int index
-
-                            implicitWidth: dayText.implicitWidth + 20
-                            implicitHeight: dayText.implicitHeight + 20
+                            required property var modelData
+                            Layout.fillWidth: true
+                            implicitHeight: 32
                             radius: Theme.radius
                             color: Theme.widgetBg
 
-                            Text {
-                                id: dayText
-                                anchors.centerIn: parent
-                                text: modelData
-                                textFormat: Text.StyledText
-                                font.family: "JetBrainsMono Nerd Font"
-                                font.pixelSize: 11
-                                color: Theme.fg
-                                lineHeight: 1.25
+                            RowLayout {
+                                anchors {
+                                    fill: parent
+                                    leftMargin: 10
+                                    rightMargin: 10
+                                }
+                                spacing: 8
+
+                                // Day Name
+                                Text {
+                                    implicitWidth: 80
+                                    text: modelData.title
+                                    font.family: Theme.fontFamily
+                                    font.pixelSize: Theme.fontSizeSmall
+                                    font.bold: true
+                                    color: Theme.fg
+                                }
+
+                                // Weather Icon
+                                Text {
+                                    text: modelData.icon
+                                    font.family: Theme.fontFamily
+                                    font.pixelSize: 14
+                                }
+
+                                // Condition summary
+                                Text {
+                                    Layout.fillWidth: true
+                                    text: modelData.condition
+                                    font.family: Theme.fontFamily
+                                    font.pixelSize: Theme.fontSizeSmall
+                                    color: Theme.fgSubtle
+                                    elide: Text.ElideRight
+                                }
+
+                                // High / Low temps
+                                Text {
+                                    text: `${modelData.high}  ${modelData.low}`
+                                    font.family: "JetBrainsMono Nerd Font"
+                                    font.pixelSize: Theme.fontSizeSmall
+                                    font.bold: true
+                                    color: Theme.accent
+                                }
                             }
                         }
                     }
