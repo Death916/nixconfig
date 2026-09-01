@@ -6,28 +6,38 @@ RowLayout {
     id: root
     spacing: 4
 
-    // Fixed list of standard workspaces 1..10
+    readonly property var activeList: {
+        if (!Hyprland.workspaces || !Hyprland.workspaces.values) return [];
+        let list = [];
+        for (let i = 0; i < Hyprland.workspaces.values.length; ++i) {
+            let ws = Hyprland.workspaces.values[i];
+            if (ws && ws.id > 0) {
+                list.push(ws);
+            }
+        }
+        if (Hyprland.focusedWorkspace && Hyprland.focusedWorkspace.id > 0) {
+            if (!list.some(ws => ws.id === Hyprland.focusedWorkspace.id)) {
+                list.push(Hyprland.focusedWorkspace);
+            }
+        }
+        list.sort((a, b) => a.id - b.id);
+        return list;
+    }
+
     Repeater {
-        model: 10
+        model: root.activeList
 
         Rectangle {
             id: wsBtn
-            required property int index
-            readonly property int wsId: index + 1
+            required property var modelData
+            readonly property int wsId: modelData.id
             readonly property bool isFocused: Hyprland.focusedWorkspace && Hyprland.focusedWorkspace.id === wsId
-            readonly property bool isOccupied: {
-                if (!Hyprland.workspaces) return false;
-                for (let i = 0; i < Hyprland.workspaces.values.length; ++i) {
-                    if (Hyprland.workspaces.values[i].id === wsId) return true;
-                }
-                return false;
-            }
 
             implicitWidth: isFocused ? 28 : 22
             implicitHeight: 22
             radius: Theme.radius
 
-            color: isFocused ? Theme.accent : (isOccupied ? Theme.widgetBg : "transparent")
+            color: isFocused ? Theme.accent : Theme.widgetBg
             border.color: isFocused ? Theme.accent : (wsMouse.containsMouse ? Theme.fgSubtle : "transparent")
             border.width: 1
 
@@ -45,7 +55,7 @@ RowLayout {
                 font.family: Theme.fontFamily
                 font.pixelSize: Theme.fontSizeSmall
                 font.bold: wsBtn.isFocused
-                color: wsBtn.isFocused ? Theme.bgSubtle : (wsBtn.isOccupied ? Theme.fg : Theme.fgSubtle)
+                color: wsBtn.isFocused ? Theme.bgSubtle : Theme.fg
             }
 
             MouseArea {
