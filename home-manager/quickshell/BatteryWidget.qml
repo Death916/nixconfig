@@ -7,7 +7,7 @@ Rectangle {
     implicitHeight: 24
     implicitWidth: contentRow.implicitWidth + 16
     radius: Theme.radius
-    color: Theme.widgetBg
+    color: batMouse.containsMouse ? Theme.hoverBg : Theme.widgetBg
     visible: UPower.displayDevice && UPower.displayDevice.ready && UPower.displayDevice.isPresent
 
     readonly property var dev: UPower.displayDevice
@@ -31,10 +31,40 @@ Rectangle {
         return Theme.accent;
     }
 
+    function formatTime(seconds) {
+        if (!seconds || seconds <= 0) return "";
+        let hours = Math.floor(seconds / 3600);
+        let minutes = Math.floor((seconds % 3600) / 60);
+        if (hours > 0) {
+            return `${hours}h ${minutes}m`;
+        }
+        return `${minutes}m`;
+    }
+
+    readonly property string statusText: {
+        if (!dev || !dev.ready) return "";
+        if (dev.state === UPowerDeviceState.FullyCharged) {
+            return "Full";
+        }
+        if (dev.state === UPowerDeviceState.Charging || dev.state === UPowerDeviceState.PendingCharge) {
+            let t = formatTime(dev.timeToFull);
+            return t ? `Charging (${t} to full)` : "Charging";
+        }
+        if (dev.state === UPowerDeviceState.Discharging || dev.state === UPowerDeviceState.PendingDischarge) {
+            let t = formatTime(dev.timeToEmpty);
+            return t ? `${t} left` : "Discharging";
+        }
+        return "";
+    }
+
+    Behavior on implicitWidth {
+        NumberAnimation { duration: 150; easing.type: Easing.OutQuad }
+    }
+
     RowLayout {
         id: contentRow
         anchors.centerIn: parent
-        spacing: 4
+        spacing: 6
 
         Text {
             text: root.icon
@@ -49,5 +79,20 @@ Rectangle {
             font.pixelSize: Theme.fontSizeSmall
             color: Theme.fg
         }
+
+        Text {
+            visible: batMouse.containsMouse && root.statusText.length > 0
+            text: `•  ${root.statusText}`
+            font.family: Theme.fontFamily
+            font.pixelSize: Theme.fontSizeSmall
+            color: Theme.fgSubtle
+        }
+    }
+
+    MouseArea {
+        id: batMouse
+        anchors.fill: parent
+        hoverEnabled: true
+        cursorShape: Qt.PointingHandCursor
     }
 }
