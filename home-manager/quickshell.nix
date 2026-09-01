@@ -13,7 +13,6 @@
     pkgs.playerctl
     pkgs.pamixer
     pkgs.brightnessctl
-    pkgs.wttrbar
   ];
 
   xdg.configFile."quickshell".source = ./quickshell;
