@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
+import Quickshell
 import Quickshell.Io
 
 Rectangle {
@@ -7,7 +8,7 @@ Rectangle {
     implicitHeight: 24
     implicitWidth: contentRow.implicitWidth + 16
     radius: Theme.radius
-    color: wttrMouse.containsMouse ? Theme.hoverBg : Theme.widgetBg
+    color: wttrMouse.containsMouse || weatherPopup.visible ? Theme.hoverBg : Theme.widgetBg
 
     property string weatherText: ""
     property string weatherTooltip: ""
@@ -49,7 +50,7 @@ Rectangle {
         spacing: 4
 
         Text {
-            text: root.weatherText.length > 0 ? root.weatherText : "..."
+            text: root.weatherText.length > 0 ? `${root.weatherText}°` : "..."
             font.family: Theme.fontFamily
             font.pixelSize: Theme.fontSizeSmall
             color: Theme.fg
@@ -61,10 +62,47 @@ Rectangle {
         anchors.fill: parent
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
-        onClicked: {
-            if (!wttrProc.running) {
-                wttrProc.running = true;
+        acceptedButtons: Qt.LeftButton | Qt.RightButton
+        onClicked: (mouse) => {
+            if (mouse.button === Qt.LeftButton) {
+                weatherPopup.visible = !weatherPopup.visible;
+            } else if (mouse.button === Qt.RightButton) {
+                if (!wttrProc.running) {
+                    wttrProc.running = true;
+                }
             }
         }
+    }
+
+    PopupWindow {
+        id: weatherPopup
+        anchor.item: root
+        visible: false
+        color: "transparent"
+        grabFocus: true
+
+        Rectangle {
+            id: popupCard
+            anchors.fill: parent
+            radius: Theme.radius + 4
+            color: Theme.barBg
+            border.color: Theme.bgAlt
+            border.width: 1
+
+            Text {
+                id: forecastContent
+                anchors.fill: parent
+                anchors.margins: 14
+                text: root.weatherTooltip.length > 0 ? root.weatherTooltip : "Fetching forecast..."
+                textFormat: Text.RichText
+                font.family: Theme.fontFamily
+                font.pixelSize: Theme.fontSizeSmall
+                color: Theme.fg
+                lineHeight: 1.2
+            }
+        }
+
+        implicitWidth: forecastContent.implicitWidth + 28
+        implicitHeight: forecastContent.implicitHeight + 28
     }
 }
