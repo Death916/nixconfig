@@ -60,7 +60,7 @@ Rectangle {
                     root.sink.audio.muted = !root.sink.audio.muted;
                 }
             } else if (mouse.button === Qt.RightButton) {
-                Hyprland.dispatch("exec pavucontrol");
+                Hyprland.dispatch('hl.dsp.exec_cmd("pavucontrol")');
             }
         }
 
