@@ -277,7 +277,7 @@ Rectangle {
 
                                 // Day Name
                                 Text {
-                                    implicitWidth: 80
+                                    Layout.preferredWidth: 80
                                     text: modelData.title
                                     font.family: Theme.fontFamily
                                     font.pixelSize: Theme.fontSizeSmall
