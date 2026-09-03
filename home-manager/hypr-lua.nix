@@ -250,7 +250,7 @@ in
     extraConfig = ''
       hl.on("hyprland.start", function()
         -- hl.exec_cmd("waybar") # Kept as backup
-        hl.exec_cmd("quickshell")
+        -- quickshell is managed via systemd user service with auto-restarts
         hl.exec_cmd("poweralertd")
         hl.exec_cmd("dunst")
         hl.exec_cmd("nm-applet --indicator")

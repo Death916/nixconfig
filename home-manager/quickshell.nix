@@ -56,4 +56,28 @@ in
         readonly property int barHeight: 34
     }
   '';
+
+  # Systemd user service to manage Quickshell and restart it automatically on rebuild
+  systemd.user.services.quickshell = {
+    Unit = {
+      Description = "Quickshell desktop status bar";
+      After = [ "graphical-session.target" ];
+      PartOf = [ "graphical-session.target" ];
+    };
+
+    Service = {
+      ExecStart = "${inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/quickshell";
+      Restart = "on-failure";
+    };
+
+    # Automatically restart Quickshell on rebuild whenever Theme.qml or QML files change
+    restartTriggers = [
+      config.xdg.configFile."quickshell/Theme.qml".text
+      config.xdg.configFile."quickshell".source
+    ];
+
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+  };
 }
