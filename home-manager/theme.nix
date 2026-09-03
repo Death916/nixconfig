@@ -8,7 +8,7 @@
 
 {
   imports = [
-    ./themes/poimandres.nix
+    ./themes/robot.nix
   ];
 
   stylix.enable = true;
