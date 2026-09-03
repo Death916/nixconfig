@@ -1,8 +1,6 @@
 { pkgs, lib, config, ... }:
 
 let
-  awwwPkg = pkgs.awww or pkgs.swww;
-
   apodScript = pkgs.writeShellScript "fetch-apod" ''
     set -euo pipefail
     CACHE_DIR="''${XDG_CACHE_HOME:-$HOME/.cache}/apod"
@@ -22,48 +20,15 @@ let
       fi
     fi
 
-    # Determine binary name (awww vs swww)
-    CLIENT="${awwwPkg}/bin/awww"
-    if [ ! -x "$CLIENT" ]; then
-      CLIENT="${awwwPkg}/bin/swww"
-    fi
-
-    # Set wallpaper
-    if [ -f "$IMG_PATH" ] && [ -x "$CLIENT" ]; then
-      "$CLIENT" img "$IMG_PATH" --transition-type fade --transition-duration 2 || true
-    fi
-  '';
-
-  daemonScript = pkgs.writeShellScript "start-wallpaper-daemon" ''
-    if [ -x "${awwwPkg}/bin/awww-daemon" ]; then
-      exec "${awwwPkg}/bin/awww-daemon"
-    else
-      exec "${awwwPkg}/bin/swww-daemon"
+    # Set wallpaper using awww
+    if [ -f "$IMG_PATH" ]; then
+      ${pkgs.awww}/bin/awww img "$IMG_PATH" --transition-type fade --transition-duration 2 || true
     fi
   '';
 in
 {
-  home.packages = [
-    awwwPkg
-  ];
-
-  # Daemon service for awww / swww
-  systemd.user.services.awww = {
-    Unit = {
-      Description = "awww/swww wallpaper daemon";
-      After = [ "graphical-session.target" ];
-      PartOf = [ "graphical-session.target" ];
-    };
-
-    Service = {
-      ExecStart = "${daemonScript}";
-      Restart = "on-failure";
-    };
-
-    Install = {
-      WantedBy = [ "graphical-session.target" ];
-    };
-  };
+  # Enable Home Manager's built-in awww service
+  services.awww.enable = true;
 
   # Service to fetch and apply NASA APOD
   systemd.user.services.apod-wallpaper = {
