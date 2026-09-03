@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
+import Quickshell.Widgets
 import Quickshell.Services.SystemTray
 
 RowLayout {
@@ -18,13 +19,11 @@ RowLayout {
             radius: Theme.radius
             color: trayMouse.containsMouse ? Theme.hoverBg : "transparent"
 
-            Image {
+            IconImage {
                 anchors.centerIn: parent
                 width: 16
                 height: 16
                 source: trayItemRect.modelData.icon || ""
-                fillMode: Image.PreserveAspectFit
-                smooth: true
             }
 
             QsMenuAnchor {

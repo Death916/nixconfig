@@ -13,6 +13,7 @@
     pkgs.playerctl
     pkgs.pamixer
     pkgs.brightnessctl
+    pkgs.papirus-icon-theme
   ];
 
   xdg.configFile."quickshell".source = ./quickshell;
