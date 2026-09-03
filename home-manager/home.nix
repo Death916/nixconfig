@@ -21,6 +21,7 @@ in
     ./theme.nix # Import the stylix theme configuration
     ./halloy.nix
     ./quickshell.nix
+    ./apod-wallpaper.nix
   ];
 
   home.username = "death916";
