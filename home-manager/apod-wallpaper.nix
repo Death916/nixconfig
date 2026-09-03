@@ -1,6 +1,8 @@
 { pkgs, lib, config, ... }:
 
 let
+  awwwPkg = pkgs.awww or pkgs.swww;
+
   apodScript = pkgs.writeShellScript "fetch-apod" ''
     set -euo pipefail
     CACHE_DIR="''${XDG_CACHE_HOME:-$HOME/.cache}/apod"
@@ -20,27 +22,41 @@ let
       fi
     fi
 
-    # Set wallpaper using swww
-    if [ -f "$IMG_PATH" ]; then
-      ${pkgs.swww}/bin/swww img "$IMG_PATH" --transition-type fade --transition-duration 2 || true
+    # Determine binary name (awww vs swww)
+    CLIENT="${awwwPkg}/bin/awww"
+    if [ ! -x "$CLIENT" ]; then
+      CLIENT="${awwwPkg}/bin/swww"
+    fi
+
+    # Set wallpaper
+    if [ -f "$IMG_PATH" ] && [ -x "$CLIENT" ]; then
+      "$CLIENT" img "$IMG_PATH" --transition-type fade --transition-duration 2 || true
+    fi
+  '';
+
+  daemonScript = pkgs.writeShellScript "start-wallpaper-daemon" ''
+    if [ -x "${awwwPkg}/bin/awww-daemon" ]; then
+      exec "${awwwPkg}/bin/awww-daemon"
+    else
+      exec "${awwwPkg}/bin/swww-daemon"
     fi
   '';
 in
 {
   home.packages = [
-    pkgs.swww
+    awwwPkg
   ];
 
-  # Daemon service for swww
-  systemd.user.services.swww = {
+  # Daemon service for awww / swww
+  systemd.user.services.awww = {
     Unit = {
-      Description = "swww wallpaper daemon";
+      Description = "awww/swww wallpaper daemon";
       After = [ "graphical-session.target" ];
       PartOf = [ "graphical-session.target" ];
     };
 
     Service = {
-      ExecStart = "${pkgs.swww}/bin/swww-daemon";
+      ExecStart = "${daemonScript}";
       Restart = "on-failure";
     };
 
@@ -53,8 +69,8 @@ in
   systemd.user.services.apod-wallpaper = {
     Unit = {
       Description = "Fetch and apply NASA Astronomy Picture of the Day wallpaper";
-      After = [ "swww.service" "network-online.target" ];
-      Wants = [ "swww.service" "network-online.target" ];
+      After = [ "awww.service" "network-online.target" ];
+      Wants = [ "awww.service" "network-online.target" ];
     };
 
     Service = {
@@ -63,7 +79,7 @@ in
     };
 
     Install = {
-      WantedBy = [ "graphical-session.target" ];
+      WantedBy = [ "graphical-session.target" "default.target" ];
     };
   };
 
