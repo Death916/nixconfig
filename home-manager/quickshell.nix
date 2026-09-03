@@ -63,18 +63,16 @@ in
       Description = "Quickshell desktop status bar";
       After = [ "graphical-session.target" ];
       PartOf = [ "graphical-session.target" ];
+      X-Restart-Triggers = [
+        config.xdg.configFile."quickshell/Theme.qml".text
+        config.xdg.configFile."quickshell".source
+      ];
     };
 
     Service = {
       ExecStart = "${inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/quickshell";
       Restart = "on-failure";
     };
-
-    # Automatically restart Quickshell on rebuild whenever Theme.qml or QML files change
-    restartTriggers = [
-      config.xdg.configFile."quickshell/Theme.qml".text
-      config.xdg.configFile."quickshell".source
-    ];
 
     Install = {
       WantedBy = [ "graphical-session.target" ];
