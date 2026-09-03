@@ -65,6 +65,7 @@ PanelWindow {
                 Layout.alignment: Qt.AlignRight
                 spacing: 6
 
+                ScaleWidget { screen: root.modelData }
                 WeatherWidget { screen: root.modelData }
                 SysTray {}
                 VolumeWidget {}
