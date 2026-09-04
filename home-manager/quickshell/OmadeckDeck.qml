@@ -20,64 +20,138 @@ Item {
     signal dismissed()
     signal workspaceSelected(int wsId)
 
+    // Array of workspace entries:
+    // [{ wsId, label, monitor, windows: [{ toplevel, title, x, y, width, height }] }]
+    property var entries: []
+    property int selectedIndex: 0
+
     // -------------------------------------------------------------------------
-    // Workspaces Model
+    // Helper: Extract window rectangles from Hyprland IPC data
     // -------------------------------------------------------------------------
-    readonly property var activeWorkspaces: {
-        if (!Hyprland.workspaces || !Hyprland.workspaces.values) return [];
-        let list = [];
+    function windowsFor(workspace, monitor) {
+        let out = [];
+        if (!workspace || !monitor) return out;
+
+        let toplevels = workspace.toplevels ? workspace.toplevels.values : [];
+        for (let i = 0; i < toplevels.length; i++) {
+            let handle = toplevels[i];
+            // ScreencopyView requires the Wayland Toplevel handle (handle.wayland)
+            if (!handle || !handle.wayland) continue;
+
+            let raw = handle.lastIpcObject || {};
+            let at = Array.isArray(raw.at) && raw.at.length === 2 ? raw.at : [monitor.x, monitor.y];
+            let size = Array.isArray(raw.size) && raw.size.length === 2 ? raw.size : [monitor.width, monitor.height];
+
+            let width = Math.max(0, Number(size[0]) || 0);
+            let height = Math.max(0, Number(size[1]) || 0);
+            if (width <= 0 || height <= 0) continue;
+
+            out.push({
+                toplevel: handle.wayland,
+                title: handle.title || raw.title || raw.class || "Window",
+                // Convert absolute coordinates to monitor-local logical coordinates
+                x: (Number(at[0]) || 0) - (monitor.x || 0),
+                y: (Number(at[1]) || 0) - (monitor.y || 0),
+                width: width,
+                height: height
+            });
+        }
+        return out;
+    }
+
+    // -------------------------------------------------------------------------
+    // Build Workspace Entries
+    // -------------------------------------------------------------------------
+    function buildEntries() {
+        Hyprland.refreshToplevels();
+
+        let focusedMonitor = Hyprland.focusedMonitor;
+        let focusedWorkspace = Hyprland.focusedWorkspace;
+        let values = Hyprland.workspaces ? Hyprland.workspaces.values : [];
+        let built = [];
+
+        for (let i = 0; i < values.length; i++) {
+            let workspace = values[i];
+            if (!workspace || workspace.id <= 0) continue;
+
+            let monitor = workspace.monitor || focusedMonitor;
+            if (focusedMonitor && monitor && monitor.id !== focusedMonitor.id) {
+                continue;
+            }
+
+            let occupied = workspace.toplevels && workspace.toplevels.values && workspace.toplevels.values.length > 0;
+            let isCurrent = focusedWorkspace && workspace.id === focusedWorkspace.id;
+
+            // Show occupied workspaces or the currently focused one
+            if (!occupied && !isCurrent) continue;
+
+            built.push({
+                wsId: workspace.id,
+                label: workspace.name && workspace.name !== String(workspace.id)
+                    ? workspace.name
+                    : "Workspace " + workspace.id,
+                monitor: monitor,
+                windows: windowsFor(workspace, monitor)
+            });
+        }
+
+        built.sort((a, b) => a.wsId - b.wsId);
+        root.entries = built;
+        syncSelection();
+    }
+
+    function syncSelection() {
         let focusedId = Hyprland.focusedWorkspace ? Hyprland.focusedWorkspace.id : -1;
-
-        for (let i = 0; i < Hyprland.workspaces.values.length; ++i) {
-            let ws = Hyprland.workspaces.values[i];
-            if (!ws || ws.id <= 0) continue;
-
-            // Check if workspace has windows or is focused
-            let hasWindows = ws.toplevels && ws.toplevels.values && ws.toplevels.values.length > 0;
-            if (hasWindows || ws.id === focusedId) {
-                list.push(ws);
+        for (let i = 0; i < root.entries.length; i++) {
+            if (root.entries[i].wsId === focusedId) {
+                root.selectedIndex = i;
+                return;
             }
         }
-
-        // Ensure focused workspace is in the list
-        if (focusedId > 0 && !list.some(w => w.id === focusedId)) {
-            list.push(Hyprland.focusedWorkspace);
-        }
-
-        list.sort((a, b) => a.id - b.id);
-        return list;
+        root.selectedIndex = 0;
     }
 
-    readonly property int selectedIndex: {
-        let focusedId = Hyprland.focusedWorkspace ? Hyprland.focusedWorkspace.id : -1;
-        for (let i = 0; i < activeWorkspaces.length; ++i) {
-            if (activeWorkspaces[i].id === focusedId) return i;
+    // Rebuild entries on mount and whenever Omadeck is summoned
+    Component.onCompleted: buildEntries()
+
+    Connections {
+        target: OmadeckState
+        function onOpenedChanged() {
+            if (OmadeckState.opened) {
+                root.buildEntries();
+            }
         }
-        return 0;
     }
 
-    // Geometry constants
+    Connections {
+        target: Hyprland
+        function onFocusedWorkspaceChanged() {
+            if (OmadeckState.opened) {
+                root.syncSelection();
+            }
+        }
+    }
+
+    // -------------------------------------------------------------------------
+    // Geometry Constants
+    // -------------------------------------------------------------------------
     readonly property int cardWidth: Math.min(Math.max(parent.width * 0.45, 520), 680)
     readonly property int cardHeight: Math.min(Math.max(parent.height * 0.85, 340), 440)
     readonly property int overlapStep: 140
     readonly property int centerX: parent.width / 2
 
-    // Monitor resolution for window scaling
-    readonly property real monWidth: root.screen ? root.screen.width : 1920
-    readonly property real monHeight: root.screen ? root.screen.height : 1080
-
     // -------------------------------------------------------------------------
     // Workspace Cards Repeater
     // -------------------------------------------------------------------------
     Repeater {
-        model: root.activeWorkspaces
+        model: root.entries
 
         Rectangle {
             id: card
             required property var modelData
             required property int index
 
-            readonly property int wsId: modelData.id
+            readonly property int wsId: modelData.wsId
             readonly property int offset: index - root.selectedIndex
             readonly property bool isSelected: offset === 0
 
@@ -100,15 +174,15 @@ Item {
             clip: true
 
             Behavior on x {
-                NumberAnimation { duration: 240; easing.type: Easing.OutCubic }
+                NumberAnimation { duration: 220; easing.type: Easing.OutCubic }
             }
 
             Behavior on scale {
-                NumberAnimation { duration: 240; easing.type: Easing.OutCubic }
+                NumberAnimation { duration: 220; easing.type: Easing.OutCubic }
             }
 
             Behavior on border.color {
-                ColorAnimation { duration: 200 }
+                ColorAnimation { duration: 180 }
             }
 
             // Top Header Bar
@@ -135,7 +209,7 @@ Item {
                         Text {
                             id: wsText
                             anchors.centerIn: parent
-                            text: `Workspace ${card.wsId}`
+                            text: card.modelData.label
                             font.family: Theme.fontFamily
                             font.pixelSize: Theme.fontSizeSmall
                             font.bold: true
@@ -166,7 +240,7 @@ Item {
                 }
             }
 
-            // Canvas area representing the desktop
+            // Canvas area representing the desktop monitor
             Item {
                 id: canvas
                 anchors.top: cardHeader.bottom
@@ -174,72 +248,83 @@ Item {
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
                 anchors.margins: 10
+                clip: true
 
-                // Aspect-ratio scaled container
-                readonly property real scaleFactor: Math.min(
-                    canvas.width / root.monWidth,
-                    canvas.height / root.monHeight
-                )
+                // Scaled monitor stage matching monitor aspect ratio
+                Item {
+                    id: stage
+                    readonly property var monitor: card.modelData.monitor || Hyprland.focusedMonitor
+                    readonly property real monScale: monitor && monitor.scale > 0 ? monitor.scale : 1
+                    // Hyprland reports monitor dimensions in physical pixels; convert to logical pixels
+                    readonly property real monWidth: monitor && monitor.width > 0 ? monitor.width / monScale : 1920
+                    readonly property real monHeight: monitor && monitor.height > 0 ? monitor.height / monScale : 1080
+                    readonly property real coverScale: Math.max(canvas.width / monWidth, canvas.height / monHeight)
 
-                // Render Windows on this Workspace
-                Repeater {
-                    model: {
-                        if (!Hyprland.toplevels || !Hyprland.toplevels.values) return [];
-                        return Hyprland.toplevels.values.filter(t => t && t.workspace && t.workspace.id === card.wsId);
-                    }
+                    width: monWidth * coverScale
+                    height: monHeight * coverScale
+                    anchors.centerIn: parent
 
-                    Rectangle {
-                        id: winRect
-                        required property var modelData
+                    // Render Windows on this Workspace
+                    Repeater {
+                        model: card.modelData.windows
 
-                        // Scaled positioning
-                        x: Math.max(0, (modelData.x % root.monWidth) * canvas.scaleFactor)
-                        y: Math.max(0, (modelData.y % root.monHeight) * canvas.scaleFactor)
-                        width: Math.max(30, modelData.width * canvas.scaleFactor)
-                        height: Math.max(30, modelData.height * canvas.scaleFactor)
-                        radius: 4
-                        color: Theme.bgSubtle
-                        border.color: modelData.activated ? Theme.accent : Theme.bgAlt
-                        border.width: 1
-                        clip: true
+                        Item {
+                            id: windowSlot
+                            required property var modelData
+                            required property int index
 
-                        // Live window screencopy stream
-                        ScreencopyView {
-                            anchors.fill: parent
-                            captureSource: winRect.modelData
-                            live: root.opened
-                            paintCursor: false
-                            visible: hasContent
-                        }
+                            x: modelData.x * stage.coverScale
+                            y: modelData.y * stage.coverScale
+                            width: Math.max(24, modelData.width * stage.coverScale)
+                            height: Math.max(24, modelData.height * stage.coverScale)
+                            z: index
 
-                        // Window Title Bar / Fallback Label
-                        Rectangle {
-                            anchors.top: parent.top
-                            anchors.left: parent.left
-                            anchors.right: parent.right
-                            height: 18
-                            color: Qt.rgba(Theme.bg.r, Theme.bg.g, Theme.bg.b, 0.8)
-
-                            RowLayout {
+                            Rectangle {
                                 anchors.fill: parent
-                                anchors.leftMargin: 4
-                                anchors.rightMargin: 4
-                                spacing: 4
+                                radius: 4
+                                color: Theme.bgSubtle
+                                border.color: Theme.bgAlt
+                                border.width: 1
+                                clip: true
 
-                                Text {
-                                    text: "󰖲"
-                                    font.family: Theme.fontFamily
-                                    font.pixelSize: 10
-                                    color: Theme.accent
+                                // ScreencopyView captured using Wayland Toplevel handle
+                                ScreencopyView {
+                                    anchors.fill: parent
+                                    captureSource: windowSlot.modelData.toplevel
+                                    live: false
+                                    paintCursor: false
                                 }
 
-                                Text {
-                                    text: winRect.modelData.title || winRect.modelData.class || "Window"
-                                    font.family: Theme.fontFamily
-                                    font.pixelSize: 10
-                                    color: Theme.fg
-                                    elide: Text.ElideRight
-                                    Layout.fillWidth: true
+                                // Title bar / Window identifier
+                                Rectangle {
+                                    anchors.top: parent.top
+                                    anchors.left: parent.left
+                                    anchors.right: parent.right
+                                    height: 18
+                                    color: Qt.rgba(Theme.bg.r, Theme.bg.g, Theme.bg.b, 0.78)
+
+                                    RowLayout {
+                                        anchors.fill: parent
+                                        anchors.leftMargin: 4
+                                        anchors.rightMargin: 4
+                                        spacing: 4
+
+                                        Text {
+                                            text: "󰖲"
+                                            font.family: Theme.fontFamily
+                                            font.pixelSize: 10
+                                            color: Theme.accent
+                                        }
+
+                                        Text {
+                                            text: windowSlot.modelData.title
+                                            font.family: Theme.fontFamily
+                                            font.pixelSize: 10
+                                            color: Theme.fg
+                                            elide: Text.ElideRight
+                                            Layout.fillWidth: true
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -252,10 +337,10 @@ Item {
                 anchors.fill: parent
                 radius: card.radius
                 color: Theme.bg
-                opacity: card.isSelected ? 0.0 : Math.min(0.65, 0.25 * Math.abs(card.offset))
+                opacity: card.isSelected ? 0.0 : Math.min(0.65, 0.24 + 0.08 * (Math.abs(card.offset) - 1))
 
                 Behavior on opacity {
-                    NumberAnimation { duration: 200 }
+                    NumberAnimation { duration: 180 }
                 }
             }
 
