@@ -17,4 +17,12 @@ ShellRoot {
             Osd {}
         }
     }
+
+    Variants {
+        model: Quickshell.screens
+        delegate: Component {
+            Omadeck {}
+        }
+    }
 }
+
