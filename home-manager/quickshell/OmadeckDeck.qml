@@ -10,9 +10,16 @@ import Quickshell.Wayland
 // This component is strictly isolated. When Hyprland implements native overview
 // support, this component can be completely unplugged or removed without
 // affecting the Omadeck HUD or any dashboard widgets.
+//
+// Matches upstream iryzhkov/omarchy-omadeck (Carousel.qml):
+// - Direct 1:1 window capture via hyprland-toplevel-export-v1 (handle.wayland)
+// - Static frame capture per summon (live: false) to eliminate GPU rendering strain
+// - Stable Repeater hierarchy indexed by integer length (no modelData shadowing)
+// - Fanned head-on stack with depth ordering and active accent border
 // =============================================================================
 Item {
     id: root
+    anchors.fill: parent
 
     property bool opened: false
     property var screen: null
@@ -21,41 +28,69 @@ Item {
     signal workspaceSelected(int wsId)
 
     // Array of workspace entries:
-    // [{ wsId, label, monitor, windows: [{ toplevel, title, x, y, width, height }] }]
+    // [{ wsId, label, monitor, windows: [{ toplevel, x, y, width, height }] }]
     property var entries: []
     property int selectedIndex: 0
 
+    // Bounding helpers
+    function finiteNum(value, lo, hi, fallback) {
+        let n = Number(value);
+        if (!isFinite(n)) return fallback;
+        return Math.min(hi, Math.max(lo, n));
+    }
+
+    function boundText(value, max) {
+        let s = String(value === undefined || value === null ? "" : value);
+        return s.length > max ? s.slice(0, max) : s;
+    }
+
+    // Geometry layout knobs matching upstream Carousel.qml
+    readonly property int sliceWidth: Math.min(Math.max(root.width * 0.45, 520), 660)
+    readonly property int sliceHeight: Math.min(Math.max(root.height * 0.55, 340), 429)
+    readonly property int overlapStep: 140
+    readonly property int captureRadius: 6
+
     // -------------------------------------------------------------------------
-    // Helper: Extract window rectangles from Hyprland IPC data
+    // Helper: Resolve monitor for a workspace
+    // -------------------------------------------------------------------------
+    function monitorForWorkspace(workspace) {
+        return workspace && workspace.monitor ? workspace.monitor : Hyprland.focusedMonitor;
+    }
+
+    // -------------------------------------------------------------------------
+    // Helper: Extract window rectangles from Hyprland IPC and toplevel handles
     // -------------------------------------------------------------------------
     function windowsFor(workspace, monitor) {
         let out = [];
         if (!workspace || !monitor) return out;
 
         let toplevels = workspace.toplevels ? workspace.toplevels.values : [];
+
         for (let i = 0; i < toplevels.length; i++) {
             let handle = toplevels[i];
-            // ScreencopyView requires the Wayland Toplevel handle (handle.wayland)
+            // ScreencopyView requires the valid Wayland Toplevel handle
             if (!handle || !handle.wayland) continue;
 
             let raw = handle.lastIpcObject || {};
             let at = Array.isArray(raw.at) && raw.at.length === 2 ? raw.at : [monitor.x, monitor.y];
             let size = Array.isArray(raw.size) && raw.size.length === 2 ? raw.size : [monitor.width, monitor.height];
 
-            let width = Math.max(0, Number(size[0]) || 0);
-            let height = Math.max(0, Number(size[1]) || 0);
+            let width = finiteNum(size[0], 0, 32768, 0);
+            let height = finiteNum(size[1], 0, 32768, 0);
             if (width <= 0 || height <= 0) continue;
 
             out.push({
                 toplevel: handle.wayland,
                 title: handle.title || raw.title || raw.class || "Window",
-                // Convert absolute coordinates to monitor-local logical coordinates
-                x: (Number(at[0]) || 0) - (monitor.x || 0),
-                y: (Number(at[1]) || 0) - (monitor.y || 0),
+                x: finiteNum(at[0], -32768, 32768, 0) - monitor.x,
+                y: finiteNum(at[1], -32768, 32768, 0) - monitor.y,
                 width: width,
                 height: height
             });
+
+            if (out.length >= 64) break;
         }
+
         return out;
     }
 
@@ -74,51 +109,97 @@ Item {
             let workspace = values[i];
             if (!workspace || workspace.id <= 0) continue;
 
-            let monitor = workspace.monitor || focusedMonitor;
+            let monitor = monitorForWorkspace(workspace);
             if (focusedMonitor && monitor && monitor.id !== focusedMonitor.id) {
                 continue;
             }
 
-            let occupied = workspace.toplevels && workspace.toplevels.values && workspace.toplevels.values.length > 0;
-            let isCurrent = focusedWorkspace && workspace.id === focusedWorkspace.id;
+            let occupied = workspace.toplevels && workspace.toplevels.values.length > 0;
+            let current = focusedWorkspace && workspace.id === focusedWorkspace.id;
 
-            // Show occupied workspaces or the currently focused one
-            if (!occupied && !isCurrent) continue;
+            // Show occupied workspaces or the currently active one
+            if (!occupied && !current) continue;
 
             built.push({
                 wsId: workspace.id,
                 label: workspace.name && workspace.name !== String(workspace.id)
-                    ? workspace.name
+                    ? boundText(workspace.name, 128)
                     : "Workspace " + workspace.id,
                 monitor: monitor,
                 windows: windowsFor(workspace, monitor)
             });
+
+            if (built.length >= 64) break;
         }
 
         built.sort((a, b) => a.wsId - b.wsId);
         root.entries = built;
-        syncSelection();
+        syncSelection(false);
     }
 
-    function syncSelection() {
-        let focusedId = Hyprland.focusedWorkspace ? Hyprland.focusedWorkspace.id : -1;
+    function indexOfWorkspace(wsId) {
         for (let i = 0; i < root.entries.length; i++) {
-            if (root.entries[i].wsId === focusedId) {
-                root.selectedIndex = i;
-                return;
+            if (root.entries[i].wsId === wsId) return i;
+        }
+        return -1;
+    }
+
+    function syncSelection(allowRebuild) {
+        let focused = Hyprland.focusedWorkspace;
+        if (!focused) return;
+
+        let index = indexOfWorkspace(focused.id);
+        if (index < 0 && allowRebuild !== false) {
+            buildEntries();
+            index = indexOfWorkspace(focused.id);
+        }
+
+        if (index >= 0) {
+            root.selectedIndex = index;
+        }
+    }
+
+    function jumpTo(index) {
+        let entry = root.entries[index];
+        if (!entry) return;
+
+        let wsId = Number(entry.wsId);
+        if (!Number.isInteger(wsId) || wsId <= 0) return;
+
+        root.workspaceSelected(wsId);
+        Hyprland.dispatch(`hl.dsp.focus({ workspace = "${wsId}" })`);
+    }
+
+    // Single retry timer on summon to ensure Wayland toplevel addresses settle
+    Timer {
+        id: retryTimer
+        interval: 100
+        repeat: false
+        onTriggered: {
+            if (root.opened || OmadeckState.opened) {
+                root.buildEntries();
             }
         }
-        root.selectedIndex = 0;
     }
 
-    // Rebuild entries on mount and whenever Omadeck is summoned
-    Component.onCompleted: buildEntries()
+    // Initial mount and summon triggers
+    Component.onCompleted: {
+        buildEntries();
+    }
+
+    onOpenedChanged: {
+        if (opened) {
+            root.buildEntries();
+            retryTimer.restart();
+        }
+    }
 
     Connections {
         target: OmadeckState
         function onOpenedChanged() {
             if (OmadeckState.opened) {
                 root.buildEntries();
+                retryTimer.restart();
             }
         }
     }
@@ -126,238 +207,168 @@ Item {
     Connections {
         target: Hyprland
         function onFocusedWorkspaceChanged() {
-            if (OmadeckState.opened) {
-                root.syncSelection();
+            if (root.opened || OmadeckState.opened) {
+                root.syncSelection(true);
             }
         }
     }
 
     // -------------------------------------------------------------------------
-    // Geometry Constants
+    // Workspace Cards Fanned Carousel
     // -------------------------------------------------------------------------
-    readonly property int cardWidth: Math.min(Math.max(parent.width * 0.45, 520), 680)
-    readonly property int cardHeight: Math.min(Math.max(parent.height * 0.85, 340), 440)
-    readonly property int overlapStep: 140
-    readonly property int centerX: parent.width / 2
+    Item {
+        id: strip
+        anchors.fill: parent
 
-    // -------------------------------------------------------------------------
-    // Workspace Cards Repeater
-    // -------------------------------------------------------------------------
-    Repeater {
-        model: root.entries
+        // Consume clicks in empty deck area
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {}
+        }
 
-        Rectangle {
-            id: card
-            required property var modelData
-            required property int index
+        Repeater {
+            model: root.entries.length
 
-            readonly property int wsId: modelData.wsId
-            readonly property int offset: index - root.selectedIndex
-            readonly property bool isSelected: offset === 0
+            Item {
+                id: slice
+                required property int index
 
-            width: root.cardWidth
-            height: root.cardHeight
-            radius: Theme.radius + 6
-            color: Theme.barBg
+                readonly property var entry: root.entries[index]
+                readonly property int relativeIndex: index - root.selectedIndex
+                readonly property int depth: Math.abs(relativeIndex)
+                readonly property bool selected: relativeIndex === 0
+                readonly property bool nearby: depth <= root.captureRadius
 
-            // Centering & Fanning position
-            x: root.centerX - (root.cardWidth / 2) + (offset * root.overlapStep)
-            anchors.verticalCenter: parent.verticalCenter
+                // Once activated, keep capture alive to avoid teardown flicker
+                property bool captureActivated: nearby
+                onNearbyChanged: {
+                    if (nearby) captureActivated = true;
+                }
 
-            // Stacking order: selected on top, descending to left & right
-            z: isSelected ? 100 : (offset < 0 ? 50 + index : 50 - offset)
+                visible: nearby
+                width: root.sliceWidth
+                height: root.sliceHeight
+                anchors.verticalCenter: parent.verticalCenter
+                x: (strip.width - root.sliceWidth) / 2 + (relativeIndex * root.overlapStep)
+                z: root.captureRadius - depth
 
-            // Scale and border
-            scale: isSelected ? 1.0 : Math.max(0.85, 1.0 - Math.abs(offset) * 0.05)
-            border.color: isSelected ? Theme.accent : Theme.bgAlt
-            border.width: isSelected ? 2 : 1
-            clip: true
+                Behavior on x {
+                    NumberAnimation { duration: 180; easing.type: Easing.OutCubic }
+                }
 
-            Behavior on x {
-                NumberAnimation { duration: 220; easing.type: Easing.OutCubic }
-            }
-
-            Behavior on scale {
-                NumberAnimation { duration: 220; easing.type: Easing.OutCubic }
-            }
-
-            Behavior on border.color {
-                ColorAnimation { duration: 180 }
-            }
-
-            // Top Header Bar
-            Rectangle {
-                id: cardHeader
-                anchors.top: parent.top
-                anchors.left: parent.left
-                anchors.right: parent.right
-                height: 36
-                color: card.isSelected ? Theme.bgSubtle : Theme.widgetBg
-
-                RowLayout {
+                // Card surface container
+                Rectangle {
                     anchors.fill: parent
-                    anchors.leftMargin: 14
-                    anchors.rightMargin: 14
+                    color: Theme.bgSubtle
+                    radius: Theme.radius + 4
+                    clip: true
 
-                    // Workspace indicator pill
-                    Rectangle {
-                        implicitWidth: wsText.implicitWidth + 14
-                        implicitHeight: 22
-                        radius: Theme.radius
-                        color: card.isSelected ? Theme.accent : Theme.bgAlt
+                    // Scaled monitor stage matching monitor aspect ratio
+                    Item {
+                        id: stage
 
+                        readonly property var monitor: slice.entry ? slice.entry.monitor : null
+                        readonly property real monitorScale: monitor && monitor.scale > 0 ? monitor.scale : 1
+                        readonly property real monitorWidth: monitor && monitor.width > 0 ? monitor.width / monitorScale : 1920
+                        readonly property real monitorHeight: monitor && monitor.height > 0 ? monitor.height / monitorScale : 1080
+                        readonly property real coverScale: Math.max(parent.width / monitorWidth, parent.height / monitorHeight)
+
+                        width: monitorWidth * coverScale
+                        height: monitorHeight * coverScale
+                        anchors.centerIn: parent
+
+                        // Empty workspace indicator
                         Text {
-                            id: wsText
                             anchors.centerIn: parent
-                            text: card.modelData.label
+                            visible: !slice.entry || !slice.entry.windows || slice.entry.windows.length === 0
+                            text: "Empty Workspace"
                             font.family: Theme.fontFamily
                             font.pixelSize: Theme.fontSizeSmall
-                            font.bold: true
-                            color: card.isSelected ? Theme.bgSubtle : Theme.fg
+                            color: Theme.fgSubtle
+                            opacity: 0.5
                         }
-                    }
 
-                    Item { Layout.fillWidth: true }
+                        // Window previews captured via hyprland-toplevel-export
+                        Repeater {
+                            model: slice.captureActivated && slice.entry ? slice.entry.windows.length : 0
 
-                    // "ACTIVE" badge if selected
-                    Rectangle {
-                        visible: card.isSelected
-                        implicitWidth: activeBadge.implicitWidth + 10
-                        implicitHeight: 18
-                        radius: Theme.radius
-                        color: Theme.activeBg
+                            Item {
+                                id: windowSlot
+                                required property int index
+                                readonly property var spec: slice.entry.windows[index]
 
-                        Text {
-                            id: activeBadge
-                            anchors.centerIn: parent
-                            text: "ACTIVE"
-                            font.family: Theme.fontFamily
-                            font.pixelSize: 10
-                            font.bold: true
-                            color: Theme.accent
-                        }
-                    }
-                }
-            }
+                                x: spec.x * stage.coverScale
+                                y: spec.y * stage.coverScale
+                                width: Math.max(4, spec.width * stage.coverScale)
+                                height: Math.max(4, spec.height * stage.coverScale)
+                                z: index
 
-            // Canvas area representing the desktop monitor
-            Item {
-                id: canvas
-                anchors.top: cardHeader.bottom
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.bottom: parent.bottom
-                anchors.margins: 10
-                clip: true
-
-                // Scaled monitor stage matching monitor aspect ratio
-                Item {
-                    id: stage
-                    readonly property var monitor: card.modelData.monitor || Hyprland.focusedMonitor
-                    readonly property real monScale: monitor && monitor.scale > 0 ? monitor.scale : 1
-                    // Hyprland reports monitor dimensions in physical pixels; convert to logical pixels
-                    readonly property real monWidth: monitor && monitor.width > 0 ? monitor.width / monScale : 1920
-                    readonly property real monHeight: monitor && monitor.height > 0 ? monitor.height / monScale : 1080
-                    readonly property real coverScale: Math.max(canvas.width / monWidth, canvas.height / monHeight)
-
-                    width: monWidth * coverScale
-                    height: monHeight * coverScale
-                    anchors.centerIn: parent
-
-                    // Render Windows on this Workspace
-                    Repeater {
-                        model: card.modelData.windows
-
-                        Item {
-                            id: windowSlot
-                            required property var modelData
-                            required property int index
-
-                            x: modelData.x * stage.coverScale
-                            y: modelData.y * stage.coverScale
-                            width: Math.max(24, modelData.width * stage.coverScale)
-                            height: Math.max(24, modelData.height * stage.coverScale)
-                            z: index
-
-                            Rectangle {
-                                anchors.fill: parent
-                                radius: 4
-                                color: Theme.bgSubtle
-                                border.color: Theme.bgAlt
-                                border.width: 1
-                                clip: true
-
-                                // ScreencopyView captured using Wayland Toplevel handle
                                 ScreencopyView {
                                     anchors.fill: parent
-                                    captureSource: windowSlot.modelData.toplevel
+                                    captureSource: windowSlot.spec.toplevel
                                     live: false
                                     paintCursor: false
-                                }
-
-                                // Title bar / Window identifier
-                                Rectangle {
-                                    anchors.top: parent.top
-                                    anchors.left: parent.left
-                                    anchors.right: parent.right
-                                    height: 18
-                                    color: Qt.rgba(Theme.bg.r, Theme.bg.g, Theme.bg.b, 0.78)
-
-                                    RowLayout {
-                                        anchors.fill: parent
-                                        anchors.leftMargin: 4
-                                        anchors.rightMargin: 4
-                                        spacing: 4
-
-                                        Text {
-                                            text: "󰖲"
-                                            font.family: Theme.fontFamily
-                                            font.pixelSize: 10
-                                            color: Theme.accent
-                                        }
-
-                                        Text {
-                                            text: windowSlot.modelData.title
-                                            font.family: Theme.fontFamily
-                                            font.pixelSize: 10
-                                            color: Theme.fg
-                                            elide: Text.ElideRight
-                                            Layout.fillWidth: true
-                                        }
-                                    }
                                 }
                             }
                         }
                     }
+
+                    // Depth dimming overlay: unselected cards dim further into the stack
+                    Rectangle {
+                        anchors.fill: parent
+                        color: Theme.bg
+                        opacity: slice.selected ? 0.0 : Math.min(0.65, 0.25 + 0.10 * (slice.depth - 1))
+
+                        Behavior on opacity {
+                            NumberAnimation { duration: 180 }
+                        }
+                    }
+
+                    // Workspace Label Pill
+                    Rectangle {
+                        anchors.top: parent.top
+                        anchors.left: parent.left
+                        anchors.margins: 10
+                        implicitWidth: labelText.implicitWidth + 16
+                        implicitHeight: 24
+                        radius: Theme.radius
+                        color: slice.selected ? Theme.accent : Qt.rgba(Theme.bg.r, Theme.bg.g, Theme.bg.b, 0.8)
+
+                        Text {
+                            id: labelText
+                            anchors.centerIn: parent
+                            text: slice.entry ? slice.entry.label : ""
+                            font.family: Theme.fontFamily
+                            font.pixelSize: Theme.fontSizeSmall
+                            font.bold: true
+                            color: slice.selected ? Theme.bgSubtle : Theme.fg
+                        }
+                    }
                 }
-            }
 
-            // Dimming Overlay for non-selected cards
-            Rectangle {
-                anchors.fill: parent
-                radius: card.radius
-                color: Theme.bg
-                opacity: card.isSelected ? 0.0 : Math.min(0.65, 0.24 + 0.08 * (Math.abs(card.offset) - 1))
+                // Card Outline Border
+                Rectangle {
+                    anchors.fill: parent
+                    radius: Theme.radius + 4
+                    color: "transparent"
+                    border.color: slice.selected ? Theme.accent : Qt.rgba(Theme.fg.r, Theme.fg.g, Theme.fg.b, 0.25)
+                    border.width: slice.selected ? 2 : 1
 
-                Behavior on opacity {
-                    NumberAnimation { duration: 180 }
+                    Behavior on border.color {
+                        ColorAnimation { duration: 180 }
+                    }
                 }
-            }
 
-            // Click Handler
-            MouseArea {
-                anchors.fill: parent
-                cursorShape: Qt.PointingHandCursor
-                hoverEnabled: true
-
-                onClicked: {
-                    if (card.isSelected) {
-                        // Clicking the active workspace dismisses the overview
-                        root.dismissed();
-                    } else {
-                        // Switch to clicked workspace
-                        Hyprland.dispatch(`hl.dsp.focus({ workspace = "${card.wsId}" })`);
-                        root.workspaceSelected(card.wsId);
+                // Click interaction
+                MouseArea {
+                    anchors.fill: parent
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: {
+                        if (slice.selected) {
+                            root.dismissed();
+                        } else {
+                            root.jumpTo(slice.index);
+                        }
                     }
                 }
             }

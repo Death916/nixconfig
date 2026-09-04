@@ -127,6 +127,7 @@ in
     unstablePkgs.opencode
     unstablePkgs.cosmic-monitor
     unstablePkgs.cura-appimage
+    unstablePkgs.bitwarden-desktop
   ];
 
   programs.ghostty = {
@@ -190,7 +191,6 @@ in
   xdg.configFile."discord/settings.json".text = builtins.toJSON {
     SKIP_HOST_UPDATE = true;
   };
-
 
   services.udiskie = {
     enable = true;
