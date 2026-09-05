@@ -64,26 +64,35 @@ Item {
         let out = [];
         if (!workspace || !monitor) return out;
 
-        let toplevels = workspace.toplevels ? workspace.toplevels.values : [];
+        let toplevels = [];
+        if (workspace.toplevels && workspace.toplevels.values && workspace.toplevels.values.length > 0) {
+            toplevels = workspace.toplevels.values;
+        } else if (Hyprland.toplevels && Hyprland.toplevels.values) {
+            toplevels = Hyprland.toplevels.values.filter(t => t && t.workspace && t.workspace.id === workspace.id);
+        }
+
+        let monX = (monitor && typeof monitor.x === "number") ? monitor.x : 0;
+        let monY = (monitor && typeof monitor.y === "number") ? monitor.y : 0;
+        let monW = (monitor && typeof monitor.width === "number") ? monitor.width : 1920;
+        let monH = (monitor && typeof monitor.height === "number") ? monitor.height : 1080;
 
         for (let i = 0; i < toplevels.length; i++) {
             let handle = toplevels[i];
-            // ScreencopyView requires the valid Wayland Toplevel handle
-            if (!handle || !handle.wayland) continue;
+            if (!handle) continue;
 
             let raw = handle.lastIpcObject || {};
-            let at = Array.isArray(raw.at) && raw.at.length === 2 ? raw.at : [monitor.x, monitor.y];
-            let size = Array.isArray(raw.size) && raw.size.length === 2 ? raw.size : [monitor.width, monitor.height];
+            let at = Array.isArray(raw.at) && raw.at.length === 2 ? raw.at : [monX, monY];
+            let size = Array.isArray(raw.size) && raw.size.length === 2 ? raw.size : [monW, monH];
 
             let width = finiteNum(size[0], 0, 32768, 0);
             let height = finiteNum(size[1], 0, 32768, 0);
             if (width <= 0 || height <= 0) continue;
 
             out.push({
-                toplevel: handle.wayland,
+                toplevel: handle.wayland || null,
                 title: handle.title || raw.title || raw.class || "Window",
-                x: finiteNum(at[0], -32768, 32768, 0) - monitor.x,
-                y: finiteNum(at[1], -32768, 32768, 0) - monitor.y,
+                x: finiteNum(at[0], -32768, 32768, 0) - monX,
+                y: finiteNum(at[1], -32768, 32768, 0) - monY,
                 width: width,
                 height: height
             });
@@ -99,6 +108,7 @@ Item {
     // -------------------------------------------------------------------------
     function buildEntries() {
         Hyprland.refreshToplevels();
+        Hyprland.refreshWorkspaces();
 
         let focusedMonitor = Hyprland.focusedMonitor;
         let focusedWorkspace = Hyprland.focusedWorkspace;
@@ -114,7 +124,8 @@ Item {
                 continue;
             }
 
-            let occupied = workspace.toplevels && workspace.toplevels.values.length > 0;
+            let occupied = (workspace.toplevels && workspace.toplevels.values && workspace.toplevels.values.length > 0)
+                || (Hyprland.toplevels && Hyprland.toplevels.values && Hyprland.toplevels.values.some(t => t && t.workspace && t.workspace.id === workspace.id));
             let current = focusedWorkspace && workspace.id === focusedWorkspace.id;
 
             // Show occupied workspaces or the currently active one
@@ -299,15 +310,40 @@ Item {
 
                                 x: spec.x * stage.coverScale
                                 y: spec.y * stage.coverScale
-                                width: Math.max(4, spec.width * stage.coverScale)
-                                height: Math.max(4, spec.height * stage.coverScale)
+                                width: Math.max(16, spec.width * stage.coverScale)
+                                height: Math.max(16, spec.height * stage.coverScale)
                                 z: index
 
-                                ScreencopyView {
+                                Rectangle {
                                     anchors.fill: parent
-                                    captureSource: windowSlot.spec.toplevel
-                                    live: false
-                                    paintCursor: false
+                                    radius: 4
+                                    color: Qt.rgba(Theme.bg.r, Theme.bg.g, Theme.bg.b, 0.75)
+                                    border.color: Qt.rgba(Theme.fg.r, Theme.fg.g, Theme.fg.b, 0.18)
+                                    border.width: 1
+                                    clip: true
+
+                                    ScreencopyView {
+                                        id: scView
+                                        anchors.fill: parent
+                                        captureSource: windowSlot.spec.toplevel
+                                        live: root.opened || OmadeckState.opened
+                                        paintCursor: false
+                                        visible: captureSource !== null && hasContent
+                                    }
+
+                                    // Fallback / loading label when frame is not ready
+                                    Text {
+                                        anchors.centerIn: parent
+                                        visible: !scView.visible
+                                        text: windowSlot.spec.title || "Window"
+                                        font.family: Theme.fontFamily
+                                        font.pixelSize: Math.max(9, Math.min(13, windowSlot.height * 0.15))
+                                        font.bold: true
+                                        color: Theme.fg
+                                        elide: Text.ElideRight
+                                        width: Math.max(0, parent.width - 12)
+                                        horizontalAlignment: Text.AlignHCenter
+                                    }
                                 }
                             }
                         }
