@@ -3,7 +3,7 @@
   services.headscale = {
     enable = true;
     package = unstablePkgs.headscale;
-    address = "127.0.0.1";
+    address = "0.0.0.0";
     port = 8085;
 
     settings = {
@@ -12,6 +12,7 @@
       trusted_proxies = [
         "127.0.0.1/32"
         "::1/128"
+        "172.16.0.0/12"
       ];
 
       dns = {
