@@ -139,6 +139,11 @@ services.hermes-agent = {
   };
   nix.settings.auto-optimise-store = true;
 
+  boot.kernelPackages = (import inputs.nixpkgs-kernel-6-18-38 {
+    inherit (pkgs) system;
+    config.allowUnfree = true;
+  }).linuxPackages;
+
   boot.loader.grub.configurationLimit = 2;
   boot.initrd.compressor = "zstd";
   boot.loader.grub.font = null;

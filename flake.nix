@@ -35,6 +35,7 @@
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixpkgs-kernel-6-18-38.url = "github:NixOS/nixpkgs/20535e48e12c86043b577b8518234ff5dbb26957";
   };
 
   outputs =
