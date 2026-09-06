@@ -11,7 +11,7 @@
     pull = "always";
 
     environment = {
-      "BASE_URL"        = "http://100.64.0.3:8100";
+      "BASE_URL"        = "http://orac:8100";
       "MINUSPOD_PORT"   = "8000";
       "MAX_AUDIO_DOWNLOAD_MB" = "500";
       "SESSION_COOKIE_SECURE" = "false";
