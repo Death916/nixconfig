@@ -18,7 +18,11 @@
       dns = {
         magic_dns = true;
         base_domain = "ts.internal";
-        override_local_dns = false;
+        override_local_dns = true;
+        nameservers.global = [
+          "100.64.0.3"
+          "1.1.1.1"
+        ];
       };
 
       derp = {
