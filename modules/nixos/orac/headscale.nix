@@ -40,6 +40,7 @@
   };
 
   networking.firewall.allowedUDPPorts = [ 3478 ];
+  networking.firewall.allowedTCPPorts = [ 8085 ];
   environment.systemPackages = [ unstablePkgs.headscale ];
 }
 
