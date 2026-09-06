@@ -124,7 +124,11 @@
         persistent = [
           {
             name = "Laptop";
-            ids = [ "10.200.0.2" "10.0.100.4" ];
+            ids = [
+              "10.200.0.2"
+              "10.0.100.4"
+              "100.64.0.2"
+            ];
             use_global_settings = true;
             filtering_enabled = true;
             parental_enabled = false;
@@ -132,7 +136,23 @@
           }
           {
             name = "Android-Phone";
-            ids = [ "10.200.0.3" "10.67.3.187" ];
+            ids = [
+              "10.200.0.3"
+              "10.67.3.187"
+              "100.64.0.1"
+            ];
+            use_global_settings = true;
+            filtering_enabled = true;
+            parental_enabled = false;
+            safesearch_enabled = false;
+          }
+          {
+            name = "Orac";
+            ids = [
+              "127.0.0.1"
+              "10.0.100.1"
+              "100.64.0.3"
+            ];
             use_global_settings = true;
             filtering_enabled = true;
             parental_enabled = false;
