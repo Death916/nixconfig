@@ -30,7 +30,7 @@
     config = {
       DOMAIN = "https://vaultwarden.death916.xyz";
       SIGNUPS_ALLOWED = false;
-      ROCKET_ADDRESS = "100.72.187.12";
+      ROCKET_ADDRESS = "0.0.0.0";
       ROCKET_PORT = 8222;
       ROCKET_LOG = "warn";
       environmentFile = "/var/lib/vaultwarden/vault.env";
