@@ -4,6 +4,7 @@
     ../modules/nixos/common/ssh-keys.nix
     ../modules/nixos/orac/services.nix
     ../modules/nixos/common/tailscale.nix
+    ../modules/nixos/orac/headscale.nix
     ../modules/nixos/common/nebula.nix
     ../modules/nixos/orac/wireguard.nix
     ../modules/soju.nix
