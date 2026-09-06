@@ -23,6 +23,9 @@
           "100.64.0.3"
           "1.1.1.1"
         ];
+        search_domains = [
+          "ts.internal"
+        ];
       };
 
       derp = {

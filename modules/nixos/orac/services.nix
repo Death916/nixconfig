@@ -78,7 +78,7 @@
     mutableSettings = false;
     settings = {
       http = {
-        address = "127.0.0.1:3000";
+        address = "0.0.0.0:3000";
       };
       dns = {
         bind_hosts = [ "0.0.0.0" ];
@@ -92,11 +92,11 @@
           "8.8.4.4"
         ];
         rewrites = [
-          { domain = "orac.death"; answer = "10.0.100.1"; enabled = true; }
+          { domain = "orac.death"; answer = "100.64.0.3"; enabled = true; }
           { domain = "homelab.death"; answer = "10.0.100.2"; enabled = true; }
           { domain = "desktop.death"; answer = "10.0.100.3"; enabled = true; }
           { domain = "laptop.death"; answer = "10.0.100.4"; enabled = true; }
-          { domain = "orac"; answer = "10.0.100.1"; enabled = true; }
+          { domain = "orac"; answer = "100.64.0.3"; enabled = true; }
           { domain = "homelab"; answer = "10.0.100.2"; enabled = true; }
           { domain = "desktop"; answer = "10.0.100.3"; enabled = true; }
           { domain = "laptop"; answer = "10.0.100.4"; enabled = true; }
@@ -110,11 +110,11 @@
           enabled = false;
         };
         rewrites = [
-          { domain = "orac.death"; answer = "10.0.100.1"; enabled = true; }
+          { domain = "orac.death"; answer = "100.64.0.3"; enabled = true; }
           { domain = "homelab.death"; answer = "10.0.100.2"; enabled = true; }
           { domain = "desktop.death"; answer = "10.0.100.3"; enabled = true; }
           { domain = "laptop.death"; answer = "10.0.100.4"; enabled = true; }
-          { domain = "orac"; answer = "10.0.100.1"; enabled = true; }
+          { domain = "orac"; answer = "100.64.0.3"; enabled = true; }
           { domain = "homelab"; answer = "10.0.100.2"; enabled = true; }
           { domain = "desktop"; answer = "10.0.100.3"; enabled = true; }
           { domain = "laptop"; answer = "10.0.100.4"; enabled = true; }
