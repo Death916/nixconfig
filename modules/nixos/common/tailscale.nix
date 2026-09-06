@@ -13,5 +13,7 @@
     package = unstablePkgs.tailscale;
   };
 
+  environment.systemPackages = [ unstablePkgs.tailscale ];
+
   networking.firewall.checkReversePath = "loose";
 }

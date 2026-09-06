@@ -883,6 +883,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-kernel-6-18-38": {
+      "locked": {
+        "lastModified": 1784364478,
+        "narHash": "sha256-CdItYNdYUlm7NxqMVyQKqT2IxTwvapiPuRLWOyHTrbY=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "20535e48e12c86043b577b8518234ff5dbb26957",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "20535e48e12c86043b577b8518234ff5dbb26957",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1774748309,
@@ -1146,6 +1162,7 @@
         "nix-amd-ai": "nix-amd-ai",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_5",
+        "nixpkgs-kernel-6-18-38": "nixpkgs-kernel-6-18-38",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "quickshell": "quickshell",
         "rust-overlay": "rust-overlay",
