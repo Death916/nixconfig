@@ -7,7 +7,7 @@
     port = 8085;
 
     settings = {
-      server_url = "https://lighthouse.death916.xyz";
+      server_url = "https://ts.death916.xyz";
       metrics_listen_addr = "127.0.0.1:9090";
       trusted_proxies = [
         "127.0.0.1/32"
@@ -16,7 +16,7 @@
 
       dns = {
         magic_dns = true;
-        base_domain = "lighthouse.internal";
+        base_domain = "ts.internal";
         nameservers.global = [ ];
       };
 
