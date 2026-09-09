@@ -19,7 +19,7 @@
         "/storage/services/bookorbit/postgres:/var/lib/postgresql/data:rw"
       ];
       ports = [
-        "127.0.0.1:5432:5422"
+        "127.0.0.1:5422:5432"
       ];
       extraOptions = [
         "--health-cmd=pg_isready -U \"$POSTGRES_USER\" -d \"$POSTGRES_DB\""
