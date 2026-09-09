@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   virtualisation.oci-containers.containers = {
@@ -14,7 +19,7 @@
         "/storage/services/bookorbit/postgres:/var/lib/postgresql/data:rw"
       ];
       ports = [
-        "127.0.0.1:5432:5432"
+        "127.0.0.1:5430:5430"
       ];
       extraOptions = [
         "--health-cmd=pg_isready -U \"$POSTGRES_USER\" -d \"$POSTGRES_DB\""
@@ -79,9 +84,18 @@
     after = [ "docker-bookorbit-db.service" ];
     requires = [ "docker-bookorbit-db.service" ];
     unitConfig = {
-      RequiresMountsFor = [ "/storage" "/media" ];
-      After = [ "storage.mount" "media.mount" ];
-      Wants = [ "storage.mount" "media.mount" ];
+      RequiresMountsFor = [
+        "/storage"
+        "/media"
+      ];
+      After = [
+        "storage.mount"
+        "media.mount"
+      ];
+      Wants = [
+        "storage.mount"
+        "media.mount"
+      ];
     };
     serviceConfig = {
       Restart = lib.mkOverride 90 "always";
