@@ -167,6 +167,7 @@
   services.immich = {
     enable = true;
     host = "0.0.0.0";
+    package = unstablePkgs.immich;
     port = 2283;
     mediaLocation = "/storage/services/immich/upload";
     environment.IMMICH_IGNORE_MOUNT_CHECK_ERRORS = "true";
