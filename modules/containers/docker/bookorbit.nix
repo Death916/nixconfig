@@ -37,7 +37,7 @@
       dependsOn = [ "bookorbit-db" ];
       environment = {
         NODE_ENV = "production";
-        PORT = "3000";
+        PORT = "3010";
         POSTGRES_HOST = "host.docker.internal";
         POSTGRES_PORT = "5422";
         POSTGRES_USER = "bookorbit";
@@ -54,11 +54,11 @@
         "/media/storage/media/books/bookorbit:/books:rw"
       ];
       ports = [
-        "3006:3000/tcp"
+        "3006:3010/tcp"
       ];
       extraOptions = [
         "--add-host=host.docker.internal:host-gateway"
-        "--health-cmd=wget -q -T 4 -O /dev/null http://127.0.0.1:3000/api/v1/health || exit 1"
+        "--health-cmd=wget -q -T 4 -O /dev/null http://127.0.0.1:3010/api/v1/health || exit 1"
         "--health-interval=30s"
         "--health-timeout=5s"
         "--health-retries=3"
