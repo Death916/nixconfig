@@ -4,6 +4,7 @@
     ../modules/nixos/common/ssh-keys.nix
     ../modules/nixos/orac/services.nix
     ../modules/nixos/common/tailscale.nix
+    ../modules/nixos/orac/headscale.nix
     ../modules/nixos/common/nebula.nix
     ../modules/nixos/orac/wireguard.nix
     ../modules/soju.nix
@@ -137,6 +138,11 @@ services.hermes-agent = {
     options = "--delete-older-than 14d";
   };
   nix.settings.auto-optimise-store = true;
+
+  boot.kernelPackages = (import inputs.nixpkgs-kernel-6-18-38 {
+    inherit (pkgs) system;
+    config.allowUnfree = true;
+  }).linuxPackages;
 
   boot.loader.grub.configurationLimit = 2;
   boot.initrd.compressor = "zstd";

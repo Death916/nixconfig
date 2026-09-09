@@ -20,6 +20,8 @@ in
     ./waybar.nix
     ./theme.nix # Import the stylix theme configuration
     ./halloy.nix
+    ./quickshell.nix
+    ./apod-wallpaper.nix
   ];
 
   home.username = "death916";
@@ -125,6 +127,7 @@ in
     unstablePkgs.opencode
     unstablePkgs.cosmic-monitor
     unstablePkgs.cura-appimage
+    unstablePkgs.bitwarden-desktop
   ];
 
   programs.ghostty = {
@@ -138,6 +141,20 @@ in
       keybind = "global:cmd+backquote=toggle_quick_terminal";
     };
   };
+
+  # Ghostwave Manual Setup Reference (for Rofi / Desktop Launcher):
+  # To make the standalone ghostwave binary work and show in Rofi (drun mode) on other systems:
+  # 1. Place the compiled binary at ~/.local/bin/ghostwave
+  # 2. Create the launcher wrapper at ~/.local/bin/ghostwave-launcher (chmod +x):
+  #    - Scans /nix/store to dynamically assemble LD_LIBRARY_PATH for:
+  #      libglvnd (libEGL), wayland (libwayland-client), libxkbcommon, and X11 libs (libX11, libXcursor, etc.)
+  #      to prevent miniquad/libghostty runtime dlopen failures when launched from GUI.
+  #    - Executes: exec ~/.local/bin/ghostwave "$@"
+  # 3. Create ~/.local/share/applications/ghostwave.desktop:
+  #    - Exec=~/.local/bin/ghostwave-launcher
+  #    - Icon=ghostwave
+  #    - Type=Application, Categories=TerminalEmulator;
+  # 4. (Optional) Place icon SVG at ~/.local/share/icons/hicolor/scalable/apps/ghostwave.svg
 
   xdg.configFile."ghostty/css".text = ''
     headerbar {
@@ -174,7 +191,6 @@ in
   xdg.configFile."discord/settings.json".text = builtins.toJSON {
     SKIP_HOST_UPDATE = true;
   };
-
 
   services.udiskie = {
     enable = true;
@@ -290,8 +306,10 @@ in
       };
     };
     shellInit = ''
-      pokemon-colorscripts -r
       [ -f /etc/nixos/secrets/opencode-go-key ] && set -gx OPENCODE_GO_KEY (cat /etc/nixos/secrets/opencode-go-key)
+    '';
+    interactiveShellInit = ''
+      pokemon-colorscripts -r
     '';
   };
 
@@ -300,8 +318,10 @@ in
     enableCompletion = true;
     bashrcExtra = ''
       export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/go/bin"
-      pokemon-colorscripts -r
       [ -f /etc/nixos/secrets/opencode-go-key ] && export OPENCODE_GO_KEY="$(cat /etc/nixos/secrets/opencode-go-key)"
+    '';
+    initExtra = ''
+      pokemon-colorscripts -r
     '';
     shellAliases = {
       k = "kubectl";

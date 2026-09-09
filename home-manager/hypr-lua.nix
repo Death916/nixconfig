@@ -184,7 +184,11 @@ in
 
         # Window grouping / tabs
         { _args = [ "SUPER+G" (ml "hl.dsp.group.toggle()") ]; }
-        { _args = [ "SUPER+Tab" (ml "hl.dsp.group.next()") ]; }
+        { _args = [ "SUPER+ALT+Tab" (ml "hl.dsp.group.next()") ]; }
+
+        # Omadeck Overview
+        { _args = [ "SUPER+Tab" (ml ''hl.dsp.exec_cmd("qs ipc call omadeck toggle")'') ]; }
+        { _args = [ "SUPER+O" (ml ''hl.dsp.exec_cmd("qs ipc call omadeck toggle")'') ]; }
 
         { _args = [ "XF86AudioMute" (ml ''hl.dsp.exec_cmd("${pkgs.pamixer}/bin/pamixer --toggle-mute")'') ]; }
         { _args = [ "XF86AudioRaiseVolume" (ml ''hl.dsp.exec_cmd("${pkgs.pamixer}/bin/pamixer --increase 5")'') ]; }
@@ -249,7 +253,8 @@ in
 
     extraConfig = ''
       hl.on("hyprland.start", function()
-        hl.exec_cmd("waybar")
+        -- hl.exec_cmd("waybar") # Kept as backup
+        hl.exec_cmd("quickshell")
         hl.exec_cmd("poweralertd")
         hl.exec_cmd("dunst")
         hl.exec_cmd("nm-applet --indicator")
@@ -391,7 +396,7 @@ in
     };
   };
 
-  services.swww = {
+  services.awww = {
     enable = true;
   };
 

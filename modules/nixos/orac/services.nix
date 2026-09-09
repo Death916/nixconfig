@@ -30,7 +30,7 @@
     config = {
       DOMAIN = "https://vaultwarden.death916.xyz";
       SIGNUPS_ALLOWED = false;
-      ROCKET_ADDRESS = "100.72.187.12";
+      ROCKET_ADDRESS = "0.0.0.0";
       ROCKET_PORT = 8222;
       ROCKET_LOG = "warn";
       environmentFile = "/var/lib/vaultwarden/vault.env";
@@ -78,7 +78,7 @@
     mutableSettings = false;
     settings = {
       http = {
-        address = "127.0.0.1:3000";
+        address = "0.0.0.0:3000";
       };
       dns = {
         bind_hosts = [ "0.0.0.0" ];
@@ -92,11 +92,11 @@
           "8.8.4.4"
         ];
         rewrites = [
-          { domain = "orac.death"; answer = "10.0.100.1"; enabled = true; }
+          { domain = "orac.death"; answer = "100.64.0.3"; enabled = true; }
           { domain = "homelab.death"; answer = "10.0.100.2"; enabled = true; }
           { domain = "desktop.death"; answer = "10.0.100.3"; enabled = true; }
           { domain = "laptop.death"; answer = "10.0.100.4"; enabled = true; }
-          { domain = "orac"; answer = "10.0.100.1"; enabled = true; }
+          { domain = "orac"; answer = "100.64.0.3"; enabled = true; }
           { domain = "homelab"; answer = "10.0.100.2"; enabled = true; }
           { domain = "desktop"; answer = "10.0.100.3"; enabled = true; }
           { domain = "laptop"; answer = "10.0.100.4"; enabled = true; }
@@ -110,11 +110,11 @@
           enabled = false;
         };
         rewrites = [
-          { domain = "orac.death"; answer = "10.0.100.1"; enabled = true; }
+          { domain = "orac.death"; answer = "100.64.0.3"; enabled = true; }
           { domain = "homelab.death"; answer = "10.0.100.2"; enabled = true; }
           { domain = "desktop.death"; answer = "10.0.100.3"; enabled = true; }
           { domain = "laptop.death"; answer = "10.0.100.4"; enabled = true; }
-          { domain = "orac"; answer = "10.0.100.1"; enabled = true; }
+          { domain = "orac"; answer = "100.64.0.3"; enabled = true; }
           { domain = "homelab"; answer = "10.0.100.2"; enabled = true; }
           { domain = "desktop"; answer = "10.0.100.3"; enabled = true; }
           { domain = "laptop"; answer = "10.0.100.4"; enabled = true; }
@@ -124,7 +124,11 @@
         persistent = [
           {
             name = "Laptop";
-            ids = [ "10.200.0.2" "10.0.100.4" ];
+            ids = [
+              "10.200.0.2"
+              "10.0.100.4"
+              "100.64.0.2"
+            ];
             use_global_settings = true;
             filtering_enabled = true;
             parental_enabled = false;
@@ -132,7 +136,23 @@
           }
           {
             name = "Android-Phone";
-            ids = [ "10.200.0.3" "10.67.3.187" ];
+            ids = [
+              "10.200.0.3"
+              "10.67.3.187"
+              "100.64.0.1"
+            ];
+            use_global_settings = true;
+            filtering_enabled = true;
+            parental_enabled = false;
+            safesearch_enabled = false;
+          }
+          {
+            name = "Orac";
+            ids = [
+              "127.0.0.1"
+              "10.0.100.1"
+              "100.64.0.3"
+            ];
             use_global_settings = true;
             filtering_enabled = true;
             parental_enabled = false;

@@ -81,6 +81,38 @@
     nixd
     pkgs.heroic # Using stable to avoid electron-unwrapped-39 build failure in unstable
     realvnc-vnc-viewer
+
+    # Declarative wrapper and desktop entry for local ghostwave build
+    (symlinkJoin {
+      name = "ghostwave-desktop";
+      paths = [
+        (writeShellScriptBin "ghostwave" ''
+          export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath [
+            libglvnd
+            libGL
+            wayland
+            libxkbcommon
+            xorg.libX11
+            xorg.libXcursor
+            xorg.libXrandr
+            xorg.libXi
+            vulkan-loader
+          ]}:$LD_LIBRARY_PATH"
+
+          exec /home/death916/code/ghostwave/target/release/ghostwave "$@"
+        '')
+        (makeDesktopItem {
+          name = "ghostwave";
+          desktopName = "Ghostwave";
+          genericName = "Terminal Emulator";
+          comment = "Ghostwave Terminal";
+          exec = "ghostwave";
+          icon = "utilities-terminal";
+          terminal = false;
+          categories = [ "System" "TerminalEmulator" ];
+        })
+      ];
+    })
   ];
 
   services.snapper.configs.nix = {

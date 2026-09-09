@@ -11,7 +11,7 @@
     ../modules/nixos/desktop/desktop.nix
     ../modules/nixos/common/base.nix
     ../modules/nixos/laptop/user.nix
-    # ../modules/nixos/common/tailscale.nix
+    ../modules/nixos/common/tailscale.nix
     ../modules/nixos/common/nebula.nix
     ../modules/nixos/laptop/hyprland-deps.nix
     ../modules/nixos/desktop/gaming.nix
@@ -34,6 +34,7 @@
 
   # Use linux_zen kernel for performance improvements
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+  boot.kernelModules = [ "btusb" ];
   boot.kernelParams = [ 
     "nvidia-drm.modeset=1" 
     "nvidia_drm.fbdev=1" 

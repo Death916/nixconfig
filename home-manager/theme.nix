@@ -8,11 +8,12 @@
 
 {
   imports = [
-    ./themes/poimandres.nix
+    ./themes/oxocarbon.nix
   ];
 
   stylix.enable = true;
   stylix.polarity = "dark";
+  stylix.enableReleaseChecks = false;
 
   stylix.fonts = {
     monospace = {
