@@ -37,9 +37,9 @@
       dependsOn = [ "bookorbit-db" ];
       environment = {
         NODE_ENV = "production";
-        PORT = "3010";
+        PORT = "3000";
         POSTGRES_HOST = "host.docker.internal";
-        POSTGRES_PORT = "5432";
+        POSTGRES_PORT = "5422";
         POSTGRES_USER = "bookorbit";
         POSTGRES_DB = "bookorbit";
         TZ = "America/Los_Angeles";
