@@ -19,7 +19,7 @@
         "/storage/services/bookorbit/postgres:/var/lib/postgresql/data:rw"
       ];
       ports = [
-        "127.0.0.1:5430:5430"
+        "127.0.0.1:5432:5432"
       ];
       extraOptions = [
         "--health-cmd=pg_isready -U \"$POSTGRES_USER\" -d \"$POSTGRES_DB\""
@@ -37,7 +37,7 @@
       dependsOn = [ "bookorbit-db" ];
       environment = {
         NODE_ENV = "production";
-        PORT = "3000";
+        PORT = "3010";
         POSTGRES_HOST = "host.docker.internal";
         POSTGRES_PORT = "5432";
         POSTGRES_USER = "bookorbit";
