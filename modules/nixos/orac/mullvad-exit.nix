@@ -2,7 +2,7 @@
 {
   systemd.tmpfiles.rules = [
     "d /var/lib/containers/mullvad-exit/tailscale 0700 root root -"
-    "f /etc/nixos/secrets/mullvad.conf 0600 root root -"
+    "f /etc/nixos/secrets/wg-mullvad.key 0600 root root -"
   ];
 
   containers.mullvad-exit = {
@@ -13,8 +13,8 @@
     enableTun = true;
 
     bindMounts = {
-      "/etc/wireguard/wg-mullvad.conf" = {
-        hostPath = "/etc/nixos/secrets/mullvad.conf";
+      "/etc/wireguard/wg-mullvad.key" = {
+        hostPath = "/etc/nixos/secrets/wg-mullvad.key";
         isReadOnly = true;
       };
       "/var/lib/tailscale" = {
@@ -31,7 +31,19 @@
         iptables -t nat -A POSTROUTING -o wg-mullvad -j MASQUERADE
       '';
 
-      networking.wg-quick.interfaces.wg-mullvad.configFile = "/etc/wireguard/wg-mullvad.conf";
+      networking.wg-quick.interfaces.wg-mullvad = {
+        address = [ "10.69.143.223/32" ];
+        dns = [ "10.64.0.1" ];
+        privateKeyFile = "/etc/wireguard/wg-mullvad.key";
+        peers = [
+          {
+            publicKey = "zqsfGglzJPY657WMRxf/S4omG7+ZkSDIpDq+ggbc9yo=";
+            endpoint = "23.234.72.2:51820";
+            allowedIPs = [ "0.0.0.0/0" ];
+            persistentKeepalive = 25;
+          }
+        ];
+      };
 
       services.tailscale = {
         enable = true;
