@@ -21,7 +21,6 @@
         override_local_dns = true;
         nameservers.global = [
           "100.64.0.3"
-          "1.1.1.1"
         ];
         search_domains = [
           "ts.internal"
