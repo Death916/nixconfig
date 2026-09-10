@@ -1,4 +1,5 @@
 { config, pkgs, ... }: {
+  /*
   services.nebula.networks.deathmesh = {
     enable = true;
     listen.port = 4242;
@@ -23,4 +24,5 @@
     ip rule add to 10.0.100.0/24 priority 2500 lookup main || true
     ip rule add from 10.0.100.0/24 priority 2500 lookup main || true
   '';
+  */
 }

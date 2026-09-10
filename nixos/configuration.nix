@@ -20,8 +20,8 @@
     ../modules/nixos/laptop/desktop.nix
     ../modules/nixos/common/base.nix
     ../modules/nixos/laptop/user.nix
-    # ../modules/nixos/common/tailscale.nix
-    ../modules/nixos/common/nebula.nix
+    ../modules/nixos/common/tailscale.nix
+    # ../modules/nixos/common/nebula.nix
     ../modules/nixos/laptop/hyprland-deps.nix # New module for Hyprland dependencies
     ../modules/nixos/laptop/restic.nix
     ../modules/nixos/laptop/obsidian-rclone.nix
@@ -50,6 +50,7 @@
   # "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
   # ];
 
+  /*
   services.nebula.networks.deathmesh = {
     isLighthouse = false;
     lighthouses = [ "10.0.100.1" ];
@@ -67,6 +68,7 @@
     cert = "/etc/nixos/secrets/laptop.crt";
     key = "/etc/nixos/secrets/laptop.key";
   };
+  */
 
   services.greetd = {
     enable = true;

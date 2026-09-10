@@ -30,7 +30,7 @@
       servers.libera = {
         nickname = "death916";
         username = "death916/libera";
-        server = "10.0.100.1";
+        server = "100.64.0.3";
         port = 6697;
         chathistory = true;
         use_tls = false;
@@ -55,7 +55,7 @@
       servers.oftc = {
         nickname = "death916";
         username = "death916/oftc";
-        server = "10.0.100.1";
+        server = "100.64.0.3";
         port = 6697;
         use_tls = false;
         password_file = "/home/death916/.config/halloy/libera.pass";

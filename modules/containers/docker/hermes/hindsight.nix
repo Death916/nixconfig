@@ -122,7 +122,7 @@
     environmentFiles = [ "/var/lib/hermes/hindsight.env" ];
 
     ports = [
-      "10.0.100.1:8888:8888/tcp"
+      "100.64.0.3:8888:8888/tcp"
     ];
 
     extraOptions = [

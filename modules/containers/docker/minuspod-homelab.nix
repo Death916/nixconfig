@@ -1,7 +1,7 @@
 # modules/containers/docker/minuspod.nix
 # MinusPod — podcast ad removal on homelab (x86)
 # Whisper via Groq, LLM via OpenCode Go
-# Access via Nebula from anywhere
+# Access via Tailscale from anywhere
 
 { pkgs, lib, ... }:
 
@@ -11,7 +11,7 @@
     pull = "always";
 
     environment = {
-      "BASE_URL"        = "http://10.0.100.2:8100";
+      "BASE_URL"        = "http://100.64.0.5:8100";
       "MINUSPOD_PORT"   = "8000";
       "MAX_AUDIO_DOWNLOAD_MB" = "500";
       "SESSION_COOKIE_SECURE" = "false";

@@ -12,13 +12,14 @@
     ../modules/nixos/common/base.nix
     ../modules/nixos/laptop/user.nix
     ../modules/nixos/common/tailscale.nix
-    ../modules/nixos/common/nebula.nix
+    # ../modules/nixos/common/nebula.nix
     ../modules/nixos/laptop/hyprland-deps.nix
     ../modules/nixos/desktop/gaming.nix
     ../modules/nixos/desktop/restic.nix
     ../modules/containers/docker/pearl-miner.nix
   ];
 
+  /*
   services.nebula.networks.deathmesh = {
     isLighthouse = false;
     lighthouses = [ "10.0.100.1" ];
@@ -29,6 +30,7 @@
     cert = "/etc/nixos/secrets/desktop.crt";
     key = "/etc/nixos/secrets/desktop.key";
   };
+  */
 
   networking.hostName = "death-pc";
 

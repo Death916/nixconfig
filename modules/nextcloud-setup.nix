@@ -16,7 +16,7 @@ let
 
   # Network / Proxy
   nginxProxyManagerTailscaleIP = "100.117.212.36";
-  homelabTailscaleIP = "100.65.36.116";
+  homelabTailscaleIP = "100.64.0.5";
   homelabMagicDNSName = "homelab";
 
   internalNextcloudHttpPort = 80;

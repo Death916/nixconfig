@@ -25,6 +25,7 @@
         ];
         search_domains = [
           "ts.internal"
+          "death"
         ];
       };
 

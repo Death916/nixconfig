@@ -32,7 +32,7 @@
         job_name = "homelab";
         static_configs = [
           {
-            targets = [ "10.0.100.2:9002" "10.0.100.2:9256" ];
+            targets = [ "100.64.0.5:9002" "100.64.0.5:9256" ];
             labels = {
               instance = "homelab";
             };

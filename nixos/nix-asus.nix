@@ -22,7 +22,7 @@
     ../modules/nixos/common/base.nix
     ../modules/nixos/laptop/user.nix
     ../modules/nixos/common/tailscale.nix
-    ../modules/nixos/common/nebula.nix
+    # ../modules/nixos/common/nebula.nix
     ../modules/nixos/laptop/hyprland-deps.nix
     # ../modules/nixos/laptop/restic-nix-asus.nix
     ../modules/nixos/laptop/obsidian-rclone.nix
@@ -57,6 +57,7 @@
     "net.ipv4.tcp_congestion_control" = "bbr";
   };
 
+  /*
   services.nebula.networks.deathmesh = {
     isLighthouse = false;
     lighthouses = [ "10.0.100.1" ];
@@ -74,6 +75,7 @@
     cert = "/etc/nixos/secrets/nix-asus.crt";
     key = "/etc/nixos/secrets/nix-asus.key";
   };
+  */
 
   services.greetd = {
     enable = true;
@@ -242,6 +244,7 @@
      KEYBOARD_KEY_7d=f21
   '';
 
+  /*
   networking.nftables.enable = true;
   networking.nftables.tables.mullvad-nebula-bypass = {
     family = "inet";
@@ -258,8 +261,7 @@
       }
     '';
   };
-
-
+  */
 
   networking.networkmanager.dns = "systemd-resolved";
 
@@ -267,9 +269,9 @@
     enable = true;
     settings = {
       Resolve = {
-        DNS = "10.0.100.1 10.0.100.2";
+        DNS = "100.64.0.3 100.64.0.5";
         FallbackDNS = "9.9.9.9";
-        Domains = "~. ~death death";
+        Domains = "~death death ~ts.internal ts.internal";
       };
     };
   };

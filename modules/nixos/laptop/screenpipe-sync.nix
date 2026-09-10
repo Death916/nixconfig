@@ -26,10 +26,10 @@
         echo "Creating safe hot-backup of Screenpipe database..."
         ${pkgs.sqlite}/bin/sqlite3 "$DB_PATH" ".backup '$BACKUP_PATH'"
 
-        # 3. Synchronize backup to VPS (rsync over Nebula network)
+        # 3. Synchronize backup to VPS (rsync over Tailscale network)
         # Adjust target IP and destination path to match your VPS configuration
         echo "Syncing backup to VPS via rsync..."
-        ${pkgs.rsync}/bin/rsync -az --inplace "$BACKUP_PATH" death916@10.0.100.1:/var/lib/hermes/recall/db.sqlite
+        ${pkgs.rsync}/bin/rsync -az --inplace "$BACKUP_PATH" death916@100.64.0.3:/var/lib/hermes/recall/db.sqlite
 
         # 4. Clean up local temporary file
         rm -f "$BACKUP_PATH"

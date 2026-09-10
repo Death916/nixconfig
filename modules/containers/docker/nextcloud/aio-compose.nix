@@ -14,7 +14,7 @@ let
   dbPassFilePath = "/etc/nixos/secrets/nextcloud_db_password";
 
   nginxProxyManagerTailscaleIP = "100.117.212.36";
-  homelabTailscaleIP = "100.65.36.116";
+  homelabTailscaleIP = "100.64.0.5";
 
   dockerBaseDir = "/var/lib/nextcloud-docker";
 in

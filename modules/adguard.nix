@@ -33,14 +33,14 @@
             "8.8.4.4"
           ];
           rewrites = [
-            { domain = "orac.death"; answer = "10.0.100.1"; enabled = true; }
-            { domain = "homelab.death"; answer = "10.0.100.2"; enabled = true; }
-            { domain = "desktop.death"; answer = "10.0.100.3"; enabled = true; }
-            { domain = "laptop.death"; answer = "10.0.100.4"; enabled = true; }
-            { domain = "orac"; answer = "10.0.100.1"; enabled = true; }
-            { domain = "homelab"; answer = "10.0.100.2"; enabled = true; }
-            { domain = "desktop"; answer = "10.0.100.3"; enabled = true; }
-            { domain = "laptop"; answer = "10.0.100.4"; enabled = true; }
+            { domain = "orac.death"; answer = "100.64.0.3"; enabled = true; }
+            { domain = "homelab.death"; answer = "100.64.0.5"; enabled = true; }
+            { domain = "desktop.death"; answer = "100.64.0.4"; enabled = true; }
+            { domain = "laptop.death"; answer = "100.64.0.2"; enabled = true; }
+            { domain = "orac"; answer = "100.64.0.3"; enabled = true; }
+            { domain = "homelab"; answer = "100.64.0.5"; enabled = true; }
+            { domain = "desktop"; answer = "100.64.0.4"; enabled = true; }
+            { domain = "laptop"; answer = "100.64.0.2"; enabled = true; }
           ];
         };
         filtering = {
@@ -51,14 +51,14 @@
             enabled = false;
           };
           rewrites = [
-            { domain = "orac.death"; answer = "10.0.100.1"; enabled = true; }
-            { domain = "homelab.death"; answer = "10.0.100.2"; enabled = true; }
-            { domain = "desktop.death"; answer = "10.0.100.3"; enabled = true; }
-            { domain = "laptop.death"; answer = "10.0.100.4"; enabled = true; }
-            { domain = "orac"; answer = "10.0.100.1"; enabled = true; }
-            { domain = "homelab"; answer = "10.0.100.2"; enabled = true; }
-            { domain = "desktop"; answer = "10.0.100.3"; enabled = true; }
-            { domain = "laptop"; answer = "10.0.100.4"; enabled = true; }
+            { domain = "orac.death"; answer = "100.64.0.3"; enabled = true; }
+            { domain = "homelab.death"; answer = "100.64.0.5"; enabled = true; }
+            { domain = "desktop.death"; answer = "100.64.0.4"; enabled = true; }
+            { domain = "laptop.death"; answer = "100.64.0.2"; enabled = true; }
+            { domain = "orac"; answer = "100.64.0.3"; enabled = true; }
+            { domain = "homelab"; answer = "100.64.0.5"; enabled = true; }
+            { domain = "desktop"; answer = "100.64.0.4"; enabled = true; }
+            { domain = "laptop"; answer = "100.64.0.2"; enabled = true; }
           ];
         };
         filters =
@@ -75,7 +75,7 @@
       };
     };
 
-    systemd.services.adguardhome.after = [ "network-online.target" "nebula@deathmesh.service" ];
-    systemd.services.adguardhome.requires = [ "network-online.target" "nebula@deathmesh.service" ];
+    systemd.services.adguardhome.after = [ "network-online.target" /* "nebula@deathmesh.service" */ ];
+    systemd.services.adguardhome.requires = [ "network-online.target" /* "nebula@deathmesh.service" */ ];
   };
 }

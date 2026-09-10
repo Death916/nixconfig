@@ -5,7 +5,7 @@
     ../modules/nixos/orac/services.nix
     ../modules/nixos/common/tailscale.nix
     ../modules/nixos/orac/headscale.nix
-    ../modules/nixos/common/nebula.nix
+    # ../modules/nixos/common/nebula.nix
     ../modules/nixos/orac/wireguard.nix
     ../modules/soju.nix
     ../modules/containers/docker/pangolin.nix
@@ -78,10 +78,12 @@
     linger = true;
   };
   boot.tmp.cleanOnBoot = true;
+  boot.kernel.sysctl."net.ipv4.ip_nonlocal_bind" = 1;
   zramSwap.enable = true;
   networking.hostName = "orac";
   networking.domain = "";
 
+  /*
   services.nebula.networks.deathmesh = {
     isLighthouse = true;
     settings.relay.am_relay = true;
@@ -89,6 +91,7 @@
     cert = "/etc/nixos/secrets/orac.crt";
     key = "/etc/nixos/secrets/orac.key";
   };
+  */
 
 services.hermes-agent = {
     enable = true;

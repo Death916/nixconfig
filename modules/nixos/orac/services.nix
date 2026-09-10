@@ -93,13 +93,13 @@
         ];
         rewrites = [
           { domain = "orac.death"; answer = "100.64.0.3"; enabled = true; }
-          { domain = "homelab.death"; answer = "10.0.100.2"; enabled = true; }
-          { domain = "desktop.death"; answer = "10.0.100.3"; enabled = true; }
-          { domain = "laptop.death"; answer = "10.0.100.4"; enabled = true; }
+          { domain = "homelab.death"; answer = "100.64.0.5"; enabled = true; }
+          { domain = "desktop.death"; answer = "100.64.0.4"; enabled = true; }
+          { domain = "laptop.death"; answer = "100.64.0.2"; enabled = true; }
           { domain = "orac"; answer = "100.64.0.3"; enabled = true; }
-          { domain = "homelab"; answer = "10.0.100.2"; enabled = true; }
-          { domain = "desktop"; answer = "10.0.100.3"; enabled = true; }
-          { domain = "laptop"; answer = "10.0.100.4"; enabled = true; }
+          { domain = "homelab"; answer = "100.64.0.5"; enabled = true; }
+          { domain = "desktop"; answer = "100.64.0.4"; enabled = true; }
+          { domain = "laptop"; answer = "100.64.0.2"; enabled = true; }
         ];
       };
       filtering = {
@@ -111,13 +111,13 @@
         };
         rewrites = [
           { domain = "orac.death"; answer = "100.64.0.3"; enabled = true; }
-          { domain = "homelab.death"; answer = "10.0.100.2"; enabled = true; }
-          { domain = "desktop.death"; answer = "10.0.100.3"; enabled = true; }
-          { domain = "laptop.death"; answer = "10.0.100.4"; enabled = true; }
+          { domain = "homelab.death"; answer = "100.64.0.5"; enabled = true; }
+          { domain = "desktop.death"; answer = "100.64.0.4"; enabled = true; }
+          { domain = "laptop.death"; answer = "100.64.0.2"; enabled = true; }
           { domain = "orac"; answer = "100.64.0.3"; enabled = true; }
-          { domain = "homelab"; answer = "10.0.100.2"; enabled = true; }
-          { domain = "desktop"; answer = "10.0.100.3"; enabled = true; }
-          { domain = "laptop"; answer = "10.0.100.4"; enabled = true; }
+          { domain = "homelab"; answer = "100.64.0.5"; enabled = true; }
+          { domain = "desktop"; answer = "100.64.0.4"; enabled = true; }
+          { domain = "laptop"; answer = "100.64.0.2"; enabled = true; }
         ];
       };
       clients = {
@@ -126,7 +126,7 @@
             name = "Laptop";
             ids = [
               "10.200.0.2"
-              "10.0.100.4"
+              # "10.0.100.4"
               "100.64.0.2"
             ];
             use_global_settings = true;
@@ -150,7 +150,7 @@
             name = "Orac";
             ids = [
               "127.0.0.1"
-              "10.0.100.1"
+              # "10.0.100.1"
               "100.64.0.3"
             ];
             use_global_settings = true;
@@ -160,7 +160,7 @@
           }
           {
             name = "Homelab";
-            ids = [ "10.0.100.2" ];
+            ids = [ "100.64.0.5" /* "10.0.100.2" */ ];
             use_global_settings = true;
             filtering_enabled = true;
             parental_enabled = false;
@@ -168,7 +168,7 @@
           }
           {
             name = "Desktop";
-            ids = [ "10.0.100.3" "10.200.0.4" ];
+            ids = [ "100.64.0.4" /* "10.0.100.3" */ "10.200.0.4" ];
             use_global_settings = true;
             filtering_enabled = true;
             parental_enabled = false;
