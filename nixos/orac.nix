@@ -22,6 +22,7 @@
     ../modules/umami.nix
     # ../modules/containers/docker/hermes/server.nix
     ../modules/containers/docker/hermes/hindsight.nix
+    ../modules/nixos/orac/mullvad-exit.nix
   ];
 
   networking.firewall = {
