@@ -33,7 +33,7 @@
 
       networking.wg-quick.interfaces.wg-mullvad = {
         address = [ "10.69.143.223/32" ];
-        dns = [ "100.64.0.3" ];
+        dns = [ "192.168.100.1" ];
         privateKeyFile = "/etc/wireguard/wg-mullvad.key";
         peers = [
           {
