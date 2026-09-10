@@ -1,5 +1,7 @@
 { config, pkgs, lib, ... }:
 {
+  networking.firewall.trustedInterfaces = [ "ve-+" ];
+
   systemd.tmpfiles.rules = [
     "d /var/lib/containers/mullvad-exit/tailscale 0700 root root -"
     "f /etc/nixos/secrets/wg-mullvad.key 0600 root root -"
@@ -33,7 +35,7 @@
 
       networking.wg-quick.interfaces.wg-mullvad = {
         address = [ "10.69.143.223/32" ];
-        dns = [ "10.64.0.1" ];
+        dns = [ "192.168.100.1" ];
         privateKeyFile = "/etc/wireguard/wg-mullvad.key";
         peers = [
           {
