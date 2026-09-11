@@ -15,7 +15,8 @@
     powerManagement.finegrained = false;
     open = true; # Use the open-source kernel module (recommended for RTX 20+ cards)
     nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    # Switched to beta driver because stable (595.71.05) fails to compile on Linux 7.2 due to strncpy changes in os-interface.c
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
     nvidiaPersistenced = true; # Correct way to enable persistence mode
   };
   nixpkgs.config.allowUnfree = true;
