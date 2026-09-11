@@ -1,7 +1,6 @@
 # pkgs/screenpipe/default.nix
 { lib
 , stdenv
-, makeWrapper
 , dbus
 , openssl
 , oniguruma
@@ -46,15 +45,28 @@ stdenv.mkDerivation {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
-
   installPhase = ''
     runHook preInstall
     mkdir -p $out/bin
-    makeWrapper \
-      /home/death916/Documents/code/vibed/screenpipe/target/release/screenpipe \
-      $out/bin/screenpipe \
-      --prefix LD_LIBRARY_PATH : "${lib.concatStringsSep ":" runtimeLibs}"
+
+    # DO NOT replace this heredoc with makeWrapper. makeWrapper runs
+    # assertExecutable (`[[ -f $file && -x $file ]]`) on the target at build
+    # time, and this target lives in $HOME, not in the store:
+    #   * /etc/nix/nix.conf has `sandbox = true` and empty extra-sandbox-paths,
+    #     so /home is not mounted inside the build chroot at all;
+    #   * builds run as nixbld1 and /home/death916 is drwx------ anyway.
+    # Either way the file is invisible -> die "not an executable file".
+    # This heredoc never touches the target. The store paths below are still
+    # interpolated into the drv, so they remain real inputs of this derivation
+    # and stay alive as long as the systemd unit references this wrapper.
+    cat > $out/bin/screenpipe <<'WRAPPER'
+#!/bin/sh
+LD_LIBRARY_PATH="${lib.concatStringsSep ":" runtimeLibs}''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+export LD_LIBRARY_PATH
+exec /home/death916/Documents/code/vibed/screenpipe/target/release/screenpipe "$@"
+WRAPPER
+
+    chmod +x $out/bin/screenpipe
     runHook postInstall
   '';
 
