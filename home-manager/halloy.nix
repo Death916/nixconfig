@@ -45,6 +45,8 @@
           "ampera"
           "ayecee"
           "mrfb"
+          "Doraemon-ja"
+          "Doraemon-es"
         ];
         # sasl.plain = {
         # username = "death916";
@@ -69,8 +71,6 @@
           "ampera"
           "ayecee"
           "mrfb"
-          "Doraemon-ja"
-          "Doraemon-es"
         ];
       };
 
