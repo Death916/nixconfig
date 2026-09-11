@@ -200,6 +200,8 @@
                       inputs.hermes-agent.packages.${system}.default
                       inputs.llm-agents.packages.${system}.hermes-desktop
                       inputs.llm-agents.packages.${system}.hermes-hud
+                      # hunk 0.21.1 — review-first terminal diff viewer (not in nixos-26.05)
+                      unstablePkgs.hunk
                     ];
                   };
                 }
