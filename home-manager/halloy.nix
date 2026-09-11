@@ -69,6 +69,8 @@
           "ampera"
           "ayecee"
           "mrfb"
+          "Doraemon-ja"
+          "Doraemon-es"
         ];
       };
 
