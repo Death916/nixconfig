@@ -34,8 +34,11 @@
 
   networking.hostName = "death-pc";
 
-  # Use linux_zen kernel for performance improvements
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+  # Pinned to the last working linux-zen kernel (7.1.10) because linux-zen 7.2+ breaks the NVIDIA driver (os-interface.c strncpy removal)
+  boot.kernelPackages = (import inputs.nixpkgs-kernel-zen {
+    inherit (pkgs) system;
+    config.allowUnfree = true;
+  }).linuxKernel.packages.linux_zen;
   boot.kernelModules = [ "btusb" ];
   boot.kernelParams = [ 
     "nvidia-drm.modeset=1" 

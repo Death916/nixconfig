@@ -36,6 +36,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs-kernel-6-18-38.url = "github:NixOS/nixpkgs/20535e48e12c86043b577b8518234ff5dbb26957";
+    nixpkgs-kernel-zen.url = "github:NixOS/nixpkgs/c5c4a43b0e8056328ec4529f735cabdb8f1942bb";
   };
 
   outputs =
