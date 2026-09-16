@@ -6,8 +6,15 @@ RowLayout {
     id: root
     spacing: 4
 
-    readonly property var activeList: {
-        if (!Hyprland.workspaces || !Hyprland.workspaces.values) return [];
+    property var activeList: []
+
+    function updateList() {
+        Hyprland.refreshWorkspaces();
+        if (!Hyprland.workspaces || !Hyprland.workspaces.values) {
+            root.activeList = [];
+            return;
+        }
+
         let list = [];
         for (let i = 0; i < Hyprland.workspaces.values.length; ++i) {
             let ws = Hyprland.workspaces.values[i];
@@ -21,7 +28,22 @@ RowLayout {
             }
         }
         list.sort((a, b) => a.id - b.id);
-        return list;
+        root.activeList = list;
+    }
+
+    Component.onCompleted: updateList()
+
+    Connections {
+        target: Hyprland
+        function onFocusedWorkspaceChanged() { root.updateList(); }
+        function onRawEvent(event) { root.updateList(); }
+    }
+
+    Timer {
+        interval: 1000
+        running: true
+        repeat: true
+        onTriggered: root.updateList()
     }
 
     Repeater {
@@ -64,7 +86,11 @@ RowLayout {
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
-                    Hyprland.dispatch(`hl.dsp.focus({ workspace = "${wsBtn.wsId}" })`);
+                    if (wsBtn.modelData && typeof wsBtn.modelData.activate === "function") {
+                        wsBtn.modelData.activate();
+                    } else {
+                        Hyprland.dispatch("workspace " + wsBtn.wsId);
+                    }
                 }
             }
         }
