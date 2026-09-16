@@ -8,24 +8,29 @@ RowLayout {
 
     Component.onCompleted: {
         Hyprland.refreshWorkspaces();
+        console.log("[Quickshell Workspaces] Initialized, workspaces count:", Hyprland.workspaces && Hyprland.workspaces.values ? Hyprland.workspaces.values.length : 0);
     }
 
     Timer {
         interval: 2000
         running: true
         repeat: true
-        onTriggered: Hyprland.refreshWorkspaces()
+        onTriggered: {
+            Hyprland.refreshWorkspaces();
+        }
     }
 
     Repeater {
-        model: Hyprland.workspaces
+        model: 10
 
         Rectangle {
             id: wsBtn
-            required property var modelData
-            readonly property int wsId: modelData ? modelData.id : 0
+            readonly property int wsId: index + 1
+            readonly property var ws: Hyprland.workspaces && Hyprland.workspaces.values ? Hyprland.workspaces.values.find(w => w.id === wsId) : null
             readonly property bool isFocused: Hyprland.focusedWorkspace && Hyprland.focusedWorkspace.id === wsId
-            visible: wsId > 0
+            readonly property bool isOccupied: ws !== null && ws !== undefined
+
+            visible: isOccupied || isFocused
 
             implicitWidth: isFocused ? 28 : 22
             implicitHeight: 22
@@ -58,8 +63,8 @@ RowLayout {
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
-                    if (wsBtn.modelData && typeof wsBtn.modelData.activate === "function") {
-                        wsBtn.modelData.activate();
+                    if (wsBtn.ws && typeof wsBtn.ws.activate === "function") {
+                        wsBtn.ws.activate();
                     } else {
                         Hyprland.dispatch("workspace " + wsBtn.wsId);
                     }
