@@ -11,6 +11,7 @@
     ./restic.nix
     ./monitoring.nix
     ../../c2cscrape.nix
+    ../../abs-bookorbit-sync.nix
     ../../../modules/containers/docker/dispatcharr/docker-compose.nix
     ../../../modules/containers/haos.nix
     ../../../modules/containers/docker/nextcloud/aio-compose.nix
@@ -27,6 +28,12 @@
     dataDir = "/media/storage/media/books/c2c";
     user = "c2c";
     environmentFile = "/etc/nixos/secrets/c2c.env";
+  };
+
+  services.abs-bookorbit-sync = {
+    enable = true;
+    environmentFile = "/etc/nixos/secrets/bookorbit.env";
+    interval = "*:0/15"; # Every 15 minutes
   };
   #  virtualisation.incus.enable = true;
   services.qbittorrent = {
