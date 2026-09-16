@@ -6,54 +6,26 @@ RowLayout {
     id: root
     spacing: 4
 
-    property var activeList: []
-
-    function updateList() {
+    Component.onCompleted: {
         Hyprland.refreshWorkspaces();
-        if (!Hyprland.workspaces || !Hyprland.workspaces.values) {
-            root.activeList = [];
-            return;
-        }
-
-        let list = [];
-        for (let i = 0; i < Hyprland.workspaces.values.length; ++i) {
-            let ws = Hyprland.workspaces.values[i];
-            if (ws && ws.id > 0) {
-                list.push(ws);
-            }
-        }
-        if (Hyprland.focusedWorkspace && Hyprland.focusedWorkspace.id > 0) {
-            if (!list.some(ws => ws.id === Hyprland.focusedWorkspace.id)) {
-                list.push(Hyprland.focusedWorkspace);
-            }
-        }
-        list.sort((a, b) => a.id - b.id);
-        root.activeList = list;
-    }
-
-    Component.onCompleted: updateList()
-
-    Connections {
-        target: Hyprland
-        function onFocusedWorkspaceChanged() { root.updateList(); }
-        function onRawEvent(event) { root.updateList(); }
     }
 
     Timer {
-        interval: 1000
+        interval: 2000
         running: true
         repeat: true
-        onTriggered: root.updateList()
+        onTriggered: Hyprland.refreshWorkspaces()
     }
 
     Repeater {
-        model: root.activeList
+        model: Hyprland.workspaces
 
         Rectangle {
             id: wsBtn
             required property var modelData
-            readonly property int wsId: modelData.id
+            readonly property int wsId: modelData ? modelData.id : 0
             readonly property bool isFocused: Hyprland.focusedWorkspace && Hyprland.focusedWorkspace.id === wsId
+            visible: wsId > 0
 
             implicitWidth: isFocused ? 28 : 22
             implicitHeight: 22
