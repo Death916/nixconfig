@@ -88,7 +88,10 @@
     "f /storage/services/immich/upload/profile/.immich 0660 immich media_services -"
   ];
 
-  services.jellyfin.enable = true;
+  services.jellyfin = {
+    enable = true;
+    package = unstablePkgs.jellyfin;
+  };
 
   services.actual = {
     enable = true;
@@ -221,9 +224,9 @@
     multipath-tools
     btop
     wget
-    pkgs.jellyfin-web
-    pkgs.jellyfin-ffmpeg
-    pkgs.jellyfin
+    unstablePkgs.jellyfin-web
+    unstablePkgs.jellyfin-ffmpeg
+    unstablePkgs.jellyfin
     unzip
     manix
     qemu
