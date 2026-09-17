@@ -304,5 +304,7 @@
 
   # Enable IR camera emitter support
   services.linux-enable-ir-emitter.enable = true;
-  services.ergochat.enable = true;
-}
+  services.ergochat = {
+    enable = true;
+    configFile = "/home/death916/.config/ergotest/ircd.yaml"
+};
