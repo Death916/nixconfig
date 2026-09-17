@@ -38,7 +38,7 @@
 
   # Packages specific to nix-asus (do not add to shared modules)
   environment.systemPackages = with pkgs; [
-    python3Packages.huggingface-hub  # huggingface-cli for downloading GGUF models
+    python3Packages.huggingface-hub # huggingface-cli for downloading GGUF models
     cosmic-ext-applet-weather
     cosmic-ext-applet-minimon
   ];
@@ -58,23 +58,23 @@
   };
 
   /*
-  services.nebula.networks.deathmesh = {
-    isLighthouse = false;
-    lighthouses = [ "10.0.100.1" ];
-    staticHostMap = {
-      "10.0.100.1" = [ "10.200.0.1:4242" "lighthouse.death916.xyz:4242" ];
+    services.nebula.networks.deathmesh = {
+      isLighthouse = false;
+      lighthouses = [ "10.0.100.1" ];
+      staticHostMap = {
+        "10.0.100.1" = [ "10.200.0.1:4242" "lighthouse.death916.xyz:4242" ];
+      };
+      settings.tun.mtu = 1100;
+      settings.lighthouse.local_allow_list.interfaces = {
+        "laptop-work" = false;
+        "wg.*" = false;
+      };
+      settings.relay.use_relays = true;
+      settings.relay.relays = [ "10.0.100.1" ];
+      ca = "/etc/nixos/secrets/ca.crt";
+      cert = "/etc/nixos/secrets/nix-asus.crt";
+      key = "/etc/nixos/secrets/nix-asus.key";
     };
-    settings.tun.mtu = 1100;
-    settings.lighthouse.local_allow_list.interfaces = {
-      "laptop-work" = false;
-      "wg.*" = false;
-    };
-    settings.relay.use_relays = true;
-    settings.relay.relays = [ "10.0.100.1" ];
-    ca = "/etc/nixos/secrets/ca.crt";
-    cert = "/etc/nixos/secrets/nix-asus.crt";
-    key = "/etc/nixos/secrets/nix-asus.key";
-  };
   */
 
   services.greetd = {
@@ -144,94 +144,94 @@
   };
 
   /*
-  # Custom Wireguard NetworkManager profiles for this laptop only
-  networking.networkmanager.ensureProfiles.environmentFiles = [
-    "/etc/nixos/secrets/wg-laptop.env"
-  ];
+    # Custom Wireguard NetworkManager profiles for this laptop only
+    networking.networkmanager.ensureProfiles.environmentFiles = [
+      "/etc/nixos/secrets/wg-laptop.env"
+    ];
 
-  networking.networkmanager.ensureProfiles.profiles = {
-    laptop-work = {
-      connection = {
-        id = "laptop-work";
-        type = "wireguard";
-        interface-name = "laptop-work";
-        autoconnect = "false";
-        mtu = 1280;
+    networking.networkmanager.ensureProfiles.profiles = {
+      laptop-work = {
+        connection = {
+          id = "laptop-work";
+          type = "wireguard";
+          interface-name = "laptop-work";
+          autoconnect = "false";
+          mtu = 1280;
+        };
+        wireguard = {
+          private-key = "$WG_PRIVATE_KEY";
+        };
+        "wireguard-peer.VbKDcgXQAF5TSAjifWVd9RXJNVfmzpIW5q/wNPxcNDw=" = {
+          endpoint = "lighthouse.death916.xyz:443";
+          allowed-ips = "0.0.0.0/0";
+          persistent-keepalive = 25;
+        };
+        ipv4 = {
+          method = "manual";
+          addresses = "10.200.0.2/24";
+          dns = "10.200.0.1;10.0.100.1;10.0.100.2;9.9.9.9;";
+          dns-priority = -50;
+          routes = "$VPS_PUBLIC_IP/32 0.0.0.0 0";
+          routing-rule1 = "priority 2500 to 10.0.100.0/24 table 254";
+        };
+        ipv6 = {
+          method = "disabled";
+        };
       };
-      wireguard = {
-        private-key = "$WG_PRIVATE_KEY";
+
+      laptop-home = {
+        connection = {
+          id = "laptop-home";
+          type = "wireguard";
+          interface-name = "laptop-home";
+          autoconnect = "true";
+          mtu = 1280;
+        };
+        wireguard = {
+          private-key = "$WG_PRIVATE_KEY";
+        };
+        "wireguard-peer.VbKDcgXQAF5TSAjifWVd9RXJNVfmzpIW5q/wNPxcNDw=" = {
+          endpoint = "lighthouse.death916.xyz:443";
+          allowed-ips = "10.200.0.0/24";
+          persistent-keepalive = 25;
+        };
+        ipv4 = {
+          method = "manual";
+          addresses = "10.200.0.2/24";
+          dns = "10.0.100.2;10.0.100.1;";
+          dns-search = "death;~.;";
+          dns-priority = -50;
+        };
+        ipv6 = {
+          method = "disabled";
+        };
       };
-      "wireguard-peer.VbKDcgXQAF5TSAjifWVd9RXJNVfmzpIW5q/wNPxcNDw=" = {
-        endpoint = "lighthouse.death916.xyz:443";
-        allowed-ips = "0.0.0.0/0";
-        persistent-keepalive = 25;
-      };
-      ipv4 = {
-        method = "manual";
-        addresses = "10.200.0.2/24";
-        dns = "10.200.0.1;10.0.100.1;10.0.100.2;9.9.9.9;";
-        dns-priority = -50;
-        routes = "$VPS_PUBLIC_IP/32 0.0.0.0 0";
-        routing-rule1 = "priority 2500 to 10.0.100.0/24 table 254";
-      };
-      ipv6 = {
-        method = "disabled";
+
+      laptop-mullvad = {
+        connection = {
+          id = "laptop-mullvad";
+          type = "wireguard";
+          interface-name = "wg-mullvad";
+          autoconnect = "false";
+        };
+        wireguard = {
+          private-key = "$MULLVAD_PRIVATE_KEY";
+        };
+        "wireguard-peer.kZkubkNYgzXKAWuF70RA/XGhOxorA4C3Ph3v4t+LThM=" = {
+          endpoint = "23.234.73.2:51820";
+          allowed-ips = "0.0.0.0/0";
+        };
+        ipv4 = {
+          method = "manual";
+          addresses = "$MULLVAD_CLIENT_IP/32";
+          dns = "10.64.0.1;";
+          dns-priority = 100;
+        };
+        ipv6 = {
+          method = "disabled";
+        };
       };
     };
-
-    laptop-home = {
-      connection = {
-        id = "laptop-home";
-        type = "wireguard";
-        interface-name = "laptop-home";
-        autoconnect = "true";
-        mtu = 1280;
-      };
-      wireguard = {
-        private-key = "$WG_PRIVATE_KEY";
-      };
-      "wireguard-peer.VbKDcgXQAF5TSAjifWVd9RXJNVfmzpIW5q/wNPxcNDw=" = {
-        endpoint = "lighthouse.death916.xyz:443";
-        allowed-ips = "10.200.0.0/24";
-        persistent-keepalive = 25;
-      };
-      ipv4 = {
-        method = "manual";
-        addresses = "10.200.0.2/24";
-        dns = "10.0.100.2;10.0.100.1;";
-        dns-search = "death;~.;";
-        dns-priority = -50;
-      };
-      ipv6 = {
-        method = "disabled";
-      };
-    };
-
-    laptop-mullvad = {
-      connection = {
-        id = "laptop-mullvad";
-        type = "wireguard";
-        interface-name = "wg-mullvad";
-        autoconnect = "false";
-      };
-      wireguard = {
-        private-key = "$MULLVAD_PRIVATE_KEY";
-      };
-      "wireguard-peer.kZkubkNYgzXKAWuF70RA/XGhOxorA4C3Ph3v4t+LThM=" = {
-        endpoint = "23.234.73.2:51820";
-        allowed-ips = "0.0.0.0/0";
-      };
-      ipv4 = {
-        method = "manual";
-        addresses = "$MULLVAD_CLIENT_IP/32";
-        dns = "10.64.0.1;";
-        dns-priority = 100;
-      };
-      ipv6 = {
-        method = "disabled";
-      };
-    };
-  };
   */
 
   # Disable Wi-Fi toggle behavior for the Asus WLAN/Wi-Fi key by remapping its scancodes to F21.
@@ -245,22 +245,22 @@
   '';
 
   /*
-  networking.nftables.enable = true;
-  networking.nftables.tables.mullvad-nebula-bypass = {
-    family = "inet";
-    content = ''
-      chain allowOutgoing {
-        type route hook output priority -100;
-        policy accept;
-        ip daddr 10.0.100.0/24 ct mark set 0x00000f41 meta mark set 0x6d6f6c65
-      }
-      chain allowIncoming {
-        type filter hook input priority -100;
-        policy accept;
-        ip saddr 10.0.100.0/24 ct mark set 0x00000f41 meta mark set 0x6d6f6c65
-      }
-    '';
-  };
+    networking.nftables.enable = true;
+    networking.nftables.tables.mullvad-nebula-bypass = {
+      family = "inet";
+      content = ''
+        chain allowOutgoing {
+          type route hook output priority -100;
+          policy accept;
+          ip daddr 10.0.100.0/24 ct mark set 0x00000f41 meta mark set 0x6d6f6c65
+        }
+        chain allowIncoming {
+          type filter hook input priority -100;
+          policy accept;
+          ip saddr 10.0.100.0/24 ct mark set 0x00000f41 meta mark set 0x6d6f6c65
+        }
+      '';
+    };
   */
 
   networking.networkmanager.dns = "systemd-resolved";
@@ -304,4 +304,5 @@
 
   # Enable IR camera emitter support
   services.linux-enable-ir-emitter.enable = true;
+  services.ergochat.enable = true;
 }
