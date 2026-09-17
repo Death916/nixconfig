@@ -307,4 +307,5 @@
   services.ergochat = {
     enable = true;
     configFile = "/home/death916/.config/ergotest/ircd.yaml";
-};
+  };
+}
