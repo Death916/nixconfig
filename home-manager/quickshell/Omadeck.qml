@@ -65,7 +65,7 @@ PanelWindow {
             spacing: 20
 
             // -----------------------------------------------------------------
-            // Top HUD: Clock, Weather, Media Player + CAVA Spectrum
+            // Top HUD: Clock, Weather, Media Player + CAVA Spectrum, Sys Monitor
             // -----------------------------------------------------------------
             OmadeckDashboard {
                 id: dashboard
