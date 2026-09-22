@@ -48,7 +48,6 @@
     vim
     wget
     unstablePkgs.cosmic-session
-    halloy
     inputs.flox.packages.${pkgs.stdenv.hostPlatform.system}.flox
     wl-clipboard
     clementine
