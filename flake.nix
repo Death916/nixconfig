@@ -22,10 +22,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    nix-amd-ai = {
-      url = "github:noamsto/nix-amd-ai";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nix-amd-ai.url = "github:noamsto/nix-amd-ai";
     llm-agents = {
       url = "github:numtide/llm-agents.nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
