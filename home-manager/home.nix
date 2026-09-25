@@ -108,7 +108,13 @@ in
     pokemon-colorscripts
     awscli2
     unstablePkgs.qwen-code
-    unstablePkgs.tauon
+    # nixpkgs installs the desktop file with "Exec=tauonmb" but renames the
+    # binary to tauon; alias it so menu/rofi launches work. Drop when fixed upstream.
+    (unstablePkgs.tauon.overrideAttrs (old: {
+      postInstall = (old.postInstall or "") + ''
+        ln -s tauon $out/bin/tauonmb
+      '';
+    }))
     unstablePkgs.discord
     poweralertd
     senpai
