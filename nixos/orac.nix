@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ inputs, pkgs, lib, ... }:
 {
   imports = [
     ../modules/nixos/common/ssh-keys.nix
@@ -110,6 +110,14 @@ services.hermes-agent = {
 
   systemd.services.hermes-agent.environment = {
     AGENT_BROWSER_EXECUTABLE_PATH = "/run/current-system/sw/bin/chromium";
+    HERMES_MANAGED = lib.mkForce "false";
+  };
+
+  system.activationScripts."hermes-agent-unmanaged" = {
+    deps = [ "hermes-agent-setup" ];
+    text = ''
+      ${pkgs.coreutils}/bin/install -o death916 -g users -m 0644 ${pkgs.writeText "hermes-managed" "false"} /home/death916/.hermes/.managed
+    '';
   };
 
   systemd.services.hermes-dashboard = {
