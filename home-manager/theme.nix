@@ -8,7 +8,7 @@
 
 {
   imports = [
-    ./themes/oxocarbon.nix
+    ./themes/aether.nix
   ];
 
   stylix.enable = true;
