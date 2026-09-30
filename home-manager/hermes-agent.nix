@@ -8,6 +8,17 @@
 
 let
   unmanaged = pkgs.writeText "hermes-managed" "false";
+
+  hindsight-hermes = pkgs.stdenv.mkDerivation {
+    pname = "hindsight-hermes";
+    version = "1.2.1";
+    src = "${inputs.hindsight}/hindsight-integrations/hermes";
+    dontBuild = true;
+    installPhase = ''
+      mkdir -p $out
+      cp -r . $out/
+    '';
+  };
 in
 {
   programs.hermes-agent.enable = true;
@@ -16,9 +27,7 @@ in
     enable = true;
     gateway.enable = true;
     environmentFiles = [ "/home/death916/.hermes/hermes.env" ];
-    extraPlugins = [
-      "${inputs.hindsight}/hindsight-integrations/hermes"
-    ];
+    extraPlugins = [ hindsight-hermes ];
   };
 
   systemd.user.services.hermes-agent.Service.Environment = lib.mkAfter [ "HERMES_MANAGED=false" ];
