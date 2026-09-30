@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
 let
   unmanaged = pkgs.writeText "hermes-managed" "false";
@@ -10,6 +16,9 @@ in
     enable = true;
     gateway.enable = true;
     environmentFiles = [ "/home/death916/.hermes/hermes.env" ];
+    extraPlugins = [
+      "${inputs.hindsight}/hindsight-integrations/hermes"
+    ];
   };
 
   systemd.user.services.hermes-agent.Service.Environment = lib.mkAfter [ "HERMES_MANAGED=false" ];
