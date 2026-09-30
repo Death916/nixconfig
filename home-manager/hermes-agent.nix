@@ -27,7 +27,8 @@ let
     src = "${inputs.hindsight}/hindsight-clients/python";
     pyproject = true;
     build-system = [ config.services.hermes-agent.package.python.pkgs.hatchling ];
-    propagatedBuildInputs = [ ];
+    propagatedBuildInputs =
+      with config.services.hermes-agent.package.python.pkgs; [ aiohttp-retry ];
     dontCheckRuntimeDeps = true;
     doCheck = false;
   };
@@ -39,9 +40,13 @@ in
     enable = true;
     gateway.enable = true;
     environmentFiles = [ "/home/death916/.hermes/hermes.env" ];
-    extraPlugins = [ hindsight-hermes ];
     extraPythonPackages = [ hindsight-client ];
   };
+
+  home.activation.hermesHindsight = lib.hm.dag.entryAfter [ "hermesAgentSetup" ] ''
+    $DRY_RUN_CMD ${pkgs.coreutils}/bin/mkdir -p ${config.home.homeDirectory}/.hermes/plugins
+    $DRY_RUN_CMD ${pkgs.coreutils}/bin/ln -sfn ${hindsight-hermes} ${config.home.homeDirectory}/.hermes/plugins/hindsight
+  '';
 
   systemd.user.services.hermes-agent.Service.Environment = lib.mkAfter [ "HERMES_MANAGED=false" ];
 
