@@ -28,6 +28,10 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     hermes-agent.url = "github:NousResearch/hermes-agent";
+    hindsight = {
+      url = "github:vectorize-io/hindsight";
+      flake = false;
+    };
     quickshell = {
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
