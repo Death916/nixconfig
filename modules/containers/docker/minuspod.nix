@@ -11,15 +11,16 @@
     pull = "always";
 
     environment = {
-      "BASE_URL"        = "http://orac:8100";
-      "MINUSPOD_PORT"   = "8000";
+      "BASE_URL" = "http://orac:8100";
+      "MINUSPOD_PORT" = "8000";
       "MAX_AUDIO_DOWNLOAD_MB" = "500";
       "SESSION_COOKIE_SECURE" = "false";
     };
 
     volumes = [
       "/var/lib/minuspod:/app/data:rw"
-      "/mnt/myjfs/minuspod/podcasts:/app/data/podcasts:rw"
+      # "/mnt/myjfs/minuspod/podcasts:/app/data/podcasts:rw"
+      "/var/lib/minuspod/podcasts:/app/data/podcasts:rw"
     ];
 
     environmentFiles = [ "/etc/nixos/secrets/minuspod.env" ];
@@ -41,12 +42,12 @@
 
   systemd.services."docker-minuspod" = {
     serviceConfig = {
-      Restart    = lib.mkOverride 90 "on-failure";
+      Restart = lib.mkOverride 90 "on-failure";
       RestartSec = lib.mkOverride 90 "5s";
     };
-    after    = [ "docker-network-hermes_net.service" ];
+    after = [ "docker-network-hermes_net.service" ];
     requires = [ "docker-network-hermes_net.service" ];
-    partOf   = [ "docker-compose-hermes-server-root.target" ];
+    partOf = [ "docker-compose-hermes-server-root.target" ];
     wantedBy = [ "docker-compose-hermes-server-root.target" ];
   };
 
