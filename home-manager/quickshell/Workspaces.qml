@@ -36,6 +36,20 @@ RowLayout {
             implicitHeight: 22
             radius: Theme.radius
 
+            // Burn-in: the focused pill is the brightest static block in the bar,
+            // so its luminance drifts slowly instead of sitting at a fixed level.
+            property real breath: 1.0
+            opacity: isFocused ? breath : 1.0
+
+            SequentialAnimation on breath {
+                loops: Animation.Infinite
+                running: wsBtn.isFocused
+                NumberAnimation { to: 0.85; duration: 75000; easing.type: Easing.InOutSine }
+                NumberAnimation { to: 1.0; duration: 75000; easing.type: Easing.InOutSine }
+            }
+
+            onIsFocusedChanged: if (!isFocused) breath = 1.0
+
             color: isFocused ? Theme.accent : Theme.widgetBg
             border.color: isFocused ? Theme.accent : (wsMouse.containsMouse ? Theme.fgSubtle : "transparent")
             border.width: 1
