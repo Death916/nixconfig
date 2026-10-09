@@ -36,8 +36,6 @@ RowLayout {
             implicitHeight: 22
             radius: Theme.radius
 
-            // Burn-in: the focused pill is the brightest static block in the bar,
-            // so its luminance drifts slowly instead of sitting at a fixed level.
             property real breath: 1.0
             opacity: isFocused ? breath : 1.0
 

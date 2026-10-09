@@ -32,8 +32,6 @@ Rectangle {
 
         Text {
             id: clockText
-            // Burn-in: no date here. A fixed string in one spot all day is the
-            // worst case; the full date lives in the Omadeck overlay.
             text: Qt.formatDateTime(root.currentTime, "HH:mm:ss")
             font.family: Theme.fontFamily
             font.pixelSize: Theme.fontSizeSmall

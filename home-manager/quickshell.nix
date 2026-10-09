@@ -54,8 +54,6 @@ in
 
         readonly property int radius: 8
         readonly property int barHeight: 34
-
-        // Burn-in: bar dim level applied after ~2 min of no input.
         readonly property real idleDimOpacity: 0.5
     }
   '';
