@@ -28,7 +28,17 @@ let
     pyproject = true;
     build-system = [ config.services.hermes-agent.package.python.pkgs.hatchling ];
     propagatedBuildInputs =
-      with config.services.hermes-agent.package.python.pkgs; [ aiohttp-retry ];
+      with config.services.hermes-agent.package.python.pkgs; [
+        # aiohttp-retry's only runtime dep is aiohttp, which the hermes sealed
+        # venv already provides. Leaving it in the closure trips hermes' build
+        # guard ("plugin package aiohttp collides with ... sealed venv"), so
+        # drop it here; aiohttp resolves from the venv at runtime.
+        (aiohttp-retry.overridePythonAttrs (_: {
+          dependencies = [ ];
+          pythonImportsCheck = [ ];
+          doCheck = false;
+        }))
+      ];
     dontCheckRuntimeDeps = true;
     doCheck = false;
   };
