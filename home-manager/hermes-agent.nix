@@ -36,6 +36,7 @@ let
         (aiohttp-retry.overridePythonAttrs (_: {
           dependencies = [ ];
           pythonImportsCheck = [ ];
+          dontCheckRuntimeDeps = true;
           doCheck = false;
         }))
       ];
