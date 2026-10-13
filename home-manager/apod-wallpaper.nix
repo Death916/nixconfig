@@ -8,9 +8,6 @@ let
     CACHE_DIR="''${XDG_CACHE_HOME:-$HOME/.cache}/apod"
     mkdir -p "$CACHE_DIR"
 
-    IMG_PATH="$CACHE_DIR/today.jpg"
-    INFO_PATH="$CACHE_DIR/today.json"
-
     # NASA migrated APOD off the legacy api.nasa.gov proxy (retired 2026-12-01).
     # The new WordPress endpoint returns a JSON array and needs a User-Agent.
     UA="apod-wallpaper/1.0"
@@ -51,6 +48,13 @@ let
       exit 1
     fi
 
+    # awww caches images by path, so a fixed "today.jpg" would keep serving the
+    # stale bitmap when the contents change. Use a date-stamped path instead.
+    APOD_DATE=$(echo "$DATA" | ${pkgs.jq}/bin/jq -r "''${NORM} | .date // empty")
+    [ -z "$APOD_DATE" ] && APOD_DATE=$(${pkgs.coreutils}/bin/date +%F)
+    IMG_PATH="$CACHE_DIR/apod-$APOD_DATE.jpg"
+    INFO_PATH="$CACHE_DIR/apod-$APOD_DATE.json"
+
     MEDIA_TYPE=$(echo "$DATA" | ${pkgs.jq}/bin/jq -r "''${NORM} | .media_type // empty")
     # In the new API .hdurl is the direct image asset; .url is the article
     # permalink (HTML), so only fall back to .url if it is an image file.
@@ -80,6 +84,11 @@ let
     ${pkgs.curl}/bin/curl -fsS -A "$UA" --connect-timeout 10 --max-time 60 "$IMG_URL" -o "$IMG_PATH.tmp"
     mv "$INFO_PATH.tmp" "$INFO_PATH"
     mv "$IMG_PATH.tmp" "$IMG_PATH"
+
+    for old in "$CACHE_DIR"/apod-*.jpg "$CACHE_DIR"/apod-*.json; do
+      [ -e "$old" ] || continue
+      [ "$old" = "$IMG_PATH" ] || [ "$old" = "$INFO_PATH" ] || rm -f "$old"
+    done
 
     # Set wallpaper using awww
     ${pkgs.awww}/bin/awww img "$IMG_PATH" --transition-type fade --transition-duration 2 \
