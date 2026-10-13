@@ -196,6 +196,7 @@
                     imports = [
                       ./home-manager/home.nix
                       inputs.hermes-agent.homeManagerModules.default
+                      ./home-manager/hermes-agent.nix
                       stylix.homeModules.stylix
                     ];
                     home.packages = [
@@ -258,6 +259,9 @@
                     imports = [
                       ./home-manager/home.nix
                       stylix.homeModules.stylix
+                    ];
+                    home.packages = [
+                      inputs.llm-agents.packages.${system}.hermes-desktop
                     ];
                   };
                 }

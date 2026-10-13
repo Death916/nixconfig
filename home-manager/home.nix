@@ -22,7 +22,6 @@ in
     ./halloy.nix
     ./quickshell.nix
     ./apod-wallpaper.nix
-    # ./hermes-agent.nix
   ];
 
   home.username = "death916";

@@ -62,6 +62,14 @@ let
       esac
     fi
 
+    # The API's hdurl ships with crop=faces,focalpoint, which makes NASA's CDN
+    # return a tiny (~960px) thumbnail. Drop those params and request a full 4K
+    # render ourselves. (>~4096 makes the CDN fall back to the tiny default.)
+    case "$IMG_URL" in
+      *assets.science.nasa.gov/dynamicimage*)
+        IMG_URL="''${IMG_URL%%\?*}?w=3840&fit=clip" ;;
+    esac
+
     # Some days have no downloadable image (e.g. videos); skip cleanly
     if [ "$MEDIA_TYPE" != "image" ] || [ -z "$IMG_URL" ] || [ "$IMG_URL" = "null" ]; then
       echo "APOD: today's entry is not a downloadable image (media_type=$MEDIA_TYPE); keeping current wallpaper" >&2
