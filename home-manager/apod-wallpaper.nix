@@ -11,7 +11,10 @@ let
     IMG_PATH="$CACHE_DIR/today.jpg"
     INFO_PATH="$CACHE_DIR/today.json"
 
-    API_URL="https://api.nasa.gov/planetary/apod?api_key=''${API_KEY}&thumbs=true"
+    # NASA migrated APOD off the legacy api.nasa.gov proxy (retired 2026-12-01).
+    # The new WordPress endpoint returns a JSON array and needs a User-Agent.
+    UA="apod-wallpaper/1.0"
+    API_URL="https://science.nasa.gov/wp-json/wp/v2/apod-basic/?api_key=''${API_KEY}"
 
     # Fetch today's metadata. -f makes curl exit non-zero on HTTP >= 400, so a
     # 500/429 error body is never treated as valid data. Retries are deliberately
@@ -21,7 +24,7 @@ let
     delay=15
     attempt=1
     while [ "$attempt" -le "$MAX_ATTEMPTS" ]; do
-      if DATA=$(${pkgs.curl}/bin/curl -fsS --connect-timeout 10 --max-time 30 "$API_URL" 2>/dev/null); then
+      if DATA=$(${pkgs.curl}/bin/curl -fsS -A "$UA" --connect-timeout 10 --max-time 30 "$API_URL" 2>/dev/null); then
         break
       fi
       DATA=""
@@ -39,23 +42,34 @@ let
       exit 1
     fi
 
+    # Normalize: the new endpoint wraps the entry in a JSON array
+    NORM='if type == "array" then .[0] else . end'
+
     # Reject payloads that are API errors (e.g. rate limiting) despite a 2xx status
     if echo "$DATA" | ${pkgs.jq}/bin/jq -e '.code? // empty' >/dev/null 2>&1; then
       echo "APOD: API returned an error payload: $(echo "$DATA" | ${pkgs.jq}/bin/jq -r '.msg? // ""')" >&2
       exit 1
     fi
 
-    MEDIA_TYPE=$(echo "$DATA" | ${pkgs.jq}/bin/jq -r '.media_type // empty')
-    IMG_URL=$(echo "$DATA" | ${pkgs.jq}/bin/jq -r '.hdurl // .url // .thumbnail_url // empty')
+    MEDIA_TYPE=$(echo "$DATA" | ${pkgs.jq}/bin/jq -r "''${NORM} | .media_type // empty")
+    # In the new API .hdurl is the direct image asset; .url is the article
+    # permalink (HTML), so only fall back to .url if it is an image file.
+    IMG_URL=$(echo "$DATA" | ${pkgs.jq}/bin/jq -r "''${NORM} | .hdurl // empty")
+    if [ -z "$IMG_URL" ] || [ "$IMG_URL" = "null" ]; then
+      CASE_URL=$(echo "$DATA" | ${pkgs.jq}/bin/jq -r "''${NORM} | .url // empty")
+      case "$CASE_URL" in
+        *.jpg|*.jpeg|*.png|*.gif|*.webp) IMG_URL="$CASE_URL" ;;
+      esac
+    fi
 
     # Some days have no downloadable image (e.g. videos); skip cleanly
     if [ "$MEDIA_TYPE" != "image" ] || [ -z "$IMG_URL" ] || [ "$IMG_URL" = "null" ]; then
-      echo "APOD: today's entry is not an image (media_type=$MEDIA_TYPE); keeping current wallpaper" >&2
+      echo "APOD: today's entry is not a downloadable image (media_type=$MEDIA_TYPE); keeping current wallpaper" >&2
       exit 0
     fi
 
     echo "$DATA" > "$INFO_PATH.tmp"
-    ${pkgs.curl}/bin/curl -fsS --connect-timeout 10 --max-time 60 "$IMG_URL" -o "$IMG_PATH.tmp"
+    ${pkgs.curl}/bin/curl -fsS -A "$UA" --connect-timeout 10 --max-time 60 "$IMG_URL" -o "$IMG_PATH.tmp"
     mv "$INFO_PATH.tmp" "$INFO_PATH"
     mv "$IMG_PATH.tmp" "$IMG_PATH"
 
