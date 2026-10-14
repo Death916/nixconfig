@@ -23,7 +23,10 @@ let
 
   hindsight-client = config.services.hermes-agent.package.python.pkgs.buildPythonPackage {
     pname = "hindsight-client";
-    version = "0.10.2";
+    # Must track the hardcoded version in the locked hindsight input's
+    # hindsight-clients/python/pyproject.toml, or pythonMetadataCheckPhase fails
+    # ("derivation has version X but .dist-info/METADATA specifies version Y").
+    version = "1.0.0";
     src = "${inputs.hindsight}/hindsight-clients/python";
     pyproject = true;
     build-system = [ config.services.hermes-agent.package.python.pkgs.hatchling ];
