@@ -28,7 +28,7 @@
       "--exclude-caches"
     ];
     timerConfig = {
-      OnCalendar = "03:00,09:00,15:00,21:00";
+      OnCalendar = "03,09,15,21:00:00";
       Persistent = true;
       RandomizedDelaySec = "15m";
     };

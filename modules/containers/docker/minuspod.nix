@@ -19,8 +19,14 @@
 
     volumes = [
       "/var/lib/minuspod:/app/data:rw"
-      # "/mnt/myjfs/minuspod/podcasts:/app/data/podcasts:rw"
-      "/var/lib/minuspod/podcasts:/app/data/podcasts:rw"
+      # Media library lives on JuiceFS (/mnt/myjfs — S3-backed, 1PB, ~1% used)
+      # so it can never fill the 91G root fs. The CONTAINER path is unchanged
+      # (/app/data/podcasts) and podcast.db stores RELATIVE paths
+      # (episodes/<hash>-v1.mp3, logs/...), verified 2026-10-14: no DB row
+      # references /var/lib/minuspod, so nothing needs re-pointing.
+      # podcast.db + -wal deliberately stay on root (sqlite/WAL over FUSE is a
+      # corruption risk for zero real gain — they are ~850M, not the problem).
+      "/mnt/myjfs/minuspod/podcasts:/app/data/podcasts:rw"
     ];
 
     environmentFiles = [ "/etc/nixos/secrets/minuspod.env" ];
