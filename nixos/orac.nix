@@ -119,6 +119,15 @@ services.hermes-agent = {
     "d /var/build/jfsCache 0775 death916 users -"
   ];
 
+  systemd.services.var-build-perms = {
+    after = [ "var-build.mount" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.coreutils}/bin/install -d -o death916 -g users -m 0775 /var/build /var/build/jfsCache";
+    };
+  };
+
   # Hermes 0.21+ spawns every cron run as a "restart-safe" worker via
   # `systemd-run --user --scope` so the job survives a gateway restart. That
   # needs a reachable *user* D-Bus session, which a system service never
