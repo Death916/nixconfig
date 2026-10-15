@@ -51,8 +51,24 @@
       Restart = lib.mkOverride 90 "on-failure";
       RestartSec = lib.mkOverride 90 "5s";
     };
-    after = [ "docker-network-hermes_net.service" ];
-    requires = [ "docker-network-hermes_net.service" ];
+    # ORDERING MATTERS: /mnt/myjfs is mounted by a CONTAINER
+    # (docker-myjfs-mount-service, rshared), not by a .mount unit, so systemd has
+    # no implicit dependency to wait on. Verified failure 2026-10-14 04:09 during
+    # a nixos-rebuild: docker-minuspod came up while /mnt/myjfs was unmounted and
+    # docker bound a transient empty root-fs dir at /app/data/podcasts instead of
+    # the JuiceFS library — the container then had NO podcasts path at all and
+    # /api/v1/system/status + /api/v1/feeds returned 500 until it was restarted.
+    # One attempt earlier the daemon hard-failed with "error while creating mount
+    # source path '/mnt/myjfs/minuspod/podcasts': mkdir /mnt/myjfs: file exists".
+    # Keep both deps: the container is useless without the library mount.
+    after = [
+      "docker-network-hermes_net.service"
+      "docker-myjfs-mount-service.service"
+    ];
+    requires = [
+      "docker-network-hermes_net.service"
+      "docker-myjfs-mount-service.service"
+    ];
     partOf = [ "docker-compose-hermes-server-root.target" ];
     wantedBy = [ "docker-compose-hermes-server-root.target" ];
   };
