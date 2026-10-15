@@ -14,28 +14,14 @@
     image = "juicedata/mount:ce-v1.2.1";
     volumes = [
       "/mnt/myjfs:/mnt/jfs:rw,rshared"
-      "juice_juicefs_cache:/var/jfsCache:rw"
+      "/var/build/jfsCache:/var/jfsCache:rw"
       "/etc/nixos/secrets/juicefs.env:/run/secrets/juicefs.env:ro"
     ];
-    # The JuiceFS local block cache lives ON ROOT (/var/jfsCache is a docker
-    # volume in /var/lib/docker) and is uncapped by default: --cache-size is
-    # 100GiB and only --free-space-ratio stops it. At the default 0.1 it will
-    # happily fill root down to ~9G free on this 91G disk. Measured 2026-10-14:
-    # the 9.1G podcast mirror pushed this cache 110M -> 4.4G and root from 14G
-    # free to 9.1G. Bounded deliberately here:
-    #   --free-space-ratio 0.15 -> keep >=13.6G free on root (the real cap,
-    #                              since ~70G of root is live data that cannot
-    #                              move: docker 19G + /nix 32G + live DBs)
-    #   --cache-expire 604800   -> clear cold blocks after 7 days (default 0 =
-    #                              never expires, so one-off writes squat forever)
-    # --cache-size is deliberately LEFT AT DEFAULT: the ratio is the binding
-    # constraint, so capping size as well only costs read perf for no gain.
-    # NOTE: compose2nix-generated file - re-check these flags after a regen.
     cmd = [
       "sh"
       "-c"
       ''
-        . /run/secrets/juicefs.env &&         PGPASSWORD="$POSTGRES_PASSWORD" juicefs mount --attr-cache 10 --entry-cache 10 --prefetch 1 --open-cache 60 --buffer-size 300 --cache-dir /var/jfsCache --free-space-ratio 0.15 --cache-expire 604800 postgres://death916@postgres:5432/juicefs?sslmode=disable /mnt/jfs
+        . /run/secrets/juicefs.env &&         PGPASSWORD="$POSTGRES_PASSWORD" juicefs mount --attr-cache 10 --entry-cache 10 --prefetch 1 --open-cache 60 --buffer-size 300 --cache-dir /var/jfsCache --cache-size 20480 --free-space-ratio 0.05 --cache-expire 604800 postgres://death916@postgres:5432/juicefs?sslmode=disable /mnt/jfs
       ''
     ];
     dependsOn = [

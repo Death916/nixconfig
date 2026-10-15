@@ -108,11 +108,24 @@ services.hermes-agent = {
     extraPackages = [ pkgs.agent-browser ];
   };
 
+  fileSystems."/var/build" = {
+    device = "/dev/disk/by-uuid/343a9352-6045-4d6a-8244-54ffd6940945";
+    fsType = "ext4";
+    options = [ "noatime" "nofail" ];
+  };
+
+  systemd.tmpfiles.rules = [
+    "d /var/build 0775 death916 users -"
+    "d /var/build/jfsCache 0775 death916 users -"
+  ];
+
   # Hermes 0.21+ spawns every cron run as a "restart-safe" worker via
   # `systemd-run --user --scope` so the job survives a gateway restart. That
   # needs a reachable *user* D-Bus session, which a system service never
   # inherits from a login session. Without these two vars every cron tick
   # fails at dispatch (restart-safe scope unavailable) and no job ever runs.
+  systemd.services.hermes-agent.serviceConfig.ReadWritePaths = lib.mkAfter [ "/var/build" ];
+
   systemd.services.hermes-agent.environment = {
     AGENT_BROWSER_EXECUTABLE_PATH = "/run/current-system/sw/bin/chromium";
     HERMES_MANAGED = lib.mkForce "false";
