@@ -197,7 +197,7 @@
     listen.ip = "0.0.0.0";
     # port = "6712";
     options = {
-      calibreLibrary = "/media/storage/media/books/";
+      calibreLibrary = "/media/storage/media/books/ebooks";
       enableBookUploading = true;
     };
   };
