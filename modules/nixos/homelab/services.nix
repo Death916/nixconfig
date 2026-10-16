@@ -199,6 +199,7 @@
     options = {
       calibreLibrary = "/media/storage/media/books/ebooks";
       enableBookUploading = true;
+      enableBookConversion = true;
     };
   };
 
