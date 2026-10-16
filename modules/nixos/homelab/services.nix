@@ -192,14 +192,14 @@
     };
   };
 
-  # services.calibre-web = {
-  #   enable = true;
-  #   listen.ip = "0.0.0.0";
-  #   options = {
-  #     calibreLibrary = "/media/storage/media/books/calibre";
-  #     enableBookUploading = true;
-  #   };
-  # };
+  services.calibre-web = {
+    enable = true;
+    listen.ip = "0.0.0.0";
+    options = {
+      calibreLibrary = "/media/storage/media/books/";
+      enableBookUploading = true;
+    };
+  };
 
   services.postgresql = {
     enable = true;
