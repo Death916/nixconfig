@@ -302,7 +302,8 @@ in
           monitor = "";
           text = "$TIME";
           font_size = 72;
-          font_family = "JetBrainsMono Nerd Font";
+          font_family = "IoskeleyMono Nerd Font Mono";
+          # font_family = "JetBrainsMono Nerd Font";
           position = "0, -50";
           halign = "center";
           valign = "center";
@@ -398,7 +399,7 @@ in
 
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
+    # nerd-fonts.jetbrains-mono
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-color-emoji
