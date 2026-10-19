@@ -197,7 +197,6 @@ in
         { _args = [ "XF86MonBrightnessUp" (ml ''hl.dsp.exec_cmd("${pkgs.brightnessctl}/bin/brightnessctl set +5%")'') ]; }
         { _args = [ "XF86MonBrightnessDown" (ml ''hl.dsp.exec_cmd("${pkgs.brightnessctl}/bin/brightnessctl set 5%-")'') ]; }
 
-        { _args = [ "SUPER+grave" (ml ''hl.dsp.workspace.toggle_special("quake")'') ]; }
         { _args = [ "SUPER+M" (ml ''hl.dsp.window.move({ workspace = "special:minimized" })'') ]; }
         { _args = [ "SUPER+SHIFT+M" (ml ''hl.dsp.workspace.toggle_special("minimized")'') ]; }
         { _args = [ "SUPER+S" (ml ''hl.dsp.workspace.toggle_special("minimized")'') ]; }
@@ -218,10 +217,7 @@ in
       ];
 
       window_rule = [
-        { match = { class = "^(Wave|waveterm)$"; }; workspace = "special:quake"; }
-        { match = { class = "^(Wave|waveterm)$"; }; float = true; }
-        { match = { class = "^(Wave|waveterm)$"; }; size = "80% 80%"; }
-        { match = { class = "^(Wave|waveterm)$"; }; center = true; }
+
 
         { match = { float = true; }; opacity = "0.6"; }
         { match = { float = false; }; opacity = "0.85"; }
@@ -306,7 +302,8 @@ in
           monitor = "";
           text = "$TIME";
           font_size = 72;
-          font_family = "JetBrainsMono Nerd Font";
+          font_family = "IoskeleyMono Nerd Font Mono";
+          # font_family = "JetBrainsMono Nerd Font";
           position = "0, -50";
           halign = "center";
           valign = "center";
@@ -402,7 +399,7 @@ in
 
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
+    # nerd-fonts.jetbrains-mono
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-color-emoji

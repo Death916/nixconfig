@@ -1,0 +1,70 @@
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
+
+let
+  unmanaged = pkgs.writeText "hermes-managed" "false";
+
+  hindsight-hermes = pkgs.stdenv.mkDerivation {
+    pname = "hindsight-hermes";
+    version = "1.2.1";
+    src = "${inputs.hindsight}/hindsight-integrations/hermes";
+    dontBuild = true;
+    installPhase = ''
+      mkdir -p $out
+      cp -r . $out/
+      printf '\npython_runtime: external\n' >> $out/plugin.yaml
+    '';
+  };
+
+  hindsight-client = config.services.hermes-agent.package.python.pkgs.buildPythonPackage {
+    pname = "hindsight-client";
+    # Must track the hardcoded version in the locked hindsight input's
+    # hindsight-clients/python/pyproject.toml, or pythonMetadataCheckPhase fails
+    # ("derivation has version X but .dist-info/METADATA specifies version Y").
+    version = "1.0.0";
+    src = "${inputs.hindsight}/hindsight-clients/python";
+    pyproject = true;
+    build-system = [ config.services.hermes-agent.package.python.pkgs.hatchling ];
+    propagatedBuildInputs =
+      with config.services.hermes-agent.package.python.pkgs; [
+        # aiohttp-retry's only runtime dep is aiohttp, which the hermes sealed
+        # venv already provides. Leaving it in the closure trips hermes' build
+        # guard ("plugin package aiohttp collides with ... sealed venv"), so
+        # drop it here; aiohttp resolves from the venv at runtime.
+        (aiohttp-retry.overridePythonAttrs (_: {
+          dependencies = [ ];
+          pythonImportsCheck = [ ];
+          dontCheckRuntimeDeps = true;
+          doCheck = false;
+        }))
+      ];
+    dontCheckRuntimeDeps = true;
+    doCheck = false;
+  };
+in
+{
+  programs.hermes-agent.enable = true;
+
+  services.hermes-agent = {
+    enable = true;
+    gateway.enable = true;
+    environmentFiles = [ "/home/death916/.hermes/hermes.env" ];
+    extraPythonPackages = [ hindsight-client ];
+  };
+
+  home.activation.hermesHindsight = lib.hm.dag.entryAfter [ "hermesAgentSetup" ] ''
+    $DRY_RUN_CMD ${pkgs.coreutils}/bin/mkdir -p ${config.home.homeDirectory}/.hermes/plugins
+    $DRY_RUN_CMD ${pkgs.coreutils}/bin/ln -sfn ${hindsight-hermes} ${config.home.homeDirectory}/.hermes/plugins/hindsight
+  '';
+
+  systemd.user.services.hermes-agent.Service.Environment = lib.mkAfter [ "HERMES_MANAGED=false" ];
+
+  home.activation.hermesUnmanaged = lib.hm.dag.entryAfter [ "hermesAgentSetup" ] ''
+    $DRY_RUN_CMD ${pkgs.coreutils}/bin/install -m 0600 ${unmanaged} ${config.home.homeDirectory}/.hermes/.managed
+  '';
+}

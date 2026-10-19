@@ -32,7 +32,7 @@ Rectangle {
 
         Text {
             id: clockText
-            text: Qt.formatDateTime(root.currentTime, "yyyy-MM-dd HH:mm:ss")
+            text: Qt.formatDateTime(root.currentTime, "HH:mm:ss")
             font.family: Theme.fontFamily
             font.pixelSize: Theme.fontSizeSmall
             font.bold: true

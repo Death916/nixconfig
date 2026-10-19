@@ -22,15 +22,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    nix-amd-ai = {
-      url = "github:noamsto/nix-amd-ai";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nix-amd-ai.url = "github:noamsto/nix-amd-ai";
     llm-agents = {
       url = "github:numtide/llm-agents.nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     hermes-agent.url = "github:NousResearch/hermes-agent";
+    hindsight = {
+      url = "github:vectorize-io/hindsight";
+      flake = false;
+    };
     quickshell = {
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -194,10 +195,11 @@
                   home-manager.users.death916 = {
                     imports = [
                       ./home-manager/home.nix
+                      inputs.hermes-agent.homeManagerModules.default
+                      ./home-manager/hermes-agent.nix
                       stylix.homeModules.stylix
                     ];
                     home.packages = [
-                      inputs.hermes-agent.packages.${system}.default
                       inputs.llm-agents.packages.${system}.hermes-desktop
                       inputs.llm-agents.packages.${system}.hermes-hud
                       # hunk 0.21.1 — review-first terminal diff viewer (not in nixos-26.05)
@@ -257,6 +259,9 @@
                     imports = [
                       ./home-manager/home.nix
                       stylix.homeModules.stylix
+                    ];
+                    home.packages = [
+                      inputs.llm-agents.packages.${system}.hermes-desktop
                     ];
                   };
                 }

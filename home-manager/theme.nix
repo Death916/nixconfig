@@ -8,7 +8,7 @@
 
 {
   imports = [
-    ./themes/oxocarbon.nix
+    ./themes/aether.nix
   ];
 
   stylix.enable = true;
@@ -17,8 +17,10 @@
 
   stylix.fonts = {
     monospace = {
-      package = pkgs.nerd-fonts.jetbrains-mono;
-      name = "JetBrainsMono Nerd Font";
+      package = pkgs.ioskeley-mono.normal-NF;
+      name = "IoskeleyMono Nerd Font Mono";
+      # package = pkgs.nerd-fonts.jetbrains-mono;
+      # name = "JetBrainsMono Nerd Font";
     };
     sansSerif = {
       package = pkgs.noto-fonts;

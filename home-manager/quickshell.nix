@@ -54,6 +54,7 @@ in
 
         readonly property int radius: 8
         readonly property int barHeight: 34
+        readonly property real idleDimOpacity: 0.5
     }
   '';
 }

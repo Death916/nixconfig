@@ -74,6 +74,15 @@
         ];
       };
 
+      servers.mouse = {
+        nickname = "marley916";
+        username = "marley916";
+        server = "irc.myanonamouse.net";
+        port = 6697;
+        password_file = "/home/death916/.config/halloy/mouse.pass";
+
+      };
+
       actions = {
         buffer.click_channel_name = "replace-pane";
         sidebar = {

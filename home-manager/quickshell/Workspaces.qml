@@ -6,36 +6,47 @@ RowLayout {
     id: root
     spacing: 4
 
-    readonly property var activeList: {
-        if (!Hyprland.workspaces || !Hyprland.workspaces.values) return [];
-        let list = [];
-        for (let i = 0; i < Hyprland.workspaces.values.length; ++i) {
-            let ws = Hyprland.workspaces.values[i];
-            if (ws && ws.id > 0) {
-                list.push(ws);
-            }
+    Component.onCompleted: {
+        Hyprland.refreshWorkspaces();
+        console.log("[Quickshell Workspaces] Initialized, workspaces count:", Hyprland.workspaces && Hyprland.workspaces.values ? Hyprland.workspaces.values.length : 0);
+    }
+
+    Timer {
+        interval: 2000
+        running: true
+        repeat: true
+        onTriggered: {
+            Hyprland.refreshWorkspaces();
         }
-        if (Hyprland.focusedWorkspace && Hyprland.focusedWorkspace.id > 0) {
-            if (!list.some(ws => ws.id === Hyprland.focusedWorkspace.id)) {
-                list.push(Hyprland.focusedWorkspace);
-            }
-        }
-        list.sort((a, b) => a.id - b.id);
-        return list;
     }
 
     Repeater {
-        model: root.activeList
+        model: 10
 
         Rectangle {
             id: wsBtn
-            required property var modelData
-            readonly property int wsId: modelData.id
+            readonly property int wsId: index + 1
+            readonly property var ws: Hyprland.workspaces && Hyprland.workspaces.values ? Hyprland.workspaces.values.find(w => w.id === wsId) : null
             readonly property bool isFocused: Hyprland.focusedWorkspace && Hyprland.focusedWorkspace.id === wsId
+            readonly property bool isOccupied: ws !== null && ws !== undefined
+
+            visible: isOccupied || isFocused
 
             implicitWidth: isFocused ? 28 : 22
             implicitHeight: 22
             radius: Theme.radius
+
+            property real breath: 1.0
+            opacity: isFocused ? breath : 1.0
+
+            SequentialAnimation on breath {
+                loops: Animation.Infinite
+                running: wsBtn.isFocused
+                NumberAnimation { to: 0.85; duration: 75000; easing.type: Easing.InOutSine }
+                NumberAnimation { to: 1.0; duration: 75000; easing.type: Easing.InOutSine }
+            }
+
+            onIsFocusedChanged: if (!isFocused) breath = 1.0
 
             color: isFocused ? Theme.accent : Theme.widgetBg
             border.color: isFocused ? Theme.accent : (wsMouse.containsMouse ? Theme.fgSubtle : "transparent")
@@ -64,7 +75,11 @@ RowLayout {
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
-                    Hyprland.dispatch(`hl.dsp.focus({ workspace = "${wsBtn.wsId}" })`);
+                    if (wsBtn.ws && typeof wsBtn.ws.activate === "function") {
+                        wsBtn.ws.activate();
+                    } else {
+                        Hyprland.dispatch("workspace " + wsBtn.wsId);
+                    }
                 }
             }
         }
