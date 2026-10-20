@@ -106,7 +106,12 @@ services.hermes-agent = {
     };
     addToSystemPackages = true;
     extraPackages = [ pkgs.agent-browser ];
-  };
+    package = pkgs.callPackage ../pkgs/hermes-agent-patched.nix {
+      inherit inputs;
+      system = "aarch64-linux";
+      patchFile = ../patches/hermes/kanban-db-board-precedence.patch;
+    };
+};
 
   fileSystems."/var/build" = {
     device = "/dev/disk/by-uuid/343a9352-6045-4d6a-8244-54ffd6940945";
