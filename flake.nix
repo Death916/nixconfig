@@ -200,7 +200,7 @@
                       stylix.homeModules.stylix
                     ];
                     home.packages = [
-                      inputs.llm-agents.packages.${system}.hermes-desktop
+                      inputs.hermes-agent.packages.${system}.desktop
                       inputs.llm-agents.packages.${system}.hermes-hud
                       # hunk 0.21.1 — review-first terminal diff viewer (not in nixos-26.05)
                       unstablePkgs.hunk
