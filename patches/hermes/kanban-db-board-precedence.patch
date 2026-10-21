@@ -1,6 +1,6 @@
 --- a/hermes_cli/kanban_db.py
 +++ b/hermes_cli/kanban_db.py
-@@ -413,6 +413,21 @@
+@@ -414,6 +414,21 @@
      return kanban_home() / "kanban" / "boards"
  
  
@@ -22,38 +22,7 @@
  def current_board_path() -> Path:
      """``<root>/kanban/current`` — one-line slug written by ``boards switch``; absent = ``default``."""
      return kanban_home() / "kanban" / "current"
-@@ -496,13 +511,26 @@
- def _board_path(
-     env_var: Optional[str], board: Optional[str], default_parts: tuple[str, ...], leaf: str,
- ) -> Path:
--    """Shared resolver: ``env_var`` override, else legacy ``<root>/<default_parts>``
--    for the ``default`` board, else ``board_dir(slug)/leaf``."""
--    if env_var:
-+    """Shared resolver: an explicit caller target first, then the ``env_var``
-+    override, then legacy ``<root>/<default_parts>`` for the ``default`` board,
-+    else ``board_dir(slug)/leaf``.
-+
-+    An explicit target is either the ``board`` argument or an active
-+    :func:`scoped_current_board` — what ``hermes kanban --board <slug>`` and the
-+    dashboard's per-request board scope set. Those outrank ``env_var``: the pin
-+    exists to route a caller that named NO target (workers are handed
-+    ``HERMES_KANBAN_DB`` for their own board, which is also their
-+    ``HERMES_KANBAN_BOARD``/``current``), so letting it shadow an explicit slug
-+    made every cross-board caller read the pinned board: per-board counts in
-+    ``kanban boards`` printed the pinned board's shape on every row, and a card
-+    that lives on the requested board answered ``no such task``.
-+    """
-+    slug = _normalize_board_slug(board)
-+    explicit = slug is not None or bool((_CURRENT_BOARD_OVERRIDE.get() or "").strip())
-+    if env_var and not explicit:
-         override = os.environ.get(env_var, "").strip()
-         if override:
-             return Path(override).expanduser()
--    slug = _normalize_board_slug(board)
-     if slug is None:
-         slug = get_current_board()
-     if slug == DEFAULT_BOARD:
-@@ -1459,6 +1487,45 @@
+@@ -1360,6 +1375,45 @@
      return [p for p in ids if p not in present]
  
  
@@ -99,7 +68,7 @@
  def _inherit_notify_subs(
      conn: sqlite3.Connection, child_id: str, parents: Iterable[str], *,
      created_at: Optional[int] = None,
-@@ -2957,11 +3024,17 @@
+@@ -2865,11 +2919,17 @@
  ) -> None:
      """Advisory post-commit scan of summary+result for unresolvable ``t_<hex>``
      references; emits ``suspected_hallucinated_references`` in its own txn so
