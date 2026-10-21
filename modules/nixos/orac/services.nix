@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  unstablePkgs,
   lib,
   ...
 }:
@@ -48,6 +49,7 @@
 
   services.ntfy-sh = {
     enable = true;
+    package = unstablePkgs.ntfy-sh;
     settings = {
       base-url = "http://orac:2586";
       listen-http = "0.0.0.0:2586";

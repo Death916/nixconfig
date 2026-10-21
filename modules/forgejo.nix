@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  unstablePkgs,
   config,
   ...
 }:
@@ -11,6 +12,7 @@ in
 {
   services.forgejo = {
     enable = true;
+    package = unstablePkgs.forgejo;
     stateDir = "/mnt/myjfs/forge/data";
     database = {
       type = "postgres";
