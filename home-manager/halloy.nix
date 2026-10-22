@@ -79,6 +79,7 @@
         username = "marley916";
         server = "irc.myanonamouse.net";
         port = 6697;
+        channels = [ "#am-members" ];
         password_file = "/home/death916/.config/halloy/mouse.pass";
 
       };
