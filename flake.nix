@@ -68,6 +68,116 @@
 
     in
     {
+      homeConfigurations = {
+        "death916@nix-asus" =
+          let
+            system = "x86_64-linux";
+          in
+          hmLib.homeManagerConfiguration {
+            pkgs = import nixpkgs {
+              inherit system;
+              config.allowUnfree = true;
+              overlays = [
+                overlays.waveterm
+                overlays.rust
+                overlays.realvnc
+              ];
+            };
+            extraSpecialArgs = {
+              inherit inputs;
+              hostName = "nix-asus";
+              unstablePkgs = import nixpkgs-unstable {
+                inherit system;
+                config.allowUnfree = true;
+                overlays = [ ];
+              };
+            };
+            modules = [
+              stylix.homeModules.stylix
+              { stylix.image = "/home/death916/Downloads/wp14437838-4k-oled-space-wallpapers.jpg"; }
+              ./home-manager/home.nix
+              inputs.hermes-agent.homeManagerModules.default
+              ./home-manager/hermes-agent.nix
+              (
+                { unstablePkgs, ... }:
+                {
+                  home.packages = [
+                    inputs.hermes-agent.packages.${system}.desktop
+                    inputs.llm-agents.packages.${system}.hermes-hud
+                    unstablePkgs.hunk
+                  ];
+                }
+              )
+            ];
+          };
+
+        "death916@death-pc" =
+          let
+            system = "x86_64-linux";
+          in
+          hmLib.homeManagerConfiguration {
+            pkgs = import nixpkgs {
+              inherit system;
+              config.allowUnfree = true;
+              overlays = [
+                overlays.waveterm
+                overlays.rust
+                overlays.realvnc
+              ];
+            };
+            extraSpecialArgs = {
+              inherit inputs;
+              hostName = "death-pc";
+              unstablePkgs = import nixpkgs-unstable {
+                inherit system;
+                config.allowUnfree = true;
+                overlays = [ ];
+              };
+            };
+            modules = [
+              stylix.homeModules.stylix
+              { stylix.image = "/home/death916/Documents/nix-config/home-manager/wallpaper.jpg"; }
+              ./home-manager/home.nix
+              (
+                { unstablePkgs, ... }:
+                {
+                  home.packages = [ inputs.llm-agents.packages.${system}.hermes-desktop ];
+                }
+              )
+            ];
+          };
+
+        "death916@nixos" =
+          let
+            system = "x86_64-linux";
+          in
+          hmLib.homeManagerConfiguration {
+            pkgs = import nixpkgs {
+              inherit system;
+              config.allowUnfree = true;
+              overlays = [
+                overlays.waveterm
+                overlays.rust
+                overlays.realvnc
+              ];
+            };
+            extraSpecialArgs = {
+              inherit inputs;
+              hostName = "nixos";
+              unstablePkgs = import nixpkgs-unstable {
+                inherit system;
+                config.allowUnfree = true;
+                overlays = [ ];
+              };
+            };
+            modules = [
+              stylix.homeModules.stylix
+              { stylix.image = "/home/death916/Documents/nix-config/home-manager/wallpaper.jpg"; }
+              ./home-manager/home.nix
+            ];
+          };
+      };
+
       nixConfig = {
         substituters = [
           "https://cache.nixos.org/"
@@ -123,25 +233,6 @@
               ./nixos/configuration.nix
               ./nixos/hardware-configuration.nix
               { stylix.image = "/home/death916/Documents/nix-config/home-manager/wallpaper.jpg"; }
-              home-manager.nixosModules.home-manager
-              (
-                {
-                  unstablePkgs,
-                  ...
-                }:
-                {
-                  home-manager.useGlobalPkgs = true;
-                  home-manager.useUserPackages = true;
-                  home-manager.backupFileExtension = "backup";
-                  home-manager.extraSpecialArgs = { inherit hmLib unstablePkgs inputs; };
-                  home-manager.users.death916 = {
-                    imports = [
-                      ./home-manager/home.nix
-                      stylix.homeModules.stylix
-                    ];
-                  };
-                }
-              )
             ];
           };
 
@@ -181,33 +272,6 @@
               ./nixos/nix-asus.nix
               ./nixos/hardware-nix-asus.nix
               { stylix.image = "/home/death916/Downloads/wp14437838-4k-oled-space-wallpapers.jpg"; }
-              home-manager.nixosModules.home-manager
-              (
-                {
-                  unstablePkgs,
-                  ...
-                }:
-                {
-                  home-manager.useGlobalPkgs = true;
-                  home-manager.useUserPackages = true;
-                  home-manager.backupFileExtension = "backup";
-                  home-manager.extraSpecialArgs = { inherit hmLib unstablePkgs inputs; };
-                  home-manager.users.death916 = {
-                    imports = [
-                      ./home-manager/home.nix
-                      inputs.hermes-agent.homeManagerModules.default
-                      ./home-manager/hermes-agent.nix
-                      stylix.homeModules.stylix
-                    ];
-                    home.packages = [
-                      inputs.hermes-agent.packages.${system}.desktop
-                      inputs.llm-agents.packages.${system}.hermes-hud
-                      # hunk 0.21.1 — review-first terminal diff viewer (not in nixos-26.05)
-                      unstablePkgs.hunk
-                    ];
-                  };
-                }
-              )
             ];
           };
 
@@ -244,28 +308,6 @@
                 ];
               }
               ./nixos/death-pc.nix
-              home-manager.nixosModules.home-manager
-              (
-                {
-                  unstablePkgs,
-                  ...
-                }:
-                {
-                  home-manager.useGlobalPkgs = true;
-                  home-manager.useUserPackages = true;
-                  home-manager.backupFileExtension = "backup";
-                  home-manager.extraSpecialArgs = { inherit hmLib unstablePkgs inputs; };
-                  home-manager.users.death916 = {
-                    imports = [
-                      ./home-manager/home.nix
-                      stylix.homeModules.stylix
-                    ];
-                    home.packages = [
-                      inputs.llm-agents.packages.${system}.hermes-desktop
-                    ];
-                  };
-                }
-              )
             ];
           };
 

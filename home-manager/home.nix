@@ -1,18 +1,12 @@
 # ~/nixconfig/home-manager/home.nix.new
 {
-  config,
-  osConfig,
+  hostName,
   pkgs,
   unstablePkgs,
   lib,
-  hmLib,
   ...
 }:
 
-let
-  tmuxaiPackageDir = ../pkgs/tmuxai;
-  tmuxai-pkg = pkgs.callPackage tmuxaiPackageDir { };
-in
 {
   imports = [
     ../modules/home-manager/common.nix
@@ -261,7 +255,7 @@ in
     # nativeMessagingHosts = [ unstablePkgs.firefoxpwa ];
   };
 
-  stylix.targets.firefox.profileNames = lib.mkIf (osConfig.networking.hostName == "death-pc") [
+  stylix.targets.firefox.profileNames = lib.mkIf (hostName == "death-pc") [
     "6mb9fjvv.default"
   ];
 

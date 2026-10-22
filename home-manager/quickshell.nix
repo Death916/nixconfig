@@ -2,8 +2,6 @@
   config,
   pkgs,
   inputs,
-  lib,
-  osConfig,
   ...
 }:
 

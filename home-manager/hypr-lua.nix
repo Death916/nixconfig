@@ -1,6 +1,6 @@
 {
   config,
-  osConfig,
+  hostName,
   pkgs,
   inputs,
   unstablePkgs,
@@ -23,13 +23,13 @@ in
 
     settings = {
       monitor =
-        if (osConfig.networking.hostName == "death-pc") then
+        if (hostName == "death-pc") then
           [
             { output = "desc:BNQ BenQ EL2870U 26M05467SL0"; mode = "2560x1440"; position = "0x0"; scale = 1; }
             { output = "desc:Acer Technologies R240HY T4BAA0012400"; mode = "1920x1080"; position = "-1920x0"; scale = 1; }
             { output = "desc:WAM U24C 0000000000001"; mode = "1920x1080"; position = "2560x0"; scale = 1; }
           ]
-        else if (osConfig.networking.hostName == "nix-asus") then
+        else if (hostName == "nix-asus") then
           [
             { output = "eDP-1"; mode = "2880x1800@120"; position = "0x0"; scale = 1.25; }
           ]
@@ -91,7 +91,7 @@ in
       };
 
       workspace_rule =
-        if (osConfig.networking.hostName == "death-pc") then
+        if (hostName == "death-pc") then
           [
             { workspace = "1"; monitor = "desc:BNQ BenQ EL2870U 26M05467SL0"; default = true; }
             { workspace = "2"; monitor = "desc:Acer Technologies R240HY T4BAA0012400"; default = true; }
@@ -106,7 +106,7 @@ in
         { _args = [ "XCURSOR_SIZE" "24" ]; }
         { _args = [ "HYPRCURSOR_SIZE" "24" ]; }
       ]
-      ++ (lib.optionals (osConfig.networking.hostName == "death-pc") [
+      ++ (lib.optionals (hostName == "death-pc") [
         { _args = [ "LIBVA_DRIVER_NAME" "nvidia" ]; }
         { _args = [ "XDG_SESSION_TYPE" "wayland" ]; }
         { _args = [ "GBM_BACKEND" "nvidia-drm" ]; }
@@ -258,7 +258,7 @@ in
         hl.exec_cmd("nextcloud --background")
         hl.exec_cmd("wl-paste --type text --watch cliphist store")
         hl.exec_cmd("wl-paste --type image --watch cliphist store")
-        ${lib.optionalString (osConfig.networking.hostName == "nix-asus") ''
+        ${lib.optionalString (hostName == "nix-asus") ''
           hl.exec_cmd("systemctl --user start screenpipe")
         ''}
       end)
@@ -339,7 +339,7 @@ in
           on-timeout = "hyprctl dispatch dpms off";
           on-resume = "hyprctl dispatch dpms on";
         }
-        (lib.mkIf (osConfig.networking.hostName != "death-pc") {
+        (lib.mkIf (hostName != "death-pc") {
           timeout = 2800;
           on-timeout = "systemctl suspend";
         })

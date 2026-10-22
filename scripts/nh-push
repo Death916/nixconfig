@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
 # A wrapper for 'nh' that runs 'git pull' and 'git push' on success.
+#   nh-push        -> nh os switch (this host)
+#   nh-push <host> -> nh os switch -H <host>
+#   nh-push home   -> nh home switch
 
 # Exit immediately if a command exits with a non-zero status.
 set -e
@@ -9,6 +12,12 @@ set -e
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 # The repository root is one level above the scripts directory.
 REPO_ROOT=$(realpath "$SCRIPT_DIR/..")
+
+MODE="os"
+if [ "${1:-}" = "home" ]; then
+    MODE="home"
+    shift
+fi
 
 # --- Git Operations ---
 echo "Pulling latest changes from git..."
@@ -22,64 +31,69 @@ elif [ -d "/.snapshots" ]; then
     SNAPSHOT_DIR="/.snapshots"
 fi
 
-if [ -n "$SNAPSHOT_DIR" ]; then
-    echo "Creating Btrfs snapshots for /nix and /home in $SNAPSHOT_DIR..."
-    sudo btrfs subvolume snapshot -r /nix "$SNAPSHOT_DIR/nix_$(date +%Y-%m-%d_%H%M)"
-    sudo btrfs subvolume snapshot -r /home "$SNAPSHOT_DIR/home_$(date +%Y-%m-%d_%H%M)"
+RETAIN=20
+
+snapshot() {
+    local kind="$1"
+    echo "Creating btrfs snapshot of /$kind in $SNAPSHOT_DIR..."
+    sudo btrfs subvolume snapshot -r "/$kind" "$SNAPSHOT_DIR/${kind}_$(date +%Y-%m-%d_%H%M)"
+}
+
+prune() {
+    local kind="$1"
+    local old=()
+    local deleted=0
+
+    mapfile -t old < <(sudo find "$SNAPSHOT_DIR" -maxdepth 1 -name "${kind}_*" -printf "%T@ %p\n" | sort -n | cut -d' ' -f2- | head -n -"$RETAIN")
+    for snap in "${old[@]}"; do
+        if [ -n "$snap" ]; then
+            echo "Deleting old $kind snapshot: $(basename "$snap")"
+            sudo btrfs subvolume delete "$snap"
+            deleted=$((deleted + 1))
+        fi
+    done
+    if [ "$deleted" -gt 0 ]; then
+        echo "Deleted $deleted old $kind snapshot(s)."
+    else
+        echo "No $kind snapshots needed pruning."
+    fi
+}
+
+if [ -n "${SNAPSHOT_DIR:-}" ]; then
+    if [ "$MODE" = "os" ]; then
+        snapshot nix
+    fi
+    snapshot home
     echo "Snapshots created."
 
-    # --- Snapshot Pruning ---
-    RETAIN=20
     echo "Pruning older snapshots (retaining last $RETAIN of each)..."
-
-    # Prune /nix snapshots
-    mapfile -t OLD_NIX_SNAPSHOTS < <(sudo find "$SNAPSHOT_DIR" -maxdepth 1 -name "nix_*" -printf "%T@ %p\n" | sort -n | cut -d' ' -f2- | head -n -"$RETAIN")
-    NIX_DELETE_COUNT=0
-    for snap in "${OLD_NIX_SNAPSHOTS[@]}"; do
-        if [ -n "$snap" ]; then
-            echo "Deleting old nix snapshot: $(basename "$snap")"
-            sudo btrfs subvolume delete "$snap"
-            NIX_DELETE_COUNT=$((NIX_DELETE_COUNT + 1))
-        fi
-    done
-    if [ "$NIX_DELETE_COUNT" -gt 0 ]; then
-        echo "Deleted $NIX_DELETE_COUNT old nix snapshot(s)."
-    else
-        echo "No nix snapshots needed pruning."
+    if [ "$MODE" = "os" ]; then
+        prune nix
     fi
-
-    # Prune /home snapshots
-    mapfile -t OLD_HOME_SNAPSHOTS < <(sudo find "$SNAPSHOT_DIR" -maxdepth 1 -name "home_*" -printf "%T@ %p\n" | sort -n | cut -d' ' -f2- | head -n -"$RETAIN")
-    HOME_DELETE_COUNT=0
-    for snap in "${OLD_HOME_SNAPSHOTS[@]}"; do
-        if [ -n "$snap" ]; then
-            echo "Deleting old home snapshot: $(basename "$snap")"
-            sudo btrfs subvolume delete "$snap"
-            HOME_DELETE_COUNT=$((HOME_DELETE_COUNT + 1))
-        fi
-    done
-    if [ "$HOME_DELETE_COUNT" -gt 0 ]; then
-        echo "Deleted $HOME_DELETE_COUNT old home snapshot(s)."
-    else
-        echo "No home snapshots needed pruning."
-    fi
+    prune home
 fi
 
-# --- NixOS Build ---
-echo "Building NixOS configuration..."
-# If an argument is provided, use it as the hostname with -H.
-# Otherwise, resolve the current hostname and use it.
-if [ -z "$1" ]; then
-    CURRENT_HOSTNAME=$(hostname)
-    echo "Running: nh os switch \"$REPO_ROOT\" -H \"$CURRENT_HOSTNAME\" --diff always"
-    nh os switch "$REPO_ROOT" -H "$CURRENT_HOSTNAME" --diff always
+# --- Build ---
+if [ "$MODE" = "home" ]; then
+    echo "Building Home Manager configuration..."
+    echo "Running: nh home switch \"$REPO_ROOT\" -b backup --diff always"
+    nh home switch "$REPO_ROOT" -b backup --diff always
 else
-    echo "Running: nh os switch \"$REPO_ROOT\" -H \"$@\" --diff always"
-    nh os switch "$REPO_ROOT" -H "$@" --diff always
+    echo "Building NixOS configuration..."
+    # If an argument is provided, use it as the hostname with -H.
+    # Otherwise, resolve the current hostname and use it.
+    if [ -z "${1:-}" ]; then
+        CURRENT_HOSTNAME=$(hostname)
+        echo "Running: nh os switch \"$REPO_ROOT\" -H \"$CURRENT_HOSTNAME\" --diff always"
+        nh os switch "$REPO_ROOT" -H "$CURRENT_HOSTNAME" --diff always
+    else
+        echo "Running: nh os switch \"$REPO_ROOT\" -H \"$*\" --diff always"
+        nh os switch "$REPO_ROOT" -H "$*" --diff always
+    fi
 fi
 
 # --- Git Push on Success ---
-echo "NixOS rebuild successful. Pushing to remote..."
+echo "Rebuild successful. Pushing to remote..."
 git -C "$REPO_ROOT" push
 
 echo "Push complete."
