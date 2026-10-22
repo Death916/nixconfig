@@ -97,5 +97,5 @@
 
   system.stateVersion = "24.11";
 
-  stylix.image = "/home/death916/Documents/nix-config/home-manager/wallpaper.jpg";
+  stylix.image = ../home-manager/wallpaper.jpg;
 }
