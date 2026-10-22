@@ -26,23 +26,24 @@ let
     # Must track the hardcoded version in the locked hindsight input's
     # hindsight-clients/python/pyproject.toml, or pythonMetadataCheckPhase fails
     # ("derivation has version X but .dist-info/METADATA specifies version Y").
-    version = "1.0.0";
     src = "${inputs.hindsight}/hindsight-clients/python";
+    version =
+      (lib.importTOML "${inputs.hindsight}/hindsight-clients/python/pyproject.toml").project.version;
+
     pyproject = true;
     build-system = [ config.services.hermes-agent.package.python.pkgs.hatchling ];
-    propagatedBuildInputs =
-      with config.services.hermes-agent.package.python.pkgs; [
-        # aiohttp-retry's only runtime dep is aiohttp, which the hermes sealed
-        # venv already provides. Leaving it in the closure trips hermes' build
-        # guard ("plugin package aiohttp collides with ... sealed venv"), so
-        # drop it here; aiohttp resolves from the venv at runtime.
-        (aiohttp-retry.overridePythonAttrs (_: {
-          dependencies = [ ];
-          pythonImportsCheck = [ ];
-          dontCheckRuntimeDeps = true;
-          doCheck = false;
-        }))
-      ];
+    propagatedBuildInputs = with config.services.hermes-agent.package.python.pkgs; [
+      # aiohttp-retry's only runtime dep is aiohttp, which the hermes sealed
+      # venv already provides. Leaving it in the closure trips hermes' build
+      # guard ("plugin package aiohttp collides with ... sealed venv"), so
+      # drop it here; aiohttp resolves from the venv at runtime.
+      (aiohttp-retry.overridePythonAttrs (_: {
+        dependencies = [ ];
+        pythonImportsCheck = [ ];
+        dontCheckRuntimeDeps = true;
+        doCheck = false;
+      }))
+    ];
     dontCheckRuntimeDeps = true;
     doCheck = false;
   };
