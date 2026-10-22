@@ -290,7 +290,7 @@ in
       background = lib.mkForce [
         {
           monitor = "";
-          path = "/home/death916/Documents/nix-config/home-manager/wallpaper.jpg";
+          path = "/home/death916/.cache/apod/current.jpg";
           color = "rgba(0, 0, 0, 0.5)";
           blur_passes = 2;
           blur_size = 5;

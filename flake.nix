@@ -94,7 +94,6 @@
             };
             modules = [
               stylix.homeModules.stylix
-              { stylix.image = ./home-manager/wallpaper-nix-asus.jpg; }
               ./home-manager/home.nix
               inputs.hermes-agent.homeManagerModules.default
               ./home-manager/hermes-agent.nix
@@ -136,7 +135,6 @@
             };
             modules = [
               stylix.homeModules.stylix
-              { stylix.image = ./home-manager/wallpaper.jpg; }
               ./home-manager/home.nix
               (
                 { unstablePkgs, ... }:
@@ -172,7 +170,6 @@
             };
             modules = [
               stylix.homeModules.stylix
-              { stylix.image = ./home-manager/wallpaper.jpg; }
               ./home-manager/home.nix
             ];
           };
@@ -232,7 +229,7 @@
               }
               ./nixos/configuration.nix
               ./nixos/hardware-configuration.nix
-              { stylix.image = ./home-manager/wallpaper.jpg; }
+              ./home-manager/themes/aether.nix
             ];
           };
 
@@ -271,7 +268,7 @@
               }
               ./nixos/nix-asus.nix
               ./nixos/hardware-nix-asus.nix
-              { stylix.image = ./home-manager/wallpaper-nix-asus.jpg; }
+              ./home-manager/themes/aether.nix
             ];
           };
 

@@ -97,5 +97,5 @@
 
   system.stateVersion = "24.11";
 
-  stylix.image = ../home-manager/wallpaper.jpg;
+  stylix.base16Scheme = (import ../home-manager/themes/aether.nix).stylix.base16Scheme;
 }

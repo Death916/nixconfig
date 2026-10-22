@@ -84,6 +84,7 @@ let
     ${pkgs.curl}/bin/curl -fsS -A "$UA" --connect-timeout 10 --max-time 60 "$IMG_URL" -o "$IMG_PATH.tmp"
     mv "$INFO_PATH.tmp" "$INFO_PATH"
     mv "$IMG_PATH.tmp" "$IMG_PATH"
+    ln -sfn "$IMG_PATH" "$CACHE_DIR/current.jpg"
 
     for old in "$CACHE_DIR"/apod-*.jpg "$CACHE_DIR"/apod-*.json; do
       [ -e "$old" ] || continue

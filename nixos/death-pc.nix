@@ -83,5 +83,5 @@
   system.stateVersion = "25.11";
 
   # Set wallpaper for Stylix
-  stylix.image = ../home-manager/wallpaper.jpg;
+  stylix.base16Scheme = (import ../home-manager/themes/aether.nix).stylix.base16Scheme;
 }
