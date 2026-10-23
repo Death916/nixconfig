@@ -26,6 +26,10 @@
     };
 
     config = { pkgs, ... }: {
+      # Matches nixos/orac.nix: the container is its own NixOS eval, so it needs
+      # its own stateVersion to get the host's package-migration defaults.
+      system.stateVersion = "25.05";
+
       networking.firewall.checkReversePath = "loose";
       networking.firewall.trustedInterfaces = [ "tailscale0" ];
 
