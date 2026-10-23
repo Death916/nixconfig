@@ -16,6 +16,7 @@
     ../modules/containers/docker/minuspod.nix
     ../modules/nixos/orac/restic.nix
     ../modules/containers/docker/karakeep/docker-compose.nix
+    ../modules/containers/docker/piefed/docker-compose.nix
     ../modules/nixos/orac/monitoring.nix
     ../modules/containers/docker/crowdsec/crowdsec.nix
     ../pkgs/deathsite/deathsite-module.nix
