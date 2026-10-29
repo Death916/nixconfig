@@ -139,7 +139,7 @@
               (
                 { unstablePkgs, ... }:
                 {
-                  home.packages = [ inputs.llm-agents.packages.${system}.hermes-desktop ];
+                  home.packages = [ inputs.hermes-agent.packages.${system}.desktop ];
                 }
               )
             ];
@@ -322,7 +322,7 @@
                       stylix.homeModules.stylix
                     ];
                     home.packages = [
-                      inputs.llm-agents.packages.${system}.hermes-desktop
+                      inputs.hermes-agent.packages.${system}.desktop
                     ];
                   };
                 }
