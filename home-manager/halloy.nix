@@ -79,6 +79,7 @@
         username = "marley916/mouse";
         server = "100.64.0.3";
         port = 6697;
+        use_tls = false;
         channels = [ "#am-members" ];
         password_file = "/home/death916/.config/halloy/libera.pass";
       };
