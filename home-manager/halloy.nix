@@ -76,8 +76,8 @@
 
       servers.mouse = {
         nickname = "marley916";
-        username = "marley916";
-        server = "irc.myanonamouse.net";
+        username = "marley916/mouse";
+        server = "100.64.0.3";
         port = 6697;
         channels = [ "#am-members" ];
         password_file = "/home/death916/.config/halloy/mouse.pass";
