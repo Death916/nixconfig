@@ -305,6 +305,28 @@
                 ];
               }
               ./nixos/death-pc.nix
+              home-manager.nixosModules.home-manager
+              (
+                { unstablePkgs, ... }:
+                {
+                  home-manager.useGlobalPkgs = true;
+                  home-manager.useUserPackages = true;
+                  home-manager.backupFileExtension = "backup";
+                  home-manager.extraSpecialArgs = {
+                    inherit hmLib inputs unstablePkgs;
+                    hostName = "death-pc";
+                  };
+                  home-manager.users.death916 = {
+                    imports = [
+                      ./home-manager/home.nix
+                      stylix.homeModules.stylix
+                    ];
+                    home.packages = [
+                      inputs.llm-agents.packages.${system}.hermes-desktop
+                    ];
+                  };
+                }
+              )
             ];
           };
 
