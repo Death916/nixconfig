@@ -76,7 +76,7 @@
 
       servers.mouse = {
         nickname = "marley916";
-        username = "marley916/mouse";
+        username = "death916/mouse";
         server = "100.64.0.3";
         port = 6697;
         use_tls = false;
