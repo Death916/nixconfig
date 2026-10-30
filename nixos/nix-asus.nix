@@ -70,7 +70,7 @@
       CPU_SCALING_MAX_FREQ_ON_BAT = "3054546";
 
       CPU_BOOST_ON_AC = "1";
-      CPU_BOOST_ON_BAT = "0";
+      CPU_BOOST_ON_BAT = "1";
     };
   };
 
