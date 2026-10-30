@@ -49,6 +49,29 @@
     "swiotlb=65535"
   ];
 
+  services.power-profiles-daemon.enable = lib.mkForce false;
+  powerManagement.cpuFreqGovernor = lib.mkForce null;
+
+  services.tlp = {
+    enable = true;
+    settings = {
+      PLATFORM_PROFILE_ON_AC = "performance";
+      PLATFORM_PROFILE_ON_BAT = "balanced";
+
+      CPU_SCALING_GOVERNOR_ON_AC = "powersave";
+      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+
+      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+
+      CPU_SCALING_MAX_FREQ_ON_AC = "100";
+      CPU_SCALING_MAX_FREQ_ON_BAT = "60";
+
+      CPU_BOOST_ON_AC = "1";
+      CPU_BOOST_ON_BAT = "0";
+    };
+  };
+
   # Network Optimizations (BBR + CAKE) for better performance
   boot.kernel.sysctl = {
     # Use CAKE traffic shaper to prevent lag (bufferbloat) on WiFi
