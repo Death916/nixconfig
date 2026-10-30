@@ -55,17 +55,19 @@
   services.tlp = {
     enable = true;
     settings = {
-      PLATFORM_PROFILE_ON_AC = "performance";
+      PLATFORM_PROFILE_ON_AC = "balanced";
       PLATFORM_PROFILE_ON_BAT = "balanced";
 
       CPU_SCALING_GOVERNOR_ON_AC = "powersave";
       CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
-      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+      CPU_ENERGY_PERF_POLICY_ON_AC = "balance_performance";
       CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
 
-      CPU_SCALING_MAX_FREQ_ON_AC = "100";
-      CPU_SCALING_MAX_FREQ_ON_BAT = "60";
+      CPU_SCALING_MIN_FREQ_ON_AC = "623377";
+      CPU_SCALING_MIN_FREQ_ON_BAT = "623377";
+      CPU_SCALING_MAX_FREQ_ON_AC = "5090910";
+      CPU_SCALING_MAX_FREQ_ON_BAT = "3054546";
 
       CPU_BOOST_ON_AC = "1";
       CPU_BOOST_ON_BAT = "0";
