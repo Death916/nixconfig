@@ -12,7 +12,7 @@
     ../modules/forgejo.nix
     # ../modules/adguard.nix
     ../modules/containers/docker/juicefs.nix
-    # ../modules/containers/docker/ghost.nix  # TODO: uncomment after `docker compose down` on ghost-docker
+    ../modules/containers/docker/ghost.nix
     ../modules/containers/docker/minuspod.nix
     ../modules/nixos/orac/restic.nix
     ../modules/containers/docker/karakeep/docker-compose.nix
