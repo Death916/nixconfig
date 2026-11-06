@@ -382,7 +382,7 @@
   programs.yazi = {
     enable = true;
     settings = {
-      show_hidden = true;
+      show-hidden = true;
     };
   };
   programs.cava.enable = true;
