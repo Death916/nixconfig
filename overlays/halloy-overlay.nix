@@ -8,19 +8,19 @@ in
 {
   halloy = rustPlatform.buildRustPackage rec {
     pname = "halloy";
-    version = "2026.4";
+    version = "2026.10";
 
     src = super.fetchFromGitHub {
       owner = "squidowl";
       repo = pname;
       rev = version;
-      sha256 = "sha256-gWN+KcAoMTRySZObRleDCNfUukprGkNGFELD7xT/x/Q=";
+      sha256 = "sha256-DgyS7uoLxXoH7NkcEohW9xbuWnm6VBbjIODBW3IGSUA=";
     };
 
     # RUSTC_BOOTSTRAP = 1;
     # RUSTFLAGS = "-Z allow-features=let_chains";
 
-    cargoHash = "sha256-g9Q2YCjgC5MBX/Tv/dvRuHIxo7qq5J7hjsw3YeTn0jI=";
+    cargoHash = "sha256-S/6JHaAbT6aylj9qx40YEiMpN7Am8RFy2EpoYkbaWl4=";
 
     nativeBuildInputs = with super; [
       pkg-config

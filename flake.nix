@@ -60,7 +60,7 @@
 
       overlays = {
         rust = rust-overlay.overlays.default;
-        # halloy = import ./overlays/halloy-overlay.nix;
+        halloy = import ./overlays/halloy-overlay.nix;
         waveterm = import ./overlays/waveterm-overlay.nix;
         karakeep = import ./overlays/karakeep-overlay.nix;
         realvnc = import ./overlays/realvnc-overlay.nix;
@@ -80,6 +80,7 @@
               overlays = [
                 overlays.waveterm
                 overlays.rust
+                overlays.halloy
                 overlays.realvnc
               ];
             };
@@ -89,7 +90,10 @@
               unstablePkgs = import nixpkgs-unstable {
                 inherit system;
                 config.allowUnfree = true;
-                overlays = [ ];
+                overlays = [
+                  overlays.rust
+                  overlays.halloy
+                ];
               };
             };
             modules = [
@@ -121,6 +125,7 @@
               overlays = [
                 overlays.waveterm
                 overlays.rust
+                overlays.halloy
                 overlays.realvnc
               ];
             };
@@ -130,7 +135,10 @@
               unstablePkgs = import nixpkgs-unstable {
                 inherit system;
                 config.allowUnfree = true;
-                overlays = [ ];
+                overlays = [
+                  overlays.rust
+                  overlays.halloy
+                ];
               };
             };
             modules = [
@@ -251,7 +259,10 @@
               unstablePkgs = import nixpkgs-unstable {
                 inherit system;
                 config.allowUnfree = true;
-                overlays = [ ];
+                overlays = [
+                  overlays.rust
+                  overlays.halloy
+                ];
               };
             };
             modules = [
@@ -261,7 +272,7 @@
                 nixpkgs.overlays = [
                   overlays.waveterm
                   overlays.rust
-                  # overlays.halloy
+                  overlays.halloy
                   # overlays.karakeep # server-side only
                   overlays.realvnc
                 ];
@@ -290,7 +301,10 @@
               unstablePkgs = import nixpkgs-unstable {
                 inherit system;
                 config.allowUnfree = true;
-                overlays = [ ];
+                overlays = [
+                  overlays.rust
+                  overlays.halloy
+                ];
               };
             };
             modules = [
@@ -299,7 +313,7 @@
                 nixpkgs.overlays = [
                   overlays.waveterm
                   overlays.rust
-                  # overlays.halloy
+                  overlays.halloy
                   overlays.karakeep
                   overlays.realvnc
                 ];
