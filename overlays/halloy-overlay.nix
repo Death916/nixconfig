@@ -1,8 +1,8 @@
 self: super:
 let
   rustPlatform = super.makeRustPlatform {
-    cargo = super.rust-bin.stable."1.92.0".default;
-    rustc = super.rust-bin.stable."1.92.0".default;
+    cargo = super.rust-bin.stable."1.99.1".default;
+    rustc = super.rust-bin.stable."1.99.1".default;
   };
 in
 {
