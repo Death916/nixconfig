@@ -76,19 +76,19 @@ fi
 # --- Build ---
 if [ "$MODE" = "home" ]; then
     echo "Building Home Manager configuration..."
-    echo "Running: nh home switch \"$REPO_ROOT\" -b backup --diff always"
-    nh home switch "$REPO_ROOT" -b backup --diff always
+    echo "Running: nh home switch \"$REPO_ROOT\" -b backup --diff always --show-activation-logs"
+    nh home switch "$REPO_ROOT" -b backup --diff always --show-activation-logs
 else
     echo "Building NixOS configuration..."
     # If an argument is provided, use it as the hostname with -H.
     # Otherwise, resolve the current hostname and use it.
     if [ -z "${1:-}" ]; then
         CURRENT_HOSTNAME=$(hostname)
-        echo "Running: nh os switch \"$REPO_ROOT\" -H \"$CURRENT_HOSTNAME\" --diff always"
-        nh os switch "$REPO_ROOT" -H "$CURRENT_HOSTNAME" --diff always
+        echo "Running: nh os switch \"$REPO_ROOT\" -H \"$CURRENT_HOSTNAME\" --diff always --show-activation-logs"
+        nh os switch "$REPO_ROOT" -H "$CURRENT_HOSTNAME" --diff always --show-activation-logs
     else
-        echo "Running: nh os switch \"$REPO_ROOT\" -H \"$*\" --diff always"
-        nh os switch "$REPO_ROOT" -H "$*" --diff always
+        echo "Running: nh os switch \"$REPO_ROOT\" -H \"$*\" --diff always --show-activation-logs"
+        nh os switch "$REPO_ROOT" -H "$*" --diff always --show-activation-logs
     fi
 fi
 

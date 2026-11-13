@@ -119,7 +119,7 @@
   programs.nh = {
     enable = true;
     clean.enable = true;
-    clean.extraArgs = "--keep-since 7d --keep 10";
+    clean.extraArgs = "--keep 10";
     flake = "/home/death916/Documents/nix-config/";
   };
   services.fprintd.enable = false;

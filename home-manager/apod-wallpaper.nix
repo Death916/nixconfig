@@ -91,9 +91,17 @@ let
       [ "$old" = "$IMG_PATH" ] || [ "$old" = "$INFO_PATH" ] || rm -f "$old"
     done
 
-    # Set wallpaper using awww
-    ${pkgs.awww}/bin/awww img "$IMG_PATH" --transition-type fade --transition-duration 2 \
-      || echo "APOD: failed to set wallpaper (is a Wayland session running?)" >&2
+    # Set wallpaper using awww. The daemon is started by graphical-session.target
+    # and may not have its socket ready yet, so retry briefly instead of failing.
+    ok=""
+    for attempt in 1 2 3 4 5; do
+      if ${pkgs.awww}/bin/awww img "$IMG_PATH" --transition-type fade --transition-duration 2; then
+        ok=1
+        break
+      fi
+      sleep 2
+    done
+    [ -n "$ok" ] || echo "APOD: failed to set wallpaper (is a Wayland session running?)" >&2
   '';
 in
 {
@@ -104,8 +112,12 @@ in
   systemd.user.services.apod-wallpaper = {
     Unit = {
       Description = "Fetch and apply NASA Astronomy Picture of the Day wallpaper";
-      After = [ "awww.service" "network-online.target" ];
-      Wants = [ "awww.service" "network-online.target" ];
+      # awww.service is ordered After=graphical-session.target. Depending on it
+      # here while also being WantedBy that target creates an ordering cycle,
+      # so start after the session and let the script retry until the awww
+      # daemon socket is ready.
+      After = [ "graphical-session.target" "network-online.target" ];
+      Wants = [ "network-online.target" ];
     };
 
     Service = {
