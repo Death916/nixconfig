@@ -13,7 +13,7 @@
     ./hypr-lua.nix
     ./waybar.nix
     ./theme.nix # Import the stylix theme configuration
-    ./halloy.nix
+    # ./halloy.nix
     ./quickshell.nix
     ./apod-wallpaper.nix
   ];
