@@ -128,6 +128,7 @@
     unstablePkgs.cosmic-monitor
     unstablePkgs.cura-appimage
     unstablePkgs.bitwarden-desktop
+    unstablePkgs.halloy
   ];
 
   programs.ghostty = {
