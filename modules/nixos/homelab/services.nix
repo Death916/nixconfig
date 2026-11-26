@@ -48,6 +48,7 @@
 
   systemd.services.qbittorrent.unitConfig.RequiresMountsFor = [ "/media" ];
   systemd.services.qbittorrent.unitConfig.ConditionPathIsMountPoint = "/media";
+  systemd.services.qbittorrent.serviceConfig.UMask = "0002";
   users.users.audiobookshelf = {
     isSystemUser = true;
     group = "media_services";
@@ -72,7 +73,6 @@
     "Z /storage/services/qbittorrent/config 0775 qbittorrent media_services - -"
     "Z /media/storage/media 2775 death916 media_services - -"
     "Z /media/storage/media/books/c2c 2775 c2c media_services - -"
-    "a+ /media/storage/media/books/c2c - - - - d:group:media_services:rwx,group:media_services:rwx,d:mask::rwx,mask::rwx"
     "Z /storage/services/immich 2775 immich media_services -"
     "Z /storage/services/immich/upload 2775 immich media_services -"
     "Z /storage/services/immich/upload/library 2775 immich media_services -"
