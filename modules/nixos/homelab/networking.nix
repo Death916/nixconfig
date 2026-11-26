@@ -1,7 +1,6 @@
 # ~/nixconfig/modules.new/nixos/homelab/networking.nix
 {
   config,
-  pkgs,
   unstablePkgs,
   ...
 }:
@@ -17,6 +16,7 @@
     "ext4"
     "xfs"
   ];
+  boot.initrd.services.lvm.enable = false;
 
   services.lvm.enable = true;
   services.lvm.package = unstablePkgs.lvm2;
@@ -106,11 +106,14 @@
     description = "Activate LVM volume groups";
     wantedBy = [ "local-fs.target" ];
     before = [ "local-fs.target" ];
-    path = [ pkgs.lvm2 ];
+    after = [ "dev-sda.device" ];
+    unitConfig.DefaultDependencies = false;
+    path = [ unstablePkgs.lvm2.bin ];
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
-      ExecStart = "-${pkgs.lvm2}/bin/vgchange -ay";
+      ExecStart = "${unstablePkgs.lvm2.bin}/bin/vgchange -ay media";
+      TimeoutStartSec = "600";
     };
   };
 }
