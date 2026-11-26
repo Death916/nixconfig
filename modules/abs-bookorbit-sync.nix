@@ -22,6 +22,18 @@ in
       default = "*:0/15";
       description = "systemd OnCalendar schedule expression for periodic synchronization.";
     };
+
+    absUserId = lib.mkOption {
+      type = lib.types.str;
+      default = "";
+      description = "Audiobookshelf user id to import from. Empty imports every Audiobookshelf user.";
+    };
+
+    dryRun = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Run every write inside a transaction and roll it back afterwards, for verification.";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -41,6 +53,11 @@ in
           "POSTGRES_HOST=127.0.0.1"
           "POSTGRES_USER=bookorbit"
           "POSTGRES_DB=bookorbit"
+          "ABS_PATH_ROOT=/media/storage/media/books"
+          "BO_PATH_ROOT=/books"
+          "SESSION_SOURCE=manual"
+          "ABS_USER_ID=${cfg.absUserId}"
+          "SYNC_DRY_RUN=${if cfg.dryRun then "1" else "0"}"
         ];
       };
     };
