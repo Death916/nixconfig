@@ -28,6 +28,9 @@
     options = [
       "defaults"
       "nofail"
+      "x-systemd.requires=lvm-activate.service"
+      "x-systemd.after=lvm-activate.service"
+      "x-systemd.device-timeout=300s"
     ];
   };
 
